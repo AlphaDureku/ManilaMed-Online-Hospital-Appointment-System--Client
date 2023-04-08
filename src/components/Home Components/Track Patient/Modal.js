@@ -3,9 +3,7 @@ import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import mamedLoading from  '../../../images/manilamed-loading.gif'
-
-
+import mamedLoading from "../../../images/manilamed-loading.gif";
 
 export default function VerificationModal(props) {
   const [enteredOTP, setEnteredOTP] = useState("");
@@ -112,10 +110,7 @@ export default function VerificationModal(props) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <img
-            src= {mamedLoading}
-            alt=""
-          ></img>
+          <img src={mamedLoading} alt=""></img>
         </Modal>
       </>
     );
