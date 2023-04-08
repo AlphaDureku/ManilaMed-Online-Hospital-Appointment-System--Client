@@ -27,6 +27,7 @@ export default function Home() {
 
   //Initialize Specialization and HMO list
   useEffect(() => {
+    document.title = "Home";
     async function get() {
       const res = await axios.get("/initialize");
       const { data } = res.data;
@@ -60,10 +61,23 @@ export default function Home() {
       {<Navbar />}
       {<HeaderImg />}
       {<Howto />}
-      {<Services/>}
-      
-      <Form query={query} setCurrentPage = {setCurrentPage}  setQuery={setQuery} selectValues={selectValues} />
-      {<Card doctors={doctors} currentPage = {currentPage} setCurrentPage = {setCurrentPage} schedule={schedule} loading={loading} />}
+      {<Services />}
+
+      <Form
+        query={query}
+        setCurrentPage={setCurrentPage}
+        setQuery={setQuery}
+        selectValues={selectValues}
+      />
+      {
+        <Card
+          doctors={doctors}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          schedule={schedule}
+          loading={loading}
+        />
+      }
       {<TrackMe />}
     </>
   );

@@ -785,3 +785,40 @@ select {
   height: 2rem;
   width: 2rem;
 }
+
+/*****Booking CSS******/
+
+.Booking--wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.booking--headerwave-container {
+  background: linear-gradient(180deg, hsl(187, 100%, 74%), #5addee, #00c2ff);
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  padding: 1.2% 0;
+  padding-left: 2%;
+}
+.Booking--navBar-logo {
+  max-width: 50%;
+}
+.Booking--footerwave-container {
+  background: linear-gradient(180deg, hsl(187, 100%, 74%), #5addee, #00c2ff);
+  height: 4vh;
+  width: 100%;
+  margin-top: auto;
+}
+.FirstPage--body-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  height: 87.8vh;
+}
+.Booking-banner {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
