@@ -1,0 +1,786 @@
+* {
+  overflow-x: hidden;
+}
+body {
+  font-family: "Montserrat", "sans-serif";
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*! HOME CSS */
+
+/* Navbar */
+.navbarcontainer {
+  background-color: #fff !important;
+  font-size: 16px;
+  border-bottom: 1px solid #cbffd9;
+}
+.navheader {
+  margin-right: 55px;
+  color: #618665 !important;
+}
+.navheaderend {
+  color: #618665 !important;
+}
+
+.nav-link:hover {
+  font-weight: 550;
+}
+
+/* Navbar */
+
+/* HeaderImg */
+.headerwave-container {
+  background: linear-gradient(180deg, #00c2ff, #5addee, #cbffd9);
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  min-height: 30vh;
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
+
+.headerinfo {
+  padding: 60px 0;
+  padding-top: 120px;
+}
+
+.homeinfo {
+  font-size: 50px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  color: #388440;
+  margin-bottom: 35px;
+}
+
+.headermed-container {
+  background: url("./images/headermed3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 58vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.headerbutton {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.homefloatinginfo-container {
+  background: rgba(243, 243, 243, 0.9);
+  border-radius: 20px;
+  height: 12vw;
+  width: 30vw;
+  position: absolute;
+  bottom: 2vw;
+  right: 1.5vw;
+  left: auto;
+  top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+.floatinginfotitle {
+  text-align: right;
+  font-size: 1.5vw;
+  font-weight: 600;
+  color: #388440;
+  margin-top: 1vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.floatinginfodescription {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.88vw;
+  text-align: justify;
+  color: #323232;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+/* HeaderImg */
+
+/* HowTo */
+#myCarousel {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #848484;
+  text-align: center;
+  padding-bottom: 20px;
+}
+#howtobg {
+  background: rgba(36, 183, 233, 0.15);
+}
+
+.tagtitle {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.carousel-inner {
+  font-size: 21px;
+}
+
+/* HowTo */
+
+/* Services */
+.services-info {
+  background: rgba(243, 243, 243) !important;
+  border-radius: 30px !important;
+  max-width: 525px !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+  margin-top: -8vh;
+  z-index: 1;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.serv-text {
+  font-weight: 600;
+  font-size: 24px;
+  color: #2f9d44;
+}
+
+.serv-sub {
+  font-weight: 400;
+  font-size: 16px;
+  color: #848484;
+  font-family: "Inter";
+  font-style: normal;
+  text-align: justify;
+  line-height: 25px;
+}
+
+.services-container {
+  margin: 8vw;
+  margin-top: 0;
+  margin-bottom: 0;
+  z-index: 0;
+}
+
+/* Services */
+
+/*!Search Form*/
+
+.searchForm-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #def4fc;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(90%, 1600px);
+  padding: 50px;
+}
+
+.form-search > * {
+  margin: 0 5px;
+}
+
+.form-search > input,
+select {
+  text-align: center;
+  border-color: rgba(56, 132, 64, 1) !important;
+  font-size: 15px !important;
+}
+
+.Search,
+.Clear {
+  border-radius: 40px;
+  padding: 5px 20px;
+}
+
+.Search {
+  background-color: #24b7e9;
+  border: none;
+}
+
+.Clear {
+  border: none;
+  background-color: #d2302c;
+}
+
+.Clear:hover {
+  background-color: #c71e00;
+}
+.mantine-1n8gmw6[data-active] {
+  background-color: #2f9d44 !important;
+}
+
+/*!Card Container */
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  width: min(80%, 1500px);
+  margin: 2% auto;
+  margin-top: 0;
+  padding: 25px 0;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 8px;
+}
+
+.grid-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(1rem, 30rem));
+  border-radius: 5px;
+  width: 1700px;
+  overflow: hidden;
+  overflow-y: auto;
+  color: rgba(75, 80, 109, 1);
+}
+
+.grid-container2 {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(1rem, 30rem));
+  border-radius: 8px;
+  text-align: center;
+  width: 1700px;
+  color: rgba(75, 80, 109, 1);
+}
+
+.doctor-flexbox-container {
+  position: relative;
+  flex-direction: row;
+  border: 1px solid #24b7e9;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.doctor-flexbox-container2 {
+  position: relative;
+  flex-direction: row;
+  border: 1px solid #24b7e9;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  height: 260px;
+}
+
+.doctor-flexbox-view:hover {
+  color: #388440;
+  cursor: pointer;
+}
+
+.doctor-flexbox-Info {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.doctor-flexbox-view {
+  margin-top: 10%;
+  text-align: center;
+}
+
+.doctor-flexbox-Info .Lname {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.doctor-flexbox-Info .Fname {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.HMO_choosedoctor {
+  position: absolute;
+  left: 55%;
+  top: 35%;
+}
+
+.HMO_choosedoctor .HMO_Head {
+  font-weight: 600;
+  color: #388440;
+  font-size: 1rem;
+}
+
+.doctor-flexbox-Info .specialization,
+.HMO_Accreditation {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.doctor-flexbox-Info .HMO_Accreditation .HMO_Head {
+  font-weight: 600;
+  color: #388440;
+  font-size: 1rem;
+}
+
+.doctor-flexbox-Avail {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 10%;
+  left: 52%;
+  color: #388440;
+}
+
+.doctor-flexbox-Avail > div {
+  text-align: center;
+}
+
+.doctor-flexbox-Avail .header {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.header {
+  font-size: 1.1rem;
+}
+
+.sched {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.notFound {
+  font-size: 3rem;
+}
+
+.moreSchedB {
+  color: rgba(75, 80, 109, 1);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 1%;
+}
+
+.moreSchedB:hover {
+  color: #388440;
+  cursor: pointer;
+}
+
+/*!Track Me*/
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.form-track {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-track input {
+  text-align: center;
+  width: 800px !important;
+  font-size: 14px !important;
+  padding: 5px;
+}
+
+.Search-track {
+  margin: 20px 0;
+  border: none;
+  border-radius: 40px;
+  padding: 5px 20px;
+  background-color: #24b7e9;
+}
+
+.otp-input {
+  text-align: center;
+}
+
+/*!Book Appointment CSS */
+
+.Tracking--NavBar {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.NavBar--background {
+  width: 100%;
+  height: 7vh;
+  margin-bottom: 1.5%;
+}
+
+.NavBar--logo {
+  position: absolute;
+  top: 15%;
+  left: 3%;
+}
+
+.NavBar--logo:hover {
+  cursor: pointer;
+}
+
+.Tracking--Footer {
+  width: 100%;
+  margin-top: auto;
+  overflow: hidden;
+}
+
+.Tracking--Footer img {
+  width: 100%;
+}
+
+.Track--main_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.Track--sub_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(90%, 800px);
+  margin-top: 3%;
+}
+
+.sub-title {
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.end-title,
+.sub-title {
+  font-size: min(18px, 3.5vw);
+  text-align: center;
+}
+
+.Track--tagtitle {
+  color: rgba(56, 132, 64, 1);
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  font-size: min(25px, 6vw);
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.patient-list_Container {
+  padding: 2% 3.5%;
+  overflow-y: scroll;
+  background: rgba(217, 217, 217, 0.3);
+  border-radius: 10px;
+  height: 63vh;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.LandingPage--Loading-Card {
+  border-radius: 8px;
+}
+
+.patient-card {
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px 40px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.patient-name {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 0 12px 0;
+}
+
+.patient-gender {
+  font-size: 16px;
+  font-weight: 100;
+  margin-bottom: 12px;
+}
+
+.View-btn,
+.Edit-btn {
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 4px 12px;
+  font-size: min(15px, 2.5vw);
+  white-space: nowrap;
+}
+
+.View-btn {
+  background-color: #388440;
+  margin: 0 20px 0 0;
+}
+
+.Edit-btn {
+  background-color: #24b7e9;
+}
+
+/*! View Appointments CSS */
+
+.ViewAppointments-header {
+  font-weight: 600;
+  color: #388440;
+  font-size: min(28px, 5vw);
+}
+
+.View-appointment_Main-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.View-appointment_Main-Container > div:nth-child(1) {
+  text-align: center;
+}
+
+.Appointment_Container {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 1000px);
+  height: 100%;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.appointment-card {
+  height: fit-content;
+  border: 1px solid grey;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.appointment-card--patient-info {
+  margin-left: 2%;
+}
+
+.appointment-card--patient-info > div,
+.appointment-card--doctor-info > div {
+  padding: 5px 0;
+}
+
+.appointment-card--doctor-info {
+  text-align: right;
+}
+
+.card--patient-name,
+.card--doctor-name {
+  font-weight: 600;
+  font-size: min(1.3rem, 3.6vw);
+}
+
+.card--appointment-header,
+.card--doctor-spec {
+  font-size: min(1rem, 3.3vw);
+}
+
+.appointment-date {
+  font-size: min(0.9rem, 3.1vw);
+  color: green;
+  font-weight: 600;
+}
+
+.appointment-card > div {
+  padding: 1.5% 2%;
+}
+
+.appointment-card > div:nth-child(1) {
+  width: 70%;
+}
+
+.appointment-status {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.grey {
+  color: grey;
+  font-size: min(20px, 4vw);
+}
+
+.blue {
+  color: blue;
+  font-size: min(20px, 4vw);
+}
+
+.red {
+  color: red;
+  font-size: min(20px, 4vw);
+}
+
+.green {
+  color: green;
+  font-size: min(20px, 4vw);
+}
+
+.hr {
+  display: none;
+}
+.edit-title {
+  color: #388440;
+  font-weight: 600;
+  font-size: min(1.4rem, 6vw);
+  margin: 2% auto 5% auto;
+}
+.editPage-Container {
+  display: flex;
+  flex-direction: column;
+  width: min(80%, 800px);
+  gap: 15px;
+  margin: 0 auto;
+}
+.edit-gray {
+  color: grey;
+  font-weight: 600;
+  font-size: min(1rem, 3vw);
+}
+.edit-legend {
+  font-weight: 600;
+  width: 50%;
+  font-size: min(1rem, 3vw);
+}
+.edit-input {
+  font-size: min(1rem, 3vw);
+}
+.info-row {
+  display: flex;
+  width: 90%;
+  align-items: center;
+}
+
+.edit-Button_Row {
+  display: flex;
+  margin-left: 50%;
+  margin-top: 3%;
+  width: max(40%, 220px);
+}
+.edit-save {
+  background-color: #24b7e9;
+  border: none;
+  border-radius: 20px;
+  width: 100%;
+  margin-right: 8%;
+  font-size: min(1rem, 2.5vw);
+}
+.edit-back {
+  background-color: red;
+  border: none;
+  border-radius: 20px;
+  width: 100%;
+  font-size: min(1rem, 2.5vw);
+}
+.view-backBtn {
+  width: max(5%, 100px);
+  background-color: red;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  margin-left: auto;
+  margin-top: 5%;
+  font-size: min(1rem, 3.5vw);
+}
+
+/*! Shake Animation */
+
+.shake-error {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* search doctor */
+
+/* Overrides for datepicker */
+
+/* days of the week */
+.mantine-480qv8 {
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+  font-family: "Montserrat";
+}
+
+.mantine-13utz3y {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* dates */
+.mantine-22yr1m {
+  font-family: "Montserrat";
+  font-weight: 600;
+  height: 2.6rem;
+  font-size: 16px;
+}
+
+/* monthheader*/
+.mantine-kyxsp3 {
+  font-family: "Montserrat";
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 0;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.mantine-kyxsp3:hover {
+  background: rgba(34, 208, 52, 1);
+}
+/* monthselection*/
+.mantine-iare1g {
+  font-family: "Montserrat";
+  font-weight: 600;
+}
+.mantine-iare1g:hover {
+  background: rgba(34, 208, 52, 1);
+}
+
+/* yearselection*/
+.mantine-1g2a0oc {
+  font-family: "Montserrat";
+  font-weight: 600;
+}
+
+.mantine-1g2a0oc:hover {
+  background: rgba(34, 208, 52, 1);
+}
+
+/* arrows */
+.mantine-i0mq7l:hover {
+  background: rgba(34, 208, 52, 1);
+}
+
+.mantine-1cmw7vj {
+  height: 2rem;
+  width: 2rem;
+}

@@ -1,0 +1,449 @@
+/* For header Navbar and Image font size/spacing*/
+@media only screen and (min-width: 560px) and (max-width: 991px) {
+  .headerinfo,
+  .homeinfo {
+    font-size: 42px;
+  }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 559px) {
+  .headerinfo,
+  .homeinfo {
+    font-size: 30px;
+  }
+
+  .tagtitle {
+    font-size: 24px;
+  }
+
+  .carousel-inner {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 373px) and (max-width: 399px) {
+  .headerinfo,
+  .homeinfo {
+    font-size: 28px;
+  }
+
+  .tagtitle {
+    font-size: 20px;
+  }
+
+  .carousel-inner {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 372px) {
+  .headerinfo,
+  .homeinfo {
+    font-size: 21px;
+  }
+
+  .tagtitle {
+    font-size: 18px;
+  }
+
+  .carousel-inner {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (min-width: 712px) and (max-width: 1072px) {
+  .headermed-container {
+    height: 45vh;
+  }
+
+  .homefloatinginfo-container {
+    height: 15.5vw;
+    width: 30vw;
+  }
+
+  .floatinginfotitle {
+    font-size: 1.8vw;
+  }
+
+  .floatinginfodescription {
+    font-size: 1vw;
+  }
+}
+
+@media only screen and (max-width: 711px) {
+  .headermed-container {
+    background: url("./images/headermedmobile1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+    position: relative;
+  }
+  .homefloatinginfo-container {
+    height: 35vw;
+    width: 60vw;
+    bottom: 3vw;
+    right: 2.5vw;
+  }
+
+  .floatinginfotitle {
+    font-size: 4.2vw;
+    margin-top: 2vw;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+  }
+
+  .floatinginfodescription {
+    font-size: 2.2vw;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    margin-bottom: 2.5vw;
+  }
+}
+
+@media only screen and (width: 280px) and (height: 653px) {
+  .headermed-container {
+    height: 40vh;
+  }
+}
+
+@media only screen and (min-width: 711px) and (max-width: 900px) {
+  .homefloatinginfo-container {
+    height: 18.5vw;
+    width: 32vw;
+  }
+
+  .floatinginfotitle {
+    font-size: 2.2vw;
+  }
+
+  .floatinginfodescription {
+    font-size: 1.2vw;
+  }
+}
+
+/* For header Navbar and Image font size/spacing*/
+
+/* For Services */
+
+@media only screen and (min-width: 1064px) and (max-width: 1192px) {
+  .services-info {
+    max-width: 450px !important;
+  }
+
+  .serv-text {
+    font-size: 22px;
+  }
+
+  .serv-sub {
+    font-size: 14px;
+  }
+  .services-container {
+    margin: 3vw;
+    margin-top: 0;
+  }
+
+  #serv-textid {
+    padding-top: 0.8rem !important;
+    margin: 0.7rem !important;
+  }
+
+  #serv-buttonid {
+    padding-bottom: 0.7rem !important;
+  }
+
+  #serv-subid {
+    margin: 0.7rem !important;
+  }
+}
+
+@media only screen and (min-width: 510px) and (max-width: 1063px) {
+  .services-info {
+    width: 80vw !important;
+  }
+
+  .serv-text {
+    font-size: 21px;
+  }
+
+  .serv-sub {
+    font-size: 13px;
+  }
+}
+@media only screen and (min-width: 720px) and (max-width: 1063px) {
+  .services-container {
+    margin-left: 20vh;
+    margin-right: 20vh;
+  }
+}
+@media only screen and (min-width: 720px) and (max-width: 850px) {
+  .services-container {
+    margin-left: 12vh;
+    margin-right: 12vh;
+  }
+}
+
+@media only screen and (min-width: 510px) and (max-width: 719px) {
+  .services-container {
+    margin: 2vh;
+    margin-top: 0;
+  }
+}
+
+@media only screen and (max-width: 509px) {
+  .services-info {
+    width: 80vw !important;
+  }
+
+  .serv-text {
+    font-size: 18px;
+  }
+
+  .serv-sub {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .services-container {
+    margin: 0;
+  }
+
+  #serv-textid {
+    padding-top: 0.8rem !important;
+    margin: 0.7rem !important;
+  }
+
+  #serv-buttonid {
+    padding-bottom: 0.7rem !important;
+  }
+
+  #serv-subid {
+    margin: 0.7rem !important;
+  }
+}
+/* For Services */
+
+/* For Search Doctor */
+@media only screen and (min-width: 701px) and (max-width: 1255px) {
+  .form-search {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 20px;
+  }
+  .search-responsive {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .form-search > input {
+    width: 250px !important;
+    margin: 5px;
+    font-size: var(--font-size) !important;
+  }
+  .form-search > select {
+    width: 511px !important;
+    margin: 5px;
+    font-size: var(--font-size) !important;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  :root {
+    --font-size: 12px;
+  }
+  /*!Seach Form*/
+  col-1 .tagtitle {
+    font-size: 25px;
+  }
+  .form-search {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 20px;
+  }
+  .search-responsive {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .form-search > input {
+    width: 150px !important;
+    margin: 5px;
+    font-size: var(--font-size) !important;
+  }
+  .form-search > select {
+    width: 311px !important;
+    margin: 5px;
+    font-size: var(--font-size) !important;
+  }
+  .Clear,
+  .Search {
+    font-size: var(--font-size) !important;
+  }
+  /*!Card-Container*/
+  .card-container {
+    height: auto;
+    width: 90%;
+    margin: 5% auto;
+  }
+  .doctor-flexbox-container {
+    border: 1px solid #24b7e9;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  .doctor-flexbox-Info .Lname {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  .doctor-flexbox-Info .Fname {
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+  }
+  .doctor-flexbox-Info .HMO_Accreditation .HMO_Head {
+    font-size: 0.9rem;
+  }
+  .doctor-flexbox-Info .specialization,
+  .HMO_Accreditation {
+    font-weight: 600;
+    font-size: var(--font-size);
+    margin-bottom: 2px;
+  }
+  .header {
+    font-size: 0.95rem;
+    margin: 0 0 5px 0 !important;
+  }
+  .doctor-flexbox-Avail {
+    top: 8%;
+    left: 51%;
+  }
+  .sched {
+    font-size: 0.6rem;
+  }
+  .notFound {
+    margin: 2%;
+  }
+  /*!Track Me*/
+  .form-track input {
+    text-align: center;
+    width: 350px !important;
+    font-size: var(--font-size) !important;
+    padding: 5px;
+  }
+  .Search-track {
+    font-size: var(--font-size);
+  }
+  .tagtitle--p {
+    font-size: var(--font-size);
+    text-align: center;
+  }
+  .edit-title {
+    margin: 2% auto 10% auto;
+  }
+  .edit-Button_Row {
+    margin: 5% auto;
+  }
+}
+
+/* For Search Doctor */
+
+/*! Track Appointment Media Query*/
+
+@media (min-width: 601px) and (max-width: 750px) {
+  .Track--sub_container {
+    margin-top: 12%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .NavBar--logo {
+    position: absolute;
+    top: 15%;
+    left: 3%;
+  }
+  .NavBar--background {
+    width: 180%;
+    height: 10vh;
+  }
+  .Tracking--Footer img {
+    width: 180%;
+  }
+  .Track--sub_container {
+    width: 100%;
+    height: 75vh;
+  }
+  /* .sub-title,
+    .end-title {
+        font-size: 15px;
+        text-align: center;
+        padding: 5px;
+    } */
+  .patient-list_Container {
+    height: 50vh;
+    width: 90%;
+    margin-bottom: 12px;
+  }
+  .patient-card {
+    padding: 8px 20px;
+  }
+  .patient-name {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+  }
+  .patient-gender {
+    font-size: 13px;
+    font-weight: 100;
+    margin-bottom: 12px;
+  }
+  .card-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/*! Track Appointment Media Query*/
+
+/*! View Appointments Media Query */
+
+@media only screen and (max-width: 600px) {
+  .View-appointment_Main-Container {
+    margin: auto 0;
+  }
+  .appointment-card {
+    flex-direction: column;
+  }
+  .appointment-card > div:nth-child(1) {
+    width: 100%;
+  }
+  .appointment-card--patient-info {
+    text-align: center;
+    margin: 0;
+  }
+  .appointment-card--doctor-info {
+    text-align: center;
+  }
+  .hr {
+    display: block;
+  }
+  .view-backBtn {
+    margin: 0 auto;
+  }
+
+  /* .appointment-card>div:nth-child(1) {
+        width: 52%
+    }
+    .appointment-status {
+        font-size: 1.1rem;
+    }
+    .card--patient-name,
+    .card--doctor-name {
+        font-size: 0.95rem;
+    }
+    .card--appointment-header,
+    .card--doctor-spec {
+        font-size: 0.8rem;
+    }
+    .appointment-date {
+        font-size: 0.7rem;
+    } */
+}
+
+/*! View Appointments Media Query */
