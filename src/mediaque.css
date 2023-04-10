@@ -450,6 +450,9 @@
 
 /*1st Page Booking */
 @media only screen and (max-width: 1000px) {
+  .booking--headerwave-container {
+    padding: 3%;
+  }
   .Booking--wrapper {
     display: flex;
     flex-direction: column;
@@ -457,26 +460,38 @@
   }
   .FirstPage--body-wrapper {
     flex-direction: column;
-    margin: auto 0;
+    margin-top: 5%;
   }
   .Booking-banner {
-    margin-top: 5%;
-    height: 80%;
+    height: 60%;
     width: 100%;
+
     object-fit: cover;
     border-radius: 15px;
   }
   .Banner-wrapper {
-    width: 90%;
+    width: 88%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .First_Page_Content {
     padding: 5%;
   }
   .First_Page_Content > h3 {
     text-align: center;
+    margin-top: 0;
   }
+
   .FirstPage--buttonRow {
     text-align: center;
+    margin: 10% 0 0 35vw;
+  }
+
+  picture img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

@@ -72,7 +72,7 @@ export default function VerificationModal(props) {
             <Button className="Search" onClick={handleVerification}>
               Verify
             </Button>
-            <Button className="Clear" type="submit" onClick={handleClose}>
+            <Button className="Clear" onClick={handleClose}>
               Cancel
             </Button>
           </Modal.Footer>
@@ -89,9 +89,6 @@ export default function VerificationModal(props) {
         <Modal.Footer>
           <Button className="Search" onClick={handleClose}>
             Close
-          </Button>
-          <Button className="Clear" type="submit" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </>
