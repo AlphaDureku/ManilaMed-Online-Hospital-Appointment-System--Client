@@ -130,6 +130,9 @@ body {
 /* HowTo */
 
 /* Services */
+.home_body {
+  overflow-x: hidden;
+}
 .services-info {
   background: rgba(243, 243, 243) !important;
   border-radius: 30px !important;
@@ -850,6 +853,7 @@ select {
 }
 
 .FirstPage_error {
+  font-size: min(1rem, 3vw);
   color: red;
   font-weight: 600;
 }

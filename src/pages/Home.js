@@ -58,27 +58,29 @@ export default function Home() {
   //Sub-Components
   return (
     <>
-      {<Navbar />}
-      {<HeaderImg />}
-      {<Howto />}
-      {<Services />}
+      <div className="home_body">
+        {<Navbar />}
+        {<HeaderImg />}
+        {<Howto />}
+        {<Services />}
 
-      <Form
-        query={query}
-        setCurrentPage={setCurrentPage}
-        setQuery={setQuery}
-        selectValues={selectValues}
-      />
-      {
-        <Card
-          doctors={doctors}
-          currentPage={currentPage}
+        <Form
+          query={query}
           setCurrentPage={setCurrentPage}
-          schedule={schedule}
-          loading={loading}
+          setQuery={setQuery}
+          selectValues={selectValues}
         />
-      }
-      {<TrackMe />}
+        {
+          <Card
+            doctors={doctors}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            schedule={schedule}
+            loading={loading}
+          />
+        }
+        {<TrackMe />}
+      </div>
     </>
   );
 }

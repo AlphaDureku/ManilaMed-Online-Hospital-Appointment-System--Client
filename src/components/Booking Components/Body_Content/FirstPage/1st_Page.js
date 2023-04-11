@@ -5,17 +5,22 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import FirstPage_Modal from "./1st_Page_Modal";
 
-export default function FirstPage() {
+export default function FirstPage(props) {
   const navigate = useNavigate();
   const breakPoint = useMediaQuery("(max-width: 800px)");
 
   const [email, setEmail] = useState({ email: "", isChecked: false });
   const [isValid, setIsValid] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState({
+    verification: false,
+    history: false,
+  });
   const [loading, setLoading] = useState(true);
-  const [verify, setVerify] = useState({
+  const [userState, setUserState] = useState({
     otp: "",
     verified: false,
+    hasHistory: null,
+    historyPatients: null,
   });
 
   //Check valid email
@@ -42,20 +47,27 @@ export default function FirstPage() {
           email: email.email,
         },
       });
-      const { data } = res.data;
-      setVerify((prev) => ({ ...prev, otp: data.OTP }));
-      setShowModal(true);
+      const { data } = res.data.data;
+      setUserState((prev) => ({
+        ...prev,
+        otp: data.OTP,
+        hasHistory: data.hasHistory,
+        historyPatients: data.patient_List,
+      }));
+      setShowModal((prev) => ({ ...prev, verification: true }));
     }
   }
-
+  // Render Modal for verification
   const modalElement = useMemo(() => {
     return (
       <FirstPage_Modal
         showModal={showModal}
+        setuserState={setUserState}
         setShowModal={setShowModal}
         loading={loading}
         email={email.email}
-        OTP={verify.otp}
+        userState={userState}
+        setCurrentPage={props.setCurrentPage}
       />
     );
   }, [showModal]);

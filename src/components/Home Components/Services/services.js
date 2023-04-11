@@ -14,7 +14,7 @@ function Services() {
       <div className=" services-container justify-content-center">
         <div className="tagtitle mb-4">Services </div>
         <div className="row mt-2 mb-4">
-          <div className="col-xl">
+          <div className="col-xl p-0">
             <div className="serv-imgcontainer">
               <img
                 src={genservimg}
@@ -53,7 +53,7 @@ function Services() {
             </div>
           </div>
 
-          <div className="col-xl">
+          <div className="col-xl p-0">
             <div className="serv-imgcontainer">
               <img
                 src={privclinicimg}

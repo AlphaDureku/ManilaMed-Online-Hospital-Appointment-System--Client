@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../components/Booking Components/NavBar/NavBar";
 import Footer from "../components/Booking Components/Footer/Footer";
 import { Route, Routes } from "react-router-dom";
-import FirstPage from "../components/Booking Components/Body_Content/FirstPage/1st_Page";
+import Content from "../components/Booking Components/Body_Content/PageController";
 
 export default function Services() {
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     document.title = "Booking";
   }, []);
@@ -12,9 +13,7 @@ export default function Services() {
     <>
       <div className="Booking--wrapper">
         <NavBar />
-        <Routes>
-          <Route index element={<FirstPage />} />
-        </Routes>
+        <Content currentPage={currentPage} setCurrentPage={setCurrentPage} />
         <Footer />
       </div>
     </>

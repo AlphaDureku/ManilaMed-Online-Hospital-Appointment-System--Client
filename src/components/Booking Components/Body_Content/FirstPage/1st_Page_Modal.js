@@ -4,18 +4,30 @@ import { useState } from "react";
 import axios from "axios";
 export default function FirstPage_Modal(props) {
   const [error, setError] = useState(false);
+  const [input, setInput] = useState({ enteredOTP: "" });
 
   function closeHandler() {
-    props.setShowModal(false);
+    props.setShowModal((prev) => ({ ...prev, verification: false }));
   }
 
-  function onSubmitHandler() {
-    console.log(props.OTP);
+  function OnchangeHandler(event) {
+    setError(false);
+    const { name, value } = event.target;
+    setInput(() => ({ [name]: value }));
   }
+  function onSubmitHandler() {
+    if (props.userState.otp == input.enteredOTP) {
+      props.setShowModal((prev) => ({ ...prev, verification: false }));
+      // props.setCurrentPage(2);
+    } else {
+      setError(true);
+    }
+  }
+  console.log(input);
   return (
     <>
       <Modal
-        show={props.showModal}
+        show={props.showModal.verification}
         // onHide={props.handleClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -35,6 +47,7 @@ export default function FirstPage_Modal(props) {
                 type="text"
                 className="form-control otp-input"
                 name="enteredOTP"
+                onChange={OnchangeHandler}
                 //onChange={handleOnChange}
                 //value={enteredOTP}
               />
