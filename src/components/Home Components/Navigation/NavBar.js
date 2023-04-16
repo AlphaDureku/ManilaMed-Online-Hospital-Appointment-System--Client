@@ -9,6 +9,7 @@ function HeaderNavbar() {
         <Container fluid className="ms-4 ">
           <Navbar.Brand href="#home" className="d-flex  ">
             <img
+              loading="lazy"
               src="./images/ManilaMed-Logo.png"
               className="img-fluid "
               alt=""

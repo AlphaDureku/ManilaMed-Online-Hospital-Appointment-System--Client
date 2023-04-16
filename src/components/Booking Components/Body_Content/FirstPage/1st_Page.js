@@ -8,6 +8,7 @@ import FirstPage_Modal from "./1st_Page_Modal";
 export default function FirstPage(props) {
   const navigate = useNavigate();
   const breakPoint = useMediaQuery("(max-width: 800px)");
+  const breakPointMobile = useMediaQuery("(max-width: 1000px)");
 
   const [email, setEmail] = useState({ email: "", isChecked: false });
   const [isValid, setIsValid] = useState(null);
@@ -75,6 +76,7 @@ export default function FirstPage(props) {
   return (
     <>
       <div className="FirstPage--body-wrapper">
+        {breakPointMobile ? <h3>General Services</h3> : ""}
         <div className="Banner-wrapper">
           <picture>
             <source

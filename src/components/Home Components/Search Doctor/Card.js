@@ -1,15 +1,23 @@
 import Loading from "./Card--Loading";
+import { useMediaQuery } from "@mantine/hooks";
 import { useState, useEffect } from "react";
 import { Pagination, Modal, Center } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { DatePicker } from "@mantine/dates";
 
 export default function Card(props) {
-  const [cardsPerPage] = useState(9);
   const [sortedDoctors, setSortedDoctors] = useState([]);
-
   const [selectedDate, setSelectedDate] = useState(null);
   const [setSelectedSchedule] = useState([]);
+
+  //CardCount Breakpoint
+  const breakPointMobile = useMediaQuery("(max-width: 1000px)");
+  let cardsPerPage = 9;
+  if (breakPointMobile) {
+    cardsPerPage = 3;
+  } else {
+    cardsPerPage = 9;
+  }
 
   // For modal
   const [openModal, { open, close }] = useDisclosure(false);

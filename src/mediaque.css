@@ -465,7 +465,7 @@
   .Booking-banner {
     height: 60%;
     width: 100%;
-
+    margin-top: 3%;
     object-fit: cover;
     border-radius: 15px;
   }
@@ -479,19 +479,38 @@
   .First_Page_Content {
     padding: 5%;
   }
+  .FirstPage--body-wrapper > h3:nth-of-type(1) {
+    color: #2f9d44;
+    font-weight: 600;
+    font-size: min(28px, 5vw);
+  }
   .First_Page_Content > h3 {
     text-align: center;
-    margin-top: 0;
+    margin: 0 0 8% 0;
   }
-
+  .First-page_input {
+    margin: 5% 0 1% 0;
+  }
+  #terms {
+    margin: 5% 1% 0 0;
+  }
   .FirstPage--buttonRow {
-    text-align: center;
-    margin: 10% 0 0 35vw;
+    margin: 20% auto 0 auto;
+    width: 90%;
   }
 
   picture img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .Options_buttonRow {
+    width: 50%;
   }
 }

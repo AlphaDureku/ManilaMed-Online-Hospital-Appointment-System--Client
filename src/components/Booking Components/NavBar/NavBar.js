@@ -3,6 +3,7 @@ export default function NavBar() {
     <nav className="booking--headerwave-container">
       <a href="/">
         <img
+          loading="lazy"
           src="/images/navbar.png"
           className="Booking--navBar-logo"
           alt=""

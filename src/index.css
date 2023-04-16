@@ -402,6 +402,8 @@ select {
 
 .otp-input {
   text-align: center;
+  width: 70%;
+  margin: 0 auto;
 }
 
 /*!Book Appointment CSS */
@@ -526,6 +528,69 @@ select {
 
 .Edit-btn {
   background-color: #24b7e9;
+}
+
+.Options_H2 {
+  font-size: min(2rem, 5vw);
+}
+.Options_P {
+  font-size: min(16px, 3vw);
+}
+.radio-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.radioLabel {
+  width: 70%;
+  padding: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.radioLabel > input + div {
+  border: 1px solid grey;
+  background-color: #ececec;
+  text-align: center;
+  font-size: min(1.1rem, 3.3vw);
+  border-radius: 8px;
+  padding: 2% 5%;
+  width: max(400px, 70%);
+  font-weight: 500;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.radioLabel > input {
+  visibility: hidden;
+  position: absolute;
+}
+
+.radioLabel {
+  cursor: pointer;
+}
+
+.radioLabel > input:checked + div {
+  background: rgba(202, 255, 207, 0.5);
+  border: 1px solid #2f9d44;
+  padding: 2.8% 5%;
+  width: max(400px, 80%);
+  font-weight: 600;
+  color: #388440;
+}
+
+.Options_buttonRow {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Options_buttonRow > button {
+  border: none;
+  margin: 0 auto;
+  border-radius: 20px;
+  width: 45%;
+  font-size: min(1rem, 2.5vw);
 }
 
 /*! View Appointments CSS */
@@ -860,7 +925,8 @@ select {
 
 .First-page_input {
   margin-bottom: 1%;
-  width: max(250px, 45%);
+  width: min(100%, 350px);
+  max-width: 100%;
   border: 1px solid grey;
   font-size: min(1rem, 3vw);
 }
@@ -872,14 +938,16 @@ select {
   margin-bottom: 5%;
   font-size: min(1rem, 3vw);
 }
-.FirstPage--buttonRow {
-  margin: 25% 0 0 30vw;
-}
+
 .FirstPage--buttonRow > button {
   padding: 1.5%;
   color: white;
 }
 
+.FirstPage--buttonRow {
+  text-align: center;
+  margin: 20% 18% 0 25vw;
+}
 .FirstPage--buttonRow > button:nth-child(1) {
   background-color: red;
   border: none;
