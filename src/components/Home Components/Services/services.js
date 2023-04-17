@@ -1,5 +1,3 @@
-import genservimg from "../../../images/genserv-img.png";
-import privclinicimg from "../../../images/privclinic-img.png";
 import { useMediaQuery } from "@mantine/hooks";
 import { Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +15,7 @@ function Services() {
           <div className="col-xl p-0">
             <div className="serv-imgcontainer">
               <img
-                src={genservimg}
+                src={"/images/genserv-img.png"}
                 alt=""
                 className="img-fluid genserv-img"
               ></img>
@@ -56,7 +54,7 @@ function Services() {
           <div className="col-xl p-0">
             <div className="serv-imgcontainer">
               <img
-                src={privclinicimg}
+                src={"/images/privclinic-img.png"}
                 alt=""
                 className="img-fluid genserv-img"
               ></img>
