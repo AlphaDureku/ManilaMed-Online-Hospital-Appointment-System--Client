@@ -1,5 +1,11 @@
-export default function PatientCard(props) {
-  const patients = props.historyPatients.map((item, index) => {
+import { userContext } from "./1st_Page";
+import { useContext } from "react";
+export default function PatientCard() {
+  //Props
+  const userState = useContext(userContext);
+  const { historyPatients } = userState;
+
+  const patients = historyPatients.map((item, index) => {
     return (
       <label className="radioLabel" key={index}>
         <input type="radio" name="patientName"></input>
@@ -9,6 +15,6 @@ export default function PatientCard(props) {
       </label>
     );
   });
-  console.log(props.historyPatients);
+  console.log(historyPatients);
   return <>{patients}</>;
 }

@@ -1,44 +1,56 @@
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { userContext } from "./1st_Page";
+import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import PatientCard from "./Patient--Card";
+import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 
 export default function FirstPage_Modal(props) {
+  const userState = useContext(userContext);
   const [error, setError] = useState(false);
   const [input, setInput] = useState({ enteredOTP: "" });
   const [showHistory, setShowHistory] = useState(false);
+  const { setShowModal, showModal } = props;
 
-  function closeHandler() {
-    props.setShowModal((prev) => ({ ...prev, verification: false }));
+  function OnCloseHandler() {
+    setInput(() => ({ enteredOTP: "" }));
+    setShowModal((prev) => ({ ...prev, verification: false }));
   }
-  function closeHandler_History() {
+  function OnCloseHandler_History() {
+    setInput(() => ({ enteredOTP: "" }));
     setShowHistory(false);
   }
-
+  function OnSubmitHandler_History() {
+    console.log("");
+  }
   function OnchangeHandler(event) {
     setError(false);
     const { name, value } = event.target;
     setInput(() => ({ [name]: value }));
   }
-  function onSubmitHandler() {
-    //Verification change to server side
-    if (props.userState.otp == input.enteredOTP || 1) {
-      props.setShowModal((prev) => ({ ...prev, verification: false }));
+  const OnSubmitHandler = async () => {
+    const res = await axios.get("/booking/verifyOTP", {
+      params: {
+        inputOTP: input.enteredOTP,
+      },
+    });
+    const { isVerified } = res.data.data;
+    if (isVerified) {
+      setShowModal((prev) => ({ ...prev, verification: false }));
       setShowHistory(true);
       // props.setCurrentPage(2);
     } else {
       setError(true);
     }
-  }
-
+  };
+  // Start of User OTP verification
   const VerificationModal = (
     <Modal
-      show={props.showModal.verification}
-      // onHide={props.handleClose}
+      show={showModal.verification}
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton onClick={closeHandler}>
+      <Modal.Header closeButton onClick={OnCloseHandler}>
         <Modal.Title>Email Verification</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -54,8 +66,7 @@ export default function FirstPage_Modal(props) {
               className="form-control otp-input"
               name="enteredOTP"
               onChange={OnchangeHandler}
-              //onChange={handleOnChange}
-              //value={enteredOTP}
+              value={input.enteredOTP}
             />
           </div>
           {error && (
@@ -71,12 +82,14 @@ export default function FirstPage_Modal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="Search" onClick={onSubmitHandler}>
-          Verify
-        </Button>
-        <Button className="Clear" onClick={closeHandler}>
-          Cancel
-        </Button>
+        <div className="OTP_buttonRow">
+          <BackProceed
+            OnCloseHandler={OnCloseHandler}
+            OnSubmitHandler={OnSubmitHandler}
+            redButtonText={"Cancel"}
+            blueButtonText={"Proceed"}
+          />
+        </div>
       </Modal.Footer>
     </Modal>
   );
@@ -96,7 +109,7 @@ export default function FirstPage_Modal(props) {
           Please indicate whose reservation is this for.
         </p>
         <form className="radio-form">
-          <PatientCard historyPatients={props.userState.historyPatients} />
+          <PatientCard />
           <label className="radioLabel">
             <input type="radio" name="patientName"></input>
             <div>Booking for others</div>
@@ -106,27 +119,12 @@ export default function FirstPage_Modal(props) {
       <Modal.Footer>
         {" "}
         <div className="Options_buttonRow">
-          <Button
-            onClick={closeHandler_History}
-            style={{
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              backgroundColor: "#FF0000",
-              fontFamily: "Inter",
-            }}
-          >
-            Back
-          </Button>
-          <Button
-            type="submit"
-            //onSubmit={OnSubmitHandler}
-            style={{
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              backgroundColor: "#24B7E9",
-              fontFamily: "Inter",
-            }}
-          >
-            Proceed
-          </Button>
+          <BackProceed
+            OnCloseHandler={OnCloseHandler_History}
+            OnSubmitHandler={OnSubmitHandler_History}
+            redButtonText={"Cancel"}
+            blueButtonText={"Proceed"}
+          />
         </div>
       </Modal.Footer>
     </Modal>

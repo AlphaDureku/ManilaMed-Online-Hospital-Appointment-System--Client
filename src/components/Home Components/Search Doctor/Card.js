@@ -44,12 +44,8 @@ export default function Card(props) {
 
   function getHMO(HMOList) {
     const newList = HMOList.split(", ");
-    return newList.map((items) => {
-      return (
-        <>
-          {items} <br></br>
-        </>
-      );
+    return newList.map((items, index) => {
+      return <span key={index}>{items}</span>;
     });
   }
 
@@ -93,9 +89,7 @@ export default function Card(props) {
     }
 
     return selectedDoctorSchedules.map((sched, index) => (
-      <div className="sched" key={index}>
-        {sched.day}
-      </div>
+      <div className="sched">{sched.day}</div>
     ));
   }
 

@@ -113,7 +113,7 @@ export default function Form(props) {
             style={{
               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
               backgroundColor: "#24B7E9",
-              fontFamily: "Inter",
+
               minWidth: buttonwidthS,
             }}
           >
@@ -128,7 +128,7 @@ export default function Form(props) {
             style={{
               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
               backgroundColor: "#FF0000",
-              fontFamily: "Inter",
+
               minWidth: buttonwidthS,
             }}
           >

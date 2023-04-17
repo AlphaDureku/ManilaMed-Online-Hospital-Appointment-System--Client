@@ -1,22 +1,22 @@
-import { Button, em } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { useState, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useMemo, useContext, createContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FirstPage_Modal from "./1st_Page_Modal";
+
+export const userContext = createContext();
 
 export default function FirstPage(props) {
   const navigate = useNavigate();
   const breakPoint = useMediaQuery("(max-width: 800px)");
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
-
   const [email, setEmail] = useState({ email: "", isChecked: false });
   const [isValid, setIsValid] = useState(null);
   const [showModal, setShowModal] = useState({
     verification: false,
     history: false,
   });
-  const [loading, setLoading] = useState(true);
   const [userState, setUserState] = useState({
     otp: "",
     verified: false,
@@ -28,7 +28,6 @@ export default function FirstPage(props) {
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
-
   //Handler Funcions
   function OnchangeHandler(event) {
     setIsValid(null);
@@ -58,18 +57,18 @@ export default function FirstPage(props) {
       setShowModal((prev) => ({ ...prev, verification: true }));
     }
   }
-  // Render Modal for verification
+  // Render Modals
   const modalElement = useMemo(() => {
     return (
-      <FirstPage_Modal
-        showModal={showModal}
-        setuserState={setUserState}
-        setShowModal={setShowModal}
-        loading={loading}
-        email={email.email}
-        userState={userState}
-        setCurrentPage={props.setCurrentPage}
-      />
+      <userContext.Provider value={userState}>
+        <FirstPage_Modal
+          showModal={showModal}
+          setuserState={setUserState}
+          setShowModal={setShowModal}
+          email={email.email}
+          setCurrentPage={props.setCurrentPage}
+        />
+      </userContext.Provider>
     );
   }, [showModal]);
 
@@ -136,7 +135,6 @@ export default function FirstPage(props) {
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   backgroundColor: "#FF0000",
                   fontSize: breakPoint ? "0.7rem" : "1rem",
-                  fontFamily: "Inter",
                 }}
               >
                 Back
@@ -147,8 +145,7 @@ export default function FirstPage(props) {
                 style={{
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   backgroundColor: "#24B7E9",
-                  fontSize: breakPoint ? "0.7rem" : "1rem",
-                  fontFamily: "Inter",
+                  fontSize: breakPoint ? "0.7em" : "1rem",
                 }}
               >
                 Proceed

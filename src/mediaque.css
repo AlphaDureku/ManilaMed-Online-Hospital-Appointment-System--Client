@@ -510,6 +510,9 @@
     align-items: center;
     justify-content: center;
   }
+  .radioLabel {
+    margin: 1%;
+  }
   .Options_buttonRow {
     width: 50%;
   }

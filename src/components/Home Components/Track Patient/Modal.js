@@ -1,9 +1,9 @@
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import axios from "axios";
-import mamedLoading from "../../../images/manilamed-loading.gif";
 
 export default function VerificationModal(props) {
   const [enteredOTP, setEnteredOTP] = useState("");
@@ -12,6 +12,7 @@ export default function VerificationModal(props) {
   const handleOnChange = (event) => {
     const { value } = event.target;
     setEnteredOTP(value);
+    setError(false);
   };
 
   const handleClose = () => {
@@ -24,11 +25,18 @@ export default function VerificationModal(props) {
   };
 
   const handleVerification = async () => {
-    if (enteredOTP == /*props.OTP*/ 1) {
+    const res = await axios.get("/verifyOTP", {
+      params: {
+        inputOTP: enteredOTP,
+      },
+    });
+    const { isVerified } = res.data.data;
+    console.log(isVerified);
+    if (isVerified) {
       props.setVerify((prev) => ({ ...prev, verified: true }));
       //Send request that a user is verified create a session for that patient
       await axios.post("/user/set-userSession", {
-        user_ID: props.user_ID,
+        user_ID: props.user.user_ID,
       });
       navigate("/User");
       return;
@@ -46,7 +54,8 @@ export default function VerificationModal(props) {
           <Modal.Body>
             <div className="modal-body text-center">
               <label className="modal-form">
-                (OTP) One Time Password has been sent to
+                (OTP) One Time Password has been sent to{" "}
+                <b>{props.user.email}</b>
               </label>
               <br></br>
               <p>Please Enter (6) digit code to complete your verification.</p>
@@ -69,12 +78,14 @@ export default function VerificationModal(props) {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button className="Search" onClick={handleVerification}>
-              Verify
-            </Button>
-            <Button className="Clear" onClick={handleClose}>
-              Cancel
-            </Button>
+            <div className="TrackAtHome--buttonRow">
+              <BackProceed
+                OnCloseHandler={handleClose}
+                OnSubmitHandler={handleVerification}
+                redButtonText={"Cancel"}
+                blueButtonText={"Verify"}
+              />
+            </div>
           </Modal.Footer>
         </>
       );
@@ -107,7 +118,7 @@ export default function VerificationModal(props) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <img src={mamedLoading} alt=""></img>
+          <img src="/images/manilamed-loading.gif" alt=""></img>
         </Modal>
       </>
     );

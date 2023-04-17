@@ -7,7 +7,7 @@ export default function NavBar() {
           src="/images/navbar.png"
           className="Booking--navBar-logo"
           alt=""
-        ></img>
+        />
       </a>
     </nav>
   );

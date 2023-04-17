@@ -40,7 +40,7 @@ function Services() {
                   style={{
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                     backgroundColor: "#2F9D44",
-                    fontFamily: "Inter",
+
                     minWidth: "100px",
                   }}
                   onClick={() => {
@@ -79,7 +79,7 @@ function Services() {
                   style={{
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                     backgroundColor: "#2F9D44",
-                    fontFamily: "Inter",
+
                     minWidth: "100px",
                   }}
                 >

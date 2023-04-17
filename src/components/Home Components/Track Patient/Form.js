@@ -32,7 +32,6 @@ export default function TrackMe() {
     const { name, value } = event.target;
     setUser((prev) => ({ ...prev, [name]: value }));
   }
-
   function OnSubmitHandler(event) {
     event.preventDefault();
     setShow(true);
@@ -48,7 +47,7 @@ export default function TrackMe() {
         setVerify={setVerify}
         loading={loading}
         OTP={verify.otp}
-        user_ID={user.user_ID}
+        user={user}
       />
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
