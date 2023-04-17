@@ -2,8 +2,8 @@ import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState, useMemo, useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import FirstPage_Modal from "./1st_Page_Modal";
+import axios from "axios";
 
 export const userContext = createContext();
 
