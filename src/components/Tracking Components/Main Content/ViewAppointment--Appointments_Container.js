@@ -1,6 +1,6 @@
-import Card from "./ViewAppointments--Card";
 import { useNavigate } from "react-router-dom";
-export default function Appointments(props) {
+import Card from "./ViewAppointments--Card";
+export default function Appointments() {
   const navigate = useNavigate();
 
   return (
