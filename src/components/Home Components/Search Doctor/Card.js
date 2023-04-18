@@ -117,7 +117,7 @@ export default function Card(props) {
   function getDayProps(date) {
     const isScheduled = props.schedule.some((sched) => {
       return (
-        date.toDateString() === new Date(sched.day).toDateString() &&
+        date.toDateString() == new Date(sched.date).toDateString() &&
         sched.doctor_ID === selectedDoctorId
       );
     });
@@ -175,6 +175,7 @@ export default function Card(props) {
                   open();
                 }}
               >
+                <hr></hr>
                 View more
               </div>
             </>
@@ -231,11 +232,11 @@ export default function Card(props) {
           >
             <DatePicker
               size="lg"
-              data-autoFocus={false}
-              returnFocus
+              data-autofocus={false}
+              returnfocus="true"
               value={selectedDate}
               onChange={handleDateSelect}
-              withSelect
+              withselect="true"
               getDayProps={getDayProps}
               style={{
                 border: "1px solid #848484",
