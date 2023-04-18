@@ -4,7 +4,7 @@ import { useMediaQuery } from "@mantine/hooks";
 function HeaderImg() {
   const isMobile = useMediaQuery("(max-width: 470px)");
 
-// HERO SECTION
+// HERO SECTIONJ
   return (
     <div className="HeaderImg ">
       <div className="headerwave-container ">

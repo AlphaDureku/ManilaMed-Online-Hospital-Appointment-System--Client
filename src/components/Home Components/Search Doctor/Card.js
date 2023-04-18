@@ -1,14 +1,17 @@
 import Loading from "./Card--Loading";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState, useEffect } from "react";
-import { Pagination, Modal, Center } from "@mantine/core";
+import { Pagination } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { DatePicker } from "@mantine/dates";
+import { Modal, Button} from 'react-bootstrap';
+
 
 export default function Card(props) {
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [setSelectedSchedule] = useState([]);
+
 
   //CardCount Breakpoint
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
@@ -22,9 +25,12 @@ export default function Card(props) {
   // For modal
   const [openModal, { open, close }] = useDisclosure(false);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
-
+  const [modalDoctorName, setModalDoctorName] = useState(null);
+  
+  
   // NotFound
   const notFound = <div className="notFound">No doctor Found!</div>;
+  
 
   // Sort doctors alphabetically by last name
   useEffect(() => {
@@ -49,6 +55,7 @@ export default function Card(props) {
     });
   }
 
+  
   // Individualize Schedule
   function getAssignedSched(doctorID) {
     const schedules = props.schedule.filter(
@@ -59,6 +66,14 @@ export default function Card(props) {
         {sched.day} | {sched.start} - {sched.end}
       </div>
     ));
+  }
+
+  
+  function doctorNameShed(doctorID) {
+    setSelectedDoctorId(doctorID);
+    open();
+    const doctor = sortedDoctors.find((doc) => doc.doctor_ID === doctorID);
+    setModalDoctorName(doctor.doctor_first_name + " " + doctor.doctor_last_name);
   }
 
   function handleDateSelect(date) {
@@ -171,6 +186,7 @@ export default function Card(props) {
                 onClick={() => {
                   // Set the selected doctorId to display their individualized schedule
                   setSelectedDoctorId(items.doctor_ID);
+                   doctorNameShed(items.doctor_ID);
                   // Open the modal
                   open();
                 }}
@@ -186,6 +202,8 @@ export default function Card(props) {
       </div>
     </div>
   ));
+
+ 
 
   //To remove the previously selected date
   useEffect(() => {
@@ -222,14 +240,25 @@ export default function Card(props) {
           {/* Modal */}
           <Modal
             className="modalman"
-            opened={openModal}
+            show={openModal}
+            onHide={close}
             onClose={() => {
               setSelectedDoctorId(null);
               close();
             }}
-            title="Availability"
             centered
+            backdrop="static"
+            keyboard={false}
+
           >
+          <Modal.Header 
+          closeButton 
+          className="mb-4 "
+          >  
+          <Modal.Title>{modalDoctorName}'s Availability</Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body>
             <DatePicker
               size="lg"
               data-autofocus={false}
@@ -241,14 +270,20 @@ export default function Card(props) {
               style={{
                 border: "1px solid #848484",
                 borderRadius: "7px",
-                margin: "1vw",
+                marginLeft: "2.2vw",
+                marginRight: "2.2vw",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             />
-            <div>{formatDate(selectedDate)}</div>
-            {renderSchedule()}
+            <div className="mt-3 text-center">
+              Selected Date: <br></br>
+              {formatDate(selectedDate)}
+              {renderSchedule()}
+            </div>
+       
+            </Modal.Body>
           </Modal>
         </div>
       </div>

@@ -996,3 +996,7 @@ select {
   width: 45%;
   font-size: min(1rem, 3vw);
 }
+
+.modalCalendarTitle{
+  text-align: center;
+}
