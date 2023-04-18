@@ -4,16 +4,13 @@ import { useState, useEffect } from "react";
 import { Pagination, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { DatePicker } from "@mantine/dates";
-import { Modal, Row, Col} from 'react-bootstrap';
-
+import { Modal, Row, Col } from "react-bootstrap";
 
 export default function Card(props) {
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [setSelectedSchedule] = useState([]);
   const isMobile = useMediaQuery("(max-width: 509px)");
-
-
 
   //CardCount Breakpoint
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
@@ -29,11 +26,9 @@ export default function Card(props) {
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
   const [modalDoctorName, setModalDoctorName] = useState(null);
   const [modalDoctorSp, setModalDoctorSp] = useState(null);
-  
-  
+
   // NotFound
   const notFound = <div className="notFound">No doctor Found!</div>;
-  
 
   // Sort doctors alphabetically by last name
   useEffect(() => {
@@ -58,7 +53,6 @@ export default function Card(props) {
     });
   }
 
-  
   // Individualize Schedule
   function getAssignedSched(doctorID) {
     const schedules = props.schedule.filter(
@@ -71,12 +65,13 @@ export default function Card(props) {
     ));
   }
 
-  
   function doctorNameSpSched(doctorID) {
     setSelectedDoctorId(doctorID);
     open();
     const doctor = sortedDoctors.find((doc) => doc.doctor_ID === doctorID);
-    setModalDoctorName(doctor.doctor_last_name + ", " + doctor.doctor_first_name );
+    setModalDoctorName(
+      doctor.doctor_last_name + ", " + doctor.doctor_first_name
+    );
     setModalDoctorSp(doctor.specialization);
   }
 
@@ -190,7 +185,7 @@ export default function Card(props) {
                 onClick={() => {
                   // Set the selected doctorId to display their individualized schedule
                   setSelectedDoctorId(items.doctor_ID);
-                   doctorNameSpSched(items.doctor_ID);
+                  doctorNameSpSched(items.doctor_ID);
                   // Open the modal
                   open();
                 }}
@@ -206,8 +201,6 @@ export default function Card(props) {
       </div>
     </div>
   ));
-
- 
 
   //To remove the previously selected date
   useEffect(() => {
@@ -253,87 +246,85 @@ export default function Card(props) {
             centered
             backdrop="static"
             keyboard={false}
-
           >
-          <Modal.Header 
-          className="mb-1 "
-          closeButton
-          >  
-          <Modal.Title className="ms-auto ps-4 modalCalendarHeader"  >Availability</Modal.Title>
+            <Modal.Header className="mb-1 " closeButton>
+              <Modal.Title className="ms-auto ps-4 modalCalendarHeader">
+                Availability
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="mb-1">
+                <Row>
+                  <Col className="text-center ms-3 me-2">
+                    <div className="doctornameCalendar">{modalDoctorName}</div>
+                    <div className="doctorspCalendar">{modalDoctorSp}</div>{" "}
+                    <br></br>
+                  </Col>
+                  <Col className="text-center ms-2 me-3">
+                    <div classname="calendarLabel">Selected Schedule: </div>
+                    <div className="doctordateCalendar">
+                      {" "}
+                      {formatDate(selectedDate)}
+                    </div>
+                    <div className="doctorschedCalendar">
+                      {renderSchedule()}
+                    </div>
+                  </Col>
+                </Row>
+              </div>
 
-          </Modal.Header>
-          <Modal.Body>
-            <div className="mb-1">
-              <Row >
-                <Col className="text-center ms-3 me-2" >
-                <div className="doctornameCalendar">{modalDoctorName}</div>
-                <div className="doctorspCalendar">{modalDoctorSp}</div> <br></br>
+              <DatePicker
+                size={isMobile ? "md" : "lg"}
+                data-autofocus={false}
+                returnfocus="true"
+                value={selectedDate}
+                onChange={handleDateSelect}
+                withselect="true"
+                getDayProps={getDayProps}
+                style={{
+                  border: "1px solid #848484",
+                  borderRadius: "7px",
+                  marginLeft: isMobile ? " 0vh" : "3vh",
+                  marginRight: isMobile ? " 0vh" : "3vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
+              <Row>
+                <Col className=" text-center mt-2">
+                  <img
+                    src={"/images/lightgreenLegend.png"}
+                    alt=""
+                    className="img-fluid "
+                  ></img>
+                  <label className="m-2">Available</label>
                 </Col>
-                <Col className="text-center ms-2 me-3">
-                <div classname="calendarLabel">Selected Schedule: </div> 
-                <div className="doctordateCalendar">  {formatDate(selectedDate)}</div>
-                <div className="doctorschedCalendar">{renderSchedule()}</div>
+                <Col className="text-center mt-2 ">
+                  <img
+                    src={"/images/greyLegend.png"}
+                    alt=""
+                    className="img-fluid "
+                  ></img>
+                  <label className="m-2">Not Available</label>
                 </Col>
               </Row>
-            </div>
-            
-            <DatePicker
-              size={isMobile ? "md" : "lg"}
-              data-autofocus={false}
-              returnfocus="true"
-              value={selectedDate}
-              onChange={handleDateSelect}
-              withselect="true"
-              getDayProps={getDayProps}
-              style={{
-                border: "1px solid #848484",
-                borderRadius: "7px",
-                marginLeft: isMobile ? " 0vh": "3vh",
-                marginRight: isMobile ? " 0vh": "3vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
-            <Row>
-              <Col className=" text-center mt-2">
-              <img
-                src={"/images/lightgreenLegend.png"}
-                alt=""
-                className="img-fluid "
-              ></img>
-              <label className="m-2">
-                Available
-              </label>
-              </Col>
-              <Col className="text-center mt-2 ">
-              <img
-                src={"/images/greyLegend.png"}
-                alt=""
-                className="img-fluid "
-              ></img>
-              <label  className="m-2" >
-                Not Available
-              </label>
-              </Col>
-            </Row>
-            
             </Modal.Body>
-          {selectedDate && (
-          <Modal.Footer>
-            <Button
-              radius="xl"
-              size={isMobile ? "xs" : "xs"}
-              style={{
-                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                backgroundColor: "#2F9D44",
-                minWidth: "100px",
-              }}
-            >
-              Book Now
-            </Button>
-          </Modal.Footer>
-        )}
+            {selectedDate && (
+              <Modal.Footer>
+                <Button
+                  radius="xl"
+                  size={isMobile ? "xs" : "xs"}
+                  style={{
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    backgroundColor: "#2F9D44",
+                    minWidth: "100px",
+                  }}
+                >
+                  Book Now
+                </Button>
+              </Modal.Footer>
+            )}
           </Modal>
         </div>
       </div>

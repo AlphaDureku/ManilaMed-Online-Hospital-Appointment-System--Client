@@ -37,7 +37,12 @@ export default function FirstPage_Modal(props) {
     const { isVerified } = res.data.data;
     if (isVerified) {
       setShowModal((prev) => ({ ...prev, verification: false }));
-      setShowHistory(true);
+      if (userState.hasHistory) {
+        setShowHistory(true);
+      } else {
+        console.log("No History, go to fill up page");
+        return;
+      }
       // props.setCurrentPage(2);
     } else {
       setError(true);
