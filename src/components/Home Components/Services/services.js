@@ -55,11 +55,10 @@ function Services() {
             </div>
             <div className="container-fluid services-info ">
               <p className="serv-text m-3 pt-1 " id="serv-textid">
-                General Services
+              Doctor Consultation
               </p>
               <p className="serv-sub m-3" id="serv-subid">
-                Offers a wide range of services from diagnosis, theraphy,
-                treatments, laboratory tests, ambulatory and home care.
+              Some representative placeholder content for the first slide.
               </p>
               <div
                 className="d-flex justify-content-end pb-3 m-3 servbutton-container"
