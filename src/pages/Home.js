@@ -8,6 +8,7 @@ import Navbar from "../components/Home Components/Navigation/NavBar";
 import HeaderImg from "../components/Home Components/Hero Section/heroSection";
 import Howto from "../components/Home Components/Howto/Howto";
 import Services from "../components/Home Components/Services/services";
+import Faqs from "../components/FAQS/Faqs";
 
 export default function Home() {
   const [query, setQuery] = useSearchParams({
@@ -80,6 +81,7 @@ export default function Home() {
           />
         }
         {<TrackMe />}
+        {<Faqs/>}
       </div>
     </>
   );

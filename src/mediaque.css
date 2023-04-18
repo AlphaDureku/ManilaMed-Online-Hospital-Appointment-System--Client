@@ -126,7 +126,7 @@
 
 /* For Services */
 
-@media only screen and (min-width: 1064px) and (max-width: 1192px) {
+@media only screen and (min-width: 1064px) and (max-width: 1199px) {
   .services-info {
     max-width: 450px !important;
   }
@@ -139,12 +139,12 @@
     font-size: 14px;
   }
   .services-container {
-    margin: 3vw;
+    margin: 4vw;
     margin-top: 0;
   }
 
   #serv-textid {
-    padding-top: 0.8rem !important;
+    padding-top: 1.5rem !important;
     margin: 0.7rem !important;
   }
 
@@ -158,9 +158,7 @@
 }
 
 @media only screen and (min-width: 510px) and (max-width: 1063px) {
-  .services-info {
-    width: 80vw !important;
-  }
+
 
   .serv-text {
     font-size: 21px;
@@ -175,6 +173,11 @@
     margin-left: 20vh;
     margin-right: 20vh;
   }
+  #serv-textid {
+    padding-top: 1.2rem !important;
+    margin: 0.7rem !important;
+  }
+
 }
 @media only screen and (min-width: 720px) and (max-width: 850px) {
   .services-container {
@@ -188,6 +191,8 @@
     margin: 2vh;
     margin-top: 0;
   }
+  
+  
 }
 
 @media only screen and (max-width: 509px) {
@@ -208,7 +213,7 @@
   }
 
   #serv-textid {
-    padding-top: 0.8rem !important;
+    padding-top: 1rem !important;
     margin: 0.7rem !important;
   }
 
@@ -517,3 +522,182 @@
     width: 50%;
   }
 }
+
+
+/* For Calendar */
+@media only screen and (max-width: 509px) {
+/* Overrides for datepicker */
+
+/* days of the week */
+.mantine-1ttfk34{
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+  font-family: "Montserrat";
+}
+
+.mantine-13utz3y {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* dates */
+.mantine-101mdw0 {
+  font-family: "Montserrat";
+  font-weight: 600;
+  height: 2.2rem;
+  font-size: 15px;
+  margin-bottom: 0.3rem;
+}
+
+/* monthheader*/
+.mantine-1yba8pm{
+  font-family: "Montserrat";
+  font-weight: 600;
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+.mantine-1yba8pm:hover {
+  background: rgba(34, 208, 52, 1);
+}
+/* monthselection*/
+.mantine-1g2a0oc {
+  font-family: "Montserrat";
+  font-weight: 600;
+}
+.mantine-1g2a0oc:hover {
+  background: rgba(34, 208, 52, 1);
+}
+
+/* yearselection*/
+.mantine-1g2a0oc{
+  font-family: "Montserrat";
+  font-weight: 600;
+}
+
+.mantine-1g2a0oc:hover {
+  background: rgba(34, 208, 52, 1);
+}
+
+/* arrows */
+.mantine-oky2eo:hover {
+  background: rgba(34, 208, 52, 1);
+}
+
+
+}
+
+
+@media only screen and (max-width: 280px) and (max-height:653px) {
+.doctor-flexbox-container{
+  height: 70vw;
+  margin: 1.5vw;
+}
+
+/* days of the week */
+.mantine-1ttfk34{
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+  font-family: "Montserrat";
+  font-size: 13px;
+
+}
+
+
+
+/* dates */
+.mantine-101mdw0 {
+  font-family: "Montserrat";
+  font-weight: 600;
+  height: 2.2rem;
+  width:1.7rem;
+  font-size: 12px;
+  margin-bottom: 0.3rem;
+}
+
+/* monthheader*/
+.mantine-1yba8pm{
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+/* monthselection*/
+.mantine-1g2a0oc {
+  font-family: "Montserrat";
+  font-weight: 600;
+  width:4.7rem;
+
+  
+}
+}
+
+@media screen and(min-width:1200px) and  (max-width:1392px) {
+  .servimg{
+    background-size:cover;
+     background-position: center;
+     background-repeat: no-repeat;
+     border-radius: 2.5vh;
+       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+ 
+ }
+ 
+ .carousel-caption {
+   position: absolute;
+   top: 32%;
+   bottom: 30%;
+   left: 5%;
+   padding: 2rem;
+   background: rgba(243, 243, 243, 0.7);
+   border-radius: 1vh;
+   width: 33%; 
+   height: 35%;
+   text-align: justify; 
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+ 
+ }
+ 
+ .serviceCaption{
+   color: rgba(47, 157, 68, 1);
+   font-size: 22px;
+ }
+ 
+ .servicepC{
+   color: rgba(132, 132, 132, 1);
+   font-size: 15px;
+ 
+ }
+ 
+  
+}
+
+@media screen and (min-width:750px)and (max-width: 1300px){
+  .accordion-button{
+    font-size: 14px;
+  }
+
+  .accordion-body{
+    font-size: 14px;
+
+  }
+
+ 
+}
+
+@media screen and (max-width:750px){
+  .accordion-button{
+    font-size: 12px;
+  }
+
+  .accordion-body{
+    font-size: 12px;
+
+  }
+
+
+}
+  
+  
+
+

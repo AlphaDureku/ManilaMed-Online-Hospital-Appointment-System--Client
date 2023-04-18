@@ -1,11 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import axios from "axios";
+import { Button } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 export default function VerificationModal(props) {
+
+    // for responsiveness
+    const smallScreen = useMediaQuery(
+      "(min-width: 701px) and (max-width: 1255px)"
+    );
+    const isMobile = useMediaQuery("(max-width:700px");
+    const buttonwidthS = smallScreen
+      ? "150px"
+      : "100px" | isMobile
+      ? "120px"
+      : "100px";
+      
+
+      
   const [enteredOTP, setEnteredOTP] = useState("");
   const [error, setError] = useState(false);
   let navigate = useNavigate();
@@ -14,6 +29,8 @@ export default function VerificationModal(props) {
     setEnteredOTP(value);
     setError(false);
   };
+
+
 
   const handleClose = () => {
     props.setShow(false);
@@ -48,7 +65,7 @@ export default function VerificationModal(props) {
     if (exist) {
       return (
         <>
-          <Modal.Header closeButton onClick={handleClose}>
+          <Modal.Header  >
             <Modal.Title>Email Verification</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -93,12 +110,23 @@ export default function VerificationModal(props) {
 
     return (
       <>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>No Record</Modal.Title>
         </Modal.Header>
         <Modal.Body>No Record Associated with this Email</Modal.Body>
         <Modal.Footer>
-          <Button className="Search" onClick={handleClose}>
+        <Button
+              radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+              size={isMobile ? "xs" : "sm"}
+            onClick={handleClose}
+            style={{
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              backgroundColor: "rgba(255, 0, 0, 1)",
+              minWidth: buttonwidthS,
+
+
+            }}
+          >
             Close
           </Button>
         </Modal.Footer>
@@ -109,9 +137,23 @@ export default function VerificationModal(props) {
   if (props.loading) {
     return (
       <>
-        <button type="submit" className=" btn-success btn Search-track">
-          Search
-        </button>
+        <div className="mt-4"></div>
+        <Button
+              radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+              size={isMobile ? "xs" : "sm"}
+            type="submit"
+            style={{
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              backgroundColor: "#24B7E9",
+              minWidth: buttonwidthS,
+
+
+            }}
+          >
+            Search
+          </Button>
+          <div className="mt-3"></div>
+
         <Modal
           show={props.show}
           onHide={props.handleClose}
@@ -125,9 +167,25 @@ export default function VerificationModal(props) {
   } else {
     return (
       <>
-        <button type="submit" className=" btn-success btn Search-track">
-          Search
-        </button>
+        <div className="mt-4"></div>
+        <Button
+             radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+             size={isMobile ? "xs" : "sm"}
+            type="submit"
+            style={{
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              backgroundColor: "#24B7E9",
+              minWidth: buttonwidthS,
+
+
+            }}
+          >
+            Search
+          </Button>
+          <div className="mt-3"></div>
+
+
+        
         <Modal
           show={props.show}
           onHide={props.handleClose}

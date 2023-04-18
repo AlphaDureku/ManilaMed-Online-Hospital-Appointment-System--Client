@@ -19,7 +19,7 @@ function HeaderNavbar() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav me-2">
             <Nav className="ms-auto me-4 navitems ">
-              <Nav.Link className="navheader" href="#howto">
+              <Nav.Link className="navheader" href="#Howto">
                 How to
               </Nav.Link>
               <Nav.Link className="navheader" href="#services">

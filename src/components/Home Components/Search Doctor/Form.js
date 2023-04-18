@@ -66,7 +66,7 @@ export default function Form(props) {
     <div className="searchForm-container mt-3">
       <div className="tagtitle mt-4 ">Search a Doctor </div>
 
-      <form className="form-search mb-3 " onSubmit={OnSubmitHander}>
+      <form className="form-search mb-3 formsearchDoctor m-2" onSubmit={OnSubmitHander}>
         <input
           type="text"
           className="form-control searchInput "

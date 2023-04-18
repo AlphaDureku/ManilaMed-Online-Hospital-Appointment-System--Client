@@ -54,14 +54,12 @@ export default function TrackMe() {
   }, [show, loading]);
   return (
     <div className="searchForm-container">
-      <div className="tagtitle ">Tracker</div>
-      <p className="tagtitle--p">
+      <div className="tagtitle mt-4">Tracker</div>
+      <p className="tagtitle--p mt-2 ms-2 me-2">
         Manage and Track your appointment using your Registered Email Address
       </p>
-      <p className="tagtitle--p">
-        <b>Email Address</b>
-      </p>
-      <form className="form-track" onSubmit={OnSubmitHandler}>
+    
+      <form className="form-track " onSubmit={OnSubmitHandler}>
         <input
           className="form-control"
           placeholder="Enter your registered email address"
