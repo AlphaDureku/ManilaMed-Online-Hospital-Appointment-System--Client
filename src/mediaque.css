@@ -19,6 +19,14 @@
   .carousel-inner {
     font-size: 16px;
   }
+  .tagsupport {
+    font-size: 14px;
+  }
+  .Booking--homefooterwave-container,
+  .Booking--footerwave-container {
+    font-size: 12px;
+
+  }
 }
 
 @media only screen and (min-width: 373px) and (max-width: 399px) {
@@ -34,6 +42,17 @@
   .carousel-inner {
     font-size: 15px;
   }
+
+  .tagsupport {
+    font-size: 13px;
+  }
+  .Booking--homefooterwave-container,
+  .Booking--footerwave-container {
+    font-size: 12px;
+
+  }
+
+
 }
 
 @media only screen and (max-width: 372px) {
@@ -49,6 +68,16 @@
   .carousel-inner {
     font-size: 13px;
   }
+
+  .tagsupport {
+    font-size: 12px;
+  }
+  .Booking--homefooterwave-container,
+  .Booking--footerwave-container {
+    font-size: 12px;
+
+  }
+
 }
 
 @media only screen and (min-width: 712px) and (max-width: 1072px) {

@@ -55,7 +55,7 @@ export default function TrackMe() {
   return (
     <div className="searchForm-container">
       <div className="tagtitle mt-4">Tracker</div>
-      <p className="tagtitle--p mt-2 ms-2 me-2">
+      <p className="tagsupport mt-2 ms-2 me-2">
         Manage and Track your appointment using your Registered Email Address
       </p>
     

@@ -8,7 +8,7 @@ function Faqs() {
       <div class="container pb-4 mb-5" >
         <div class="row m-3 pt-4">
           <div class = "tagtitle ">FAQs</div>
-          <p class="tagtitlejunior text-center" >(Frequently Asked Questions)</p>
+          <p class="tagsupport text-center" >(Frequently Asked Questions)</p>
         </div>
         <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">

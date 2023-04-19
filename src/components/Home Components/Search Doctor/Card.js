@@ -11,6 +11,8 @@ export default function Card(props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [setSelectedSchedule] = useState([]);
   const isMobile = useMediaQuery("(max-width: 509px)");
+  const [displayAllHMO, setDisplayAllHMO] = useState(false);
+  
 
   //CardCount Breakpoint
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
@@ -46,12 +48,24 @@ export default function Card(props) {
   // Change page
   const paginate = (pageNumber) => props.setCurrentPage(pageNumber);
 
+
   function getHMO(HMOList) {
-    const newList = HMOList.split(", ");
-    return newList.map((items, index) => {
-      return <span key={index}>{items}</span>;
+    const HMOArray = HMOList.split(",");
+    const maxItems = window.matchMedia("(max-width: 500px)").matches ? 2 : 2;
+    return HMOArray.slice(0, maxItems).map((item, index) => {
+      const trimmedItem = item.trim();
+      const isLastItem = index === maxItems - 1 || index === HMOArray.length - 1;
+      return (
+        <span key={index}>
+          {trimmedItem}
+          {!isLastItem && ", "}
+        </span>
+      );
     });
   }
+  
+
+  
 
   // Individualize Schedule
   function getAssignedSched(doctorID) {
@@ -65,6 +79,8 @@ export default function Card(props) {
     ));
   }
 
+
+
   function doctorNameSpSched(doctorID) {
     setSelectedDoctorId(doctorID);
     open();
@@ -74,6 +90,9 @@ export default function Card(props) {
     );
     setModalDoctorSp(doctor.specialization);
   }
+
+
+  
 
   function handleDateSelect(date) {
     setSelectedDate(date);
@@ -131,7 +150,7 @@ export default function Card(props) {
   function getDayProps(date) {
     const isScheduled = props.schedule.some((sched) => {
       return (
-        date.toDateString() == new Date(sched.date).toDateString() &&
+        date.toDateString() === new Date(sched.date).toDateString() &&
         sched.doctor_ID === selectedDoctorId
       );
     });
@@ -171,8 +190,14 @@ export default function Card(props) {
             </div>
           </div>
           <div className="HMO_Accreditation">
-            <div className="HMO_Head">HMO Accreditation:</div>
-            {getHMO(items.HMO_Name)}
+          <div className="HMO_Head">HMO Accreditation:</div>
+          {getHMO(items.HMO_Name)}
+            <div
+              className="moreHMOB"
+            >
+              ...
+              </div>
+
           </div>
         </div>
         <div className="doctor-flexbox-Avail">
@@ -186,6 +211,7 @@ export default function Card(props) {
                   // Set the selected doctorId to display their individualized schedule
                   setSelectedDoctorId(items.doctor_ID);
                   doctorNameSpSched(items.doctor_ID);
+                  setDisplayAllHMO(items.HMO_Name)
                   // Open the modal
                   open();
                 }}
@@ -258,6 +284,7 @@ export default function Card(props) {
                   <Col className="text-center ms-3 me-2">
                     <div className="doctornameCalendar">{modalDoctorName}</div>
                     <div className="doctorspCalendar">{modalDoctorSp}</div>{" "}
+                     <div className="doctorspCalendar">{displayAllHMO}</div>{" "}
                     <br></br>
                   </Col>
                   <Col className="text-center ms-2 me-3">
