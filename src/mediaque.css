@@ -727,6 +727,42 @@
 
 }
   
+@media screen and (max-width: 700px) {
+
+  .hmoAccLabel,
+  .calendarLabel,
+  .doctornameCalendar,
+  .doctorspCalendar,
+  .legendlabelC
+  {
+   font-size: 15px;
+  }
+
+  .hmoitemsC{
+    font-size: 14px;
+  }
+
+
+}
+
+@media screen and (width:280px) and (height: 653px) {
+
+  .hmoAccLabel,
+  .calendarLabel,
+  .doctornameCalendar,
+  .doctorspCalendar,
+  .legendlabelC
+  {
+   font-size: 14px;
+  }
   
+  .hmoitemsC{
+    font-size: 13px;
+  }
+
+
+
+}
+
 
 

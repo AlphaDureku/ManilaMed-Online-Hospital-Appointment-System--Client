@@ -7,7 +7,7 @@ function Services() {
   const navigate = useNavigate();
 
   return (
-    <div className="Services ">
+    <div id="services ">
       <div className="container ">
       <div className="tagtitle  mt-4">Service </div>
       <div id="carouselExampleSlidesOnly" class="carousel slide mt-5 mb-5 ms-3 me-3" data-bs-ride="carousel" style={{ display: isMobile ? "none" : "block" }}>

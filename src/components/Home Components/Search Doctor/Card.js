@@ -204,8 +204,19 @@ export default function Card(props) {
           {getAssignedSched(items.doctor_ID).length ? (
             <>
               {getAssignedSched(items.doctor_ID)}
-              <div
-                className="moreSchedB"
+              <div className="text-center">
+              <Button 
+              variant="outline" 
+              color="teal" 
+              radius="md"
+              size={isMobile ? "xs" : "sm"}
+              style={{
+                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                color: "#2F9D44",
+                marginTop: "4%", 
+                maxWidth: "130px",
+              }}
+
                 onClick={() => {
                   // Set the selected doctorId to display their individualized schedule
                   setSelectedDoctorId(items.doctor_ID);
@@ -213,11 +224,11 @@ export default function Card(props) {
                   setDisplayAllHMO(items.HMO_Name)
                   // Open the modal
                   open();
-                }}
-              >
-                <br></br>
-                View more
-              </div>
+                }}>
+              View Schedule
+            </Button>
+            </div>
+
             </>
           ) : (
             <div className="noSched">No schedule available</div>
@@ -292,7 +303,7 @@ export default function Card(props) {
                     <br></br>
                   </Col>
                   <Col className="text-center ms-2 me-3">
-                    <div classname="calendarLabel">Selected Schedule: </div>
+                    <div className="calendarLabel">Selected Schedule: </div>
                     <div className="doctordateCalendar">
                       {" "}
                       {formatDate(selectedDate)}
@@ -303,9 +314,9 @@ export default function Card(props) {
                   </Col>
                 </Row>
                 <Row className="text-center ms-3 me-3">
-                  <div classname="hmoAccLabel">HMO Accreditation: </div>
+                  <div className="hmoAccLabel">HMO Accreditation: </div>
                   
-                    <div className="doctorspCalendar">
+                    <div className="hmoitemsC">
                     {formatHMOString(displayAllHMO)}
                       </div>
                   </Row>
@@ -327,6 +338,8 @@ export default function Card(props) {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+
                 }}
               />
               <Row>
@@ -336,7 +349,7 @@ export default function Card(props) {
                     alt=""
                     className="img-fluid "
                   ></img>
-                  <label className="m-2">Available</label>
+                  <label className="legendlabelC m-2">Available</label>
                 </Col>
                 <Col className="text-center mt-2 ">
                   <img
@@ -344,7 +357,7 @@ export default function Card(props) {
                     alt=""
                     className="img-fluid "
                   ></img>
-                  <label className="m-2">Not Available</label>
+                  <label className=" legendlabelC m-2">Not Available</label>
                 </Col>
               </Row>
             </Modal.Body>

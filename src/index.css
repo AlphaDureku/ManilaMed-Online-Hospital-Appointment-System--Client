@@ -366,6 +366,7 @@ select {
   font-size: 3rem;
 }
 
+/*  
 .moreSchedB {
   color: rgba(75, 80, 109, 1);
   font-weight: 600;
@@ -377,6 +378,7 @@ select {
   color: #388440;
   cursor: pointer;
 }
+*/
 
 .moreHMOB {
   color: rgba(75, 80, 109, 1);
@@ -1035,17 +1037,8 @@ select {
   font-size: min(1rem, 3vw);
 }
 
-.doctornameCalendar{
-  font-weight: bold;
-  color: rgba(75, 80, 109, 1);
-  
-
-}
 
 
-.doctorspCalendar{
-  color: rgba(75, 80, 109, 1);
-}
 
 .doctorschedCalendar,
 .doctordateCalendar{
@@ -1053,11 +1046,6 @@ select {
   font-weight:500;
 }
 
-.calendarLabel{
-  font-weight: bold !important;
-
-
-}
 
 .modalCalendarHeader{
   color: #388440;
@@ -1126,4 +1114,31 @@ select {
 .hmoAccLabel{
   color: #388440;
   font-weight: 800;
+
 }
+
+.hmoitemsC{
+  color: rgba(75, 80, 109, 1);
+  font-size: 15px;
+
+}
+
+.calendarLabel{
+  font-weight: 500;
+  color: rgba(75, 80, 109, 1);
+
+}
+
+.doctornameCalendar{
+  font-weight: bold;
+  color: rgba(75, 80, 109, 1);
+
+
+}
+
+.doctorspCalendar,
+.legendlabelC
+{
+  color: rgba(75, 80, 109, 1);
+}
+

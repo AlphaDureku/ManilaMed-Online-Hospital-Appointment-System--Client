@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+
 function HeaderNavbar() {
   return (
     <div className="HeaderNavbar ">
@@ -22,7 +23,7 @@ function HeaderNavbar() {
               <Nav.Link className="navheader" href="#Howto">
                 How to
               </Nav.Link>
-              <Nav.Link className="navheader" href="#services">
+              <Nav.Link className="navheader" href="#Services">
                 Services
               </Nav.Link>
               <Nav.Link className="navheader" href="#searchdocotr">
@@ -38,7 +39,10 @@ function HeaderNavbar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+          
     </div>
+
+    
   );
 }
 
