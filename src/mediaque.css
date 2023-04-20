@@ -346,7 +346,7 @@
   }
   .doctor-flexbox-Avail {
     top: 8%;
-    left: 51%;
+    left: 60%;
   }
   .sched {
     font-size: 0.6rem;
@@ -742,6 +742,10 @@
     font-size: 14px;
   }
 
+  .modalCalendarHeader {
+    font-size: 20px;
+  }
+
 
 }
 
@@ -755,7 +759,7 @@
   {
    font-size: 14px;
   }
-  
+
   .hmoitemsC{
     font-size: 13px;
   }

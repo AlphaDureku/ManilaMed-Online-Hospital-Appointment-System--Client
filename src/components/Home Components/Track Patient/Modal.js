@@ -5,6 +5,7 @@ import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import axios from "axios";
 import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { CloseButton } from "react-bootstrap";
 
 export default function VerificationModal(props) {
 
@@ -67,6 +68,8 @@ export default function VerificationModal(props) {
         <>
           <Modal.Header  >
             <Modal.Title>Email Verification</Modal.Title>
+            <CloseButton onClick={handleClose}></CloseButton>
+
           </Modal.Header>
           <Modal.Body>
             <div className="modal-body text-center">
@@ -112,6 +115,7 @@ export default function VerificationModal(props) {
       <>
         <Modal.Header>
           <Modal.Title>No Record</Modal.Title>
+          <CloseButton onClick={handleClose}></CloseButton>
         </Modal.Header>
         <Modal.Body>No Record Associated with this Email</Modal.Body>
         <Modal.Footer>

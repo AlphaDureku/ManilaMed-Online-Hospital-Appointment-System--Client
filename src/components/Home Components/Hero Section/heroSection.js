@@ -1,5 +1,13 @@
 import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { scroller } from "react-scroll";
+const handleClick = (componentId) => {
+  scroller.scrollTo(componentId, {
+    smooth: true,
+    offset: -50,
+    duration: 100,
+  });
+};
 
 function HeaderImg() {
   const isMobile = useMediaQuery("(max-width: 470px)");
@@ -16,6 +24,7 @@ function HeaderImg() {
             size={isMobile ? "sm" : "md"}
             color=""
             className="headerbutton"
+            onClick={() =>handleClick("Services")}
             styles={(headerbuttontheme) => ({
               root: {
                 backgroundColor: "#24B7E9",

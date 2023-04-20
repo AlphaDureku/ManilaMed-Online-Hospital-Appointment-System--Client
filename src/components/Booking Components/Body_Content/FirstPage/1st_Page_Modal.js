@@ -4,6 +4,7 @@ import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import PatientCard from "./Patient--Card";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { CloseButton } from "react-bootstrap";
 
 export default function FirstPage_Modal(props) {
   const userState = useContext(userContext);
@@ -55,8 +56,9 @@ export default function FirstPage_Modal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton onClick={OnCloseHandler}>
+      <Modal.Header  >
         <Modal.Title>Email Verification</Modal.Title>
+        <CloseButton className="customCloseB" onClick={OnCloseHandler}/>
       </Modal.Header>
       <Modal.Body>
         <div className="modal-body text-center">

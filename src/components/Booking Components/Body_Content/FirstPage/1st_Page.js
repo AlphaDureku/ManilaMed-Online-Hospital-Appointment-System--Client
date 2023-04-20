@@ -1,18 +1,28 @@
-import { Button } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import {  useMediaQuery } from "@mantine/hooks";
 import { useState, useMemo, useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { Modal, CloseButton } from "react-bootstrap";
+import {Button} from "@mantine/core";
 import FirstPage_Modal from "./1st_Page_Modal";
 import axios from "axios";
-
 export const userContext = createContext();
 
 export default function FirstPage(props) {
   const navigate = useNavigate();
-  const breakPoint = useMediaQuery("(max-width: 800px)");
+    // for responsiveness
+    const smallScreen = useMediaQuery(
+      "(min-width: 701px) and (max-width: 1255px)"
+    );
+    const isMobile = useMediaQuery("(max-width:700px");
+    const buttonwidthS = smallScreen
+      ? "150px"
+      : "100px" | isMobile
+      ? "120px"
+      : "100px";
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
   const [email, setEmail] = useState({ email: "", isChecked: false });
   const [isValid, setIsValid] = useState(null);
+  const [showTermsModal, setShowTermsModal] = useState(false);
   const [showModal, setShowModal] = useState({
     verification: false,
     history: false,
@@ -24,6 +34,14 @@ export default function FirstPage(props) {
     historyPatients: null,
   });
 
+
+  const handleOpenTerms = () => {
+    setShowTermsModal(true);
+  };
+
+  const handleCloseTerms = () => {
+    setShowTermsModal(false);
+  };
   //Check valid email
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -60,6 +78,7 @@ export default function FirstPage(props) {
   // Render Modals
   const modalElement = useMemo(() => {
     return (
+      <>
       <userContext.Provider value={userState}>
         <FirstPage_Modal
           showModal={showModal}
@@ -69,9 +88,14 @@ export default function FirstPage(props) {
           setCurrentPage={props.setCurrentPage}
         />
       </userContext.Provider>
+     
+      </>
     );
   }, [showModal]);
 
+  
+       
+  
   return (
     <>
       <div className="FirstPage--body-wrapper">
@@ -122,39 +146,76 @@ export default function FirstPage(props) {
               ></input>
               <label htmlFor="terms">
                 {" "}
-                I agree to the{" "}
-                <span style={{ color: "#2F9D44" }}>Terms & Conditions.</span>
               </label>
+              <label>
+              I agree to the{" "}
+                <span  className="termsandcond"
+                onClick={handleOpenTerms}
+                >Terms & Conditions.</span>
+              </label>
+           
             </div>
             <div className="FirstPage--buttonRow">
               <Button
                 onClick={() => {
                   navigate(-1);
                 }}
-                style={{
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  backgroundColor: "#FF0000",
-                  fontSize: breakPoint ? "0.7rem" : "1rem",
-                }}
+              radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+              size={isMobile ? "xs" : "sm"}
+              style={{
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              backgroundColor: "#FF0000",
+              minWidth: buttonwidthS,
+
+            }}
               >
                 Back
               </Button>
               <Button
                 type="submit"
                 onSubmit={OnSubmitHandler}
-                style={{
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  backgroundColor: "#24B7E9",
-                  fontSize: breakPoint ? "0.7em" : "1rem",
-                }}
+                radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+                size={isMobile ? "xs" : "sm"}
+               style={{
+                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                 backgroundColor: "#24B7E9",
+                 minWidth: buttonwidthS,
+   
+               }}
               >
                 Proceed
               </Button>
             </div>
           </form>
         </div>
+       
       </div>
       <div>{modalElement}</div>
+      <Modal show={showTermsModal} centered>
+      <Modal.Header>
+        <Modal.Title>Terms & Condition</Modal.Title>
+        <CloseButton onClick={handleCloseTerms}></CloseButton>
+      </Modal.Header>
+      <Modal.Body>No Record Associated with this Email</Modal.Body>
+      <Modal.Footer>
+          <Button
+             radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+             size={isMobile ? "xs" : "sm"}
+            style={{
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              backgroundColor: "#FF0000",
+              minWidth: buttonwidthS,
+
+            }}
+            onClick={handleCloseTerms}
+          >
+            Close
+          </Button>
+      </Modal.Footer>
+    </Modal>
+    
+      
+    
     </>
   );
 }

@@ -9,7 +9,6 @@ import { Modal, Row, Col } from "react-bootstrap";
 export default function Card(props) {
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [setSelectedSchedule] = useState([]);
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [displayAllHMO, setDisplayAllHMO] = useState("");
 
@@ -93,7 +92,6 @@ export default function Card(props) {
       return date.toDateString() === new Date(sched.day).toDateString();
     });
 
-    setSelectedSchedule(schedules);
   }
 
   const formatDate = (date) => {
@@ -202,6 +200,7 @@ export default function Card(props) {
                     color: "#2F9D44",
                     marginTop: "4%",
                     maxWidth: "130px",
+                   
                   }}
                   onClick={() => {
                     // Set the selected doctorId to display their individualized schedule
@@ -273,7 +272,6 @@ export default function Card(props) {
             }}
             centered
             backdrop="static"
-            keyboard={false}
           >
             <Modal.Header className="mb-1 " closeButton>
               <Modal.Title className="ms-auto ps-4 modalCalendarHeader">
