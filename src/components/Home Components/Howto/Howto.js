@@ -1,6 +1,6 @@
 function Howto() {
   return (
-    <div className="Howto ">
+    <div className="Howto" id="HowTo">
       <div className="container-fluid pb-4 mb-2 " id="howtobg">
         <div className="row p-4 mb-4  ">
           <div className="tagtitle mt-2 ">How to set an Appointment </div>

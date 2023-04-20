@@ -63,10 +63,13 @@ export default function Form(props) {
 
   //Render
   return (
-    <div className="searchForm-container mt-3">
+    <div className="searchForm-container mt-3" id="SearchDoctor">
       <div className="tagtitle mt-4 ">Search a Doctor </div>
 
-      <form className="form-search mb-3 formsearchDoctor m-2" onSubmit={OnSubmitHander}>
+      <form
+        className="form-search mb-3 formsearchDoctor m-2"
+        onSubmit={OnSubmitHander}
+      >
         <input
           type="text"
           className="form-control searchInput "
