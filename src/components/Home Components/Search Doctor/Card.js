@@ -11,9 +11,8 @@ export default function Card(props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [setSelectedSchedule] = useState([]);
   const isMobile = useMediaQuery("(max-width: 509px)");
-  const [displayAllHMO, setDisplayAllHMO] = useState(false);
-  
-
+  const [displayAllHMO, setDisplayAllHMO] = useState('');
+ 
   //CardCount Breakpoint
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
   let cardsPerPage = 9;
@@ -63,7 +62,7 @@ export default function Card(props) {
       );
     });
   }
-  
+
 
   
 
@@ -228,6 +227,12 @@ export default function Card(props) {
     </div>
   ));
 
+  function formatHMOString(displayAllHMO) {
+    const hmoArray = displayAllHMO.split(',');
+    const hmoString = hmoArray.join(', ');
+    return hmoString;
+  }
+  
   //To remove the previously selected date
   useEffect(() => {
     if (!openModal) {
@@ -279,12 +284,11 @@ export default function Card(props) {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div className="mb-1">
+              <div className="mb-3">
                 <Row>
                   <Col className="text-center ms-3 me-2">
                     <div className="doctornameCalendar">{modalDoctorName}</div>
                     <div className="doctorspCalendar">{modalDoctorSp}</div>{" "}
-                     <div className="doctorspCalendar">{displayAllHMO}</div>{" "}
                     <br></br>
                   </Col>
                   <Col className="text-center ms-2 me-3">
@@ -298,6 +302,13 @@ export default function Card(props) {
                     </div>
                   </Col>
                 </Row>
+                <Row className="text-center ms-3 me-3">
+                  <div classname="hmoAccLabel">HMO Accreditation: </div>
+                  
+                    <div className="doctorspCalendar">
+                    {formatHMOString(displayAllHMO)}
+                      </div>
+                  </Row>
               </div>
 
               <DatePicker

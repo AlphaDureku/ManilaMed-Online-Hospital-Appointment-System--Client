@@ -1038,8 +1038,10 @@ select {
 .doctornameCalendar{
   font-weight: bold;
   color: rgba(75, 80, 109, 1);
+  
 
 }
+
 
 .doctorspCalendar{
   color: rgba(75, 80, 109, 1);
@@ -1102,7 +1104,6 @@ select {
 }
 
 
-
 /* FAQS */
 .accordion-button,
 .accordion-button:focus {
@@ -1120,4 +1121,9 @@ select {
 
 .accordion-button:not(.collapsed) {
     background-color: rgba(36, 183, 233, 0.15);
+}
+
+.hmoAccLabel{
+  color: #388440;
+  font-weight: 800;
 }
