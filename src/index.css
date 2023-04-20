@@ -88,8 +88,7 @@ body {
   margin-top: 1vw;
   margin-left: 1vw;
   margin-right: 1vw;
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: "Montserrat", sans-serif;
 }
 
 .floatinginfodescription {
@@ -120,11 +119,10 @@ body {
   text-align: center;
   font-size: 30px;
   font-weight: 600;
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: "Montserrat", sans-serif;
 }
 
-.tagsupport{
+.tagsupport {
   color: #848484;
   font-weight: 500;
   text-align: center;
@@ -155,8 +153,7 @@ body {
   font-weight: 600;
   font-size: 24px;
   color: #2f9d44;
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: "Montserrat", sans-serif;
 }
 
 .serv-sub {
@@ -385,7 +382,6 @@ select {
   font-weight: 600;
   font-size: 0.85rem;
 }
-
 
 /*Home--Tracker*/
 .TrackAtHome--buttonRow {
@@ -858,7 +854,6 @@ select {
   justify-content: center;
   align-items: center;
   color: rgba(97, 134, 101, 1);
-
 }
 
 .Booking--homefooterwave-container {
@@ -868,10 +863,8 @@ select {
   background: linear-gradient(360deg, #00c2ff, #5addee, #cbffd9);
   height: 12vh;
   width: 100%;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: rgba(97, 134, 101, 1);
-
- 
 }
 .FirstPage--body-wrapper {
   display: flex;
@@ -1037,33 +1030,27 @@ select {
   font-size: min(1rem, 3vw);
 }
 
-
-
-
 .doctorschedCalendar,
-.doctordateCalendar{
+.doctordateCalendar {
   color: #388440;
-  font-weight:500;
+  font-weight: 500;
 }
 
-
-.modalCalendarHeader{
+.modalCalendarHeader {
   color: #388440;
   font-weight: bold;
-
 }
 
 .hiddenCalendarFooter {
   display: none;
 }
 
-.servimg{
-   background-size:cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 2.5vh;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
+.servimg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 2.5vh;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .carousel-caption {
@@ -1072,73 +1059,64 @@ select {
   bottom: 30%;
   left: 5%;
   padding: 2rem;
-  background: rgba(243, 243, 243, 0.7);  border-radius: 1vh;
-  width: 33%; 
+  background: rgba(243, 243, 243, 0.7);
+  border-radius: 1vh;
+  width: 33%;
   height: 35%;
-  text-align: justify; 
+  text-align: justify;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
 }
 
-.serviceCaption{
+.serviceCaption {
   color: rgba(47, 157, 68, 1);
   font-size: 24px;
 }
 
-.servicepC{
+.servicepC {
   color: rgba(132, 132, 132, 1);
   font-size: 17px;
-
 }
-
 
 /* FAQS */
 .accordion-button,
 .accordion-button:focus {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    border-color: rgba(56, 132, 64, 1);
-    box-shadow: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border-color: rgba(56, 132, 64, 1);
+  box-shadow: none;
 }
 
 .accordion-item {
-    border-color: rgba(56, 132, 64, 1);
-    border-width: 2px;
+  border-color: rgba(56, 132, 64, 1);
+  border-width: 2px;
 }
 
 .accordion-button:not(.collapsed) {
-    background-color: rgba(36, 183, 233, 0.15);
+  background-color: rgba(36, 183, 233, 0.15);
 }
 
-.hmoAccLabel{
+.hmoAccLabel {
   color: #388440;
   font-weight: 800;
-
 }
 
-.hmoitemsC{
+.hmoitemsC {
   color: rgba(75, 80, 109, 1);
   font-size: 15px;
-
 }
 
-.calendarLabel{
+.calendarLabel {
   font-weight: 500;
   color: rgba(75, 80, 109, 1);
-
 }
 
-.doctornameCalendar{
+.doctornameCalendar {
   font-weight: bold;
   color: rgba(75, 80, 109, 1);
-
-
 }
 
 .doctorspCalendar,
-.legendlabelC
-{
+.legendlabelC {
   color: rgba(75, 80, 109, 1);
 }
-
