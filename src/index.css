@@ -1121,19 +1121,15 @@ select {
   color: rgba(75, 80, 109, 1);
 }
 
-
-.termsandcond{
-  color: #2F9D44;
+.termsandcond {
+  color: #2f9d44;
   cursor: pointer;
   font-weight: bold;
-
 }
 
-.termsandcond:active{
+.termsandcond:active {
   color: #000;
-
 }
 
-.customCloseB{
-
+.customCloseB {
 }
