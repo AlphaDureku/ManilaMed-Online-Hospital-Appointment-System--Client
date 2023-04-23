@@ -1,10 +1,10 @@
-import { useMediaQuery } from "@mantine/hooks";
-import { useState, useMemo, useContext, createContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Modal, CloseButton } from "react-bootstrap";
 import { Button } from "@mantine/core";
-import FirstPage_Modal from "./1st_Page_Modal";
+import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
+import { createContext, useContext, useMemo, useState } from "react";
+import { CloseButton, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import FirstPage_Modal from "./1st_Page_Modal";
 export const userContext = createContext();
 
 export default function FirstPage(props) {

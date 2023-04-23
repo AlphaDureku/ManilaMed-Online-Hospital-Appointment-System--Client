@@ -1,6 +1,8 @@
+import { Button } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
-import { useState, useEffect, useMemo } from "react";
-import VerificationModal from "./Modal";
+import { useEffect, useMemo, useState } from "react";
+import Modal from "./Modal";
 export default function TrackMe() {
   const [user, setUser] = useState({ email: "", user_ID: "" });
   const [show, setShow] = useState(false);
@@ -28,6 +30,15 @@ export default function TrackMe() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submit]);
 
+  const smallScreen = useMediaQuery(
+    "(min-width: 701px) and (max-width: 1255px)"
+  );
+  const isMobile = useMediaQuery("(max-width:700px");
+  const buttonwidthS = smallScreen
+    ? "150px"
+    : "100px" | isMobile
+    ? "120px"
+    : "100px";
   function OnChangeHandler(event) {
     const { name, value } = event.target;
     setUser((prev) => ({ ...prev, [name]: value }));
@@ -39,7 +50,7 @@ export default function TrackMe() {
   }
   const modalElement = useMemo(() => {
     return (
-      <VerificationModal
+      <Modal
         show={show}
         setShow={setShow}
         OnSubmitHandler={OnSubmitHandler}
@@ -69,6 +80,19 @@ export default function TrackMe() {
           required
         ></input>
         <div>{modalElement}</div>
+        <Button
+          radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+          size={isMobile ? "xs" : "sm"}
+          type="submit"
+          style={{
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "#24B7E9",
+            minWidth: buttonwidthS,
+            margin: "3%",
+          }}
+        >
+          Search
+        </Button>
       </form>
     </div>
   );

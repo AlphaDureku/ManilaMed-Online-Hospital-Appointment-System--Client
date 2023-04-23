@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
-import { userContext } from "./1st_Page";
-import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import PatientCard from "./Patient--Card";
-import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { useContext, useState } from "react";
 import { CloseButton } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
+import VerificationModal from "../../../Reusable_Components/Verification_Modal";
+import { userContext } from "./1st_Page";
+import PatientCard from "./Patient--Card";
 
 export default function FirstPage_Modal(props) {
   const userState = useContext(userContext);
@@ -49,57 +50,6 @@ export default function FirstPage_Modal(props) {
       setError(true);
     }
   };
-  // Start of User OTP verification
-  const VerificationModal = (
-    <Modal
-      show={showModal.verification}
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header  >
-        <Modal.Title>Email Verification</Modal.Title>
-        <CloseButton className="customCloseB" onClick={OnCloseHandler}/>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="modal-body text-center">
-          <label className="modal-form">
-            (OTP) One Time Password has been sent to
-          </label>
-          <br></br>
-          <p>Please Enter (6) digit code to complete your verification.</p>
-          <div className=" otp-form">
-            <input
-              type="text"
-              className="form-control otp-input"
-              name="enteredOTP"
-              onChange={OnchangeHandler}
-              value={input.enteredOTP}
-            />
-          </div>
-          {error && (
-            <label
-              className="shake-error pt-3"
-              style={{ color: "red", fontWeight: "600" }}
-            >
-              Incorrect OTP PIN, please try again.
-            </label>
-          )}
-          <br></br>
-          <label className="label pt-2">OTP is valid for 3 minutes</label>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <div className="OTP_buttonRow">
-          <BackProceed
-            OnCloseHandler={OnCloseHandler}
-            OnSubmitHandler={OnSubmitHandler}
-            redButtonText={"Cancel"}
-            blueButtonText={"Proceed"}
-          />
-        </div>
-      </Modal.Footer>
-    </Modal>
-  );
 
   // Start of User Patient History Modal
   const HistoryModal = (
@@ -139,7 +89,15 @@ export default function FirstPage_Modal(props) {
 
   return (
     <>
-      {VerificationModal}
+      <VerificationModal
+        show={showModal.verification}
+        OnCloseHandler={OnCloseHandler}
+        email={props.email}
+        OnchangeHandler={OnchangeHandler}
+        entered_OTP={input.enteredOTP}
+        error={error}
+        OnSubmitHandler={OnSubmitHandler}
+      />
       {HistoryModal}
     </>
   );

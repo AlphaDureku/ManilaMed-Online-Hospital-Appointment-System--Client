@@ -1,15 +1,15 @@
-import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import Form from "../components/Home Components/Search Doctor/Form";
-import Card from "../components/Home Components/Search Doctor/Card";
-import TrackMe from "../components/Home Components/Track Patient/Form";
-import Navbar from "../components/Home Components/Navigation/NavBar";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import HomeFooter from "../components/Booking Components/Footer/HomeFooter";
+import Faqs from "../components/Home Components/FAQS/Faqs";
 import HeaderImg from "../components/Home Components/Hero Section/heroSection";
 import Howto from "../components/Home Components/Howto/Howto";
+import Navbar from "../components/Home Components/Navigation/NavBar";
+import Card from "../components/Home Components/Search Doctor/Card";
+import Form from "../components/Home Components/Search Doctor/Form";
 import Services from "../components/Home Components/Services/services";
-import Faqs from "../components/Home Components/FAQS/Faqs";
-import HomeFooter from "../components/Booking Components/Footer/HomeFooter";
+import TrackMe from "../components/Home Components/Track Patient/Form";
 
 export default function Home() {
   const [query, setQuery] = useSearchParams({
@@ -82,8 +82,8 @@ export default function Home() {
           />
         }
         {<TrackMe />}
-        {<Faqs/>}
-        {<HomeFooter/>}
+        {<Faqs />}
+        {<HomeFooter />}
       </div>
     </>
   );

@@ -1,8 +1,8 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Booking from "./pages/Booking";
-import Track from "./pages/Tracking";
+import { Route, Routes } from "react-router-dom";
 import Admin from "./pages/Admin";
+import Booking from "./pages/Booking";
+import Home from "./pages/Home";
+import Track from "./pages/Tracking";
 
 export default function App() {
   return (
