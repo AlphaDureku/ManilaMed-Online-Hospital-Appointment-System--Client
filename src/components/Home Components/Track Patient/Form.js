@@ -3,16 +3,27 @@ import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
+
 export default function TrackMe() {
   const [user, setUser] = useState({ email: "", user_ID: "" });
   const [show, setShow] = useState(false);
   const [submit, setSubmit] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [verify, setVerify] = useState({
     exist: false,
     otp: "",
     verified: false,
   });
-  const [loading, setLoading] = useState(true);
+
+  const smallScreen = useMediaQuery(
+    "(min-width: 701px) and (max-width: 1255px)"
+  );
+  const isMobile = useMediaQuery("(max-width:700px");
+  const buttonwidthS = smallScreen
+    ? "150px"
+    : "100px" | isMobile
+    ? "120px"
+    : "100px";
 
   useEffect(() => {
     setLoading(true);
@@ -30,15 +41,6 @@ export default function TrackMe() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submit]);
 
-  const smallScreen = useMediaQuery(
-    "(min-width: 701px) and (max-width: 1255px)"
-  );
-  const isMobile = useMediaQuery("(max-width:700px");
-  const buttonwidthS = smallScreen
-    ? "150px"
-    : "100px" | isMobile
-    ? "120px"
-    : "100px";
   function OnChangeHandler(event) {
     const { name, value } = event.target;
     setUser((prev) => ({ ...prev, [name]: value }));

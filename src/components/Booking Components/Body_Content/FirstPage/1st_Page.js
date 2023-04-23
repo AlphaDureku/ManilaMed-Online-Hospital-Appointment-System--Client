@@ -1,14 +1,13 @@
 import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import { CloseButton, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import FirstPage_Modal from "./1st_Page_Modal";
+import FirstPageModal from "./1st_Page_Modal";
 export const userContext = createContext();
 
 export default function FirstPage(props) {
-  const navigate = useNavigate();
   // for responsiveness
   const smallScreen = useMediaQuery(
     "(min-width: 701px) and (max-width: 1255px)"
@@ -20,7 +19,11 @@ export default function FirstPage(props) {
     ? "120px"
     : "100px";
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
+  const breakPoint = useMediaQuery("(max-width: 800px)");
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState({ email: "", isChecked: false });
+  const [loading, setLoading] = useState(false);
   const [isValid, setIsValid] = useState(null);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [showModal, setShowModal] = useState({
@@ -55,6 +58,7 @@ export default function FirstPage(props) {
     }));
   }
   async function OnSubmitHandler(event) {
+    setLoading(true);
     event.preventDefault();
     if (!isValidEmail(email.email)) {
       setIsValid(false);
@@ -65,6 +69,9 @@ export default function FirstPage(props) {
         },
       });
       const { data } = res.data.data;
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
       setUserState((prev) => ({
         ...prev,
         otp: data.OTP,
@@ -74,13 +81,15 @@ export default function FirstPage(props) {
       setShowModal((prev) => ({ ...prev, verification: true }));
     }
   }
+
   // Render Modals
   const modalElement = useMemo(() => {
     return (
       <>
         <userContext.Provider value={userState}>
-          <FirstPage_Modal
+          <FirstPageModal
             showModal={showModal}
+            loading={loading}
             setuserState={setUserState}
             setShowModal={setShowModal}
             email={email.email}
@@ -89,7 +98,7 @@ export default function FirstPage(props) {
         </userContext.Provider>
       </>
     );
-  }, [showModal]);
+  }, [showModal, loading]);
 
   return (
     <>
@@ -151,12 +160,10 @@ export default function FirstPage(props) {
                 onClick={() => {
                   navigate(-1);
                 }}
-                radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
-                size={isMobile ? "xs" : "sm"}
                 style={{
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   backgroundColor: "#FF0000",
-                  minWidth: buttonwidthS,
+                  fontSize: breakPoint ? "0.7rem" : "1rem",
                 }}
               >
                 Back
@@ -164,12 +171,10 @@ export default function FirstPage(props) {
               <Button
                 type="submit"
                 onSubmit={OnSubmitHandler}
-                radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
-                size={isMobile ? "xs" : "sm"}
                 style={{
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   backgroundColor: "#24B7E9",
-                  minWidth: buttonwidthS,
+                  fontSize: breakPoint ? "0.7em" : "1rem",
                 }}
               >
                 Proceed

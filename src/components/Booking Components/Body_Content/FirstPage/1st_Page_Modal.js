@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import VerificationModal from "../../../Reusable_Components/Verification_Modal";
@@ -36,6 +35,7 @@ export default function FirstPage_Modal(props) {
         inputOTP: input.enteredOTP,
       },
     });
+
     const { isVerified } = res.data.data;
     if (isVerified) {
       setShowModal((prev) => ({ ...prev, verification: false }));
@@ -87,6 +87,20 @@ export default function FirstPage_Modal(props) {
     </Modal>
   );
 
+  if (props.loading) {
+    return (
+      <>
+        <Modal
+          show={showModal.verification}
+          onHide={OnCloseHandler}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <img src="/images/manilamed-loading.gif" alt=""></img>
+        </Modal>
+      </>
+    );
+  }
   return (
     <>
       <VerificationModal
