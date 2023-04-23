@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import HomeFooter from "../components/Booking Components/Footer/HomeFooter";
 import Faqs from "../components/Home Components/FAQS/Faqs";
+import HomeFooter from "../components/Home Components/Footer/HomeFooter";
 import HeaderImg from "../components/Home Components/Hero Section/heroSection";
 import Howto from "../components/Home Components/Howto/Howto";
 import Navbar from "../components/Home Components/Navigation/NavBar";

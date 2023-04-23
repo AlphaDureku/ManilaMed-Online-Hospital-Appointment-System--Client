@@ -1,6 +1,6 @@
-export default function Footer() {
+export default function HomeFooter() {
   return (
-    <footer className="Booking--footerwave-container ">
+    <footer className="Booking--homefooterwave-container ">
       <div className="text-center ">
         @Copyright {new Date().getFullYear()} | Manila Med | All rights Reserved
       </div>
