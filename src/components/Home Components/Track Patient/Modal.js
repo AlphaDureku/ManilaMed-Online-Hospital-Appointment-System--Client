@@ -13,11 +13,7 @@ export default function HomeModal(props) {
     "(min-width: 701px) and (max-width: 1255px)"
   );
   const isMobile = useMediaQuery("(max-width:700px");
-  const buttonwidthS = smallScreen
-    ? "150px"
-    : "100px" | isMobile
-    ? "120px"
-    : "100px";
+
 
   const [enteredOTP, setEnteredOTP] = useState("");
   const [error, setError] = useState(false);
@@ -84,20 +80,7 @@ export default function HomeModal(props) {
               <CloseButton onClick={OnCloseHandler}></CloseButton>
             </Modal.Header>
             <Modal.Body>No Record Associated with this Email</Modal.Body>
-            <Modal.Footer>
-              <Button
-                radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
-                size={isMobile ? "xs" : "sm"}
-                onClick={OnCloseHandler}
-                style={{
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  backgroundColor: "rgba(255, 0, 0, 1)",
-                  minWidth: buttonwidthS,
-                }}
-              >
-                Close
-              </Button>
-            </Modal.Footer>
+          
           </Modal>
         </>
       );

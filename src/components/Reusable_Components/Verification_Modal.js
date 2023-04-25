@@ -1,9 +1,17 @@
 import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import BackProceed from "./Buttons--BackProceed";
+import BackProceed from "./Buttons--BackProceed"
 
 export default function VerificationModal(props) {
+  
+      
+  
+
   return (
+
+  
+    <>
+    
     <Modal
       show={props.show}
       aria-labelledby="contained-modal-title-vcenter"
@@ -53,5 +61,7 @@ export default function VerificationModal(props) {
         </div>
       </Modal.Footer>
     </Modal>
+    </>
   );
+  
 }

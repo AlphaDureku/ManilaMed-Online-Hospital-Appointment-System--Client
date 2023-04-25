@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import FirstPageModal from "./1st_Page_Modal";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 
+
+
 export const userContext = createContext();
 
 export default function FirstPage(props) {
@@ -53,6 +55,10 @@ export default function FirstPage(props) {
   const handleCloseTerms = () => {
     setShowTermsModal(false);
   };
+
+ 
+ 
+
   //Check valid email
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -90,6 +96,8 @@ export default function FirstPage(props) {
       setShowModal((prev) => ({ ...prev, verification: true }));
     }
   }
+
+
 
   // Render Modals
   const modalElement = useMemo(() => {
@@ -252,4 +260,6 @@ export default function FirstPage(props) {
       </Modal>
     </>
   );
+
 }
+
