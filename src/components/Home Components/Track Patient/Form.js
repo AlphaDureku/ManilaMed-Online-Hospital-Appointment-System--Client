@@ -83,7 +83,7 @@ export default function TrackMe() {
         ></input>
         <div>{modalElement}</div>
         <Button
-          radius={smallScreen ? "md" : "xl" | isMobile ? "md" : "xl"}
+          radius="xl"
           size={isMobile ? "xs" : "sm"}
           type="submit"
           style={{

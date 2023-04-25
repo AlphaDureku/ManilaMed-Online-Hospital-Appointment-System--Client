@@ -530,7 +530,7 @@
   }
   .FirstPage--buttonRow {
     margin: 20% auto 0 auto;
-    width: 90%;
+    width: 70%;
   }
 
   picture img {
@@ -766,6 +766,25 @@
 
 
 
+}
+
+@media screen and (max-width:700px){
+  .greetingTerms{
+    font-size: 12px;
+  }
+  
+  .wordlistterms{
+    font-size: 12px;
+
+  }
+
+  .FirstPage--buttonRow > button:nth-child(1),
+  .FirstPage--buttonRow > button:nth-child(2),
+  .OTP_buttonRow > button,
+  .TrackAtHome--buttonRow > button
+  {
+    font-size: 12px;
+  }
 }
 
 

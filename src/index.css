@@ -396,7 +396,6 @@ select {
   margin: 0 auto;
   border-radius: 20px;
   width: 45%;
-  font-size: min(1rem, 3vw);
 }
 
 /*!Track Me*/
@@ -941,7 +940,6 @@ select {
   border-radius: 20px;
   width: 40%;
   margin-right: 5%;
-  font-size: min(1rem, 2.5vw);
 }
 
 .FirstPage--buttonRow > button:nth-child(2) {
@@ -949,7 +947,6 @@ select {
   border: none;
   border-radius: 20px;
   width: 40%;
-  font-size: min(1rem, 2.5vw);
 }
 
 .Options_H2 {
@@ -1027,7 +1024,6 @@ select {
   margin: 0 auto;
   border-radius: 20px;
   width: 45%;
-  font-size: min(1rem, 3vw);
 }
 
 .doctorschedCalendar,
@@ -1131,5 +1127,16 @@ select {
   color: #000;
 }
 
-.customCloseB {
+.greetingTerms{
+  text-align: justify;
+}
+
+.wordlistterms{
+  text-align: justify;
+  margin: 2%;
+}
+
+.numberlistedTerms{
+  font-weight: bold;
+  margin-right: 5px ;
 }
