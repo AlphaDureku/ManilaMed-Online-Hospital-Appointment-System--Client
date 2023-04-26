@@ -14,7 +14,6 @@ export default function HomeModal(props) {
   );
   const isMobile = useMediaQuery("(max-width:700px");
 
-
   const [enteredOTP, setEnteredOTP] = useState("");
   const [error, setError] = useState(false);
   let navigate = useNavigate();
@@ -53,18 +52,24 @@ export default function HomeModal(props) {
     setError(true);
     return;
   };
-
+  async function reSendOTP() {
+    const res = await axios.post("/trackMe", { email: props.user.email });
+    if (res.data) {
+      alert("Success");
+    }
+  }
   function check(exist) {
     if (exist) {
       return (
         <VerificationModal
           show={props.show}
           OnCloseHandler={OnCloseHandler}
+          leftButton={reSendOTP}
+          rightButton={OnSubmitHandler}
           email={props.user.email}
           OnchangeHandler={OnchangeHandler}
           entered_OTP={enteredOTP}
           error={error}
-          OnSubmitHandler={OnSubmitHandler}
         />
       );
     } else {
@@ -80,7 +85,6 @@ export default function HomeModal(props) {
               <CloseButton onClick={OnCloseHandler}></CloseButton>
             </Modal.Header>
             <Modal.Body>No Record Associated with this Email</Modal.Body>
-          
           </Modal>
         </>
       );

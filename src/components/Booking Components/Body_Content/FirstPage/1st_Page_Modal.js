@@ -22,7 +22,7 @@ export default function FirstPage_Modal(props) {
     setShowHistory(false);
   }
   function OnSubmitHandler_History() {
-    console.log("");
+    props.setCurrentPage(2);
   }
   function OnchangeHandler(event) {
     setError(false);
@@ -68,7 +68,7 @@ export default function FirstPage_Modal(props) {
         <form className="radio-form">
           <PatientCard />
           <label className="radioLabel">
-            <input type="radio" name="patientName"></input>
+            <input type="radio" name="patientName" value={0}></input>
             <div>Booking for others</div>
           </label>
         </form>
@@ -77,8 +77,8 @@ export default function FirstPage_Modal(props) {
         {" "}
         <div className="Options_buttonRow">
           <BackProceed
-            OnCloseHandler={OnCloseHandler_History}
-            OnSubmitHandler={OnSubmitHandler_History}
+            leftButton={OnCloseHandler_History}
+            rightButton={OnSubmitHandler_History}
             redButtonText={"Cancel"}
             blueButtonText={"Proceed"}
           />
@@ -101,16 +101,29 @@ export default function FirstPage_Modal(props) {
       </>
     );
   }
+
+  async function reSendOTP() {
+    const res = await axios.get("/booking/send-otp", {
+      params: {
+        email: props.email,
+      },
+    });
+    if (res.data) {
+      alert("Success");
+    }
+  }
+
   return (
     <>
       <VerificationModal
         show={showModal.verification}
         OnCloseHandler={OnCloseHandler}
+        leftButton={reSendOTP}
         email={props.email}
         OnchangeHandler={OnchangeHandler}
         entered_OTP={input.enteredOTP}
         error={error}
-        OnSubmitHandler={OnSubmitHandler}
+        rightButton={OnSubmitHandler}
       />
       {HistoryModal}
     </>
