@@ -1,10 +1,9 @@
-import Loading from "./Card--Loading";
-import { useMediaQuery } from "@mantine/hooks";
-import { useState, useEffect } from "react";
-import { Pagination, Button } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Button, Pagination } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import { Modal, Row, Col } from "react-bootstrap";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useEffect, useState } from "react";
+import { Col, Modal, Row } from "react-bootstrap";
+import Loading from "./Card--Loading";
 
 export default function Card(props) {
   const [sortedDoctors, setSortedDoctors] = useState([]);
@@ -91,7 +90,6 @@ export default function Card(props) {
     const schedules = props.schedule.filter((sched) => {
       return date.toDateString() === new Date(sched.day).toDateString();
     });
-
   }
 
   const formatDate = (date) => {
@@ -165,6 +163,10 @@ export default function Card(props) {
     }
   }
 
+  // function onSubmit() {
+  //   props.AppointmentDetails((prev) => ({ ...prev, doctor_ID: 123123 }));
+  // }
+
   // Map each card
   const elem = currentCards.map((items, index) => (
     <div key={index}>
@@ -200,7 +202,6 @@ export default function Card(props) {
                     color: "#2F9D44",
                     marginTop: "4%",
                     maxWidth: "130px",
-                   
                   }}
                   onClick={() => {
                     // Set the selected doctorId to display their individualized schedule
