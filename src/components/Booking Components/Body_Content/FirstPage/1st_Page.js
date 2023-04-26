@@ -166,18 +166,18 @@ export default function FirstPage(props) {
                 required
               ></input>
               <label htmlFor="terms">
-                I agree to the{" "}
-                <span className="termsandcond" onClick={handleOpenTerms}>
+                I agree to the {" "}
+              </label>
+              <span className="termsandcond ms-1" onClick={handleOpenTerms}>
                   Terms & Conditions.
                 </span>
-              </label>
             </div>
             <div className="FirstPage--buttonRow">
             <BackProceed
             OnCloseHandler={() => {
               navigate(-1);
             }}
-            OnSubmitHandler={OnSubmitHandler}
+            OnchangeHandler={OnSubmitHandler}
             redButtonText={"Cancel"}
             blueButtonText={"Proceed"}
           />

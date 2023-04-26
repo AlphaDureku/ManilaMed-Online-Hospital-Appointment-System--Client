@@ -781,7 +781,8 @@
   .FirstPage--buttonRow > button:nth-child(1),
   .FirstPage--buttonRow > button:nth-child(2),
   .OTP_buttonRow > button,
-  .TrackAtHome--buttonRow > button
+  .TrackAtHome--buttonRow > button,
+  .Options_buttonRow > button
   {
     font-size: 12px;
   }
