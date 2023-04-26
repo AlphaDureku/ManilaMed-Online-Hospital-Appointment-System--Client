@@ -6,6 +6,7 @@ import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import VerificationModal from "../../Reusable_Components/Verification_Modal";
+import { notifications } from "@mantine/notifications";
 
 export default function HomeModal(props) {
   // for responsiveness
@@ -52,10 +53,19 @@ export default function HomeModal(props) {
     setError(true);
     return;
   };
+  
+  const OTPNotif = () => {
+    notifications.show({
+      title: 'OTP Sent',
+      color: 'teal',
+      autoClose: 2000,
+    });
+  };
+  
   async function reSendOTP() {
     const res = await axios.post("/trackMe", { email: props.user.email });
     if (res.data) {
-      alert("Success");
+      OTPNotif()
     }
   }
   function check(exist) {

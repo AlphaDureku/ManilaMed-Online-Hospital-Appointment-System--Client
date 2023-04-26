@@ -4,6 +4,7 @@ import Content from "../components/Booking Components/Body_Content/PageControlle
 import Footer from "../components/Booking Components/Footer/Footer";
 import NavBar from "../components/Booking Components/NavBar/NavBar";
 
+
 export default function Services() {
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {

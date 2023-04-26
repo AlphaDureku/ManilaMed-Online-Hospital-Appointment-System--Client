@@ -5,6 +5,7 @@ import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import VerificationModal from "../../../Reusable_Components/Verification_Modal";
 import { userContext } from "./1st_Page";
 import PatientCard from "./Patient--Card";
+import { notifications } from "@mantine/notifications";
 
 export default function FirstPage_Modal(props) {
   const userState = useContext(userContext);
@@ -12,6 +13,14 @@ export default function FirstPage_Modal(props) {
   const [input, setInput] = useState({ enteredOTP: "" });
   const [showHistory, setShowHistory] = useState(false);
   const { setShowModal, showModal } = props;
+
+  const OTPNotif = () => {
+    notifications.show({
+      title: 'OTP Sent',
+      color: 'teal',
+      autoClose: 2000,
+    });
+  };
 
   function OnCloseHandler() {
     setInput(() => ({ enteredOTP: "" }));
@@ -109,7 +118,7 @@ export default function FirstPage_Modal(props) {
       },
     });
     if (res.data) {
-      alert("Success");
+      OTPNotif();
     }
   }
 

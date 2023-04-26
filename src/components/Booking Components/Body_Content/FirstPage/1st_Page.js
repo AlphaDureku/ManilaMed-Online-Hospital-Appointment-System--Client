@@ -5,7 +5,11 @@ import { createContext, useMemo, useState } from "react";
 import { CloseButton, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
+import {notifications } from '@mantine/notifications';
 import FirstPageModal from "./1st_Page_Modal";
+
+
+
 
 export const userContext = createContext();
 
@@ -23,6 +27,16 @@ export default function FirstPage(props) {
 
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
   const breakPoint = useMediaQuery("(max-width: 800px)");
+
+  
+  const OTPNotif = () => {
+    notifications.show({
+      title: 'OTP Sent',
+      color: 'teal',
+      autoClose: 2000,
+    });
+  };
+  
 
   const navigate = useNavigate();
   const [email, setEmail] = useState({ email: "", isChecked: false });
@@ -91,6 +105,9 @@ export default function FirstPage(props) {
         historyPatients: data.patient_List,
       }));
       setShowModal((prev) => ({ ...prev, verification: true }));
+     setTimeout(() =>{
+      OTPNotif()
+     }, 600)
     }
   }
 
@@ -113,6 +130,7 @@ export default function FirstPage(props) {
   }, [showModal, loading]);
 
   return (
+    
     <>
       <div className="FirstPage--body-wrapper">
         {breakPointMobile ? <h3>General Services</h3> : ""}
