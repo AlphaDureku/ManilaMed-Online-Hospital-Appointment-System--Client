@@ -33,10 +33,18 @@ export default function EditInfo() {
   async function enableHandler() {
     setIsDisabled((prev) => !prev);
     if (!isDisabled) {
-      const res = await axios.post("/user/edit-patient", {
-        info: currentPatient,
-        Patient_ID: id,
-      });
+      const res = await axios.post(
+        "/user/edit-patient",
+        {
+          info: currentPatient,
+          Patient_ID: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     }
   }
   function backButtonHandler() {

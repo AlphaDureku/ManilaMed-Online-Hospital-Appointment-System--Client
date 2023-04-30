@@ -12,7 +12,7 @@ const handleClick = (componentId) => {
 function HeaderImg() {
   const isMobile = useMediaQuery("(max-width: 470px)");
 
-// HERO SECTIONJ
+  // HERO SECTION
   return (
     <div className="HeaderImg ">
       <div className="headerwave-container ">
@@ -24,7 +24,7 @@ function HeaderImg() {
             size={isMobile ? "sm" : "md"}
             color=""
             className="headerbutton"
-            onClick={() =>handleClick("Services")}
+            onClick={() => handleClick("Services")}
             styles={(headerbuttontheme) => ({
               root: {
                 backgroundColor: "#24B7E9",
