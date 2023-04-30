@@ -1,12 +1,12 @@
 import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useState } from "react";
 import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import VerificationModal from "../../Reusable_Components/Verification_Modal";
-import { notifications } from "@mantine/notifications";
 
 export default function HomeModal(props) {
   // for responsiveness
@@ -34,38 +34,34 @@ export default function HomeModal(props) {
   };
 
   const OnSubmitHandler = async () => {
-    const res = await axios.get("/verifyOTP", {
-      params: {
-        inputOTP: enteredOTP,
-      },
+    const res = await axios.post("/verifyOTP", {
+      inputOTP: enteredOTP,
+      user_ID: props.user.user_ID,
     });
-    const { isVerified } = res.data.data;
-    console.log(isVerified);
+    const { isVerified, userToken } = res.data.data;
     if (isVerified) {
       props.setVerify((prev) => ({ ...prev, verified: true }));
       //Send request that a user is verified create a session for that patient
-      await axios.post("/user/set-userSession", {
-        user_ID: props.user.user_ID,
-      });
+      localStorage.setItem("userToken", userToken);
       navigate("/User");
       return;
     }
     setError(true);
     return;
   };
-  
+
   const OTPNotif = () => {
     notifications.show({
-      title: 'OTP Sent',
-      color: 'teal',
+      title: "OTP Sent",
+      color: "teal",
       autoClose: 2000,
     });
   };
-  
+
   async function reSendOTP() {
     const res = await axios.post("/trackMe", { email: props.user.email });
     if (res.data) {
-      OTPNotif()
+      OTPNotif();
     }
   }
   function check(exist) {

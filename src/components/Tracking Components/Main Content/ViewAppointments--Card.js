@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Card() {
   const [appointmentList, setAppointmentList] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("userToken");
   const { id } = useParams();
   const [count, setCount] = useState({
     pending: 0,
@@ -16,7 +16,11 @@ export default function Card() {
 
   useEffect(() => {
     const getAppointments = async () => {
-      const response = await axios.get(`/user/${id}`);
+      const response = await axios.get(`/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setAppointmentList(response.data.data);
     };
     getAppointments();

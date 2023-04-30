@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditInfo() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -12,13 +12,18 @@ export default function EditInfo() {
     patient_contact_number: "",
     dateOfBirth: "",
   });
+  const token = localStorage.getItem("userToken");
   const { id } = useParams();
   const navigate = useNavigate();
   document.title = "Patient Information";
 
   useEffect(() => {
     const getPatientInfo = async () => {
-      const response = await axios.get(`/user/get-info/${id}`);
+      const response = await axios.get(`/user/get-info/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const { data } = response.data;
       setCurrentPatient(data);
     };

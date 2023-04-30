@@ -1,9 +1,9 @@
 import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
-import { notifications } from "@mantine/notifications";
 
 export default function TrackMe() {
   const [user, setUser] = useState({ email: "", user_ID: "" });
@@ -26,26 +26,27 @@ export default function TrackMe() {
     ? "120px"
     : "100px";
 
-    const OTPNotif = () => {
-      notifications.show({
-        title: 'OTP Sent',
-        color: 'teal',
-        autoClose: 2000,
-      });
-    };
+  const OTPNotif = () => {
+    notifications.show({
+      title: "OTP Sent",
+      color: "teal",
+      autoClose: 2000,
+    });
+  };
 
   useEffect(() => {
     setLoading(true);
     async function get() {
       const res = await axios.post("/trackMe", { email: user.email });
+      console.log(res);
       if (res.data.data.exist) {
         setVerify((prev) => ({ ...prev, exist: true, otp: res.data.data.OTP }));
         setUser((prev) => ({ ...prev, user_ID: res.data.data.user_ID }));
         setTimeout(() => {
-          OTPNotif()
+          OTPNotif();
         }, 800);
-      
       }
+
       setTimeout(() => {
         setLoading(false);
       }, 500);

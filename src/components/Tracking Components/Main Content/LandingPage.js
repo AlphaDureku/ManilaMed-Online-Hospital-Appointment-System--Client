@@ -1,14 +1,19 @@
-import Card from "./LandingPage--Card";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import Card from "./LandingPage--Card";
 export default function LandingPage() {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [patientList, setPatientList] = useState([]);
+  const token = localStorage.getItem("userToken");
 
   useEffect(() => {
     const getPatients = async () => {
-      const response = await axios.get("/user/get-patients");
+      const response = await axios.get("/user/get-patients", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const { data } = response.data;
       setCount(data.count);
       setPatientList(data.patientList);
