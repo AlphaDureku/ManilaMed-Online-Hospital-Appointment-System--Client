@@ -1,11 +1,12 @@
+import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { useNavigate } from "react-router-dom";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import VerificationModal from "../../../Reusable_Components/Verification_Modal";
 import { userContext } from "./1st_Page";
 import PatientCard from "./Patient--Card";
-import { notifications } from "@mantine/notifications";
 
 export default function FirstPage_Modal(props) {
   const userState = useContext(userContext);
@@ -14,10 +15,11 @@ export default function FirstPage_Modal(props) {
   const [showHistory, setShowHistory] = useState(false);
   const { setShowModal, showModal } = props;
 
+  const navigate = useNavigate();
   const OTPNotif = () => {
     notifications.show({
-      title: 'OTP Sent',
-      color: 'teal',
+      title: "OTP Sent",
+      color: "teal",
       autoClose: 2000,
     });
   };
@@ -31,7 +33,7 @@ export default function FirstPage_Modal(props) {
     setShowHistory(false);
   }
   function OnSubmitHandler_History() {
-    props.setCurrentPage(2);
+    navigate("/services/collect-info");
   }
   function OnchangeHandler(event) {
     setError(false);
@@ -51,7 +53,7 @@ export default function FirstPage_Modal(props) {
       if (userState.hasHistory) {
         setShowHistory(true);
       } else {
-        props.setCurrentPage(2)
+        navigate("/services/collect-info");
         return;
       }
       // props.setCurrentPage(2);

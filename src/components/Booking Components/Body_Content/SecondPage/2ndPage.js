@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 
 import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
-import Card from "../../../Home Components/Search Doctor/Card";
 import BookingForm from "../../../Home Components/Search Doctor/BookingForm";
+import Card from "../../../Home Components/Search Doctor/Card";
 
-export default function SecondPage() {
-  
+export default function SecondPage(props) {
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -28,7 +27,7 @@ export default function SecondPage() {
     specialization: [],
     hmo: [],
   });
-
+  localStorage.setItem("currentPage", 2);
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [scheduleCompleted, setScheduleCompleted] = useState(false);
   const [infoCompleted, setInfoCompleted] = useState(false);
@@ -72,8 +71,14 @@ export default function SecondPage() {
   return (
     <>
       <Container fluid className="mt-3">
-        <Stepper active={active} onStepClick={setActive} breakpoint="sm" className="stepper" radius="lg">
-          <Stepper.Step  label="Fist Step" description="Search Doctor">
+        <Stepper
+          active={active}
+          onStepClick={setActive}
+          breakpoint="sm"
+          className="stepper"
+          radius="lg"
+        >
+          <Stepper.Step label="Fist Step" description="Search Doctor">
             <BookingForm
               query={query}
               setCurrentPage={setCurrentPage}
@@ -91,25 +96,26 @@ export default function SecondPage() {
               />
             }
             <div className="stepFinstruc">View doctor schedule to proceed</div>
-
           </Stepper.Step>
-          <Stepper.Step label="Second step" description="Select Schedule">
-          </Stepper.Step>
-          <Stepper.Step label="Final step" description="Enter Information">
-          </Stepper.Step>
-          <Stepper.Completed>
-          </Stepper.Completed>
+          <Stepper.Step
+            label="Second step"
+            description="Select Schedule"
+          ></Stepper.Step>
+          <Stepper.Step
+            label="Final step"
+            description="Enter Information"
+          ></Stepper.Step>
+          <Stepper.Completed></Stepper.Completed>
         </Stepper>
-        
-        {active !== 0 && (
-        <Group position="center" mt="xl">
-          <Button variant="default" onClick={prevStep}>
-            Back
-          </Button>
-          <Button onClick={nextStep}>Next step</Button>
-        </Group>
-      )}
 
+        {active !== 0 && (
+          <Group position="center" mt="xl">
+            <Button variant="default" onClick={prevStep}>
+              Back
+            </Button>
+            <Button onClick={nextStep}>Next step</Button>
+          </Group>
+        )}
       </Container>
     </>
   );

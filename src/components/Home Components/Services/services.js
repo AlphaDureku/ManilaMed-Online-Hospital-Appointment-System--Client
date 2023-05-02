@@ -39,7 +39,7 @@ function Services() {
                       minWidth: "100px",
                     }}
                     onClick={() => {
-                      navigate("/booking");
+                      navigate("/Services/booking");
                     }}
                   >
                     Set Now
@@ -82,7 +82,7 @@ function Services() {
                   minWidth: "100px",
                 }}
                 onClick={() => {
-                  navigate("/booking");
+                  navigate("/Services/booking");
                 }}
               >
                 Set Now
