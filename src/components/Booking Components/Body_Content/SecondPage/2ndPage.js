@@ -19,6 +19,7 @@ export default function SecondPage(props) {
     specialization: "",
     HMO: "",
   });
+  //Code tip: try learning useReducer hook to get rid of this messy useState hook and improve efficiency here's a great 14 min tutorial: https://www.youtube.com/watch?v=RZPAQV7JvNU&t=627s&ab_channel=LamaDev
   const [doctors, setdoctors] = useState([]);
   const [schedule, setSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +28,7 @@ export default function SecondPage(props) {
     specialization: [],
     hmo: [],
   });
-  localStorage.setItem("currentPage", 2);
+
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [scheduleCompleted, setScheduleCompleted] = useState(false);
   const [infoCompleted, setInfoCompleted] = useState(false);
