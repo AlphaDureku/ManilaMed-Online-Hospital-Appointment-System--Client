@@ -51,7 +51,7 @@ export default function FirstPage_Modal(props) {
       if (userState.hasHistory) {
         setShowHistory(true);
       } else {
-        console.log("No History, go to fill up page");
+        props.setCurrentPage(2)
         return;
       }
       // props.setCurrentPage(2);
