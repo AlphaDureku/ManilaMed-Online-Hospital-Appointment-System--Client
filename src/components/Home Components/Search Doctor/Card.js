@@ -8,6 +8,7 @@ import Loading from "./Card--Loading";
 export default function Card(props) {
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [displayAllHMO, setDisplayAllHMO] = useState("");
 
@@ -88,6 +89,7 @@ export default function Card(props) {
 
     // Get schedule for selected date
     const schedules = props.schedule.filter((sched) => {
+      setSelectedSchedule(sched.schedule_ID);
       return date.toDateString() === new Date(sched.day).toDateString();
     });
   }
@@ -162,7 +164,7 @@ export default function Card(props) {
       return { disabled: true };
     }
   }
-
+  console.log(selectedSchedule);
   // function onSubmit() {
   //   props.AppointmentDetails((prev) => ({ ...prev, doctor_ID: 123123 }));
   // }
