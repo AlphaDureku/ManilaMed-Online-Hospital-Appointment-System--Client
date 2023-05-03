@@ -4,7 +4,9 @@ import Booking from "./Booking";
 import CollectInfo from "./CollectInfo";
 export default function Services() {
   const [appointmentDetails, setAppointmentDetails] = useState({
-    schedule_ID: "",
+    email: "",
+    schedule_time: "",
+    doctor_ID: "",
     patient_Info: {
       first_name: "Mark",
       last_name: "",
@@ -15,6 +17,7 @@ export default function Services() {
       gender: "",
     },
   });
+
   return (
     <Routes>
       <Route
@@ -22,7 +25,7 @@ export default function Services() {
         element={
           <Booking
             appointmentDetails={appointmentDetails}
-            setAppointmentDetails={appointmentDetails}
+            setAppointmentDetails={setAppointmentDetails}
           />
         }
       />
@@ -31,7 +34,7 @@ export default function Services() {
         element={
           <CollectInfo
             appointmentDetails={appointmentDetails}
-            setAppointmentDetails={appointmentDetails}
+            setAppointmentDetails={setAppointmentDetails}
           />
         }
       />

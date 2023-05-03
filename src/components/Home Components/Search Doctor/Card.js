@@ -8,7 +8,6 @@ import Loading from "./Card--Loading";
 export default function Card(props) {
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedSchedule, setSelectedSchedule] = useState(null);
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [displayAllHMO, setDisplayAllHMO] = useState("");
 
@@ -86,10 +85,9 @@ export default function Card(props) {
 
   function handleDateSelect(date) {
     setSelectedDate(date);
-
+    props.setAppointmentDetails((prev) => ({ ...prev, schedule_time: date }));
     // Get schedule for selected date
     const schedules = props.schedule.filter((sched) => {
-      setSelectedSchedule(sched.schedule_ID);
       return date.toDateString() === new Date(sched.day).toDateString();
     });
   }
@@ -164,10 +162,10 @@ export default function Card(props) {
       return { disabled: true };
     }
   }
-  console.log(selectedSchedule);
-  // function onSubmit() {
-  //   props.AppointmentDetails((prev) => ({ ...prev, doctor_ID: 123123 }));
-  // }
+
+  const onSubmit = () => {
+    console.table(props.appointmentDetails);
+  };
 
   // Map each card
   const elem = currentCards.map((items, index) => (
@@ -210,6 +208,10 @@ export default function Card(props) {
                     setSelectedDoctorId(items.doctor_ID);
                     doctorNameSpSched(items.doctor_ID);
                     setDisplayAllHMO(items.HMO_Name);
+                    props.setAppointmentDetails((prev) => ({
+                      ...prev,
+                      doctor_ID: items.doctor_ID,
+                    }));
                     // Open the modal
                     open();
                   }}
@@ -356,6 +358,9 @@ export default function Card(props) {
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                     backgroundColor: "#2F9D44",
                     minWidth: "100px",
+                  }}
+                  onClick={() => {
+                    onSubmit();
                   }}
                 >
                   Book Now

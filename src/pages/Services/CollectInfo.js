@@ -12,7 +12,10 @@ export default function CollectInfo(props) {
     <>
       <div className="Booking--wrapper">
         <NavBar />
-        <SecondPage />
+        <SecondPage
+          setAppointmentDetails={props.setAppointmentDetails}
+          appointmentDetails={props.appointmentDetails}
+        />
         <Footer />
       </div>
     </>

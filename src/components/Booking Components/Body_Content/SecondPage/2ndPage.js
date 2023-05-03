@@ -93,7 +93,8 @@ export default function SecondPage(props) {
                 setCurrentPage={setCurrentPage}
                 schedule={schedule}
                 loading={loading}
-                // AppointmentDetails={AppointmentDetails}
+                appointmentDetails={props.appointmentDetails}
+                setAppointmentDetails={props.setAppointmentDetails}
               />
             }
             <div className="stepFinstruc">View doctor schedule to proceed</div>

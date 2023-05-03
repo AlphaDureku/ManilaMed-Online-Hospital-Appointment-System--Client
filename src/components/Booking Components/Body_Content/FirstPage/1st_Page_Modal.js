@@ -50,6 +50,7 @@ export default function FirstPage_Modal(props) {
     const { isVerified } = res.data.data;
     if (isVerified) {
       setShowModal((prev) => ({ ...prev, verification: false }));
+      props.setAppointmentDetails((prev) => ({ ...prev, email: props.email }));
       if (userState.hasHistory) {
         setShowHistory(true);
       } else {
