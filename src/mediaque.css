@@ -548,7 +548,7 @@
     margin: 1%;
   }
   .Options_buttonRow {
-    width: 50%;
+    width: 60%;
   }
 }
 
@@ -769,12 +769,21 @@
 }
 
 @media screen and (max-width:700px){
-  .greetingTerms{
-    font-size: 12px;
+  .greetingTerms,
+  .verificationModalB,
+  .Options_P,
+  .radioLabel > input + div,
+  .otp-input
+  {
+ 
+    font-size: 14px;
+  }
+  .modal-title{
+    font-size: 19px !important;
   }
   
   .wordlistterms{
-    font-size: 12px;
+    font-size: 14px;
 
   }
 
@@ -785,6 +794,11 @@
   .Options_buttonRow > button
   {
     font-size: 12px;
+  }
+
+  .mantine-qo482m {
+    width: 45%; 
+
   }
 }
 

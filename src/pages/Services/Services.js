@@ -5,7 +5,8 @@ import CollectInfo from "./CollectInfo";
 export default function Services() {
   const [appointmentDetails, setAppointmentDetails] = useState({
     email: "",
-    schedule_time: "",
+    schedule_date: "",
+    schedule_time: "", 
     doctor_ID: "",
     patient_Info: {
       first_name: "Mark",

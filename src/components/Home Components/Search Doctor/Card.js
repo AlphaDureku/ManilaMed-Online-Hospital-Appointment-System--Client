@@ -85,7 +85,7 @@ export default function Card(props) {
 
   function handleDateSelect(date) {
     setSelectedDate(date);
-    props.setAppointmentDetails((prev) => ({ ...prev, schedule_time: date }));
+    props.setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
     // Get schedule for selected date
     const schedules = props.schedule.filter((sched) => {
       return date.toDateString() === new Date(sched.day).toDateString();
@@ -211,6 +211,7 @@ export default function Card(props) {
                     props.setAppointmentDetails((prev) => ({
                       ...prev,
                       doctor_ID: items.doctor_ID,
+            
                     }));
                     // Open the modal
                     open();
@@ -320,14 +321,9 @@ export default function Card(props) {
                 withselect="true"
                 getDayProps={getDayProps}
                 style={{
-                  border: "1px solid #848484",
-                  borderRadius: "7px",
-                  marginLeft: isMobile ? " 0vh" : "3vh",
-                  marginRight: isMobile ? " 0vh" : "3vh",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
               />
               <Row>

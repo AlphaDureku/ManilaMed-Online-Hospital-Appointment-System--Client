@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import BookingForm from "../../../Home Components/Search Doctor/BookingForm";
 import Card from "../../../Home Components/Search Doctor/Card";
+import SelectAvail from "./selectAvail";
 
 export default function SecondPage(props) {
   const [active, setActive] = useState(0);
@@ -32,6 +33,9 @@ export default function SecondPage(props) {
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [scheduleCompleted, setScheduleCompleted] = useState(false);
   const [infoCompleted, setInfoCompleted] = useState(false);
+
+
+
 
   // const [AppointmentDetails, setAppointmentDetails] = useState({
   //   doctor_ID: "sdasdf",
@@ -71,7 +75,7 @@ export default function SecondPage(props) {
 
   return (
     <>
-      <Container fluid className="mt-3">
+      <Container fluid className="mt-3 ">
         <Stepper
           active={active}
           onStepClick={setActive}
@@ -95,6 +99,8 @@ export default function SecondPage(props) {
                 loading={loading}
                 appointmentDetails={props.appointmentDetails}
                 setAppointmentDetails={props.setAppointmentDetails}
+            
+             
               />
             }
             <div className="stepFinstruc">View doctor schedule to proceed</div>
@@ -102,7 +108,13 @@ export default function SecondPage(props) {
           <Stepper.Step
             label="Second step"
             description="Select Schedule"
-          ></Stepper.Step>
+          >
+            <SelectAvail
+              schedule={schedule}
+              appointmentDetails={props.appointmentDetails}
+              setAppointmentDetails={props.setAppointmentDetails}
+            />
+          </Stepper.Step>
           <Stepper.Step
             label="Final step"
             description="Enter Information"

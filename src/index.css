@@ -269,6 +269,8 @@ select {
   margin: 10px;
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  font-family: "Inter";
+
 }
 
 .doctor-flexbox-container2 {
@@ -949,11 +951,12 @@ select {
   width: 40%;
 }
 
-.Options_H2 {
+/* .Options_H2 {
   font-size: min(2rem, 5vw);
-}
+} */
+
 .Options_P {
-  font-size: min(16px, 3vw);
+  text-align: justify;
 }
 .radio-form {
   display: flex;
@@ -972,7 +975,6 @@ select {
   border: 1px solid grey;
   background-color: #ececec;
   text-align: center;
-  font-size: min(1.1rem, 3.3vw);
   border-radius: 8px;
   padding: 2% 5%;
   width: max(400px, 70%);
@@ -1141,8 +1143,8 @@ select {
 }
 
 .mantine-qo482m {
-  margin-left: 15vw;
-  margin-right: 15vw;
+  width: 80%; 
+  margin: 0 auto; 
   margin-top: 15px;
 }
 
@@ -1151,6 +1153,8 @@ select {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Montserrat", sans-serif !important;
+
 
 }
 
@@ -1160,11 +1164,12 @@ select {
   text-align: center;
   font-size: min(28px, 6vw);
   font-weight: 600;
-  margin-top: 15px;
+  margin-top: 7px;
 }
 .mantine-jo8my5[data-completed] {
   background-color: #24B7E9 !important;
   border-color: #24B7E9 !important;
+
 }
 
 .mantine-amngjg{
@@ -1183,3 +1188,95 @@ select {
   text-align: center;
 }
 
+/* datepicker border */
+.mantine-1y0d926,
+.mantine-1swk0oy,
+.mantine-vb5ezt{
+  border: 1px solid #848484;
+  border-radius: 7px;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 5px;
+  padding-bottom:5px ;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+}
+
+.mantine-o00rr2,
+.mantine-rsd5oj{
+  border: 1px solid #848484;
+  border-radius: 7px;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 5px;
+  padding-bottom:5px ;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+}
+
+.stepTwoBorder{
+  margin-top: 10px;
+  border-radius: 7px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #848484;
+
+
+}
+
+.Availnote{
+  box-sizing: border-box;
+  width: 85%;
+  background: rgba(132, 132, 132, 0.5);
+  border: 1px solid #848484;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.leveloneNote,
+.specialNote{
+  font-weight:600;
+}
+
+.leveltwoNote{
+font-weight: 500;
+}
+
+.legendRow{
+  align-items: center !important;
+  margin-left: 20% !important;
+  margin-right: 20% !important;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+
+
+
+}
+
+.headerlegend{
+  font-weight: 600 !important;
+  font-size: 19px;
+
+}
+
+.queuContainer{
+  border: 1px solid #848484;
+  border-radius: 7px;
+  align-items: center !important;
+  margin-left: 20% !important;
+  margin-right: 20% !important;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  height: 25vh;
+
+}
+
+.step1font
+{
+  font-family: "Montserrat", sans-serif !important;
+
+}
+.mantine-1y0dcw0{
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.mantine-1bvpemk{
+  font-family: "Inter";
+}

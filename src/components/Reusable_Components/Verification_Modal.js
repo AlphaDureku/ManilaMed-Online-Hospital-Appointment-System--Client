@@ -22,7 +22,7 @@ export default function VerificationModal(props) {
           />
         </Modal.Header>
         <Modal.Body>
-          <div className="modal-body text-center">
+          <div className="modal-body text-center verificationModalB">
             <label className="modal-form">
               (OTP) One Time Password has been sent to{" "}
               <strong>{props.email}</strong>
