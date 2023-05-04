@@ -6,7 +6,7 @@ import { createContext, useMemo, useState } from "react";
 import { CloseButton, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import FirstPageModal from "./1st_Page_Modal";
+import FirstPageModal from "./Modals/1st_Page_Modal";
 
 export const userContext = createContext();
 

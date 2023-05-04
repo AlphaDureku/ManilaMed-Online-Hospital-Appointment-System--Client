@@ -3,8 +3,8 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
-import VerificationModal from "../../../Reusable_Components/Verification_Modal";
-import { userContext } from "./1st_Page";
+import VerificationModal from "../../../../Reusable_Components/Verification_Modal";
+import { userContext } from "../1st_Page";
 import HistoryModal from "./History_Modal";
 
 export default function FirstPage_Modal(props) {
