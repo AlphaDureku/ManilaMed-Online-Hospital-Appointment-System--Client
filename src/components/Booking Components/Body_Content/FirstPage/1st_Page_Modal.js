@@ -3,10 +3,9 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
-import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import VerificationModal from "../../../Reusable_Components/Verification_Modal";
 import { userContext } from "./1st_Page";
-import PatientCard from "./Patient--Card";
+import HistoryModal from "./History_Modal";
 
 export default function FirstPage_Modal(props) {
   const userState = useContext(userContext);
@@ -23,18 +22,11 @@ export default function FirstPage_Modal(props) {
       autoClose: 2000,
     });
   };
-
   function OnCloseHandler() {
     setInput(() => ({ enteredOTP: "" }));
     setShowModal((prev) => ({ ...prev, verification: false }));
   }
-  function OnCloseHandler_History() {
-    setInput(() => ({ enteredOTP: "" }));
-    setShowHistory(false);
-  }
-  function OnSubmitHandler_History() {
-    navigate("/services/collect-info");
-  }
+
   function OnchangeHandler(event) {
     setError(false);
     const { name, value } = event.target;
@@ -57,47 +49,10 @@ export default function FirstPage_Modal(props) {
         navigate("/services/collect-info");
         return;
       }
-      // props.setCurrentPage(2);
     } else {
       setError(true);
     }
   };
-
-  // Start of User Patient History Modal
-  const HistoryModal = (
-    <Modal show={showHistory} centered size="lg">
-      <Modal.Header>
-        {" "}
-        <Modal.Title>
-          <h2 className="Options_H2">Options</h2>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p className="Options_P">
-          We discovered a record associated to the email address you provided.
-          Please indicate whose reservation is this for.
-        </p>
-        <form className="radio-form">
-          <PatientCard />
-          <label className="radioLabel">
-            <input type="radio" name="patientName" value={0}></input>
-            <div>Booking for others</div>
-          </label>
-        </form>
-      </Modal.Body>
-      <Modal.Footer>
-        {" "}
-        <div className="Options_buttonRow">
-          <BackProceed
-            leftButton={OnCloseHandler_History}
-            rightButton={OnSubmitHandler_History}
-            redButtonText={"Cancel"}
-            blueButtonText={"Proceed"}
-          />
-        </div>
-      </Modal.Footer>
-    </Modal>
-  );
 
   if (props.loading) {
     return (
@@ -137,7 +92,12 @@ export default function FirstPage_Modal(props) {
         error={error}
         rightButton={OnSubmitHandler}
       />
-      {HistoryModal}
+      <HistoryModal
+        show={showHistory}
+        setShow={setShowHistory}
+        setInput={setInput}
+        setAppointmentDetails={props.setAppointmentDetails}
+      />
     </>
   );
 }

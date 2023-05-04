@@ -117,7 +117,6 @@ export default function FirstPage(props) {
             setuserState={setUserState}
             setShowModal={setShowModal}
             email={email.email}
-            setCurrentPage={props.setCurrentPage}
             setAppointmentDetails={props.setAppointmentDetails}
           />
         </userContext.Provider>

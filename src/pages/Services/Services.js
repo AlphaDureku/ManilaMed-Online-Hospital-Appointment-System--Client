@@ -6,10 +6,11 @@ export default function Services() {
   const [appointmentDetails, setAppointmentDetails] = useState({
     email: "",
     schedule_date: "",
-    schedule_time: "", 
+    schedule_ID: "",
     doctor_ID: "",
-    patient_Info: {
-      first_name: "Mark",
+    patient_ID: null,
+    patient_info: {
+      first_name: "",
       last_name: "",
       middle_name: "",
       age: "",
