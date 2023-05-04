@@ -211,7 +211,6 @@ export default function Card(props) {
                     props.setAppointmentDetails((prev) => ({
                       ...prev,
                       doctor_ID: items.doctor_ID,
-            
                     }));
                     // Open the modal
                     open();

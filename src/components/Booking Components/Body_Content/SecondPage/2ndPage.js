@@ -1,12 +1,11 @@
 import { Button, Group, Stepper } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
-import BookingForm from "../../../Home Components/Search Doctor/BookingForm";
-import Card from "../../../Home Components/Search Doctor/Card";
-import SelectAvail from "./selectAvail";
+import FinalStep from "./Steps/FinalStep";
+import StepOne from "./Steps/StepOne";
+import StepTwo from "./Steps/StepTwo";
 
 export default function SecondPage(props) {
   const [active, setActive] = useState(0);
@@ -33,9 +32,6 @@ export default function SecondPage(props) {
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [scheduleCompleted, setScheduleCompleted] = useState(false);
   const [infoCompleted, setInfoCompleted] = useState(false);
-
-
-
 
   // const [AppointmentDetails, setAppointmentDetails] = useState({
   //   doctor_ID: "sdasdf",
@@ -73,6 +69,7 @@ export default function SecondPage(props) {
     get();
   }, [query]);
 
+  //Moved steps to Steps folder and converted them into seperate components
   return (
     <>
       <Container fluid className="mt-3 ">
@@ -84,41 +81,29 @@ export default function SecondPage(props) {
           radius="lg"
         >
           <Stepper.Step label="Fist Step" description="Search Doctor">
-            <BookingForm
+            <StepOne
               query={query}
-              setCurrentPage={setCurrentPage}
               setQuery={setQuery}
               selectValues={selectValues}
+              doctors={doctors}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              schedule={schedule}
+              loading={loading}
+              appointmentDetails={props.appointmentDetails}
+              setAppointmentDetails={props.setAppointmentDetails}
             />
-            {
-              <Card
-                doctors={doctors}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                schedule={schedule}
-                loading={loading}
-                appointmentDetails={props.appointmentDetails}
-                setAppointmentDetails={props.setAppointmentDetails}
-            
-             
-              />
-            }
-            <div className="stepFinstruc">View doctor schedule to proceed</div>
           </Stepper.Step>
-          <Stepper.Step
-            label="Second step"
-            description="Select Schedule"
-          >
-            <SelectAvail
+          <Stepper.Step label="Second step" description="Select Schedule">
+            <StepTwo
               schedule={schedule}
               appointmentDetails={props.appointmentDetails}
               setAppointmentDetails={props.setAppointmentDetails}
             />
           </Stepper.Step>
-          <Stepper.Step
-            label="Final step"
-            description="Enter Information"
-          ></Stepper.Step>
+          <Stepper.Step label="Final step" description="Enter Information">
+            <FinalStep />
+          </Stepper.Step>
           <Stepper.Completed></Stepper.Completed>
         </Stepper>
 
