@@ -6,12 +6,7 @@ export default function Card() {
   const [appointmentList, setAppointmentList] = useState([]);
   const token = localStorage.getItem("userToken");
   const { id } = useParams();
-  const [count, setCount] = useState({
-    pending: 0,
-    confirmed: 0,
-    cancelled: 0,
-    completed: 0,
-  });
+  const [count, setCount] = useState({});
   document.title = "Appointment History";
 
   useEffect(() => {
@@ -39,10 +34,12 @@ export default function Card() {
           accumulator.completed++;
         } else if (currentValue.status === "Cancelled") {
           accumulator.cancelled++;
+        } else {
+          accumulator.rejected++;
         }
         return accumulator;
       },
-      { pending: 0, confirmed: 0, completed: 0, cancelled: 0 }
+      { pending: 0, confirmed: 0, completed: 0, cancelled: 0, rejected: 0 }
     );
 
     setCount(newCounts);
@@ -175,6 +172,16 @@ export default function Card() {
       ) : (
         ""
       )}
+      {count.completed > 0 ? (
+        <div className="appointment-item">
+          <div className="appointment-status green">
+            Completed({count.completed})
+          </div>
+          {CompletedElements}
+        </div>
+      ) : (
+        ""
+      )}
       {count.cancelled > 0 ? (
         <div className="appointment-item">
           <div className="appointment-status red">
@@ -185,10 +192,11 @@ export default function Card() {
       ) : (
         ""
       )}
-      {count.completed > 0 ? (
+
+      {count.rejected > 0 ? (
         <div className="appointment-item">
-          <div className="appointment-status green">
-            Completed({count.completed})
+          <div className="appointment-status red">
+            Rejected({count.rejected})
           </div>
           {CompletedElements}
         </div>

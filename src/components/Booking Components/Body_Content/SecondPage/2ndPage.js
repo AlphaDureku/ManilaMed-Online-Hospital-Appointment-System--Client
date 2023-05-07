@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import FinalStep from "./Steps/FinalStep";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
+const moment = require("moment");
 
 export default function SecondPage(props) {
   const [active, setActive] = useState(0);
@@ -28,10 +29,6 @@ export default function SecondPage(props) {
     specialization: [],
     hmo: [],
   });
-
-
-
-
 
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [scheduleCompleted, setScheduleCompleted] = useState(false);
@@ -64,15 +61,31 @@ export default function SecondPage(props) {
           "HMO"
         )}`
       );
-
       const { data } = res.data;
       setdoctors(data.result);
-      setSchedule(data.schedule);
+      filterSchedule(data.schedule);
       setLoading(false);
     }
     get();
   }, [query]);
 
+  const filterSchedule = (sched) => {
+    const filteredSchedule = sched.filter((obj) => {
+      // Combine date and time strings into a single string
+      const dateTimeString = obj.date + " " + obj.start;
+
+      // Parse the date and time string into a Moment.js object
+      const dateTime = moment(dateTimeString, "MMMM D, YYYY h:mmA");
+
+      // Get the current time and subtract 1 hour
+      const currentTime = moment().add(1, "hours");
+
+      // Check if the dateTime is greater than the currentTime
+      return dateTime.isAfter(currentTime);
+    });
+    setSchedule(filteredSchedule);
+    return;
+  };
 
   //Moved steps to Steps folder and converted them into seperate components
   return (
@@ -120,7 +133,6 @@ export default function SecondPage(props) {
             <Button onClick={nextStep}>Next step</Button>
           </Group>
         )}
-
       </Container>
     </>
   );

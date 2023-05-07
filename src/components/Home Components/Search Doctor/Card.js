@@ -10,7 +10,6 @@ export default function Card(props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [displayAllHMO, setDisplayAllHMO] = useState("");
-
   //CardCount Breakpoint
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
   let cardsPerPage = 9;
@@ -20,15 +19,11 @@ export default function Card(props) {
     cardsPerPage = 9;
   }
 
-
   // For modal
   const [openModal, { open, close }] = useDisclosure(false);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
   const [modalDoctorName, setModalDoctorName] = useState(null);
   const [modalDoctorSp, setModalDoctorSp] = useState(null);
-
-  // NotFound
-  const notFound = <div className="notFound">No doctor Found!</div>;
 
   // Sort doctors alphabetically by last name
   useEffect(() => {
@@ -46,6 +41,8 @@ export default function Card(props) {
   // Change page
   const paginate = (pageNumber) => props.setCurrentPage(pageNumber);
 
+  // NotFound
+  const notFound = <div className="notFound">No doctor Found!</div>;
   function getHMO(HMOList) {
     const HMOArray = HMOList.split(",");
     const maxItems = window.matchMedia("(max-width: 500px)").matches ? 2 : 2;
@@ -87,10 +84,10 @@ export default function Card(props) {
   function handleDateSelect(date) {
     setSelectedDate(date);
     props.setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
-    // Get schedule for selected date
-    const schedules = props.schedule.filter((sched) => {
-      return date.toDateString() === new Date(sched.day).toDateString();
-    });
+    // D ko alam para san to e comment ko muna
+    // const schedules = props.schedule.filter((sched) => {
+    //   return date.toDateString() === new Date(sched.day).toDateString();
+    // });
   }
 
   const formatDate = (date) => {
@@ -113,7 +110,7 @@ export default function Card(props) {
       <div className="sched">{sched.day}</div>
     ));
   }
-
+  //What is the use of this function
   //To display the time of the selected date
   function renderSchedule() {
     if (selectedDoctorSchedules.length === 0) {
@@ -136,14 +133,6 @@ export default function Card(props) {
 
   // Create new getDayProps function to display individualized schedules for selected doctor
   function getDayProps(date) {
-
-       // Disable dates in the past and today
-       const currentDate = new Date();
-       currentDate.setHours(0, 0, 0, 0); // set time to midnight
-       if (date < currentDate) {
-         return { disabled: true };
-       }
-     
     const isScheduled = props.schedule.some((sched) => {
       return (
         date.toDateString() === new Date(sched.date).toDateString() &&
