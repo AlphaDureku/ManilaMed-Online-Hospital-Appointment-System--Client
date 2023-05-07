@@ -1,4 +1,4 @@
-import BookingForm from "../../../../Home Components/Search Doctor/BookingForm";
+import BookingForm from "../BookingForm";
 import Card from "../../../../Home Components/Search Doctor/Card";
 
 export default function StepOne(props) {
@@ -8,6 +8,7 @@ export default function StepOne(props) {
         query={props.query}
         setQuery={props.setQuery}
         selectValues={props.selectValues}
+        setCurrentPage={props.setCurrentPage}
       />
       ;
       <Card

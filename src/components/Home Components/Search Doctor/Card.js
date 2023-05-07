@@ -20,6 +20,7 @@ export default function Card(props) {
     cardsPerPage = 9;
   }
 
+
   // For modal
   const [openModal, { open, close }] = useDisclosure(false);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
@@ -135,6 +136,14 @@ export default function Card(props) {
 
   // Create new getDayProps function to display individualized schedules for selected doctor
   function getDayProps(date) {
+
+       // Disable dates in the past and today
+       const currentDate = new Date();
+       currentDate.setHours(0, 0, 0, 0); // set time to midnight
+       if (date < currentDate) {
+         return { disabled: true };
+       }
+     
     const isScheduled = props.schedule.some((sched) => {
       return (
         date.toDateString() === new Date(sched.date).toDateString() &&

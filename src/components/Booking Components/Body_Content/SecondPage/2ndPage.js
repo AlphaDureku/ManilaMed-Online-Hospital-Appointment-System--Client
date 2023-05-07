@@ -29,6 +29,10 @@ export default function SecondPage(props) {
     hmo: [],
   });
 
+
+
+
+
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [scheduleCompleted, setScheduleCompleted] = useState(false);
   const [infoCompleted, setInfoCompleted] = useState(false);
@@ -68,6 +72,7 @@ export default function SecondPage(props) {
     }
     get();
   }, [query]);
+
 
   //Moved steps to Steps folder and converted them into seperate components
   return (
@@ -115,6 +120,7 @@ export default function SecondPage(props) {
             <Button onClick={nextStep}>Next step</Button>
           </Group>
         )}
+
       </Container>
     </>
   );

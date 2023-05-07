@@ -5,6 +5,7 @@ export default function PatientCard(props) {
   const userState = useContext(userContext);
   const { historyPatients } = userState;
 
+  
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     props.setAppointmentDetails((prev) => ({ ...prev, [name]: value }));
