@@ -9,7 +9,6 @@ export default function Services() {
     schedule_ID: "",
     doctor_ID: "",
     patient_ID: "",
-    queue: "",
     patient_info: {
       patient_first_name: "",
       patient_last_name: "",
