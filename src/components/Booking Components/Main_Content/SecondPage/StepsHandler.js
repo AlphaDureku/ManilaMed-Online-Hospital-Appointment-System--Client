@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import FinalStep from "./Steps/FinalStep";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
+import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 const moment = require("moment");
 
 export default function StepsHandler(props) {
@@ -127,10 +128,12 @@ export default function StepsHandler(props) {
 
         {active !== 0 && (
           <Group position="center" mt="xl">
-            <Button variant="default" onClick={prevStep}>
-              Back
-            </Button>
-            <Button onClick={nextStep}>Next step</Button>
+           <BackProceed
+          leftButton={prevStep}
+          OnchangeHandler={nextStep}
+          redButtonText={"Back"}
+          blueButtonText={"Proceed"}
+        />
           </Group>
         )}
       </Container>

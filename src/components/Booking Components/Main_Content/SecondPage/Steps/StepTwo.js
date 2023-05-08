@@ -60,7 +60,6 @@ export default function StepTwo(props) {
         <>
           <LoadingOverlay
             loader={customLoader}
-            themeOverride={{ zIndex: 999 }}
             visible
           />
           <Skeleton visible />

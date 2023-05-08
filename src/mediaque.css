@@ -803,4 +803,89 @@
 }
 
 
+@media screen and (max-width:992px) {
+  .legendRowleft{
+    margin: 10% !important;
+    margin-bottom: 0%!important;  ;
+  }
+  
+  .legendRowright{
+    margin: 10% !important;
+    margin-bottom: 0%!important;  ;
 
+
+  }
+  
+  .datepickerRow{
+    margin: 10% !important;
+    margin-top: 0% !important;
+
+  }
+  
+  .queuContainer{
+
+    margin: 10% !important;
+    margin-top: 0% !important;
+
+  
+  }
+}
+
+@media screen and (max-width:700px){
+
+  
+  .leveloneNote,
+  .specialNote,
+  .leveltwoNote,
+  .legendRowleft,
+  .legendRowright,
+  .datepickerRow,
+  .queuContainer,
+  .queueNumber, 
+  .recomGo,
+  .headerlegend{
+    font-size: 15px;
+
+  }
+  
+  .legendRowleft,
+  .queuContainer{
+    margin: 1% !important;
+    margin-top: 7% !important;
+  }
+  
+  .legendRowright, 
+  .datepickerRow{
+    margin: 2% !important;
+    margin-top: 7% !important;
+
+
+  }
+  
+
+ 
+
+}
+
+@media screen and (max-width:767px){
+  
+.patientinfoRow{
+  margin-top: 0%;
+  
+}
+
+.patientInfolabel{
+  margin-top: 3%;
+  font-size: 15px;
+
+
+}
+.patientInfolabeldob{
+  margin-top: 5%;
+
+}
+
+.headerinfolabel{
+  font-size: 15px;
+}
+}

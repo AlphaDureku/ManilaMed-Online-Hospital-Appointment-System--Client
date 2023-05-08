@@ -2,7 +2,7 @@ import { Button, Tooltip } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 
 export default function SelectAvail(props) {
   const isMobile = useMediaQuery("(max-width: 509px)");
@@ -10,7 +10,6 @@ export default function SelectAvail(props) {
 
   useEffect(() => {
     setAppointmentDate();
-    console.log(props.schedule);
   }, []);
 
   function setAppointmentDate() {
@@ -140,21 +139,22 @@ export default function SelectAvail(props) {
             <div className="row text-center">
               <p className="leveltwoNote">
                 Please wait for a SMS or Email confirmation of your appointment
-                within one{" "}
+                up to{" "}
                 <span className="specialNote">(1) business day.</span>
               </p>
             </div>
           </div>
         </Row>
-        <Row>
-          <Col>
-            <Row className="legendRow mt-3">
+        <Row className="mb-3">
+          <Col md={6}>
+           <Container fluid>
+            <Row className="legendRowleft mt-3">
               <label className="headerlegend ">Time</label>
               <label className="subheaderlegend ">
                 Doctor's Available Time
               </label>
 
-              <table className="table table-striped table-hover text-center mt-4">
+              <table className="table table-striped table-hover text-center mt-4 ">
                 <thead>
                   <tr>
                     <td>Date</td>
@@ -192,28 +192,51 @@ export default function SelectAvail(props) {
               </table>
             </Row>
 
-            <Row className="queuContainer">
-              <span>Hi!</span>
+            <Row className="queuContainer ">
+              <span>Hi! 
               <span>
-                You are number{" "}
-                <label>
+                 {" "}You are number{" "}
+                <label className="queueNumber">
                   {getDoctorSched()
                     .map((schedule) => schedule.queueNumber)
                     .join(", ")}
                 </label>{" "}
-                in Queue
+                in queue
               </span>
               <span>
-                You should be in the hospital at{" "}
+              <br></br><br></br>
+              You should be in the hospital on 
+              <span className="recomGo">
+              {" "}
+              {selectedDate
+                        ? selectedDate.toLocaleString("en-us", {
+                            month: "short",
+                          }) +
+                          " " +
+                          selectedDate.getDate() +
+                          ", " +
+                          selectedDate.getFullYear()
+                        : "-"}
+                        {" "}
+                         {selectedDate
+                        ? selectedDate.toLocaleString("en-us", {
+                            weekday: "long",
+                          })
+                        : "-"}
+              {" "}
+                {" "}
                 <label>
-                  {getDoctorSched().map((schedule) => schedule.recomTime)}
+                 by {getDoctorSched().map((schedule) => schedule.recomTime)}
                 </label>
+                </span>
+              </span>
               </span>
             </Row>
+            </Container> 
           </Col>
 
-          <Col>
-            <Row className="legendRow mt-3">
+          <Col md ={6}>
+            <Row className="legendRowright mt-3">
               <label className="headerlegend ">Date</label>
               <label className="subheaderlegend ">
                 Choose your preferred date
@@ -234,8 +257,8 @@ export default function SelectAvail(props) {
                 ></img>
                 <label className=" legendlabelC ms-2">Not Available</label>
               </Col>
-            </Row>
-            <Row>
+              </Row>
+              <Row className="datepickerRow center">
               <DatePicker
                 getDayProps={getDayProps}
                 onChange={handleDateSelect}
@@ -249,12 +272,14 @@ export default function SelectAvail(props) {
                   alignItems: "center",
                 }}
               ></DatePicker>
-            </Row>
-          </Col>
-        </Row>
+             </Row>
 
-        <Button onClick={details}>Console</Button>
+          </Col>
+        </Row >
+
       </div>
+              <Button onClick={details}>Console</Button>
+
     </div>
   );
 }

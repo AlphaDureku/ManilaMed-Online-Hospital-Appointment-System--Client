@@ -1,7 +1,14 @@
-export default function FinalStep() {
+import GetPatientInfo from "./Steps_SubComponents/getPatientInfo";
+
+export default function FinalStep(props) {
+
+
   return (
     <div>
-      <h1>Final Step</h1>
+      <GetPatientInfo
+        appointmentDetails={props.appointmentDetails}
+        setAppointmentDetails={props.setAppointmentDetails}
+      />
     </div>
   );
 }
