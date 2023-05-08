@@ -49,7 +49,9 @@ export default function Home() {
           "HMO"
         )}`
       );
+
       const { data } = res.data;
+      console.log(data.schedule);
       setdoctors(data.result);
       filterSchedule(data.schedule);
       setLoading(false);
@@ -64,10 +66,8 @@ export default function Home() {
 
       // Parse the date and time string into a Moment.js object
       const schedTime = moment(dateTimeString, "MMMM D, YYYY h:mmA");
-
       // Get the current time and add 1 hour
       const currentTime = moment().add(1, "hours");
-
       // Check if the schedTime is greater than the currentTime
       return schedTime.isAfter(currentTime);
     });

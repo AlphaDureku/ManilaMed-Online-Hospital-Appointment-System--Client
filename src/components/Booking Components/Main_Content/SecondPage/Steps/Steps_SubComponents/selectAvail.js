@@ -10,6 +10,7 @@ export default function SelectAvail(props) {
 
   useEffect(() => {
     setAppointmentDate();
+    console.log(props.schedule);
   }, []);
 
   function setAppointmentDate() {

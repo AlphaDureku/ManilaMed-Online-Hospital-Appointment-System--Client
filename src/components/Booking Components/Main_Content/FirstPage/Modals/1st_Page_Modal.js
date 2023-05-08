@@ -81,7 +81,8 @@ export default function FirstPage_Modal(props) {
         />
         <HistoryModal
           show={showHistory}
-          setShow={setShowHistory}
+          setShowHistory={setShowHistory}
+          setInput={setInput}
           appointmentDetails={props.appointmentDetails}
           setAppointmentDetails={props.setAppointmentDetails}
         />
