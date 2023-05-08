@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Button, Tooltip } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { useState } from "react";
 
 export default function Form(props) {
   // for responsiveness
@@ -64,22 +64,20 @@ export default function Form(props) {
   //Render
   return (
     <div className="BookingsearchForm-container " id="SearchDoctor">
-      <div className="bookingtagtitle">Search a Doctor  
-      <Tooltip label="View doctor schedule to proceed" position="bottom" className="ms-2 ">
-      <Button compact variant="outline"
-        size="xs"
-        radius="xl"
-        color="gray"
-      >
-        ?  </Button>
-      </Tooltip>
+      <div className="bookingtagtitle">
+        Search a Doctor
+        <Tooltip
+          label="View doctor schedule to proceed"
+          position="bottom"
+          className="ms-2 "
+        >
+          <Button compact variant="outline" size="xs" radius="xl" color="gray">
+            ?{" "}
+          </Button>
+        </Tooltip>
       </div>
-    
 
-      <form
-        className="form-search formsearchDoctor "
-        onSubmit={OnSubmitHander}
-      >
+      <form className="form-search formsearchDoctor " onSubmit={OnSubmitHander}>
         <input
           type="text"
           className="form-control searchInput "

@@ -8,10 +8,10 @@ export default function Services() {
     schedule_date: "",
     schedule_ID: "",
     doctor_ID: "",
-    patient_ID: null,
+    patient_ID: "",
     patient_info: {
-      first_name: "",
-      last_name: "",
+      patient_first_name: "",
+      patient_last_name: "",
       middle_name: "",
       age: "",
       address: "",

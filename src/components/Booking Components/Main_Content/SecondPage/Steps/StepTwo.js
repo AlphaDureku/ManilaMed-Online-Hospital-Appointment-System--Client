@@ -1,11 +1,10 @@
-import SelectAvail from "../selectAvail";
+import { Alert, DEFAULT_THEME, LoadingOverlay, Skeleton } from "@mantine/core";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { DEFAULT_THEME, LoadingOverlay, Alert, Skeleton } from '@mantine/core';
+import { useEffect, useState } from "react";
+import SelectAvail from "./Steps_SubComponents/selectAvail";
 
 export default function StepTwo(props) {
-
-  const [scheduleStepTwo, setScheduleStepTwo] = useState(); 
+  const [scheduleStepTwo, setScheduleStepTwo] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -14,8 +13,8 @@ export default function StepTwo(props) {
       try {
         const response = await axios.get("/booking/doctor-calendar", {
           params: {
-            doctor_ID: props.appointmentDetails.doctor_ID
-          }
+            doctor_ID: props.appointmentDetails.doctor_ID,
+          },
         });
         const data = response.data;
         setScheduleStepTwo(data.data);
@@ -54,7 +53,7 @@ export default function StepTwo(props) {
       </g>
     </svg>
   );
-  
+
   return (
     <>
       {isLoading && (
@@ -68,20 +67,16 @@ export default function StepTwo(props) {
         </>
       )}
       {error && (
-        <Alert
-          color="red"
-          title="Error"
-          onClose={() => setError(null)}
-        >
+        <Alert color="red" title="Error" onClose={() => setError(null)}>
           {error}
         </Alert>
       )}
-      <SelectAvail 
+      <SelectAvail
         schedule={props.schedule}
         appointmentDetails={props.appointmentDetails}
         setAppointmentDetails={props.setAppointmentDetails}
         scheduleStepTwo={scheduleStepTwo}
-        isLoading={isLoading} 
+        isLoading={isLoading}
         error={error}
       />
     </>

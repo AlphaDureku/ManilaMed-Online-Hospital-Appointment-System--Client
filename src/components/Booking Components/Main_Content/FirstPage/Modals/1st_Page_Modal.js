@@ -1,6 +1,6 @@
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import VerificationModal from "../../../../Reusable_Components/Verification_Modal";
@@ -32,6 +32,7 @@ export default function FirstPage_Modal(props) {
     const { name, value } = event.target;
     setInput(() => ({ [name]: value }));
   }
+
   const OnSubmitHandler = async () => {
     const res = await axios.get("/booking/verifyOTP", {
       params: {
@@ -54,21 +55,6 @@ export default function FirstPage_Modal(props) {
     }
   };
 
-  if (props.loading) {
-    return (
-      <>
-        <Modal
-          show={showModal.verification}
-          onHide={OnCloseHandler}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <img src="/images/manilamed-loading.gif" alt=""></img>
-        </Modal>
-      </>
-    );
-  }
-
   async function reSendOTP() {
     const res = await axios.get("/booking/send-otp", {
       params: {
@@ -79,25 +65,43 @@ export default function FirstPage_Modal(props) {
       OTPNotif();
     }
   }
+  // Render Modals
+  const FirstPageModals = useMemo(() => {
+    return (
+      <>
+        <VerificationModal
+          show={showModal.verification}
+          OnCloseHandler={OnCloseHandler}
+          leftButton={reSendOTP}
+          email={props.email}
+          OnchangeHandler={OnchangeHandler}
+          entered_OTP={input.enteredOTP}
+          error={error}
+          rightButton={OnSubmitHandler}
+        />
+        <HistoryModal
+          show={showHistory}
+          setShow={setShowHistory}
+          appointmentDetails={props.appointmentDetails}
+          setAppointmentDetails={props.setAppointmentDetails}
+        />
+      </>
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.loading, showHistory, input]);
 
-  return (
+  const FirstPageModals_Loading = (
     <>
-      <VerificationModal
+      <Modal
         show={showModal.verification}
-        OnCloseHandler={OnCloseHandler}
-        leftButton={reSendOTP}
-        email={props.email}
-        OnchangeHandler={OnchangeHandler}
-        entered_OTP={input.enteredOTP}
-        error={error}
-        rightButton={OnSubmitHandler}
-      />
-      <HistoryModal
-        show={showHistory}
-        setShow={setShowHistory}
-        setInput={setInput}
-        setAppointmentDetails={props.setAppointmentDetails}
-      />
+        onHide={OnCloseHandler}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <img src="/images/manilamed-loading.gif" alt=""></img>
+      </Modal>
     </>
   );
+
+  return <>{props.loading ? FirstPageModals_Loading : FirstPageModals}</>;
 }

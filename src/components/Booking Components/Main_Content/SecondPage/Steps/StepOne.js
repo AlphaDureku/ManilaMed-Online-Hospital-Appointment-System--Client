@@ -1,5 +1,5 @@
-import BookingForm from "../BookingForm";
 import Card from "../../../../Home Components/Search Doctor/Card";
+import BookingForm from "./Steps_SubComponents/BookingForm";
 
 export default function StepOne(props) {
   return (
