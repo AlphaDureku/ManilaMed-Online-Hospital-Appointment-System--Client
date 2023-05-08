@@ -270,7 +270,6 @@ select {
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   font-family: "Inter";
-
 }
 
 .doctor-flexbox-container2 {
@@ -440,6 +439,47 @@ select {
   margin: 0 auto;
 }
 
+.Tracker--modalHeader {
+  border: none;
+  padding: 10px;
+  background-color: #e6e6e8;
+}
+.Tracker--modalBody {
+  padding: 0 50px 30px 50px;
+  background-color: #e6e6e8;
+}
+
+.Tracker--modal--flexbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.Tracker--modal--patient-name {
+  font-family: "Montserrat";
+  color: #4b506d;
+  font-weight: bold;
+  font-size: min(1.4rem, 3.8vw);
+}
+.Tracker--modal--patient-details {
+  padding: 0;
+  margin: 2px 0;
+  font-size: min(0.95rem, 3.1vw);
+}
+.Tracker--modal--date-details {
+  color: #388440;
+  padding: 0;
+  margin: 2px 0;
+  font-size: min(0.9rem, 3vw);
+}
+
+.Tracker--modal--doctor-details {
+  color: #4b506d;
+  padding: 0;
+  margin: 2px 0;
+  font-size: min(1.1rem, 3.2vw);
+}
+
 /*!Book Appointment CSS */
 
 .Tracking--NavBar {
@@ -598,6 +638,8 @@ select {
   border-radius: 8px;
   margin-bottom: 10px;
   display: flex;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  cursor: pointer;
 }
 
 .appointment-card--patient-info {
@@ -709,7 +751,7 @@ select {
   border: none;
   border-radius: 20px;
   width: 100%;
-  margin-right: 8%;
+
   font-size: min(1rem, 2.5vw);
 }
 .edit-back {
@@ -717,6 +759,7 @@ select {
   border: none;
   border-radius: 20px;
   width: 100%;
+  margin-right: 8%;
   font-size: min(1rem, 2.5vw);
 }
 .view-backBtn {
@@ -729,11 +772,19 @@ select {
   margin-top: 5%;
   font-size: min(1rem, 3.5vw);
 }
-.custom-modal-dialog {
-  max-width: 80%;
-  max-height: 80%;
-  border: 1px solid red;
+
+.modalButton_row {
+  display: flex;
+  margin-top: 3%;
+  width: max(40%, 220px);
 }
+.modalButton {
+  border: none;
+  border-radius: 20px;
+
+  font-size: min(1rem, 2.5vw);
+}
+
 /*! Shake Animation */
 
 .shake-error {
@@ -1128,23 +1179,23 @@ select {
   color: #000;
 }
 
-.greetingTerms{
+.greetingTerms {
   text-align: justify;
 }
 
-.wordlistterms{
+.wordlistterms {
   text-align: justify;
   margin: 2%;
 }
 
-.numberlistedTerms{
+.numberlistedTerms {
   font-weight: bold;
-  margin-right: 5px ;
+  margin-right: 5px;
 }
 
 .mantine-qo482m {
-  width: 80%; 
-  margin: 0 auto; 
+  width: 80%;
+  margin: 0 auto;
   margin-top: 15px;
 }
 
@@ -1154,11 +1205,9 @@ select {
   justify-content: center;
   align-items: center;
   font-family: "Montserrat", sans-serif !important;
-
-
 }
 
-.bookingtagtitle{
+.bookingtagtitle {
   color: rgba(56, 132, 64, 1);
   font-family: "Montserrat", sans-serif;
   text-align: center;
@@ -1167,22 +1216,19 @@ select {
   margin-top: 7px;
 }
 .mantine-jo8my5[data-completed] {
-  background-color: #24B7E9 !important;
-  border-color: #24B7E9 !important;
-
+  background-color: #24b7e9 !important;
+  border-color: #24b7e9 !important;
 }
 
-.mantine-amngjg{
-  background-color: #24B7E9 !important;
-
-
+.mantine-amngjg {
+  background-color: #24b7e9 !important;
 }
 
-.mantine-jo8my5[data-progress]{
-  border-color: #24B7E9 !important;
+.mantine-jo8my5[data-progress] {
+  border-color: #24b7e9 !important;
 }
 
-.stepFinstruc{
+.stepFinstruc {
   font-size: min(20px, 6vw);
   margin-bottom: 20px;
   text-align: center;
@@ -1191,28 +1237,28 @@ select {
 /* datepicker border */
 .mantine-1y0d926,
 .mantine-1swk0oy,
-.mantine-vb5ezt{
+.mantine-vb5ezt {
   border: 1px solid #848484;
   border-radius: 7px;
   padding-left: 14px;
   padding-right: 14px;
   padding-top: 5px;
-  padding-bottom:5px ;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+  padding-bottom: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .mantine-o00rr2,
-.mantine-rsd5oj{
+.mantine-rsd5oj {
   border: 1px solid #848484;
   border-radius: 7px;
   padding-left: 14px;
   padding-right: 14px;
   padding-top: 5px;
-  padding-bottom:5px ;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+  padding-bottom: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.stepTwoBorder{
+.stepTwoBorder {
   margin-top: 10px;
   border-radius: 7px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -1222,10 +1268,9 @@ select {
   margin-right: auto;
   padding-left: 15px;
   padding-right: 15px;
-
 }
 
-.Availnote{
+.Availnote {
   box-sizing: border-box;
   width: 85%;
   background: rgba(132, 132, 132, 0.5);
@@ -1234,45 +1279,42 @@ select {
   font-family: "Montserrat", sans-serif;
 }
 
-
 .leveloneNote,
-.specialNote{
-  font-weight:600;
+.specialNote {
+  font-weight: 600;
 }
 
-.leveltwoNote{
-font-weight: 500;
+.leveltwoNote {
+  font-weight: 500;
 }
 
-.legendRowleft{
+.legendRowleft {
   align-items: center !important;
   margin-left: 20% !important;
   margin-right: 5% !important;
   font-weight: 500;
   font-family: "Inter";
-
 }
 
-.legendRowright{
+.legendRowright {
   align-items: center !important;
   margin-left: 5% !important;
   margin-right: 20% !important;
   font-weight: 500;
   font-family: "Inter";
-
 }
 
-.datepickerRow{
+.datepickerRow {
   margin-left: 5% !important;
   margin-right: 20% !important;
 }
 
-.queuContainer{
+.queuContainer {
   border: 1px solid #848484;
   border-radius: 7px;
   font-weight: 500;
   font-family: "Inter";
-   align-items: center !important;
+  align-items: center !important;
   margin-left: 20% !important;
   margin-right: 5% !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -1280,56 +1322,41 @@ font-weight: 500;
   padding-right: 2%;
   padding-top: 10%;
   padding-bottom: 10%;
-
-
 }
 
-
-.queueNumber, .recomGo{
-font-weight: 700;
+.queueNumber,
+.recomGo {
+  font-weight: 700;
 }
 
-.headerlegend{
+.headerlegend {
   font-weight: 600 !important;
   font-size: 19px;
   font-family: "Inter";
-
 }
 
-
-.step1font
-{
+.step1font {
   font-family: "Montserrat", sans-serif !important;
-
 }
-.mantine-1y0dcw0{
+.mantine-1y0dcw0 {
   font-family: "Montserrat", sans-serif !important;
 }
 
-.mantine-1bvpemk{
+.mantine-1bvpemk {
   font-family: "Inter";
 }
 
-
-
-
-
-.stepTwoSkeleton{
+.stepTwoSkeleton {
   height: 100% !important;
-
 }
 
-
-.enterpatientinfo{
+.enterpatientinfo {
   font-family: "Inter" !important;
-
 }
 
-.patientinfoRow{
+.patientinfoRow {
   margin-top: 4%;
 }
-.sppatientInfoRow{
+.sppatientInfoRow {
   margin-top: 4%;
-
 }
-

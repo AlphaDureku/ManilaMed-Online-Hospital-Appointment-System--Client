@@ -138,16 +138,16 @@ export default function EditInfo() {
         </div>
         <div className="edit-Button_Row">
           <button
-            className="btn btn-success btn edit-save"
-            onClick={() => enableHandler()}
-          >
-            {isDisabled ? "Edit" : "Save Changes"}
-          </button>
-          <button
             className="btn btn-success btn edit-back"
             onClick={() => backButtonHandler()}
           >
             Back
+          </button>
+          <button
+            className="btn btn-success btn edit-save"
+            onClick={() => enableHandler()}
+          >
+            {isDisabled ? "Edit" : "Save Changes"}
           </button>
         </div>
       </div>

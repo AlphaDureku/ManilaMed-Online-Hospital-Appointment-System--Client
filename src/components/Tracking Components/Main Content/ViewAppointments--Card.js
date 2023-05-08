@@ -1,14 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import MyAppointments from "./Modals/MyAppointments";
 
 export default function Card() {
   const [appointmentList, setAppointmentList] = useState([]);
   const token = localStorage.getItem("userToken");
   const { id } = useParams();
   const [count, setCount] = useState({});
+  const [show, setShow] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState({});
   document.title = "Appointment History";
 
+  const handleClose = () => setShow(false);
+  const handleShow = (patient) => {
+    setShow(true);
+    setSelectedAppointment(patient);
+  };
   useEffect(() => {
     const getAppointments = async () => {
       const response = await axios.get(`/user/${id}`, {
@@ -48,7 +56,11 @@ export default function Card() {
   const PendingElements = appointmentList.map((item, index) => {
     if (item.status === "Pending") {
       return (
-        <div className="appointment-card" key={index}>
+        <div
+          className="appointment-card"
+          key={index}
+          onClick={() => handleShow(item)}
+        >
           <div className="appointment-card--patient-info">
             <div className="card--patient-name">
               {item.patient_first_name} {item.patient_last_name}
@@ -74,7 +86,11 @@ export default function Card() {
   const ConfirmedElements = appointmentList.map((item, index) => {
     if (item.status === "Confirmed") {
       return (
-        <div className="appointment-card" key={index}>
+        <div
+          className="appointment-card"
+          key={index}
+          onClick={() => handleShow(item)}
+        >
           <div className="appointment-card--patient-info">
             <div className="card--patient-name">
               {item.patient_first_name} {item.patient_last_name}
@@ -100,7 +116,11 @@ export default function Card() {
   const CompletedElements = appointmentList.map((item, index) => {
     if (item.status === "Completed") {
       return (
-        <div className="appointment-card" key={index}>
+        <div
+          className="appointment-card"
+          key={index}
+          onClick={() => handleShow(item)}
+        >
           <div className="appointment-card--patient-info">
             <div className="card--patient-name">
               {item.patient_first_name} {item.patient_last_name}
@@ -126,7 +146,41 @@ export default function Card() {
   const CancelledElements = appointmentList.map((item, index) => {
     if (item.status === "Cancelled") {
       return (
-        <div className="appointment-card" key={index}>
+        <div
+          className="appointment-card"
+          key={index}
+          onClick={() => handleShow(item)}
+        >
+          <div className="appointment-card--patient-info">
+            <div className="card--patient-name">
+              {item.patient_first_name} {item.patient_last_name}
+            </div>
+            <div className="card--appointment-header">Appointment Date:</div>
+            <div className="appointment-date">
+              {item.date} | {item.start} - {item.end}
+            </div>
+          </div>
+          <hr className="hr" style={{ margin: "2%" }}></hr>
+          <div className="appointment-card--doctor-info">
+            <div className="card--doctor-name">
+              Dr. {item.doctor_Fname} {item.doctor_Lname}
+            </div>
+            <div className="card--doctor-spec">{item.specialization}</div>
+          </div>
+        </div>
+      );
+    }
+    return false;
+  });
+
+  const RejectedElements = appointmentList.map((item, index) => {
+    if (item.status === "Rejected") {
+      return (
+        <div
+          className="appointment-card"
+          key={index}
+          onClick={() => handleShow(item)}
+        >
           <div className="appointment-card--patient-info">
             <div className="card--patient-name">
               {item.patient_first_name} {item.patient_last_name}
@@ -161,7 +215,6 @@ export default function Card() {
       ) : (
         ""
       )}
-
       {count.confirmed > 0 ? (
         <div className="appointment-item">
           <div className="appointment-status blue">
@@ -192,17 +245,21 @@ export default function Card() {
       ) : (
         ""
       )}
-
       {count.rejected > 0 ? (
         <div className="appointment-item">
           <div className="appointment-status red">
             Rejected({count.rejected})
           </div>
-          {CompletedElements}
+          {RejectedElements}
         </div>
       ) : (
         ""
       )}
+      <MyAppointments
+        show={show}
+        handleClose={handleClose}
+        selectedAppointment={selectedAppointment}
+      />
     </>
   );
 }
