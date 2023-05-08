@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import BackProceed from "../../../../Reusable_Components/Buttons--BackProceed";
-import PatientCard from "../Patient--Card";
+import PatientCard from "./Patient--Card";
 export default function HistoryModal(props) {
   const navigate = useNavigate();
   function OnCloseHandler_History() {

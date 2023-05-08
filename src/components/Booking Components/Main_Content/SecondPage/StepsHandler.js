@@ -8,7 +8,7 @@ import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
 const moment = require("moment");
 
-export default function SecondPage(props) {
+export default function StepsHandler(props) {
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -30,9 +30,9 @@ export default function SecondPage(props) {
     hmo: [],
   });
 
-  const [searchCompleted, setSearchCompleted] = useState(false);
-  const [scheduleCompleted, setScheduleCompleted] = useState(false);
-  const [infoCompleted, setInfoCompleted] = useState(false);
+  // const [searchCompleted, setSearchCompleted] = useState(false);
+  // const [scheduleCompleted, setScheduleCompleted] = useState(false);
+  // const [infoCompleted, setInfoCompleted] = useState(false);
 
   // const [AppointmentDetails, setAppointmentDetails] = useState({
   //   doctor_ID: "sdasdf",

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { userContext } from "./1st_Page";
+import { userContext } from "../1st_Page";
 export default function PatientCard(props) {
   //Props
   const { historyPatients } = useContext(userContext);

@@ -2,7 +2,7 @@ import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
+import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 
 export default function FirstPageForms(props) {
   const {
