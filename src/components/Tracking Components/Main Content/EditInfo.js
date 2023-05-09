@@ -1,21 +1,14 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Reducer, initialState } from "./Reducers/Edit_Page";
 
 export default function EditInfo() {
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [currentPatient, setCurrentPatient] = useState({
-    patient_first_name: "",
-    patient_middle_name: "",
-    patient_last_name: "",
-    patient_address: "",
-    patient_contact_number: "",
-    dateOfBirth: "",
-  });
-  const token = localStorage.getItem("userToken");
   const { id } = useParams();
   const navigate = useNavigate();
   document.title = "Patient Information";
+  const token = localStorage.getItem("userToken");
+  const [state, dispatch] = useReducer(Reducer, initialState);
 
   useEffect(() => {
     const getPatientInfo = async () => {
@@ -24,19 +17,18 @@ export default function EditInfo() {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { data } = response.data;
-      setCurrentPatient(data);
+      dispatch({ type: "FETCH_SUCCESS", payload: response.data });
     };
     getPatientInfo();
-  }, [id]);
+  }, [id, token]);
 
   async function enableHandler() {
-    setIsDisabled((prev) => !prev);
-    if (!isDisabled) {
-      const res = await axios.post(
+    dispatch({ type: "TOGGLE" });
+    if (!state.isDisabled) {
+      await axios.post(
         "/user/edit-patient",
         {
-          info: currentPatient,
+          info: state,
           Patient_ID: id,
         },
         {
@@ -48,7 +40,7 @@ export default function EditInfo() {
     }
   }
   function backButtonHandler() {
-    if (!isDisabled) {
+    if (!state.isDisabled) {
       let confirmed = window.confirm(
         "Are you sure you wanted to discard your changes?"
       );
@@ -63,10 +55,7 @@ export default function EditInfo() {
   }
   function onChangeHandler(event) {
     const { name, value } = event.target;
-    setCurrentPatient((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    dispatch({ type: "CHANGE_INPUT", payload: { name: name, value: value } });
   }
 
   return (
@@ -80,8 +69,8 @@ export default function EditInfo() {
           <input
             className="form-control edit-input"
             name="patient_first_name"
-            value={currentPatient.patient_first_name}
-            disabled={isDisabled}
+            value={state.patient_first_name}
+            disabled={state.isDisabled}
             onChange={onChangeHandler}
           ></input>
         </div>
@@ -90,8 +79,8 @@ export default function EditInfo() {
           <input
             className="form-control edit-input"
             name="patient_middle_name"
-            value={currentPatient.patient_middle_name}
-            disabled={isDisabled}
+            value={state.patient_middle_name}
+            disabled={state.isDisabled}
             onChange={onChangeHandler}
           ></input>
         </div>
@@ -100,8 +89,8 @@ export default function EditInfo() {
           <input
             className="form-control edit-input"
             name="patient_last_name"
-            value={currentPatient.patient_last_name}
-            disabled={isDisabled}
+            value={state.patient_last_name}
+            disabled={state.isDisabled}
             onChange={onChangeHandler}
           ></input>
         </div>
@@ -111,8 +100,8 @@ export default function EditInfo() {
             className="form-control edit-input"
             name="dateOfBirth"
             type="date"
-            value={currentPatient.dateOfBirth}
-            disabled={isDisabled}
+            value={state.dateOfBirth}
+            disabled={state.isDisabled}
             onChange={onChangeHandler}
           ></input>
         </div>
@@ -121,8 +110,8 @@ export default function EditInfo() {
           <input
             className="form-control edit-input"
             name="patient_address"
-            value={currentPatient.patient_address}
-            disabled={isDisabled}
+            value={state.patient_address}
+            disabled={state.isDisabled}
             onChange={onChangeHandler}
           ></input>
         </div>
@@ -131,8 +120,8 @@ export default function EditInfo() {
           <input
             className="form-control edit-input"
             name="patient_contact_number"
-            value={currentPatient.patient_contact_number}
-            disabled={isDisabled}
+            value={state.patient_contact_number}
+            disabled={state.isDisabled}
             onChange={onChangeHandler}
           ></input>
         </div>
@@ -147,7 +136,7 @@ export default function EditInfo() {
             className="btn btn-success btn edit-save"
             onClick={() => enableHandler()}
           >
-            {isDisabled ? "Edit" : "Save Changes"}
+            {state.isDisabled ? "Edit" : "Save Changes"}
           </button>
         </div>
       </div>

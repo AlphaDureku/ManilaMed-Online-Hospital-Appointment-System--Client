@@ -1,27 +1,32 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import Card from "./LandingPage--Card";
+import { Reducer, initialState } from "./Reducers/Lading_Page";
 export default function LandingPage() {
-  const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [patientList, setPatientList] = useState([]);
   const token = localStorage.getItem("userToken");
+  const [state, dispatch] = useReducer(Reducer, initialState);
 
   useEffect(() => {
     const getPatients = async () => {
-      const response = await axios.get("/user/get-patients", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const { data } = response.data;
-      setCount(data.count);
-      setPatientList(data.patientList);
+      try {
+        const response = await axios.get("/user/get-patients", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const { data } = response.data;
+        dispatch({
+          type: "FETCH_SUCCESS",
+          payload: { count: data.count, patientList: data.patientList },
+        });
+        setTimeout(() => {
+          dispatch({ type: "LOADING_FINISHED" });
+        }, 200);
+      } catch (err) {
+        dispatch({ type: "FETCH_ERROR" });
+      }
     };
     getPatients();
-    setTimeout(() => {
-      setLoading(false);
-    }, 200);
   }, []);
   return (
     <>
@@ -35,11 +40,11 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="patient-list_Container">
-            <Card patientList={patientList} loading={loading} />
+            <Card patientList={state.patientList} loading={state.loading} />
           </div>
           <p className="end-title">
-            With your registered email address, we were able to locate {count}{" "}
-            patient {count > 1 ? "records" : "record"}
+            With your registered email address, we were able to locate{" "}
+            {state.count} patient {state.count > 1 ? "records" : "record"}
           </p>
           <p className="end-title">
             click an option to <span style={{ color: "red" }}>continue</span>

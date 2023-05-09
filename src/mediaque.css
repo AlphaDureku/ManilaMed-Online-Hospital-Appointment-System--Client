@@ -423,6 +423,7 @@
   .Tracker--modal--flexbox {
     flex-direction: column;
     text-align: center;
+    gap: 20px;
   }
 }
 
@@ -753,10 +754,10 @@
   .OTP_buttonRow > button,
   .TrackAtHome--buttonRow > button,
   .Options_buttonRow > button,
-  .stephandlerbuttonrow > button{
+  .stephandlerbuttonrow > button {
     font-size: 12px;
   }
-  .stephandlerbuttonrow > button{
+  .stephandlerbuttonrow > button {
     width: 110px;
   }
   .mantine-qo482m {
@@ -815,10 +816,7 @@
   .stepTwoBorder {
     box-shadow: none;
     border: none;
-   
   }
-  
-
 }
 
 @media screen and (max-width: 767px) {

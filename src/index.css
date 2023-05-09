@@ -439,6 +439,10 @@ select {
   margin: 0 auto;
 }
 
+.notification {
+  color: red;
+}
+
 .Tracker--modalHeader {
   border: none;
   padding: 10px;
@@ -1362,6 +1366,6 @@ select {
 }
 
 .stephandlerbuttonrow > button {
-  border-radius: 20px!important;  ;
+  border-radius: 20px !important;
   width: 120px;
 }

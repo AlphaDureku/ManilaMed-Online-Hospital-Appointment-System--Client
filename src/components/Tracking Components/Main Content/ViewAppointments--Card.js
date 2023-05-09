@@ -53,152 +53,64 @@ export default function Card() {
     setCount(newCounts);
   }, [appointmentList]);
 
-  const PendingElements = appointmentList.map((item, index) => {
-    if (item.status === "Pending") {
-      return (
-        <div
-          className="appointment-card"
-          key={index}
-          onClick={() => handleShow(item)}
-        >
-          <div className="appointment-card--patient-info">
-            <div className="card--patient-name">
-              {item.patient_first_name} {item.patient_last_name}
-            </div>
-            <div className="card--appointment-header">Appointment Date:</div>
-            <div className="appointment-date">
-              {item.date} | {item.start} - {item.end}
-            </div>
+  const appointmentCardElement = (item, index) => {
+    return (
+      <div
+        className="appointment-card"
+        key={index}
+        onClick={() => handleShow(item)}
+      >
+        <div className="appointment-card--patient-info">
+          <div className="card--patient-name">
+            {item.patient_first_name} {item.patient_last_name}
           </div>
-          <hr className="hr" style={{ margin: "2%" }}></hr>
-          <div className="appointment-card--doctor-info">
-            <div className="card--doctor-name">
-              Dr. {item.doctor_Fname} {item.doctor_Lname}
-            </div>
-            <div className="card--doctor-spec">{item.specialization}</div>
+          <div className="card--appointment-header">Appointment Date:</div>
+          <div className="appointment-date">
+            {item.date} | {item.start} - {item.end}
           </div>
         </div>
-      );
+        <hr className="hr" style={{ margin: "2%" }}></hr>
+        <div className="appointment-card--doctor-info">
+          <div className="card--doctor-name">
+            Dr. {item.doctor_Fname} {item.doctor_Lname}
+          </div>
+          <div className="card--doctor-spec">{item.specialization}</div>
+        </div>
+      </div>
+    );
+  };
+
+  const PendingElements = appointmentList.map((item, index) => {
+    if (item.status === "Pending") {
+      return appointmentCardElement(item, index);
     }
     return false;
   });
 
   const ConfirmedElements = appointmentList.map((item, index) => {
     if (item.status === "Confirmed") {
-      return (
-        <div
-          className="appointment-card"
-          key={index}
-          onClick={() => handleShow(item)}
-        >
-          <div className="appointment-card--patient-info">
-            <div className="card--patient-name">
-              {item.patient_first_name} {item.patient_last_name}
-            </div>
-            <div className="card--appointment-header">Appointment Date:</div>
-            <div className="appointment-date">
-              {item.date} | {item.start} - {item.end}
-            </div>
-          </div>
-          <hr className="hr" style={{ margin: "2%" }}></hr>
-          <div className="appointment-card--doctor-info">
-            <div className="card--doctor-name">
-              Dr. {item.doctor_Fname} {item.doctor_Lname}
-            </div>
-            <div className="card--doctor-spec">{item.specialization}</div>
-          </div>
-        </div>
-      );
+      return appointmentCardElement(item, index);
     }
     return false;
   });
 
   const CompletedElements = appointmentList.map((item, index) => {
     if (item.status === "Completed") {
-      return (
-        <div
-          className="appointment-card"
-          key={index}
-          onClick={() => handleShow(item)}
-        >
-          <div className="appointment-card--patient-info">
-            <div className="card--patient-name">
-              {item.patient_first_name} {item.patient_last_name}
-            </div>
-            <div className="card--appointment-header">Appointment Date:</div>
-            <div className="appointment-date">
-              {item.date} | {item.start} - {item.end}
-            </div>
-          </div>
-          <hr className="hr" style={{ margin: "2%" }}></hr>
-          <div className="appointment-card--doctor-info">
-            <div className="card--doctor-name">
-              Dr. {item.doctor_Fname} {item.doctor_Lname}
-            </div>
-            <div className="card--doctor-spec">{item.specialization}</div>
-          </div>
-        </div>
-      );
+      return appointmentCardElement(item, index);
     }
     return false;
   });
 
   const CancelledElements = appointmentList.map((item, index) => {
     if (item.status === "Cancelled") {
-      return (
-        <div
-          className="appointment-card"
-          key={index}
-          onClick={() => handleShow(item)}
-        >
-          <div className="appointment-card--patient-info">
-            <div className="card--patient-name">
-              {item.patient_first_name} {item.patient_last_name}
-            </div>
-            <div className="card--appointment-header">Appointment Date:</div>
-            <div className="appointment-date">
-              {item.date} | {item.start} - {item.end}
-            </div>
-          </div>
-          <hr className="hr" style={{ margin: "2%" }}></hr>
-          <div className="appointment-card--doctor-info">
-            <div className="card--doctor-name">
-              Dr. {item.doctor_Fname} {item.doctor_Lname}
-            </div>
-            <div className="card--doctor-spec">{item.specialization}</div>
-          </div>
-        </div>
-      );
+      return appointmentCardElement(item, index);
     }
     return false;
   });
 
   const RejectedElements = appointmentList.map((item, index) => {
     if (item.status === "Rejected") {
-      return (
-        <div
-          className="appointment-card"
-          key={index}
-          onClick={() => handleShow(item)}
-        >
-          <div className="appointment-card--patient-info">
-            <div className="card--patient-name">
-              {item.patient_first_name} {item.patient_last_name}
-            </div>
-            <div className="card--appointment-header">Appointment Date:</div>
-            <div className="appointment-date">
-              {item.date} | {item.start} - {item.end}
-            </div>
-          </div>
-          <hr className="hr" style={{ margin: "2%" }}></hr>
-          <div className="appointment-card--doctor-info">
-            <div className="card--doctor-name">
-              Dr. {item.doctor_Fname} {item.doctor_Lname}
-            </div>
-            <div className="card--doctor-spec">{item.specialization}</div>
-          </div>
-        </div>
-      );
+      return appointmentCardElement(item, index);
     }
     return false;
   });

@@ -3,7 +3,6 @@ import { Modal } from "react-bootstrap";
 
 export default function MyAppointments(props) {
   const { show, handleClose, selectedAppointment } = props;
-  console.log(selectedAppointment);
   const modalBody = (
     <>
       <div className="Tracker--modal--patient-name">
@@ -47,7 +46,7 @@ export default function MyAppointments(props) {
           <p className="Tracker--modal--date-details">
             <b>
               {selectedAppointment.date} | {selectedAppointment.start} -{" "}
-              {selectedAppointment.end} - {selectedAppointment.end}
+              {selectedAppointment.end}
             </b>
           </p>
         </div>
