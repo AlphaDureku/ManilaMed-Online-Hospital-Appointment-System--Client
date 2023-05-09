@@ -1360,3 +1360,8 @@ select {
 .sppatientInfoRow {
   margin-top: 4%;
 }
+
+.stephandlerbuttonrow > button {
+  border-radius: 20px!important;  ;
+  width: 120px;
+}

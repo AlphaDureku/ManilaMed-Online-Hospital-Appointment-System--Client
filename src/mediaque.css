@@ -752,10 +752,13 @@
   .FirstPage--buttonRow > button:nth-child(2),
   .OTP_buttonRow > button,
   .TrackAtHome--buttonRow > button,
-  .Options_buttonRow > button {
+  .Options_buttonRow > button,
+  .stephandlerbuttonrow > button{
     font-size: 12px;
   }
-
+  .stephandlerbuttonrow > button{
+    width: 110px;
+  }
   .mantine-qo482m {
     width: 45%;
   }
@@ -808,6 +811,14 @@
     margin: 2% !important;
     margin-top: 7% !important;
   }
+
+  .stepTwoBorder {
+    box-shadow: none;
+    border: none;
+   
+  }
+  
+
 }
 
 @media screen and (max-width: 767px) {

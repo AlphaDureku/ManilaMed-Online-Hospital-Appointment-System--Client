@@ -6,8 +6,17 @@ export default function FinalStep(props) {
   return (
     <div>
       <GetPatientInfo
-        appointmentDetails={props.appointmentDetails}
-        setAppointmentDetails={props.setAppointmentDetails}
+        handleFormSubmit={props.handleFormSubmit}
+        handleInputChange={props.handleInputChange}
+        patientFirstName={props.patientFirstName}
+        patientLastName={props.patientLastName}
+        patientMiddleName={props.patientMiddleName}
+        patientPhone={props.patientPhone}
+        patientAddress={props.patientAddress}
+        patientGender={props.patientGender}
+        patientDOB={props.patientDOB}
+
+
       />
     </div>
   );

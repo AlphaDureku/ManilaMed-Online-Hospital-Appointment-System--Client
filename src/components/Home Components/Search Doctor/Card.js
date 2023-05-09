@@ -162,7 +162,7 @@ export default function Card(props) {
   }
 
   const onSubmit = () => {
-    console.table(props.appointmentDetails);
+    props.nextStep();
   };
 
   // Map each card

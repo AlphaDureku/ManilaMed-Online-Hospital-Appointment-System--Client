@@ -1,6 +1,7 @@
-import { Alert, DEFAULT_THEME, LoadingOverlay, Skeleton } from "@mantine/core";
+import { Alert, DEFAULT_THEME, LoadingOverlay } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import SelectAvail from "./Steps_SubComponents/selectAvail";
 
 export default function StepTwo(props) {
@@ -62,13 +63,14 @@ export default function StepTwo(props) {
             loader={customLoader}
             visible
           />
-          <Skeleton visible />
         </>
       )}
       {error && (
-        <Alert color="red" title="Error" onClose={() => setError(null)}>
+        <Container>
+        <Alert color="red" title="Error" onClose={() => setError(null)} >
           {error}
         </Alert>
+        </Container>
       )}
       <SelectAvail
         schedule={props.schedule}

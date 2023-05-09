@@ -8,6 +8,7 @@ export default function SelectAvail(props) {
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [selectedDate, setSelectedDate] = useState();
 
+ 
   useEffect(() => {
     setAppointmentDate();
   }, []);
@@ -15,6 +16,9 @@ export default function SelectAvail(props) {
   function setAppointmentDate() {
     const appointmentDate = new Date(props.appointmentDetails.schedule_date);
     setSelectedDate(appointmentDate);
+    getSchedID();
+
+
   }
 
   function getDayProps(date) {
@@ -50,29 +54,36 @@ export default function SelectAvail(props) {
     }
   }
 
+
+
   function handleDateSelect(date) {
     setSelectedDate(date);
-    props.setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
+    props.setAppointmentDetails((prev) => ({ ...prev, schedule_date: date  }));
+    getSchedID();
   }
 
   const details = () => {
     console.table(props.appointmentDetails);
     console.log(props.scheduleStepTwo);
+    console.log(props.schedule);
+
   };
-  function getDoctorSched() {
-    // Convert and Filter schedule
-    const dateInPh = selectedDate
-      ? new Date(
-          selectedDate.getTime() -
-            selectedDate.getTimezoneOffset() * 60000 +
-            8 * 60 * 60000
-        )
-          .toISOString()
-          .substring(0, 10)
-      : null;
-    const filteredSchedule = props.scheduleStepTwo
-      ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
-      : [];
+
+function getDoctorSched() {
+ 
+  // Convert and Filter schedule
+  const dateInPh = selectedDate
+  ? new Date(
+      selectedDate.getTime() -
+        selectedDate.getTimezoneOffset() * 60000 +
+        8 * 60 * 60000
+    )
+      .toISOString()
+      .substring(0, 10)
+  : null;
+const filteredSchedule = props.scheduleStepTwo
+  ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
+  : [];
 
     // Filter start and end time
     const getSched = filteredSchedule.filter(
@@ -80,7 +91,8 @@ export default function SelectAvail(props) {
         schedule.start &&
         schedule.end &&
         schedule.queue &&
-        schedule.time_interval
+        schedule.time_interval &&
+        schedule.schedule_ID
     );
 
     const moment = require("moment-timezone");
@@ -90,6 +102,8 @@ export default function SelectAvail(props) {
       const endTime = moment(`${schedule.date}T${schedule.end}`);
       const queueNumber = `${schedule.queue}`;
       const timeInterval = `${schedule.time_interval}`;
+      const schedule_ID = `${schedule.schedule_ID}`;
+      
 
       const startTimePH = startTime.tz("Asia/Manila").format("h:mm A");
       const endTimePH = endTime.tz("Asia/Manila").format("h:mm A");
@@ -108,11 +122,21 @@ export default function SelectAvail(props) {
         queueNumber: queueNumber,
         timeInterval: timeInterval,
         recomTime: recomTime.map((time) => time.start.toString()),
+        schedule_ID: schedule_ID,
       };
     });
 
     return doctorSched;
   }
+  
+  function getSchedID(){
+
+    getDoctorSched().map((schedule) => props.setAppointmentDetails((prev) => ({ ...prev, schedule_ID: schedule.schedule_ID  })));
+    console.log(getDoctorSched());
+  
+  }
+  
+
 
   return (
     <div>
@@ -193,45 +217,50 @@ export default function SelectAvail(props) {
             </Row>
 
             <Row className="queuContainer ">
-              <span>Hi! 
+            <span>Hi! 
               <span>
-                 {" "}You are number{" "}
+                {" "}You are number{" "}
                 <label className="queueNumber">
-                  {getDoctorSched()
-                    .map((schedule) => schedule.queueNumber)
-                    .join(", ")}
+                  {getDoctorSched().length > 0
+                    ? getDoctorSched()
+                        .map((schedule) => schedule.queueNumber)
+                        .join(", ")
+                    : "---"}
                 </label>{" "}
                 in queue
               </span>
               <span>
-              <br></br><br></br>
-              You should be in the hospital on 
-              <span className="recomGo">
-              {" "}
-              {selectedDate
-                        ? selectedDate.toLocaleString("en-us", {
-                            month: "short",
-                          }) +
-                          " " +
-                          selectedDate.getDate() +
-                          ", " +
-                          selectedDate.getFullYear()
-                        : "-"}
-                        {" "}
-                         {selectedDate
-                        ? selectedDate.toLocaleString("en-us", {
-                            weekday: "long",
-                          })
-                        : "-"}
-              {" "}
-                {" "}
-                <label>
-                 by {getDoctorSched().map((schedule) => schedule.recomTime)}
-                </label>
+                <br /><br />
+                You should be in the hospital on 
+                <span className="recomGo">
+                  {" "}
+                  {selectedDate
+                    ? selectedDate.toLocaleString("en-us", {
+                        month: "short",
+                      }) +
+                      " " +
+                      selectedDate.getDate() +
+                      ", " +
+                      selectedDate.getFullYear()
+                    : "-"}
+                  {" "}
+                  {selectedDate
+                    ? selectedDate.toLocaleString("en-us", {
+                        weekday: "long",
+                      })
+                    : "-"}
+                  {" "}
+                  {" "}
+                  <label>
+                    {getDoctorSched().length > 0
+                      ? getDoctorSched().map((schedule) => schedule.recomTime)
+                      : "---"}
+                  </label>
                 </span>
               </span>
-              </span>
-            </Row>
+            </span>
+          </Row>
+
             </Container> 
           </Col>
 

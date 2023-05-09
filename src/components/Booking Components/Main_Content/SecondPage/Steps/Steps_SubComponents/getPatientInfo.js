@@ -1,7 +1,9 @@
 import { Tooltip, Button } from "@mantine/core";
 import { Row } from "react-bootstrap";
-export default function getPatientInfo (props){
+import { useState } from "react";
+export default function GetPatientInfo (props){
 
+ 
 
 
 
@@ -26,21 +28,21 @@ export default function getPatientInfo (props){
           <div className="row">
             <p style={{fontWeight: 600}} className="headerinfolabel">Please provide your information. This will be used for your appointment </p>
           </div>
+        <form onSubmit={props.handleFormSubmit}>
         <Row className=" sppatientInfoRow flex-column flex-md-row" >
             <div className="col">
-              <form>
                 <label className="patientInfolabel mb-3" style={{fontWeight: 500}}>First Name</label>  
                 <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-                <input type="text" className="form-control " />
-              </form></div>
+                <input type="text" className="form-control " value={props.patientFirstName} onChange={props.handleInputChange} />
+            </div>
             <div className="col">
               <label className="patientInfolabel mb-3"  style={{fontWeight: 500}}>Middle Name</label> 
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" value={props.patientMiddleName} onChange={props.handleInputChange}/>
             </div>
             <div className="col">
               <label className="patientInfolabel mb-3"  style={{fontWeight: 500}}>Last Name</label> 
               <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" value={props.patientLastName} onChange={props.handleInputChange} />
             </div>
             </Row>
           <Row className=" patientinfoRow flex-column flex-md-row">
@@ -52,26 +54,26 @@ export default function getPatientInfo (props){
                 </div>
               </div>
               <div className="form-check-inline mt-3  me-4 subp" style={{fontSize: '15px' , fontWeight: 500}} >
-                <input className="form-check-input" type="radio" name="radio" id="radios1" defaultValue="option1" />
-                <span className="form-check-label" htmlFor="radios1">
+               <input className="form-check-input" type="radio" name="gender" id="male" value="male" onChange={props.handleInputChange} />
+              <span className="form-check-label" htmlFor="male">
                  {" "} {" "} Male  
                 </span>
               </div>
               <div className="form-check-inline mt-3 subp" style={{fontSize: '15px' , fontWeight: 500}}>
-                <input className="form-check-input" type="radio" name="radio" id="radios2" defaultValue="option2" />
-                <span className="form-check-label" htmlFor="radios2">
+              <input className="form-check-input" type="radio" name="gender" id="female" value="female" onChange={props.handleInputChange} />
+              <label className="form-check-label" htmlFor="female">
                 {" "} {" "}Female
-                </span>
+                </label>
               </div>
             </div>
             <div className="col">
               <label className="patientInfolabeldob mb-3"  style={{fontWeight: 500}}>Date of Birth</label> 
               <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-              <input id="Date" className="form-control" type="date" />
+              <input id="Date" className="form-control" type="date"  value={props.patientDOB} onChange={props.handleInputChange}/>
             </div>
             <div className="col">
               <label className="patientInfolabel mb-3"  style={{fontWeight: 500}}>Contact Number</label> 
-              <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
+              <label className="required" style={{color: '#FF0000', fontWeight: 900}} value={props.patientPhone} onChange={props.handleInputChange}>*</label>  
               <input
                 type="tel"
                 id="typePhone"
@@ -87,11 +89,15 @@ export default function getPatientInfo (props){
               <div className="form-outline ">
                 <label className="form-label patientInfolabel mb-3" htmlFor="formA"  style={{fontWeight: 500}}>Address</label>
                 <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-                <input type="text" id="formA" className="form-control" />
+                <input type="text" id="formA" className="form-control"  value={props.patientAddress} onChange={props.handleInputChange}/>
               </div>
             </div>
            
           </Row>
+          </form>
+
+  
+
         </div>
             </div>
         );

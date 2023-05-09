@@ -14,7 +14,6 @@ export default function Services() {
       patient_last_name: "",
       middle_name: "",
       contact_number: "",
-      age: "",
       address: "",
       birthDate: "",
       gender: "",

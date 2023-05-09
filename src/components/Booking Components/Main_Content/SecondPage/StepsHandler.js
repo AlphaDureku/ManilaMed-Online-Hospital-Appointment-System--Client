@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import FinalStep from "./Steps/FinalStep";
+import GetPatientInfo from "./Steps/Steps_SubComponents/getPatientInfo";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
+import BookingConfirmation from "./Steps/Steps_SubComponents/confirmation";
 const moment = require("moment");
 
 export default function StepsHandler(props) {
@@ -88,6 +90,85 @@ export default function StepsHandler(props) {
     return;
   };
 
+
+  const [patientFirstName, setPatientFirstName] = useState('');
+  const [patientLastName, setPatientLastName] = useState('');
+  const [patientMiddleName, setPatientMiddleName] = useState('');
+  const [patientPhone, setPatientPhone] = useState('');
+  const [patientAddress, setPatientAddress] = useState('');
+  const [patientGender, setPatientGender] = useState('');
+  const [patientDOB, setPatientDOB] = useState('');
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    if (validateForm()) {
+      props.setAppointmentDetails((prev) => ({
+        ...prev,
+        patient_first_name: patientFirstName,
+        patient_middle_name: patientMiddleName,
+        patient_last_name: patientLastName,
+        contact_number: patientPhone,
+        birthDate: patientDOB,
+        address: patientAddress,
+        gender: patientGender
+  
+  
+      }));
+
+
+    }
+ 
+  }
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    switch (name) {
+      case "patientFirstName":
+        setPatientFirstName(value);
+        break;
+      case "patientLastName":
+        setPatientLastName(value);
+        break;
+      case "patientMiddleName":
+        setPatientMiddleName(value);
+        break;
+      case "patientAddress":
+        setPatientAddress(value);
+        break;
+      case "patientGender":
+        setPatientGender(value);
+        break;
+      case "patientDOB":
+        setPatientDOB(value);
+        break;
+      case "patientPhone":
+        setPatientPhone(value);
+        break;
+      default:
+        break;
+    }
+  }
+
+  function validateForm() {
+    const requiredFields = [
+      patientFirstName,
+      patientLastName,
+      patientAddress,
+      patientGender,
+      patientDOB,
+      patientPhone,
+    ];
+    if (requiredFields.some((field) => field === "")) {
+      alert("Please fill out all required fields");
+      return false;
+    }
+    if (!patientPhone.match(/^(09|\+639)\d{9}$/)) {
+      alert("Please enter a valid phone number");
+      return false;
+    }
+    return true;
+  }
+
   //Moved steps to Steps folder and converted them into seperate components
   return (
     <>
@@ -98,6 +179,7 @@ export default function StepsHandler(props) {
           breakpoint="sm"
           className="stepper"
           radius="lg"
+          allowNextStepsSelect={false}
         >
           <Stepper.Step label="Fist Step" description="Search Doctor">
             <StepOne
@@ -111,6 +193,7 @@ export default function StepsHandler(props) {
               loading={loading}
               appointmentDetails={props.appointmentDetails}
               setAppointmentDetails={props.setAppointmentDetails}
+              nextStep={nextStep}
             />
           </Stepper.Step>
           <Stepper.Step label="Second step" description="Select Schedule">
@@ -121,16 +204,31 @@ export default function StepsHandler(props) {
             />
           </Stepper.Step>
           <Stepper.Step label="Final step" description="Enter Information">
-            <FinalStep />
+            <GetPatientInfo
+             handleFormSubmit={handleFormSubmit}
+             handleInputChange={handleInputChange}
+             patientFirstName={patientFirstName}
+             patientLastName={patientLastName}
+             patientMiddleName={patientMiddleName}
+             patientPhone={patientPhone}
+             patientAddress={patientAddress}
+             patientGender={patientGender}
+             patientDOB={patientDOB}
+
+             />
           </Stepper.Step>
-          <Stepper.Completed></Stepper.Completed>
+          <Stepper.Completed>
+          <BookingConfirmation
+           appointmentDetails={props.appointmentDetails}
+                        />
+          </Stepper.Completed>
         </Stepper>
 
         {active !== 0 && (
-          <Group position="center" mt="xl">
+          <Group position="center" mt="xl" className="stephandlerbuttonrow m-3">
            <BackProceed
           leftButton={prevStep}
-          OnchangeHandler={nextStep}
+          rightButton={nextStep}
           redButtonText={"Back"}
           blueButtonText={"Proceed"}
         />
