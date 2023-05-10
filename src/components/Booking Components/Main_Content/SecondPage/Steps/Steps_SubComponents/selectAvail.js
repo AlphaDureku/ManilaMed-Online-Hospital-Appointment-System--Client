@@ -18,7 +18,6 @@ export default function SelectAvail(props) {
     setSelectedDate(appointmentDate);
     getSchedID();
 
-
   }
 
   function getDayProps(date) {
@@ -131,8 +130,7 @@ const filteredSchedule = props.scheduleStepTwo
   
   function getSchedID(){
 
-    getDoctorSched().map((schedule) => props.setAppointmentDetails((prev) => ({ ...prev, schedule_ID: schedule.schedule_ID  })));
-    console.log(getDoctorSched());
+    getDoctorSched().map((schedule) => props.setAppointmentDetails((prev) => ({ ...prev, schedule_ID: schedule.schedule_ID, recom_Time: schedule.recomTime  })));
   
   }
   

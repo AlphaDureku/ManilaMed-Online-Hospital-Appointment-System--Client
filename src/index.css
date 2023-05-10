@@ -966,6 +966,12 @@ select {
   font-weight: 600;
 }
 
+.patientinfo_error{
+  color: red;
+  font-weight: 600;
+  font-size: 15px;
+}
+
 .First-page_input {
   margin-bottom: 1%;
   width: min(100%, 350px);
@@ -1368,4 +1374,54 @@ select {
 .stephandlerbuttonrow > button {
   border-radius: 20px !important;
   width: 120px;
+}
+
+.confirmbuttonrow > button {
+  border-radius: 20px !important;
+  margin: 5px;
+  width: 90px;
+}
+
+
+.bookingConfirmationCard{
+  max-width: 360px !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 10px !important;
+}
+
+.reqheader{
+  color: #4B506D;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.reqscheddate{
+  color: #848484;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: min(28px, 6vw);
+
+}
+
+.reqdoctorname{
+  color: #848484;
+  font-family: 'Montserrat';
+  font-size: 20px;
+  font-weight: 600;
+
+}
+
+.reqdoctorspec{
+  color: #848484;
+  font-family: 'Montserrat';
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.reqline{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }

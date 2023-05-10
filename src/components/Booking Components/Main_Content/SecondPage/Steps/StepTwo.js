@@ -58,18 +58,25 @@ export default function StepTwo(props) {
   return (
     <>
       {isLoading && (
-        <>
-          <LoadingOverlay
-            loader={customLoader}
-            visible
-          />
-        </>
+        <LoadingOverlay
+          visible
+          zIndex={999} // Set a higher value for z-index
+          style={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+          }}
+          overlayColor="rgba(255, 255, 255, 0.8)" // Adjust the overlay color and opacity as needed
+          loader={customLoader}
+        />
       )}
       {error && (
         <Container>
-        <Alert color="red" title="Error" onClose={() => setError(null)} >
-          {error}
-        </Alert>
+          <Alert color="red" title="Error" onClose={() => setError(null)}>
+            {error}
+          </Alert>
         </Container>
       )}
       <SelectAvail
@@ -83,3 +90,4 @@ export default function StepTwo(props) {
     </>
   );
 }
+

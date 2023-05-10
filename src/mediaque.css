@@ -817,6 +817,23 @@
     box-shadow: none;
     border: none;
   }
+
+  .reqheader{
+
+    font-size: 19px;
+  }
+  
+
+  
+  .reqdoctorname{
+    font-size: 18px;
+  
+  }
+  
+  .reqdoctorspec{
+    font-size: 16px;
+  }
+ 
 }
 
 @media screen and (max-width: 767px) {
@@ -834,5 +851,10 @@
 
   .headerinfolabel {
     font-size: 15px;
+  }
+  .patientinfo_error{
+    color: red;
+    font-weight: 600;
+    font-size: 14px;
   }
 }

@@ -1,6 +1,6 @@
 import { Tooltip, Button } from "@mantine/core";
 import { Row } from "react-bootstrap";
-import { useState } from "react";
+
 export default function GetPatientInfo (props){
 
  
@@ -28,75 +28,181 @@ export default function GetPatientInfo (props){
           <div className="row">
             <p style={{fontWeight: 600}} className="headerinfolabel">Please provide your information. This will be used for your appointment </p>
           </div>
-        <form onSubmit={props.handleFormSubmit}>
-        <Row className=" sppatientInfoRow flex-column flex-md-row" >
-            <div className="col">
-                <label className="patientInfolabel mb-3" style={{fontWeight: 500}}>First Name</label>  
-                <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-                <input type="text" className="form-control " value={props.patientFirstName} onChange={props.handleInputChange} />
-            </div>
-            <div className="col">
-              <label className="patientInfolabel mb-3"  style={{fontWeight: 500}}>Middle Name</label> 
-              <input type="text" className="form-control" value={props.patientMiddleName} onChange={props.handleInputChange}/>
-            </div>
-            <div className="col">
-              <label className="patientInfolabel mb-3"  style={{fontWeight: 500}}>Last Name</label> 
-              <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-              <input type="text" className="form-control" value={props.patientLastName} onChange={props.handleInputChange} />
-            </div>
-            </Row>
-          <Row className=" patientinfoRow flex-column flex-md-row">
+
+          <form>
+        <Row className="sppatientInfoRow flex-column flex-md-row">
           <div className="col">
-              <div className="row">
-                <div className="col">
-                  <label className="patientInfolabel "  style={{fontWeight: 500}}>Gender</label>
-                  <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-                </div>
-              </div>
-              <div className="form-check-inline mt-3  me-4 subp" style={{fontSize: '15px' , fontWeight: 500}} >
-               <input className="form-check-input" type="radio" name="gender" id="male" value="male" onChange={props.handleInputChange} />
-              <span className="form-check-label" htmlFor="male">
-                 {" "} {" "} Male  
-                </span>
-              </div>
-              <div className="form-check-inline mt-3 subp" style={{fontSize: '15px' , fontWeight: 500}}>
-              <input className="form-check-input" type="radio" name="gender" id="female" value="female" onChange={props.handleInputChange} />
-              <label className="form-check-label" htmlFor="female">
-                {" "} {" "}Female
+            <label className="patientInfolabel mb-3" style={{ fontWeight: 500 }}>
+              First Name
+            </label>
+            <label className="required" style={{ color: "#FF0000", fontWeight: 900 }}>
+              *
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="firstName"
+              name="firstName" 
+              value={props.patientformData.firstName} 
+              onChange={props.handleInputChange}
+
+            />
+          {props.errors.firstName && <div className="patientinfo_error mt-2 ">{props.errors.firstName}</div>}
+
+          </div>
+          
+          <div className="col">
+            <label className="patientInfolabel mb-3" style={{ fontWeight: 500 }}>
+              Middle Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="middleName"
+              name="middleName" 
+              value={props.patientformData.middleName} 
+              onChange={props.handleInputChange}
+            />
+          </div>
+          <div className="col">
+            <label className="patientInfolabel mb-3" style={{ fontWeight: 500 }}>
+              Last Name
+            </label>
+            <label
+              className="required"
+              style={{ color: "#FF0000", fontWeight: 900 }}
+            >
+              *
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="lastName"
+              name="lastName" 
+              value={props.patientformData.lastName} 
+              onChange={props.handleInputChange}
+            />
+            {props.errors.lastName && <div className="patientinfo_error mt-2 ">{props.errors.lastName}</div>}
+
+          </div>
+        </Row>
+        <Row className="patientinfoRow flex-column flex-md-row">
+          <div className="col">
+            <div className="row">
+              <div className="col">
+                <label className="patientInfolabel" style={{ fontWeight: 500 }}>
+                  Gender
+                </label>
+                <label
+                  className="required"
+                  style={{ color: "#FF0000", fontWeight: 900 }}
+                >
+                  *
                 </label>
               </div>
             </div>
-            <div className="col">
-              <label className="patientInfolabeldob mb-3"  style={{fontWeight: 500}}>Date of Birth</label> 
-              <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-              <input id="Date" className="form-control" type="date"  value={props.patientDOB} onChange={props.handleInputChange}/>
-            </div>
-            <div className="col">
-              <label className="patientInfolabel mb-3"  style={{fontWeight: 500}}>Contact Number</label> 
-              <label className="required" style={{color: '#FF0000', fontWeight: 900}} value={props.patientPhone} onChange={props.handleInputChange}>*</label>  
+            <div
+              className="form-check-inline mt-3  me-4 subp"
+              style={{ fontSize: "15px", fontWeight: 500 }}
+            >
               <input
-                type="tel"
-                id="typePhone"
+                className="form-check-input"
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+                checked={props.patientformData.gender === "male"}
+                onChange={props.handleInputChange}
+              />
+              <span className="form-check-label" htmlFor="male">
+                {" "}Male
+              </span>
+            </div>
+            <div className="form-check-inline mt-3 subp" style={{ fontSize: '15px', fontWeight: 500 }}>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="gender"
+                id="female"
+                value="female"
+                checked={props.patientformData.gender === "female"}
+                onChange={props.handleInputChange}
+              />
+              <span className="form-check-label" htmlFor="female">
+                {" "}Female
+              </span>
+            </div>
+            {props.errors.gender && <div className="patientinfo_error mt-2 ">{props.errors.gender}</div>}
+          </div>
+          <div className="col">
+          <label className="patientInfolabeldob mb-3" style={{ fontWeight: 500 }}>
+              Date of Birth
+            </label>
+            <label
+              className="required"
+              style={{ color: "#FF0000", fontWeight: 900 }}
+            >
+              *
+            </label>
+            <input
+              id="dateofBirth"
+              className="form-control"
+              type="date"
+              name="dateOfBirth" 
+              value={props.patientformData.dateOfBirth}  
+              onChange={props.handleInputChange}
+            />
+            {props.errors.dateOfBirth && <div className="patientinfo_error mt-2 ">{props.errors.dateOfBirth}</div>}
+
+          </div>
+          <div className="col">
+            <label className="patientInfolabel mb-3" style={{ fontWeight: 500 }}>
+              Contact Number
+            </label>
+            <label
+              className="required"
+              style={{ color: "#FF0000", fontWeight: 900 }}
+            >
+              *
+            </label>
+            <input
+              type="tel"
+              id="contactNumber"
+              className="form-control"
+              name="contactNumber" 
+              value={props.patientformData.contactNumber}  
+              onChange={props.handleInputChange}
+            />
+            {props.errors.contactNumber && <div className="patientinfo_error mt-2 ">{props.errors.contactNumber}</div>}
+
+          </div>
+        </Row>
+        <Row className="patientinfoRow flex-column flex-md-row" style={{ maxWidth: "600px" }}>
+          <div className="col">
+            <div className="form-outline">
+              <label className="form-label patientInfolabel mb-3" htmlFor="formA" style={{ fontWeight: 500 }}>
+                Address
+              </label>
+              <label className="required" style={{ color: "#FF0000", fontWeight: 900 }}>
+                *
+              </label>
+              <input
+                type="text"
+                id="address"
                 className="form-control"
-                pattern="^(09|\+639)\d{9}$"
-                required
-                />
+                name="address" 
+                value={props.patientformData.address} 
+                onChange={props.handleInputChange}
+              />
+               {props.errors.address && <div className="patientinfo_error mt-2 ">{props.errors.address}</div>}
 
             </div>
-            </Row>
-          <Row  className = "patientinfoRow flex-column flex-md-row"style={{maxWidth: "600px"}}>
-            <div className="col ">
-              <div className="form-outline ">
-                <label className="form-label patientInfolabel mb-3" htmlFor="formA"  style={{fontWeight: 500}}>Address</label>
-                <label className="required" style={{color: '#FF0000', fontWeight: 900}}>*</label>  
-                <input type="text" id="formA" className="form-control"  value={props.patientAddress} onChange={props.handleInputChange}/>
-              </div>
-            </div>
-           
-          </Row>
-          </form>
+          </div>
+        </Row>
+ 
+        </form>
 
-  
+
 
         </div>
             </div>

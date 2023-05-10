@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import FinalStep from "./Steps/FinalStep";
-import GetPatientInfo from "./Steps/Steps_SubComponents/getPatientInfo";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import BookingConfirmation from "./Steps/Steps_SubComponents/confirmation";
+import ConfirmModal from "./Steps/Steps_SubComponents/confirmModal";
+
 const moment = require("moment");
 
 export default function StepsHandler(props) {
+
+  const [modalShow, setModalShow] = useState(false);
+
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -91,82 +95,144 @@ export default function StepsHandler(props) {
   };
 
 
-  const [patientFirstName, setPatientFirstName] = useState('');
-  const [patientLastName, setPatientLastName] = useState('');
-  const [patientMiddleName, setPatientMiddleName] = useState('');
-  const [patientPhone, setPatientPhone] = useState('');
-  const [patientAddress, setPatientAddress] = useState('');
-  const [patientGender, setPatientGender] = useState('');
-  const [patientDOB, setPatientDOB] = useState('');
 
-  function handleFormSubmit(event) {
+  const [patientformData, setpatientFormData] = useState({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    gender: "",
+    dateOfBirth: "",
+    contactNumber: "",
+    address: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (validateForm()) {
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length === 0) {
+      // handle form submission
       props.setAppointmentDetails((prev) => ({
         ...prev,
-        patient_first_name: patientFirstName,
-        patient_middle_name: patientMiddleName,
-        patient_last_name: patientLastName,
-        contact_number: patientPhone,
-        birthDate: patientDOB,
-        address: patientAddress,
-        gender: patientGender
-  
-  
-      }));
-
-
+        patient_info: {
+          ...prev.patient_info,
+          patient_first_name: patientformData.firstName,
+          patient_middle_name: patientformData.middleName,
+          patient_last_name: patientformData.lastName,
+          gender: patientformData.gender,
+          birthDate: patientformData.dateOfBirth,
+          contact_number: patientformData.contactNumber,
+          address: patientformData.address,
+        },
+      })); 
+      nextStep();
+    } else {
+      setErrors(validationErrors);
     }
- 
-  }
+  };
 
-  function handleInputChange(event) {
+  
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-    switch (name) {
-      case "patientFirstName":
-        setPatientFirstName(value);
-        break;
-      case "patientLastName":
-        setPatientLastName(value);
-        break;
-      case "patientMiddleName":
-        setPatientMiddleName(value);
-        break;
-      case "patientAddress":
-        setPatientAddress(value);
-        break;
-      case "patientGender":
-        setPatientGender(value);
-        break;
-      case "patientDOB":
-        setPatientDOB(value);
-        break;
-      case "patientPhone":
-        setPatientPhone(value);
-        break;
-      default:
-        break;
+    setpatientFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
+    setErrors((prevErrors) => {
+      return {
+        ...prevErrors,
+        [name]: undefined, 
+      };
+    });
+  };
+  
+
+  const validateForm = () => {
+    const validationErrors = {};
+  
+    if (!patientformData.firstName) {
+      validationErrors.firstName = "First Name is required.";
+    }
+    if (!patientformData.lastName) {
+      validationErrors.lastName = "Last Name is required.";
+    }
+    if (!patientformData.gender) {
+      validationErrors.gender = "Gender is required.";
+    }
+    if (!patientformData.dateOfBirth) {
+      validationErrors.dateOfBirth = "Date of Birth is required.";
+    }
+    if (!patientformData.contactNumber) {
+      validationErrors.contactNumber = "Contact Number is required.";
+    } else {
+      const formattedContactNumber = formatContactNumber(patientformData.contactNumber);
+      if (formattedContactNumber.length === 0) {
+        validationErrors.contactNumber = "Invalid mobile number.";
+      }
+    }
+  
+    if (!patientformData.address) {
+      validationErrors.address = "Address is required.";
+    }
+  
+    return validationErrors;
+  };
+  
+  const formatContactNumber = (value) => {
+    let formattedValue = value;
+  
+    // Remove non-digit characters from the input
+    formattedValue = formattedValue.replace(/\D/g, "");
+  
+    // Check if the input is a valid Philippine mobile number
+    const isPhilippineMobileNumber = /^(\+?63|0)9\d{9}$/.test(formattedValue);
+    if (!isPhilippineMobileNumber) {
+      formattedValue = ""; // Set the value to empty if it is not a valid Philippine mobile number
+    }
+  
+    return formattedValue;
+  };
+  
+
+
+  async function postData(url, data) {
+    try {
+      const response = await axios.post(url, data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to post data.");
     }
   }
+  
 
-  function validateForm() {
-    const requiredFields = [
-      patientFirstName,
-      patientLastName,
-      patientAddress,
-      patientGender,
-      patientDOB,
-      patientPhone,
-    ];
-    if (requiredFields.some((field) => field === "")) {
-      alert("Please fill out all required fields");
-      return false;
+  async function submitAppointment() {
+    try {
+      const url = "/booking/set-appointment";
+      const data = {
+        appointmentDetails: props.appointmentDetails,
+      };
+  
+      const response = await postData(url, data);
+      console.log("Appointment submitted successfully:", response);
+      setModalShow(false);
+
+    } catch (error) {
+      console.error("Failed to submit appointment:", error);
+  
     }
-    if (!patientPhone.match(/^(09|\+639)\d{9}$/)) {
-      alert("Please enter a valid phone number");
-      return false;
-    }
-    return true;
+  }
+  
+  function openConfirmModal() {
+    setModalShow(true);
+  }
+
+  function closeConfirmModal() {
+    setModalShow(false);
   }
 
   //Moved steps to Steps folder and converted them into seperate components
@@ -204,22 +270,20 @@ export default function StepsHandler(props) {
             />
           </Stepper.Step>
           <Stepper.Step label="Final step" description="Enter Information">
-            <GetPatientInfo
-             handleFormSubmit={handleFormSubmit}
-             handleInputChange={handleInputChange}
-             patientFirstName={patientFirstName}
-             patientLastName={patientLastName}
-             patientMiddleName={patientMiddleName}
-             patientPhone={patientPhone}
-             patientAddress={patientAddress}
-             patientGender={patientGender}
-             patientDOB={patientDOB}
+            <FinalStep
+              patientformData={patientformData}
+              handleInputChange={handleInputChange}
+              handleSubmit={handleSubmit}
+              validateForm={validateForm}
+              errors={errors}
+
 
              />
           </Stepper.Step>
           <Stepper.Completed>
           <BookingConfirmation
-           appointmentDetails={props.appointmentDetails}
+            doctors={doctors}
+            appointmentDetails={props.appointmentDetails}
                         />
           </Stepper.Completed>
         </Stepper>
@@ -228,12 +292,22 @@ export default function StepsHandler(props) {
           <Group position="center" mt="xl" className="stephandlerbuttonrow m-3">
            <BackProceed
           leftButton={prevStep}
-          rightButton={nextStep}
+          rightButton={
+            active === 2 ? handleSubmit : (active === 3 && openConfirmModal) || nextStep
+          }
           redButtonText={"Back"}
-          blueButtonText={"Proceed"}
+          blueButtonText={ active === 3 ? "Confirm" : "Proceed"}
         />
+
           </Group>
         )}
+
+        <ConfirmModal
+        show={modalShow}
+        handleClose={closeConfirmModal}
+        submitAppointment={submitAppointment}
+        />
+
       </Container>
     </>
   );
