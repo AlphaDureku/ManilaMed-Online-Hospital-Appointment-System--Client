@@ -1,8 +1,54 @@
 import { Button } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import axios from "axios";
 import { Modal } from "react-bootstrap";
-
+import ConfirmModal from "../../../Reusable_Components/ConfirmationModal";
 export default function MyAppointments(props) {
-  const { show, handleClose, selectedAppointment } = props;
+  const {
+    show,
+    setShow,
+    selectedAppointment,
+    showConfirm,
+    setShowConfirm,
+    setRefreshContent,
+  } = props;
+  const token = localStorage.getItem("userToken");
+  const updateStatus = async (appointment_ID) => {
+    try {
+      await axios.post(
+        "/user/cancel-appointment",
+        {
+          appointment_ID: appointment_ID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setRefreshContent((prev) => !prev);
+      setShowConfirm((prev) => !prev);
+      notifications.show({
+        title: "Cancelled Appointment Successfully!",
+        color: "teal",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const TogglerModal = () => {
+    if (selectedAppointment.status === "Pending") {
+      setShow((prev) => !prev);
+      setShowConfirm((prev) => !prev);
+    } else {
+      console.log("navigate");
+    }
+  };
+
+  console.log(selectedAppointment);
+
   const modalBody = (
     <>
       <div className="Tracker--modal--patient-name">
@@ -62,6 +108,7 @@ export default function MyAppointments(props) {
               className="modalButton"
               type="submit"
               size="sm"
+              onClick={() => TogglerModal()}
               style={{
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 backgroundColor:
@@ -90,10 +137,22 @@ export default function MyAppointments(props) {
     </>
   );
   return (
-    <Modal size="lg" show={show} onHide={handleClose} centered>
-      {" "}
-      <Modal.Header className="Tracker--modalHeader" closeButton></Modal.Header>
-      <Modal.Body className="Tracker--modalBody">{modalBody}</Modal.Body>
-    </Modal>
+    <>
+      <Modal size="lg" show={show} onHide={() => setShow(false)} centered>
+        {" "}
+        <Modal.Header
+          className="Tracker--modalHeader"
+          closeButton
+        ></Modal.Header>
+        <Modal.Body className="Tracker--modalBody">{modalBody}</Modal.Body>
+      </Modal>
+      <ConfirmModal
+        show={showConfirm}
+        title={"Cancellation"}
+        question={"Are you sure you wanted to cancel this appointment?"}
+        handleClose={TogglerModal}
+        handleSubmit={() => updateStatus(selectedAppointment.appointment_ID)}
+      />
+    </>
   );
 }

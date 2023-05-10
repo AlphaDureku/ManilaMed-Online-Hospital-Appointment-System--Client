@@ -9,10 +9,11 @@ export default function Card() {
   const { id } = useParams();
   const [count, setCount] = useState({});
   const [show, setShow] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState({});
+  const [refreshContent, setRefreshContent] = useState(false);
   document.title = "Appointment History";
 
-  const handleClose = () => setShow(false);
   const handleShow = (patient) => {
     setShow(true);
     setSelectedAppointment(patient);
@@ -28,7 +29,7 @@ export default function Card() {
     };
     getAppointments();
     // eslint-disable-next-line
-  }, []);
+  }, [refreshContent]);
 
   useEffect(() => {
     // Count the number of appointments in each state and update state
@@ -169,8 +170,11 @@ export default function Card() {
       )}
       <MyAppointments
         show={show}
-        handleClose={handleClose}
+        setShow={setShow}
         selectedAppointment={selectedAppointment}
+        showConfirm={showConfirm}
+        setShowConfirm={setShowConfirm}
+        setRefreshContent={setRefreshContent}
       />
     </>
   );

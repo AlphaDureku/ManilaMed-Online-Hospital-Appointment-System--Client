@@ -5,10 +5,10 @@ import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { AppointmentDetailsContext } from "../../../../App";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
+import ConfirmModal from "../../../Reusable_Components/ConfirmationModal";
 import FinalStep from "./Steps/FinalStep";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
-import ConfirmModal from "./Steps/Steps_SubComponents/confirmModal";
 import BookingConfirmation from "./Steps/Steps_SubComponents/confirmation";
 const moment = require("moment");
 
@@ -288,7 +288,9 @@ export default function StepsHandler(props) {
         <ConfirmModal
           show={modalShow}
           handleClose={closeConfirmModal}
-          submitAppointment={submitAppointment}
+          handleSubmit={submitAppointment}
+          question={"Confirm Appointment?"}
+          title="Confirmation"
         />
       </Container>
     </>
