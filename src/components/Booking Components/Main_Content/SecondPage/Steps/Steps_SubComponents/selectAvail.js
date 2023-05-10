@@ -1,23 +1,24 @@
 import { Button, Tooltip } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
-import { useEffect, useState } from "react";
-import { Container, Col, Row } from "react-bootstrap";
-
+import { useContext, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { AppointmentDetailsContext } from "../../../../../../App";
 export default function SelectAvail(props) {
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [selectedDate, setSelectedDate] = useState();
+  const { appointmentDetails, setAppointmentDetails } = useContext(
+    AppointmentDetailsContext
+  );
 
- 
   useEffect(() => {
     setAppointmentDate();
   }, []);
 
   function setAppointmentDate() {
-    const appointmentDate = new Date(props.appointmentDetails.schedule_date);
+    const appointmentDate = new Date(appointmentDetails.schedule_date);
     setSelectedDate(appointmentDate);
     getSchedID();
-
   }
 
   function getDayProps(date) {
@@ -31,7 +32,7 @@ export default function SelectAvail(props) {
     const isScheduled = props.schedule.some(
       (sched) =>
         date.toDateString() === new Date(sched.date).toDateString() &&
-        sched.doctor_ID === props.appointmentDetails.doctor_ID
+        sched.doctor_ID === appointmentDetails.doctor_ID
     );
 
     if (date.toDateString() === selectedDate?.toDateString()) {
@@ -53,36 +54,32 @@ export default function SelectAvail(props) {
     }
   }
 
-
-
   function handleDateSelect(date) {
     setSelectedDate(date);
-    props.setAppointmentDetails((prev) => ({ ...prev, schedule_date: date  }));
+    setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
     getSchedID();
   }
 
   const details = () => {
-    console.table(props.appointmentDetails);
+    console.log(appointmentDetails);
     console.log(props.scheduleStepTwo);
     console.log(props.schedule);
-
   };
 
-function getDoctorSched() {
- 
-  // Convert and Filter schedule
-  const dateInPh = selectedDate
-  ? new Date(
-      selectedDate.getTime() -
-        selectedDate.getTimezoneOffset() * 60000 +
-        8 * 60 * 60000
-    )
-      .toISOString()
-      .substring(0, 10)
-  : null;
-const filteredSchedule = props.scheduleStepTwo
-  ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
-  : [];
+  function getDoctorSched() {
+    // Convert and Filter schedule
+    const dateInPh = selectedDate
+      ? new Date(
+          selectedDate.getTime() -
+            selectedDate.getTimezoneOffset() * 60000 +
+            8 * 60 * 60000
+        )
+          .toISOString()
+          .substring(0, 10)
+      : null;
+    const filteredSchedule = props.scheduleStepTwo
+      ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
+      : [];
 
     // Filter start and end time
     const getSched = filteredSchedule.filter(
@@ -102,7 +99,6 @@ const filteredSchedule = props.scheduleStepTwo
       const queueNumber = `${schedule.queue}`;
       const timeInterval = `${schedule.time_interval}`;
       const schedule_ID = `${schedule.schedule_ID}`;
-      
 
       const startTimePH = startTime.tz("Asia/Manila").format("h:mm A");
       const endTimePH = endTime.tz("Asia/Manila").format("h:mm A");
@@ -127,14 +123,16 @@ const filteredSchedule = props.scheduleStepTwo
 
     return doctorSched;
   }
-  
-  function getSchedID(){
 
-    getDoctorSched().map((schedule) => props.setAppointmentDetails((prev) => ({ ...prev, schedule_ID: schedule.schedule_ID, recom_Time: schedule.recomTime  })));
-  
+  function getSchedID() {
+    getDoctorSched().map((schedule) =>
+      setAppointmentDetails((prev) => ({
+        ...prev,
+        schedule_ID: schedule.schedule_ID,
+        recom_Time: schedule.recomTime[0],
+      }))
+    );
   }
-  
-
 
   return (
     <div>
@@ -161,32 +159,79 @@ const filteredSchedule = props.scheduleStepTwo
             <div className="row text-center">
               <p className="leveltwoNote">
                 Please wait for a SMS or Email confirmation of your appointment
-                up to{" "}
-                <span className="specialNote">(1) business day.</span>
+                up to <span className="specialNote">(1) business day.</span>
               </p>
             </div>
           </div>
         </Row>
         <Row className="mb-3">
           <Col md={6}>
-           <Container fluid>
-            <Row className="legendRowleft mt-3">
-              <label className="headerlegend ">Time</label>
-              <label className="subheaderlegend ">
-                Doctor's Available Time
-              </label>
+            <Container fluid>
+              <Row className="legendRowleft mt-3">
+                <label className="headerlegend ">Time</label>
+                <label className="subheaderlegend ">
+                  Doctor's Available Time
+                </label>
 
-              <table className="table table-striped table-hover text-center mt-4 ">
-                <thead>
-                  <tr>
-                    <td>Date</td>
-                    <td>Day</td>
-                    <td>Time</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
+                <table className="table table-striped table-hover text-center mt-4 ">
+                  <thead>
+                    <tr>
+                      <td>Date</td>
+                      <td>Day</td>
+                      <td>Time</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        {selectedDate
+                          ? selectedDate.toLocaleString("en-us", {
+                              month: "short",
+                            }) +
+                            " " +
+                            selectedDate.getDate() +
+                            ", " +
+                            selectedDate.getFullYear()
+                          : "-"}
+                      </td>
+                      <td>
+                        {selectedDate
+                          ? selectedDate.toLocaleString("en-us", {
+                              weekday: "long",
+                            })
+                          : "-"}
+                      </td>
+                      <td>
+                        {getDoctorSched()
+                          .map((schedule) => schedule.timeSlot)
+                          .join(", ")}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </Row>
+
+              <Row className="queuContainer ">
+                <span>
+                  Hi!
+                  <span>
+                    {" "}
+                    You are number{" "}
+                    <label className="queueNumber">
+                      {getDoctorSched().length > 0
+                        ? getDoctorSched()
+                            .map((schedule) => schedule.queueNumber)
+                            .join(", ")
+                        : "---"}
+                    </label>{" "}
+                    in queue
+                  </span>
+                  <span>
+                    <br />
+                    <br />
+                    You should be in the hospital on
+                    <span className="recomGo">
+                      {" "}
                       {selectedDate
                         ? selectedDate.toLocaleString("en-us", {
                             month: "short",
@@ -195,74 +240,27 @@ const filteredSchedule = props.scheduleStepTwo
                           selectedDate.getDate() +
                           ", " +
                           selectedDate.getFullYear()
-                        : "-"}
-                    </td>
-                    <td>
+                        : "-"}{" "}
                       {selectedDate
                         ? selectedDate.toLocaleString("en-us", {
                             weekday: "long",
                           })
-                        : "-"}
-                    </td>
-                    <td>
-                      {getDoctorSched()
-                        .map((schedule) => schedule.timeSlot)
-                        .join(", ")}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Row>
-
-            <Row className="queuContainer ">
-            <span>Hi! 
-              <span>
-                {" "}You are number{" "}
-                <label className="queueNumber">
-                  {getDoctorSched().length > 0
-                    ? getDoctorSched()
-                        .map((schedule) => schedule.queueNumber)
-                        .join(", ")
-                    : "---"}
-                </label>{" "}
-                in queue
-              </span>
-              <span>
-                <br /><br />
-                You should be in the hospital on 
-                <span className="recomGo">
-                  {" "}
-                  {selectedDate
-                    ? selectedDate.toLocaleString("en-us", {
-                        month: "short",
-                      }) +
-                      " " +
-                      selectedDate.getDate() +
-                      ", " +
-                      selectedDate.getFullYear()
-                    : "-"}
-                  {" "}
-                  {selectedDate
-                    ? selectedDate.toLocaleString("en-us", {
-                        weekday: "long",
-                      })
-                    : "-"}
-                  {" "}
-                  {" "}
-                  <label>
-                    {getDoctorSched().length > 0
-                      ? getDoctorSched().map((schedule) => schedule.recomTime)
-                      : "---"}
-                  </label>
+                        : "-"}{" "}
+                      <label>
+                        {getDoctorSched().length > 0
+                          ? getDoctorSched().map(
+                              (schedule) => schedule.recomTime
+                            )
+                          : "---"}
+                      </label>
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-          </Row>
-
-            </Container> 
+              </Row>
+            </Container>
           </Col>
 
-          <Col md ={6}>
+          <Col md={6}>
             <Row className="legendRowright mt-3">
               <label className="headerlegend ">Date</label>
               <label className="subheaderlegend ">
@@ -284,8 +282,8 @@ const filteredSchedule = props.scheduleStepTwo
                 ></img>
                 <label className=" legendlabelC ms-2">Not Available</label>
               </Col>
-              </Row>
-              <Row className="datepickerRow center">
+            </Row>
+            <Row className="datepickerRow center">
               <DatePicker
                 getDayProps={getDayProps}
                 onChange={handleDateSelect}
@@ -299,14 +297,11 @@ const filteredSchedule = props.scheduleStepTwo
                   alignItems: "center",
                 }}
               ></DatePicker>
-             </Row>
-
+            </Row>
           </Col>
-        </Row >
-
+        </Row>
       </div>
-              <Button onClick={details}>Console</Button>
-
+      <Button onClick={details}>Console</Button>
     </div>
   );
 }

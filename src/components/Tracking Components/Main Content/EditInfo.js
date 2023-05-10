@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useReducer } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { Reducer, initialState } from "./Reducers/Edit_Page";
 
 export default function EditInfo() {
@@ -17,7 +18,7 @@ export default function EditInfo() {
           Authorization: `Bearer ${token}`,
         },
       });
-      dispatch({ type: "FETCH_SUCCESS", payload: response.data });
+      dispatch({ type: "FETCH_SUCCESS", payload: response.data.data });
     };
     getPatientInfo();
   }, [id, token]);
@@ -126,18 +127,11 @@ export default function EditInfo() {
           ></input>
         </div>
         <div className="edit-Button_Row">
-          <button
-            className="btn btn-success btn edit-back"
-            onClick={() => backButtonHandler()}
-          >
-            Back
-          </button>
-          <button
-            className="btn btn-success btn edit-save"
-            onClick={() => enableHandler()}
-          >
-            {state.isDisabled ? "Edit" : "Save Changes"}
-          </button>
+          <BackProceed
+            leftButton={backButtonHandler}
+            rightButton={enableHandler}
+            blueButtonText={state.isDisabled ? "Edit" : "Save Changes"}
+          />
         </div>
       </div>
     </>

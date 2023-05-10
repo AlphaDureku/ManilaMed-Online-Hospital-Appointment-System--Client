@@ -1,20 +1,21 @@
 import { Alert, DEFAULT_THEME, LoadingOverlay } from "@mantine/core";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { AppointmentDetailsContext } from "../../../../../App";
 import SelectAvail from "./Steps_SubComponents/selectAvail";
-
 export default function StepTwo(props) {
   const [scheduleStepTwo, setScheduleStepTwo] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { appointmentDetails } = useContext(AppointmentDetailsContext);
 
   useEffect(() => {
     async function fetchDoctorCalendar() {
       try {
         const response = await axios.get("/booking/doctor-calendar", {
           params: {
-            doctor_ID: props.appointmentDetails.doctor_ID,
+            doctor_ID: appointmentDetails.doctor_ID,
           },
         });
         const data = response.data;
@@ -81,8 +82,6 @@ export default function StepTwo(props) {
       )}
       <SelectAvail
         schedule={props.schedule}
-        appointmentDetails={props.appointmentDetails}
-        setAppointmentDetails={props.setAppointmentDetails}
         scheduleStepTwo={scheduleStepTwo}
         isLoading={isLoading}
         error={error}
@@ -90,4 +89,3 @@ export default function StepTwo(props) {
     </>
   );
 }
-

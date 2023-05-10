@@ -1,21 +1,22 @@
 import { Button, Group, Stepper } from "@mantine/core";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
+import { AppointmentDetailsContext } from "../../../../App";
+import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 import FinalStep from "./Steps/FinalStep";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
-import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import BookingConfirmation from "./Steps/Steps_SubComponents/confirmation";
 import ConfirmModal from "./Steps/Steps_SubComponents/confirmModal";
-
+import BookingConfirmation from "./Steps/Steps_SubComponents/confirmation";
 const moment = require("moment");
 
 export default function StepsHandler(props) {
-
+  const { appointmentDetails, setAppointmentDetails } = useContext(
+    AppointmentDetailsContext
+  );
   const [modalShow, setModalShow] = useState(false);
-
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -94,8 +95,6 @@ export default function StepsHandler(props) {
     return;
   };
 
-
-
   const [patientformData, setpatientFormData] = useState({
     firstName: "",
     middleName: "",
@@ -108,13 +107,12 @@ export default function StepsHandler(props) {
 
   const [errors, setErrors] = useState({});
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
       // handle form submission
-      props.setAppointmentDetails((prev) => ({
+      setAppointmentDetails((prev) => ({
         ...prev,
         patient_info: {
           ...prev.patient_info,
@@ -122,18 +120,17 @@ export default function StepsHandler(props) {
           patient_middle_name: patientformData.middleName,
           patient_last_name: patientformData.lastName,
           gender: patientformData.gender,
-          birthDate: patientformData.dateOfBirth,
+          dateOfBirth: patientformData.dateOfBirth,
           contact_number: patientformData.contactNumber,
           address: patientformData.address,
         },
-      })); 
+      }));
       nextStep();
     } else {
       setErrors(validationErrors);
     }
   };
 
-  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setpatientFormData((prevFormData) => {
@@ -145,15 +142,14 @@ export default function StepsHandler(props) {
     setErrors((prevErrors) => {
       return {
         ...prevErrors,
-        [name]: undefined, 
+        [name]: undefined,
       };
     });
   };
-  
 
   const validateForm = () => {
     const validationErrors = {};
-  
+
     if (!patientformData.firstName) {
       validationErrors.firstName = "First Name is required.";
     }
@@ -169,35 +165,35 @@ export default function StepsHandler(props) {
     if (!patientformData.contactNumber) {
       validationErrors.contactNumber = "Contact Number is required.";
     } else {
-      const formattedContactNumber = formatContactNumber(patientformData.contactNumber);
+      const formattedContactNumber = formatContactNumber(
+        patientformData.contactNumber
+      );
       if (formattedContactNumber.length === 0) {
         validationErrors.contactNumber = "Invalid mobile number.";
       }
     }
-  
+
     if (!patientformData.address) {
       validationErrors.address = "Address is required.";
     }
-  
+
     return validationErrors;
   };
-  
+
   const formatContactNumber = (value) => {
     let formattedValue = value;
-  
+
     // Remove non-digit characters from the input
     formattedValue = formattedValue.replace(/\D/g, "");
-  
+
     // Check if the input is a valid Philippine mobile number
     const isPhilippineMobileNumber = /^(\+?63|0)9\d{9}$/.test(formattedValue);
     if (!isPhilippineMobileNumber) {
       formattedValue = ""; // Set the value to empty if it is not a valid Philippine mobile number
     }
-  
+
     return formattedValue;
   };
-  
-
 
   async function postData(url, data) {
     try {
@@ -208,25 +204,22 @@ export default function StepsHandler(props) {
       throw new Error("Failed to post data.");
     }
   }
-  
 
   async function submitAppointment() {
     try {
       const url = "/booking/set-appointment";
       const data = {
-        appointmentDetails: props.appointmentDetails,
+        appointmentDetails: appointmentDetails,
       };
-  
+
       const response = await postData(url, data);
       console.log("Appointment submitted successfully:", response);
       setModalShow(false);
-
     } catch (error) {
       console.error("Failed to submit appointment:", error);
-  
     }
   }
-  
+
   function openConfirmModal() {
     setModalShow(true);
   }
@@ -257,17 +250,11 @@ export default function StepsHandler(props) {
               setCurrentPage={setCurrentPage}
               schedule={schedule}
               loading={loading}
-              appointmentDetails={props.appointmentDetails}
-              setAppointmentDetails={props.setAppointmentDetails}
               nextStep={nextStep}
             />
           </Stepper.Step>
           <Stepper.Step label="Second step" description="Select Schedule">
-            <StepTwo
-              schedule={schedule}
-              appointmentDetails={props.appointmentDetails}
-              setAppointmentDetails={props.setAppointmentDetails}
-            />
+            <StepTwo schedule={schedule} />
           </Stepper.Step>
           <Stepper.Step label="Final step" description="Enter Information">
             <FinalStep
@@ -276,38 +263,33 @@ export default function StepsHandler(props) {
               handleSubmit={handleSubmit}
               validateForm={validateForm}
               errors={errors}
-
-
-             />
+            />
           </Stepper.Step>
           <Stepper.Completed>
-          <BookingConfirmation
-            doctors={doctors}
-            appointmentDetails={props.appointmentDetails}
-                        />
+            <BookingConfirmation doctors={doctors} />
           </Stepper.Completed>
         </Stepper>
 
         {active !== 0 && (
           <Group position="center" mt="xl" className="stephandlerbuttonrow m-3">
-           <BackProceed
-          leftButton={prevStep}
-          rightButton={
-            active === 2 ? handleSubmit : (active === 3 && openConfirmModal) || nextStep
-          }
-          redButtonText={"Back"}
-          blueButtonText={ active === 3 ? "Confirm" : "Proceed"}
-        />
-
+            <BackProceed
+              leftButton={prevStep}
+              rightButton={
+                active === 2
+                  ? handleSubmit
+                  : (active === 3 && openConfirmModal) || nextStep
+              }
+              redButtonText={"Back"}
+              blueButtonText={active === 3 ? "Confirm" : "Proceed"}
+            />
           </Group>
         )}
 
         <ConfirmModal
-        show={modalShow}
-        handleClose={closeConfirmModal}
-        submitAppointment={submitAppointment}
+          show={modalShow}
+          handleClose={closeConfirmModal}
+          submitAppointment={submitAppointment}
         />
-
       </Container>
     </>
   );

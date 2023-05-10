@@ -611,6 +611,7 @@ select {
 /*! View Appointments CSS */
 
 .ViewAppointments-header {
+  margin-top: 1%;
   font-weight: 600;
   color: #388440;
   font-size: min(28px, 5vw);
@@ -716,7 +717,7 @@ select {
   color: #388440;
   font-weight: 600;
   font-size: min(1.4rem, 6vw);
-  margin: 2% auto 5% auto;
+  margin: 5% auto 5% auto;
 }
 .editPage-Container {
   display: flex;
@@ -746,10 +747,17 @@ select {
 
 .edit-Button_Row {
   display: flex;
-  margin-left: 50%;
+  margin-left: 52%;
   margin-top: 3%;
   width: max(40%, 220px);
 }
+.edit-Button_Row > button {
+  border: none;
+  margin: 0 auto;
+  border-radius: 20px;
+  width: 40%;
+}
+
 .edit-save {
   background-color: #24b7e9;
   border: none;
@@ -966,7 +974,7 @@ select {
   font-weight: 600;
 }
 
-.patientinfo_error{
+.patientinfo_error {
   color: red;
   font-weight: 600;
   font-size: 15px;
@@ -1382,45 +1390,42 @@ select {
   width: 90px;
 }
 
-
-.bookingConfirmationCard{
+.bookingConfirmationCard {
   max-width: 360px !important;
   border: 2px solid #000000 !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
   border-radius: 10px !important;
 }
 
-.reqheader{
-  color: #4B506D;
-  font-family: 'Montserrat';
+.reqheader {
+  color: #4b506d;
+  font-family: "Montserrat";
   font-weight: 600;
   font-size: 20px;
 }
 
-.reqscheddate{
+.reqscheddate {
   color: #848484;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-weight: 600;
   font-size: min(28px, 6vw);
-
 }
 
-.reqdoctorname{
+.reqdoctorname {
   color: #848484;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-size: 20px;
   font-weight: 600;
-
 }
 
-.reqdoctorspec{
+.reqdoctorspec {
   color: #848484;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-size: 18px;
   font-weight: 500;
 }
 
-.reqline{
+.reqline {
   width: 70%;
   margin-left: auto;
   margin-right: auto;

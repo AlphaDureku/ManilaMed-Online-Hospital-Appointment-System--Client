@@ -3,11 +3,13 @@ import axios from "axios";
 import { useContext, useMemo, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import { AppointmentDetailsContext } from "../../../../../App";
 import VerificationModal from "../../../../Reusable_Components/Verification_Modal";
 import { userContext } from "../1st_Page";
 import HistoryModal from "./History_Modal";
 
 export default function FirstPage_Modal(props) {
+  const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const userState = useContext(userContext);
   const [error, setError] = useState(false);
   const [input, setInput] = useState({ enteredOTP: "" });
@@ -43,7 +45,7 @@ export default function FirstPage_Modal(props) {
     const { isVerified } = res.data.data;
     if (isVerified) {
       setShowModal((prev) => ({ ...prev, verification: false }));
-      props.setAppointmentDetails((prev) => ({ ...prev, email: props.email }));
+      setAppointmentDetails((prev) => ({ ...prev, email: props.email }));
       if (userState.hasHistory) {
         setShowHistory(true);
       } else {
@@ -83,8 +85,6 @@ export default function FirstPage_Modal(props) {
           show={showHistory}
           setShowHistory={setShowHistory}
           setInput={setInput}
-          appointmentDetails={props.appointmentDetails}
-          setAppointmentDetails={props.setAppointmentDetails}
         />
       </>
     );

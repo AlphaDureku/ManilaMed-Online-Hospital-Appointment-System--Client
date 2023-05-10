@@ -27,6 +27,7 @@ export default function TrackMe() {
     : "100px";
 
   const OTPNotif = () => {
+    //Dito yung resend bug
     notifications.show({
       title: "OTP Sent",
       color: "teal",

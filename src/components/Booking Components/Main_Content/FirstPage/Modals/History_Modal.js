@@ -25,7 +25,7 @@ export default function HistoryModal(props) {
           Please indicate whose reservation is this for.
         </p>
         <form className="radio-form">
-          <PatientCard setAppointmentDetails={props.setAppointmentDetails} />
+          <PatientCard />
         </form>
       </Modal.Body>
       <Modal.Footer>

@@ -1,12 +1,13 @@
 import { useContext } from "react";
+import { AppointmentDetailsContext } from "../../../../../App";
 import { userContext } from "../1st_Page";
 export default function PatientCard(props) {
   //Props
   const { historyPatients } = useContext(userContext);
-
+  const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    props.setAppointmentDetails((prev) => ({ ...prev, [name]: value }));
+    setAppointmentDetails((prev) => ({ ...prev, [name]: value }));
   };
 
   const patients = historyPatients.map((item, index) => {

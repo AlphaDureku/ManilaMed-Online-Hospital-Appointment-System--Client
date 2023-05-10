@@ -16,7 +16,7 @@ export default function BackProceed(props) {
           backgroundColor: object.color,
         }}
       >
-        {props.redButtonText}
+        {props.redButtonText || "Back"}
       </Button>
       <Button
         type="submit"

@@ -1,7 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="Tracking--Footer">
-      <img loading="lazy" alt="" src="/images/footerWave.png"></img>
+    <footer className="Booking--footerwave-container ">
+      <div className="text-center ">
+        @Copyright {new Date().getFullYear()} | Manila Med | All rights Reserved
+      </div>
     </footer>
   );
 }

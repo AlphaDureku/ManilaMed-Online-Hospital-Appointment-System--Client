@@ -17,8 +17,6 @@ export default function StepOne(props) {
         setCurrentPage={props.setCurrentPage}
         schedule={props.schedule}
         loading={props.loading}
-        appointmentDetails={props.appointmentDetails}
-        setAppointmentDetails={props.setAppointmentDetails}
         nextStep={props.nextStep}
       />
       <div className="stepFinstruc">View doctor schedule to proceed</div>

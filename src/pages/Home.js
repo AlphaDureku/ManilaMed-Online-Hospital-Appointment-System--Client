@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import Faqs from "../components/Home Components/FAQS/Faqs";
 import HomeFooter from "../components/Home Components/Footer/HomeFooter";
 import HeaderImg from "../components/Home Components/Hero Section/heroSection";
@@ -27,6 +28,7 @@ export default function Home() {
     specialization: [],
     hmo: [],
   });
+
   localStorage.setItem("currentPage", 1);
   //Initialize Specialization and HMO list
   useEffect(() => {

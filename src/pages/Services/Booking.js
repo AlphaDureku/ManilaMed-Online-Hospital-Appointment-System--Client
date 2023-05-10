@@ -12,10 +12,7 @@ export default function Booking(props) {
     <>
       <div className="Booking--wrapper">
         <NavBar />
-        <FirstPage
-          appointmentDetails={props.appointmentDetails}
-          setAppointmentDetails={props.setAppointmentDetails}
-        />
+        <FirstPage />
         <Footer />
       </div>
     </>

@@ -1,13 +1,11 @@
 import { useMediaQuery } from "@mantine/hooks";
-import { createContext, useMemo, useState } from "react";
-
+import { createContext, useContext, useMemo, useState } from "react";
 import FirstPageForms from "./1st_Page--Forms";
 import FirstPageModal from "./Modals/1st_Page_Modal";
 import TermsAndConditionsModal from "./Modals/Terms&Conditions_Modal";
 export const userContext = createContext();
 export default function FirstPage(props) {
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
-
   const [email, setEmail] = useState({ email: "", isChecked: false });
   const [loading, setLoading] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
@@ -49,8 +47,6 @@ export default function FirstPage(props) {
             setuserState={setUserState}
             setShowModal={setShowModal}
             email={email.email}
-            appointmentDetails={props.appointmentDetails}
-            setAppointmentDetails={props.setAppointmentDetails}
           />
         </userContext.Provider>
       </>

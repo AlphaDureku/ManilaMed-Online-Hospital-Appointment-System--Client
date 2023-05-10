@@ -1,11 +1,12 @@
 import { Button, Pagination } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Col, Modal, Row } from "react-bootstrap";
+import { AppointmentDetailsContext } from "../../../App";
 import Loading from "./Card--Loading";
-
 export default function Card(props) {
+  const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const isMobile = useMediaQuery("(max-width: 509px)");
@@ -83,7 +84,7 @@ export default function Card(props) {
 
   function handleDateSelect(date) {
     setSelectedDate(date);
-    props.setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
+    setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
     // D ko alam para san to e comment ko muna
     // const schedules = props.schedule.filter((sched) => {
     //   return date.toDateString() === new Date(sched.day).toDateString();
@@ -206,7 +207,7 @@ export default function Card(props) {
                     setSelectedDoctorId(items.doctor_ID);
                     doctorNameSpSched(items.doctor_ID);
                     setDisplayAllHMO(items.HMO_Name);
-                    props.setAppointmentDetails((prev) => ({
+                    setAppointmentDetails((prev) => ({
                       ...prev,
                       doctor_ID: items.doctor_ID,
                     }));
