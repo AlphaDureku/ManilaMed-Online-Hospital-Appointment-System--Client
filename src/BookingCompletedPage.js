@@ -14,14 +14,11 @@ export default function BookingCompletedPage() {
   let navigate = useNavigate();
   useEffect(() => {
     async function fetchDoctor() {
-      const response = await axios.get(
-        "https://server-production-e6a5.up.railway.app/booking/get-appointment",
-        {
-          params: {
-            appointment_ID: appointment_ID,
-          },
-        }
-      );
+      const response = await axios.get("/booking/get-appointment", {
+        params: {
+          appointment_ID: appointment_ID,
+        },
+      });
       console.log(response);
       setDoctor(response.data.data);
     }
@@ -66,9 +63,11 @@ export default function BookingCompletedPage() {
                   {appointmentDetails.patient_info.middle_name}{" "}
                   {appointmentDetails.patient_info.patient_last_name}
                 </div>
-                <p className="card-subtitle ">
+                <p className="card-subtitle gender ">
                   {" "}
-                  {appointmentDetails.patient_info.gender}
+                  {appointmentDetails.patient_info.gender === "F"
+                    ? "Female"
+                    : "Male"}
                 </p>
                 <p className="card-subtitle">
                   {" "}

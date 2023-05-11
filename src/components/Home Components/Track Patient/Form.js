@@ -37,12 +37,9 @@ export default function TrackMe() {
 
   async function sendOTP() {
     setLoading(true);
-    const res = await axios.post(
-      "https://server-production-e6a5.up.railway.app/trackMe",
-      {
-        email: user.email,
-      }
-    );
+    const res = await axios.post("/trackMe", {
+      email: user.email,
+    });
     console.log(res);
     if (res.data.data.exist) {
       setVerify((prev) => ({ ...prev, exist: true, otp: res.data.data.OTP }));

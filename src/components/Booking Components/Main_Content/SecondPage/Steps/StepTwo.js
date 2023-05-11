@@ -13,14 +13,11 @@ export default function StepTwo(props) {
   useEffect(() => {
     async function fetchDoctorCalendar() {
       try {
-        const response = await axios.get(
-          "https://server-production-e6a5.up.railway.app/booking/doctor-calendar",
-          {
-            params: {
-              doctor_ID: appointmentDetails.doctor_ID,
-            },
-          }
-        );
+        const response = await axios.get("/booking/doctor-calendar", {
+          params: {
+            doctor_ID: appointmentDetails.doctor_ID,
+          },
+        });
         const data = response.data;
         setScheduleStepTwo(data.data);
       } catch (error) {

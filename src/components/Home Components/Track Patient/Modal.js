@@ -34,13 +34,10 @@ export default function HomeModal(props) {
   };
 
   const OnSubmitHandler = async () => {
-    const res = await axios.post(
-      "https://server-production-e6a5.up.railway.app/verifyOTP",
-      {
-        inputOTP: enteredOTP,
-        user_ID: props.user.user_ID,
-      }
-    );
+    const res = await axios.post("/verifyOTP", {
+      inputOTP: enteredOTP,
+      user_ID: props.user.user_ID,
+    });
     const { isVerified, userToken } = res.data.data;
     if (isVerified) {
       props.setVerify((prev) => ({ ...prev, verified: true }));
@@ -62,12 +59,9 @@ export default function HomeModal(props) {
   };
 
   async function reSendOTP() {
-    const res = await axios.post(
-      "https://server-production-e6a5.up.railway.app/trackMe",
-      {
-        email: props.user.email,
-      }
-    );
+    const res = await axios.post("/trackMe", {
+      email: props.user.email,
+    });
     if (res.data) {
       OTPNotif();
     }

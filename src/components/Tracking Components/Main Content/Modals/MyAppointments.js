@@ -1,8 +1,12 @@
-import { Button } from "@mantine/core";
+import { Button, Tooltip } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
+import { useContext } from "react";
 import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { AppointmentDetailsContext } from "../../../../App";
 import ConfirmModal from "../../../Reusable_Components/ConfirmationModal";
+
 export default function MyAppointments(props) {
   const {
     show,
@@ -12,11 +16,14 @@ export default function MyAppointments(props) {
     setShowConfirm,
     setRefreshContent,
   } = props;
+  console.log(selectedAppointment);
+  const navigate = useNavigate();
+  const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const token = localStorage.getItem("userToken");
   const updateStatus = async (appointment_ID) => {
     try {
       await axios.post(
-        "https://server-production-e6a5.up.railway.app/user/cancel-appointment",
+        "/user/cancel-appointment",
         {
           appointment_ID: appointment_ID,
         },
@@ -43,7 +50,12 @@ export default function MyAppointments(props) {
       setShow((prev) => !prev);
       setShowConfirm((prev) => !prev);
     } else {
-      console.log("navigate");
+      setAppointmentDetails((prev) => ({
+        ...prev,
+        email: selectedAppointment.email,
+        patient_ID: selectedAppointment.patient_ID,
+      }));
+      navigate("/services/collect-info");
     }
   };
 
@@ -103,26 +115,39 @@ export default function MyAppointments(props) {
         <div>
           {" "}
           <div className="modalButton_row">
-            <Button
-              disabled={selectedAppointment.status === "Confirmed"}
-              className="modalButton"
-              type="submit"
-              size="sm"
-              onClick={() => TogglerModal()}
-              style={{
-                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                backgroundColor:
-                  selectedAppointment.status === "Pending" ||
-                  selectedAppointment.status === "Confirmed"
-                    ? "red"
-                    : "#388440",
-              }}
+            <Tooltip
+              label={
+                selectedAppointment.status === "Confirmed"
+                  ? "Slot is already reserved. Please contact us if you need assistance"
+                  : selectedAppointment.status === "Pending"
+                  ? "Cancel"
+                  : "Rebook"
+              }
             >
-              {selectedAppointment.status === "Pending" ||
-              selectedAppointment.status === "Confirmed"
-                ? "Cancel Appointment"
-                : "Rebook"}
-            </Button>
+              <Button
+                className="modalButton"
+                type="submit"
+                size="sm"
+                onClick={
+                  !selectedAppointment.status === "Confirmed"
+                    ? () => TogglerModal()
+                    : ""
+                }
+                style={{
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                  backgroundColor:
+                    selectedAppointment.status === "Pending" ||
+                    selectedAppointment.status === "Confirmed"
+                      ? "red"
+                      : "#388440",
+                }}
+              >
+                {selectedAppointment.status === "Pending" ||
+                selectedAppointment.status === "Confirmed"
+                  ? "Cancel Appointment"
+                  : "Rebook"}
+              </Button>
+            </Tooltip>
           </div>
         </div>
         <div>

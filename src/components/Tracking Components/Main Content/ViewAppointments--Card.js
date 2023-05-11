@@ -20,14 +20,11 @@ export default function Card() {
   };
   useEffect(() => {
     const getAppointments = async () => {
-      const response = await axios.get(
-        `https://server-production-e6a5.up.railway.app/user/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setAppointmentList(response.data.data);
     };
     getAppointments();

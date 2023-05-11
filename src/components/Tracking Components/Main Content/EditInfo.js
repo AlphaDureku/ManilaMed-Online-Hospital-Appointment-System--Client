@@ -13,14 +13,11 @@ export default function EditInfo() {
 
   useEffect(() => {
     const getPatientInfo = async () => {
-      const response = await axios.get(
-        `https://server-production-e6a5.up.railway.app/user/get-info/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`/user/get-info/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch({ type: "FETCH_SUCCESS", payload: response.data.data });
     };
     getPatientInfo();
@@ -30,7 +27,7 @@ export default function EditInfo() {
     dispatch({ type: "TOGGLE" });
     if (!state.isDisabled) {
       await axios.post(
-        "https://server-production-e6a5.up.railway.app/user/edit-patient",
+        "/user/edit-patient",
         {
           info: state,
           Patient_ID: id,

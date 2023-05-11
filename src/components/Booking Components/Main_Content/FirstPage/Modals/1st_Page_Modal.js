@@ -36,14 +36,11 @@ export default function FirstPage_Modal(props) {
   }
 
   const OnSubmitHandler = async () => {
-    const res = await axios.get(
-      "https://server-production-e6a5.up.railway.app/booking/verifyOTP",
-      {
-        params: {
-          inputOTP: input.enteredOTP,
-        },
-      }
-    );
+    const res = await axios.get("/booking/verifyOTP", {
+      params: {
+        inputOTP: input.enteredOTP,
+      },
+    });
 
     const { isVerified } = res.data.data;
     if (isVerified) {
@@ -61,14 +58,11 @@ export default function FirstPage_Modal(props) {
   };
 
   async function reSendOTP() {
-    const res = await axios.post(
-      "https://server-production-e6a5.up.railway.app/booking/send-otp",
-      {
-        params: {
-          email: props.email,
-        },
-      }
-    );
+    const res = await axios.post("/booking/send-otp", {
+      params: {
+        email: props.email,
+      },
+    });
     if (res.data) {
       OTPNotif();
     }

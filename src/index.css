@@ -776,7 +776,6 @@ select {
   font-size: min(1rem, 2.5vw);
 }
 
-
 .modalButton_row {
   display: flex;
   margin-top: 3%;
@@ -1423,7 +1422,10 @@ select {
   margin-right: auto;
 }
 
-.bookingcardcompletedcontainer{
-  border : 1px solid #000;
+.bookingcardcompletedcontainer {
+  border: 1px solid #000;
+}
 
+.gender {
+  margin-bottom: 2%;
 }

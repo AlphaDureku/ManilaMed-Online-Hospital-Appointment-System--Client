@@ -19,8 +19,10 @@ export default function StepsHandler(props) {
   const [modalShow, setModalShow] = useState(false);
 
   const [active, setActive] = useState(0);
-  const nextStep = () =>
+  const nextStep = () => {
     setActive((current) => (current < 3 ? current + 1 : current));
+  };
+
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
   useEffect(() => {
@@ -81,18 +83,13 @@ export default function StepsHandler(props) {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.get(
-        "https://server-production-e6a5.up.railway.app/initialize"
-      );
+      const res = await axios.get("/initialize");
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
       if (appointmentDetails.patient_ID) {
-        const res = await axios.get(
-          "https://server-production-e6a5.up.railway.app/booking/get-patientInfo",
-          {
-            params: { patient_ID: appointmentDetails.patient_ID },
-          }
-        );
+        const res = await axios.get("/booking/get-patientInfo", {
+          params: { patient_ID: appointmentDetails.patient_ID },
+        });
         const { data } = res.data;
         setpatientFormData((prev) => ({
           ...prev,
@@ -113,11 +110,11 @@ export default function StepsHandler(props) {
     async function get() {
       setLoading(true);
       const res = await axios.get(
-        `https://server-production-e6a5.up.railway.app/doctors/search/?Fname=${query.get(
-          "Fname"
-        )}&Lname=${query.get("Lname")}&specialization=${query.get(
-          "specialization"
-        )}&HMO=${query.get("HMO")}`
+        `/doctors/search/?Fname=${query.get("Fname")}&Lname=${query.get(
+          "Lname"
+        )}&specialization=${query.get("specialization")}&HMO=${query.get(
+          "HMO"
+        )}`
       );
       const { data } = res.data;
       setdoctors(data.result);
@@ -147,7 +144,7 @@ export default function StepsHandler(props) {
 
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
@@ -165,6 +162,12 @@ export default function StepsHandler(props) {
           address: patientformData.address,
         },
       }));
+      if (appointmentDetails.patient_ID) {
+        await axios.post("/booking/update-info", {
+          info: patientformData,
+          Patient_ID: appointmentDetails.patient_ID,
+        });
+      }
       openConfirmModal();
     } else {
       setErrors(validationErrors);
@@ -249,8 +252,7 @@ export default function StepsHandler(props) {
 
   const submitAppointment = async () => {
     try {
-      const url =
-        "https://server-production-e6a5.up.railway.app/booking/set-appointment";
+      const url = "/booking/set-appointment";
       const data = {
         appointmentDetails: appointmentDetails,
       };
