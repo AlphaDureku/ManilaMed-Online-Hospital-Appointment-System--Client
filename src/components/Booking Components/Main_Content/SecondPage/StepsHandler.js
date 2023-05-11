@@ -81,12 +81,14 @@ export default function StepsHandler(props) {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.got(process.env.REACT_APP_ONLINE + "/initialize");
+      const res = await axios.got(
+        "https://server-production-e6a5.up.railway.app/initialize"
+      );
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
       if (appointmentDetails.patient_ID) {
         const res = await axios.got(
-          process.env.REACT_APP_ONLINE + "/booking/get-patientInfo",
+          "https://server-production-e6a5.up.railway.app/booking/get-patientInfo",
           {
             params: { patient_ID: appointmentDetails.patient_ID },
           }

@@ -29,7 +29,7 @@ export default function Login() {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const { data } = await axios.got(
-      process.env.REACT_APP_ONLINE + "/head-admin/login",
+      "https://server-production-e6a5.up.railway.app/head-admin/login",
       credentials
     );
     if (data.data.status) {

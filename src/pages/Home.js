@@ -34,7 +34,9 @@ export default function Home() {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.got(process.env.REACT_APP_ONLINE + "/initialize");
+      const res = await axios.got(
+        "https://server-production-e6a5.up.railway.app/initialize"
+      );
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
     }

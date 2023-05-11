@@ -15,7 +15,7 @@ export default function BookingCompletedPage() {
   useEffect(() => {
     async function fetchDoctor() {
       const response = await axios.got(
-        process.env.REACT_APP_ONLINE + "/booking/get-appointment",
+        "https://server-production-e6a5.up.railway.app/booking/get-appointment",
         {
           params: {
             appointment_ID: appointment_ID,

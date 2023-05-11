@@ -10,7 +10,7 @@ export default function LandingPage() {
     const getPatients = async () => {
       try {
         const response = await axios.got(
-          process.env.REACT_APP_ONLINE + "/user/get-patients",
+          "https://server-production-e6a5.up.railway.app/user/get-patients",
           {
             headers: {
               Authorization: `Bearer ${token}`,

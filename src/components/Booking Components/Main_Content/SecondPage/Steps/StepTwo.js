@@ -14,7 +14,7 @@ export default function StepTwo(props) {
     async function fetchDoctorCalendar() {
       try {
         const response = await axios.got(
-          process.env.REACT_APP_ONLINE + "/booking/doctor-calendar",
+          "https://server-production-e6a5.up.railway.app/booking/doctor-calendar",
           {
             params: {
               doctor_ID: appointmentDetails.doctor_ID,

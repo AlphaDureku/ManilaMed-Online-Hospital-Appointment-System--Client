@@ -29,7 +29,7 @@ export default function Login() {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const { data } = await axios.got(
-      process.env.REACT_APP_ONLINE + "/admin/nurse-login",
+      "https://server-production-e6a5.up.railway.app/admin/nurse-login",
       credentials
     );
     if (data.data.status) {
