@@ -35,9 +35,9 @@ export default function TrackMe() {
     });
   };
 
-  useEffect(() => {
-    setLoading(true);
-    async function get() {
+    
+    async function sendOTP() {
+      setLoading(true);
       const res = await axios.post("/trackMe", { email: user.email });
       console.log(res);
       if (res.data.data.exist) {
@@ -52,9 +52,8 @@ export default function TrackMe() {
         setLoading(false);
       }, 500);
     }
-    get();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submit]);
+    
+
 
   function OnChangeHandler(event) {
     const { name, value } = event.target;
@@ -62,6 +61,7 @@ export default function TrackMe() {
   }
   function OnSubmitHandler(event) {
     event.preventDefault();
+    sendOTP();
     setShow(true);
     setSubmit(!submit);
   }
