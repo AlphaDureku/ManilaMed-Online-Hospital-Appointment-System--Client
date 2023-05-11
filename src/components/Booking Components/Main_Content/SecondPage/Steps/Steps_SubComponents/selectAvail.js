@@ -10,16 +10,22 @@ export default function SelectAvail(props) {
   const { appointmentDetails, setAppointmentDetails } = useContext(
     AppointmentDetailsContext
   );
+ useEffect(() => {
+  const appointmentDate = new Date(appointmentDetails.schedule_date);
+  setSelectedDate(appointmentDate);
+  getSchedID();
+}, []);
 
-  useEffect(() => {
-    setAppointmentDate();
-  }, []);
+function getSchedID() {
 
-  function setAppointmentDate() {
-    const appointmentDate = new Date(appointmentDetails.schedule_date);
-    setSelectedDate(appointmentDate);
-    getSchedID();
-  }
+  getDoctorSched().map((schedule) =>
+    setAppointmentDetails((prev) => ({
+      ...prev,
+      schedule_ID: schedule.schedule_ID,
+      recom_Time: schedule.recomTime[0],
+    }))
+  );
+}
 
   function getDayProps(date) {
     // Disable dates in the past and today
@@ -60,12 +66,8 @@ export default function SelectAvail(props) {
     getSchedID();
   }
 
-  const details = () => {
-    console.log(appointmentDetails);
-    console.log(props.scheduleStepTwo);
-    console.log(props.schedule);
-  };
 
+ 
   function getDoctorSched() {
     // Convert and Filter schedule
     const dateInPh = selectedDate
@@ -80,7 +82,7 @@ export default function SelectAvail(props) {
     const filteredSchedule = props.scheduleStepTwo
       ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
       : [];
-
+    
     // Filter start and end time
     const getSched = filteredSchedule.filter(
       (schedule) =>
@@ -124,15 +126,7 @@ export default function SelectAvail(props) {
     return doctorSched;
   }
 
-  function getSchedID() {
-    getDoctorSched().map((schedule) =>
-      setAppointmentDetails((prev) => ({
-        ...prev,
-        schedule_ID: schedule.schedule_ID,
-        recom_Time: schedule.recomTime[0],
-      }))
-    );
-  }
+ 
 
   return (
     <div>
@@ -301,7 +295,6 @@ export default function SelectAvail(props) {
           </Col>
         </Row>
       </div>
-      <Button onClick={details}>Console</Button>
     </div>
   );
 }

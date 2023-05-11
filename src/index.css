@@ -775,16 +775,7 @@ select {
   margin-right: 8%;
   font-size: min(1rem, 2.5vw);
 }
-.view-backBtn {
-  width: max(5%, 100px);
-  background-color: red;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  margin-left: auto;
-  margin-top: 5%;
-  font-size: min(1rem, 3.5vw);
-}
+
 
 .modalButton_row {
   display: flex;
@@ -1430,4 +1421,9 @@ select {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.bookingcardcompletedcontainer{
+  border : 1px solid #000;
+
 }

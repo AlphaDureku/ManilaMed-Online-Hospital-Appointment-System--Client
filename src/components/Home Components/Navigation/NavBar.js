@@ -36,7 +36,7 @@ function HeaderNavbar() {
                 className="navheader"
                 onClick={() => handleClick("Services")}
               >
-                Services
+                Service
               </Nav.Link>
               <Nav.Link
                 className="navheader"

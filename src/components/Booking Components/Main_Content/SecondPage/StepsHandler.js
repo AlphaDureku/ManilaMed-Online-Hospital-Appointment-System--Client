@@ -1,15 +1,16 @@
-import { Button, Group, Stepper } from "@mantine/core";
+import { Group, Stepper } from "@mantine/core";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { AppointmentDetailsContext } from "../../../../App";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import ConfirmModal from "../../../Reusable_Components/ConfirmationModal";
+import BookingConfirmModal from "./Steps/Steps_SubComponents/ConfirmationModal";
 import FinalStep from "./Steps/FinalStep";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
-import BookingConfirmation from "./Steps/Steps_SubComponents/confirmation";
+import { useNavigate } from "react-router-dom";
+
 const moment = require("moment");
 
 export default function StepsHandler(props) {
@@ -17,11 +18,35 @@ export default function StepsHandler(props) {
     AppointmentDetailsContext
   );
   const [modalShow, setModalShow] = useState(false);
+  
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    const handlePopState = () => {
+      window.history.pushState(null, document.title, window.location.href);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+   
+ 
+     
+  
+
   const [query, setQuery] = useSearchParams({
     Fname: "",
     Lname: "",
@@ -125,7 +150,7 @@ export default function StepsHandler(props) {
           address: patientformData.address,
         },
       }));
-      nextStep();
+      openConfirmModal()
     } else {
       setErrors(validationErrors);
     }
@@ -205,7 +230,9 @@ export default function StepsHandler(props) {
     }
   }
 
-  async function submitAppointment() {
+  const navigate = useNavigate();
+
+  const submitAppointment = async () => {
     try {
       const url = "/booking/set-appointment";
       const data = {
@@ -214,11 +241,15 @@ export default function StepsHandler(props) {
 
       const response = await postData(url, data);
       console.log("Appointment submitted successfully:", response);
+      setAppointmentDetails(prev => ({...prev, appointment_ID: response.data.appointment_ID})); 
+      
       setModalShow(false);
+      // Redirect to another page
+      navigate("/services/bookingcompleted"); 
     } catch (error) {
       console.error("Failed to submit appointment:", error);
     }
-  }
+  };
 
   function openConfirmModal() {
     setModalShow(true);
@@ -232,14 +263,19 @@ export default function StepsHandler(props) {
   return (
     <>
       <Container fluid className="mt-3 ">
-        <Stepper
+      <Stepper
           active={active}
-          onStepClick={setActive}
+          onStepClick={(step) => {
+            if (step > active && active !== 3) {
+              setActive(step);
+            }
+          }}
           breakpoint="sm"
           className="stepper"
           radius="lg"
           allowNextStepsSelect={false}
         >
+
           <Stepper.Step label="Fist Step" description="Search Doctor">
             <StepOne
               query={query}
@@ -264,34 +300,34 @@ export default function StepsHandler(props) {
               validateForm={validateForm}
               errors={errors}
             />
+          <BookingConfirmModal
+          show={modalShow}
+          handleClose={closeConfirmModal}
+          handleSubmit={submitAppointment}
+          doctors={doctors}
+        />
           </Stepper.Step>
           <Stepper.Completed>
-            <BookingConfirmation doctors={doctors} />
+
           </Stepper.Completed>
         </Stepper>
 
-        {active !== 0 && (
+        {active !== 0  && active !==3 && (
           <Group position="center" mt="xl" className="stephandlerbuttonrow m-3">
             <BackProceed
               leftButton={prevStep}
               rightButton={
                 active === 2
                   ? handleSubmit
-                  : (active === 3 && openConfirmModal) || nextStep
+                  :  nextStep
               }
               redButtonText={"Back"}
-              blueButtonText={active === 3 ? "Confirm" : "Proceed"}
+              blueButtonText={active === 2 ? "Confirm" : "Proceed"}
             />
           </Group>
         )}
 
-        <ConfirmModal
-          show={modalShow}
-          handleClose={closeConfirmModal}
-          handleSubmit={submitAppointment}
-          question={"Confirm Appointment?"}
-          title="Confirmation"
-        />
+     
       </Container>
     </>
   );

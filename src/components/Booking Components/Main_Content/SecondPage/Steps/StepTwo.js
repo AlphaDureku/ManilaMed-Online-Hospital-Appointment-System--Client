@@ -85,6 +85,8 @@ export default function StepTwo(props) {
         scheduleStepTwo={scheduleStepTwo}
         isLoading={isLoading}
         error={error}
+        selectedDate={props.selectedDate}
+        setSelectedDate={props.setSelectedDate}
       />
     </>
   );

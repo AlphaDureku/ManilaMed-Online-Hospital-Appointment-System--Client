@@ -14,6 +14,7 @@ export default function App() {
     doctor_ID: "",
     recom_Time: "",
     patient_ID: "",
+    appointment_ID: "",
     patient_info: {
       patient_first_name: "",
       patient_last_name: "",

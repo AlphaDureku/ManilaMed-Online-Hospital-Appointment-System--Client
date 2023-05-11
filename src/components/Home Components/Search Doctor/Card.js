@@ -6,6 +6,9 @@ import { Col, Modal, Row } from "react-bootstrap";
 import { AppointmentDetailsContext } from "../../../App";
 import Loading from "./Card--Loading";
 export default function Card(props) {
+
+  const isHomePage = window.location.pathname === "/";
+
   const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -343,7 +346,7 @@ export default function Card(props) {
                 </Col>
               </Row>
             </Modal.Body>
-            {selectedDate && (
+            {selectedDate && !isHomePage && (
               <Modal.Footer>
                 <Button
                   radius="xl"

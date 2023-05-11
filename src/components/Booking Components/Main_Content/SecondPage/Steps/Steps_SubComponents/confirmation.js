@@ -1,4 +1,3 @@
-import { Button, Tooltip } from "@mantine/core";
 import { useContext } from "react";
 import { Container, Row } from "react-bootstrap";
 import { AppointmentDetailsContext } from "../../../../../../App";
@@ -59,32 +58,11 @@ export default function BookingConfirmation(props) {
     return getdoctorNameandSP;
   }
 
-  function hehe() {
-    console.log(appointmentDetails);
-  }
 
   return (
     <div>
       <Container>
         <Row>
-          <div className="bookingtagtitle">
-            Requested Schedule
-            <Tooltip
-              label="Confirm to book appointment"
-              position="bottom"
-              className="ms-2"
-            >
-              <Button
-                compact
-                variant="outline"
-                size="xs"
-                radius="xl"
-                color="gray"
-              >
-                ?
-              </Button>
-            </Tooltip>
-          </div>
         </Row>
         <Container className="bookingConfirmationCard mt-3 text-center">
           <Row className="mt-3">
@@ -123,9 +101,9 @@ export default function BookingConfirmation(props) {
             </div>
             <hr className="mb-3 reqline"></hr>
           </Row>
+        
         </Container>
       </Container>
-      <Button onClick={hehe}>Console</Button>
     </div>
   );
 }
