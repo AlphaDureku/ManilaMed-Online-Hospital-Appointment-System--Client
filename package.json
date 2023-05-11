@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "https://server-production-e6a5.up.railway.app",
+  "proxy": "https://server-production-e6a5.up.railway.app/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -26,6 +26,7 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-scroll": "^1.8.9",
+    "serve": "^14.2.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
