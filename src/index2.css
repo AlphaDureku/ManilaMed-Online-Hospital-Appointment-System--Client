@@ -15,3 +15,99 @@
   font-weight: 700;
   font-size: min(1.5rem, 3.5vw);
 }
+
+.login--Btn {
+  width: 100%;
+  color: white;
+  margin-bottom: 4%;
+}
+
+/**Head Admin **/
+.login-H-leftContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, black, grey);
+  color: white;
+  font-weight: 700;
+  font-size: min(1.5rem, 3.5vw);
+}
+
+.headNav {
+  background-color: aliceblue;
+  border-bottom: 1px solid grey;
+}
+
+.secName {
+  font-weight: 600;
+  font-size: 14px;
+  color: #848484;
+}
+
+.secRole {
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+  color: #848484;
+}
+
+.adminProfile {
+  height: min(45px, 12vw);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.Head--DashboardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background: linear-gradient(180deg, #dadada, black);
+  height: 93vh;
+}
+
+.Head--DashboardContainer > div:nth-child(1) {
+  border-radius: 8px 0 0 8px;
+  width: 67%;
+  height: 100%;
+  background-color: #dbf4ff;
+}
+.Head--DashboardContainer > div:nth-child(2) {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 30%;
+  height: 100%;
+  background-color: #bfeeff;
+}
+.Head--Dashboard-left {
+  display: flex;
+  border: 1px solid red;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.Head--Dashboard-left > div:nth-child(1) {
+  border: 1px solid blue;
+  height: 10%;
+  width: 95%;
+}
+.Head--Dashboard-left > div:nth-child(2) {
+  border: 1px solid violet;
+  height: 85%;
+  width: 95%;
+}
+
+.Head--Dashboard-right {
+  display: flex;
+  border: 1px solid yellow;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.Head--Dashboard-right > div:nth-child(1) {
+  border: 1px solid red;
+  height: 65%;
+  width: 95%;
+}
+.Head--Dashboard-right > div:nth-child(2) {
+  border: 1px solid red;
+  height: 30%;
+  width: 95%;
+}

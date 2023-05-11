@@ -29,7 +29,7 @@ export default function Login() {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const { data } = await axios.got(
-      process.env.REACT_APP_ONLINE + "/admin/nurse-login",
+      process.env.REACT_APP_ONLINE + "/head-admin/login",
       credentials
     );
     if (data.data.status) {
@@ -45,7 +45,7 @@ export default function Login() {
       <MDBContainer className="login--contentContainer">
         <MDBCard>
           <MDBRow className="g-0">
-            <MDBCol md="6" className="login--leftContent">
+            <MDBCol md="6" className="login-H-leftContent">
               <div>
                 Making Appointments easy for you{" "}
                 <img
@@ -98,7 +98,7 @@ export default function Login() {
                     type="submit"
                     variant="gradient"
                     className="login--Btn"
-                    gradient={{ from: "#00c2ff", to: "#5addee", deg: 105 }}
+                    gradient={{ from: "black", to: "grey", deg: 105 }}
                   >
                     Login
                   </Button>

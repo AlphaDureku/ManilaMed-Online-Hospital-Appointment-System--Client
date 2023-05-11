@@ -9,11 +9,14 @@ export default function LandingPage() {
   useEffect(() => {
     const getPatients = async () => {
       try {
-        const response = await axios.get("/user/get-patients", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.got(
+          process.env.REACT_APP_ONLINE + "/user/get-patients",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const { data } = response.data;
         dispatch({
           type: "FETCH_SUCCESS",

@@ -34,7 +34,7 @@ export default function HomeModal(props) {
   };
 
   const OnSubmitHandler = async () => {
-    const res = await axios.post("/verifyOTP", {
+    const res = await axios.got(process.env.REACT_APP_ONLINE + "/verifyOTP", {
       inputOTP: enteredOTP,
       user_ID: props.user.user_ID,
     });
@@ -59,7 +59,9 @@ export default function HomeModal(props) {
   };
 
   async function reSendOTP() {
-    const res = await axios.post("/trackMe", { email: props.user.email });
+    const res = await axios.got(process.env.REACT_APP_ONLINE + "/trackMe", {
+      email: props.user.email,
+    });
     if (res.data) {
       OTPNotif();
     }

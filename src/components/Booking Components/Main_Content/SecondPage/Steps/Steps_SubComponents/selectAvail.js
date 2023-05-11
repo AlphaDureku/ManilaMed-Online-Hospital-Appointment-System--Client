@@ -4,28 +4,30 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { AppointmentDetailsContext } from "../../../../../../App";
+const moment = require("moment");
+
 export default function SelectAvail(props) {
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [selectedDate, setSelectedDate] = useState();
   const { appointmentDetails, setAppointmentDetails } = useContext(
     AppointmentDetailsContext
   );
- useEffect(() => {
-  const appointmentDate = new Date(appointmentDetails.schedule_date);
-  setSelectedDate(appointmentDate);
-  getSchedID();
-}, []);
+  console.log(props.scheduleStepTwo);
+  useEffect(() => {
+    const appointmentDate = new Date(appointmentDetails.schedule_date);
+    setSelectedDate(appointmentDate);
+    getSchedID();
+  }, []);
 
-function getSchedID() {
-
-  getDoctorSched().map((schedule) =>
-    setAppointmentDetails((prev) => ({
-      ...prev,
-      schedule_ID: schedule.schedule_ID,
-      recom_Time: schedule.recomTime[0],
-    }))
-  );
-}
+  function getSchedID() {
+    getDoctorSched().map((schedule) => {
+      setAppointmentDetails((prev) => ({
+        ...prev,
+        schedule_ID: schedule.schedule_ID,
+        recom_Time: moment(schedule.recomTime[0], "h:mm A").format("HH:mm"),
+      }));
+    });
+  }
 
   function getDayProps(date) {
     // Disable dates in the past and today
@@ -60,15 +62,13 @@ function getSchedID() {
     }
   }
 
-  function handleDateSelect(date) {
+  const handleDateSelect = (date) => {
     setSelectedDate(date);
     setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
     getSchedID();
-  }
+  };
 
-
- 
-  function getDoctorSched() {
+  const getDoctorSched = () => {
     // Convert and Filter schedule
     const dateInPh = selectedDate
       ? new Date(
@@ -82,7 +82,6 @@ function getSchedID() {
     const filteredSchedule = props.scheduleStepTwo
       ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
       : [];
-    
     // Filter start and end time
     const getSched = filteredSchedule.filter(
       (schedule) =>
@@ -92,7 +91,6 @@ function getSchedID() {
         schedule.time_interval &&
         schedule.schedule_ID
     );
-
     const moment = require("moment-timezone");
 
     const doctorSched = getSched.map((schedule) => {
@@ -113,7 +111,6 @@ function getSchedID() {
       recomTime.push({
         start: timeStart.format("h:mm A"),
       });
-
       return {
         timeSlot: `${startTimePH} - ${endTimePH}`,
         queueNumber: queueNumber,
@@ -124,9 +121,7 @@ function getSchedID() {
     });
 
     return doctorSched;
-  }
-
- 
+  };
 
   return (
     <div>

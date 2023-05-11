@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import Login from "../components/Nurse_Admin_Components/Main_Content/Login";
 
 export default function Admin() {
@@ -30,7 +28,7 @@ export default function Admin() {
 
 //   const submitHandler = async (event) => {
 //     event.preventDefault();
-//     const { data } = await axios.post("/admin/nurse-login", credentials);
+//     const { data } = await axios.got(process.env.REACT_APP_ONLINE + "/admin/nurse-login", credentials);
 //     if (data.data.status) {
 //       //Set token authentication
 //       localStorage.setItem("token", data.data.token);
@@ -42,7 +40,7 @@ export default function Admin() {
 
 //   async function dashboard() {
 //     const token = localStorage.getItem("token");
-//     const res = await axios.get("/admin/nurse-dashboard", {
+//     const res = await axios.got(process.env.REACT_APP_ONLINE + "/admin/nurse-dashboard", {
 //       params: {
 //         status: "confirmed",
 //       },

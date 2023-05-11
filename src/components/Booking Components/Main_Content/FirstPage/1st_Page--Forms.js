@@ -36,17 +36,21 @@ export default function FirstPageForms(props) {
       [name]: type === "checkbox" ? checked : value,
     }));
   }
+
   async function OnSubmitHandler(event) {
     setLoading(true);
     event.preventDefault();
     if (!isValidEmail(email.email)) {
       setIsValid(false);
     } else {
-      const res = await axios.get("/booking/send-otp", {
-        params: {
-          email: email.email,
-        },
-      });
+      const res = await axios.got(
+        process.env.REACT_APP_ONLINE + "/booking/send-otp",
+        {
+          params: {
+            email: email.email,
+          },
+        }
+      );
       const { data } = res.data.data;
       setTimeout(() => {
         setLoading(false);

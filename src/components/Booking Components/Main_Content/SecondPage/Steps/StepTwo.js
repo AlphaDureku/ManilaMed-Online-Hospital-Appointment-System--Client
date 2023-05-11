@@ -1,11 +1,11 @@
 import { Alert, DEFAULT_THEME, LoadingOverlay } from "@mantine/core";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
 import { AppointmentDetailsContext } from "../../../../../App";
 import SelectAvail from "./Steps_SubComponents/selectAvail";
 export default function StepTwo(props) {
-  const [scheduleStepTwo, setScheduleStepTwo] = useState();
+  const [scheduleStepTwo, setScheduleStepTwo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { appointmentDetails } = useContext(AppointmentDetailsContext);
@@ -13,11 +13,14 @@ export default function StepTwo(props) {
   useEffect(() => {
     async function fetchDoctorCalendar() {
       try {
-        const response = await axios.get("/booking/doctor-calendar", {
-          params: {
-            doctor_ID: appointmentDetails.doctor_ID,
-          },
-        });
+        const response = await axios.got(
+          process.env.REACT_APP_ONLINE + "/booking/doctor-calendar",
+          {
+            params: {
+              doctor_ID: appointmentDetails.doctor_ID,
+            },
+          }
+        );
         const data = response.data;
         setScheduleStepTwo(data.data);
       } catch (error) {
@@ -29,7 +32,7 @@ export default function StepTwo(props) {
     }
     fetchDoctorCalendar();
   }, []);
-
+  console.log(scheduleStepTwo);
   const customLoader = (
     <svg
       width="54"
@@ -55,7 +58,19 @@ export default function StepTwo(props) {
       </g>
     </svg>
   );
-
+  const calendar = useMemo(() => {
+    return (
+      <SelectAvail
+        schedule={props.schedule}
+        scheduleStepTwo={scheduleStepTwo}
+        isLoading={isLoading}
+        error={error}
+        selectedDate={props.selectedDate}
+        setSelectedDate={props.setSelectedDate}
+      />
+    );
+  }, [scheduleStepTwo]);
+  console.log(scheduleStepTwo);
   return (
     <>
       {isLoading && (
@@ -80,14 +95,7 @@ export default function StepTwo(props) {
           </Alert>
         </Container>
       )}
-      <SelectAvail
-        schedule={props.schedule}
-        scheduleStepTwo={scheduleStepTwo}
-        isLoading={isLoading}
-        error={error}
-        selectedDate={props.selectedDate}
-        setSelectedDate={props.setSelectedDate}
-      />
+      {calendar}
     </>
   );
 }

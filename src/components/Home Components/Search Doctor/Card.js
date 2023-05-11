@@ -5,8 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import { Col, Modal, Row } from "react-bootstrap";
 import { AppointmentDetailsContext } from "../../../App";
 import Loading from "./Card--Loading";
+const moment = require("moment");
 export default function Card(props) {
-
   const isHomePage = window.location.pathname === "/";
 
   const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
@@ -86,6 +86,7 @@ export default function Card(props) {
   }
 
   function handleDateSelect(date) {
+    console.log(selectedDate);
     setSelectedDate(date);
     setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
     // D ko alam para san to e comment ko muna
@@ -166,6 +167,17 @@ export default function Card(props) {
   }
 
   const onSubmit = () => {
+    props.schedule.map((item) => {
+      if (item.doctor_ID === selectedDoctorId) {
+        if (item.date === moment(selectedDate).format("MMM D, YYYY")) {
+          setAppointmentDetails((prev) => ({
+            ...prev,
+            schedule_ID: item.schedule_ID,
+            schedule_date: item.date,
+          }));
+        }
+      }
+    });
     props.nextStep();
   };
 
@@ -262,7 +274,6 @@ export default function Card(props) {
           value={props.currentPage}
           onChange={paginate}
           siblings={2}
-          style={{}}
         />
       </div>
       <div className="parent-cardC">

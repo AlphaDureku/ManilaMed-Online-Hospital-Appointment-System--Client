@@ -35,25 +35,23 @@ export default function TrackMe() {
     });
   };
 
-    
-    async function sendOTP() {
-      setLoading(true);
-      const res = await axios.post("/trackMe", { email: user.email });
-      console.log(res);
-      if (res.data.data.exist) {
-        setVerify((prev) => ({ ...prev, exist: true, otp: res.data.data.OTP }));
-        setUser((prev) => ({ ...prev, user_ID: res.data.data.user_ID }));
-        setTimeout(() => {
-          OTPNotif();
-        }, 800);
-      }
-
+  async function sendOTP() {
+    setLoading(true);
+    const res = await axios.got(process.env.REACT_APP_ONLINE + "/trackMe", {
+      email: user.email,
+    });
+    console.log(res);
+    if (res.data.data.exist) {
+      setVerify((prev) => ({ ...prev, exist: true, otp: res.data.data.OTP }));
+      setUser((prev) => ({ ...prev, user_ID: res.data.data.user_ID }));
       setTimeout(() => {
-        setLoading(false);
-      }, 500);
+        OTPNotif();
+      }, 800);
     }
-    
-
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }
 
   function OnChangeHandler(event) {
     const { name, value } = event.target;

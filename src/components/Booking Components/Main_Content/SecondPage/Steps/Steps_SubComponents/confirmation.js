@@ -8,7 +8,7 @@ export default function BookingConfirmation(props) {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   }
-
+  console.log(appointmentDetails);
   function getBookingDetails() {
     const { recom_Time, schedule_date, doctor_ID } = appointmentDetails;
 
@@ -58,12 +58,10 @@ export default function BookingConfirmation(props) {
     return getdoctorNameandSP;
   }
 
-
   return (
     <div>
       <Container>
-        <Row>
-        </Row>
+        <Row></Row>
         <Container className="bookingConfirmationCard mt-3 text-center">
           <Row className="mt-3">
             <div className="reqheader mt-4 ">Requested Appointment Date:</div>
@@ -101,7 +99,6 @@ export default function BookingConfirmation(props) {
             </div>
             <hr className="mb-3 reqline"></hr>
           </Row>
-        
         </Container>
       </Container>
     </div>

@@ -34,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.get("/initialize");
+      const res = await axios.got(process.env.REACT_APP_ONLINE + "/initialize");
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
     }

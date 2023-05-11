@@ -1,15 +1,14 @@
-import { Group, Stepper } from "@mantine/core";
+import { Button, Group, Stepper } from "@mantine/core";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AppointmentDetailsContext } from "../../../../App";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import BookingConfirmModal from "./Steps/Steps_SubComponents/ConfirmationModal";
 import FinalStep from "./Steps/FinalStep";
 import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
-import { useNavigate } from "react-router-dom";
+import BookingConfirmModal from "./Steps/Steps_SubComponents/ConfirmationModal";
 
 const moment = require("moment");
 
@@ -18,7 +17,7 @@ export default function StepsHandler(props) {
     AppointmentDetailsContext
   );
   const [modalShow, setModalShow] = useState(false);
-  
+
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -42,10 +41,6 @@ export default function StepsHandler(props) {
       window.removeEventListener("popstate", handlePopState);
     };
   }, []);
-   
- 
-     
-  
 
   const [query, setQuery] = useSearchParams({
     Fname: "",
@@ -62,6 +57,15 @@ export default function StepsHandler(props) {
     specialization: [],
     hmo: [],
   });
+  const [patientformData, setpatientFormData] = useState({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    gender: "",
+    dateOfBirth: "",
+    contactNumber: "",
+    address: "",
+  });
 
   // const [searchCompleted, setSearchCompleted] = useState(false);
   // const [scheduleCompleted, setScheduleCompleted] = useState(false);
@@ -77,9 +81,28 @@ export default function StepsHandler(props) {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.get("/initialize");
+      const res = await axios.got(process.env.REACT_APP_ONLINE + "/initialize");
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
+      if (appointmentDetails.patient_ID) {
+        const res = await axios.got(
+          process.env.REACT_APP_ONLINE + "/booking/get-patientInfo",
+          {
+            params: { patient_ID: appointmentDetails.patient_ID },
+          }
+        );
+        const { data } = res.data;
+        setpatientFormData((prev) => ({
+          ...prev,
+          firstName: data.patient_first_name,
+          middleName: data.patient_middle_name || "",
+          lastName: data.patient_last_name,
+          gender: data.patient_gender,
+          dateOfBirth: data.dateOfBirth,
+          contactNumber: data.patient_contact_number,
+          address: data.patient_address,
+        }));
+      }
     }
     get();
   }, []);
@@ -120,16 +143,6 @@ export default function StepsHandler(props) {
     return;
   };
 
-  const [patientformData, setpatientFormData] = useState({
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    gender: "",
-    dateOfBirth: "",
-    contactNumber: "",
-    address: "",
-  });
-
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (event) => {
@@ -150,7 +163,7 @@ export default function StepsHandler(props) {
           address: patientformData.address,
         },
       }));
-      openConfirmModal()
+      openConfirmModal();
     } else {
       setErrors(validationErrors);
     }
@@ -241,11 +254,14 @@ export default function StepsHandler(props) {
 
       const response = await postData(url, data);
       console.log("Appointment submitted successfully:", response);
-      setAppointmentDetails(prev => ({...prev, appointment_ID: response.data.appointment_ID})); 
-      
+      setAppointmentDetails((prev) => ({
+        ...prev,
+        appointment_ID: response.data.appointment_ID,
+      }));
+
       setModalShow(false);
       // Redirect to another page
-      navigate("/services/bookingcompleted"); 
+      navigate("/services/bookingcompleted");
     } catch (error) {
       console.error("Failed to submit appointment:", error);
     }
@@ -263,7 +279,7 @@ export default function StepsHandler(props) {
   return (
     <>
       <Container fluid className="mt-3 ">
-      <Stepper
+        <Stepper
           active={active}
           onStepClick={(step) => {
             if (step > active && active !== 3) {
@@ -275,7 +291,6 @@ export default function StepsHandler(props) {
           radius="lg"
           allowNextStepsSelect={false}
         >
-
           <Stepper.Step label="Fist Step" description="Search Doctor">
             <StepOne
               query={query}
@@ -300,34 +315,26 @@ export default function StepsHandler(props) {
               validateForm={validateForm}
               errors={errors}
             />
-          <BookingConfirmModal
-          show={modalShow}
-          handleClose={closeConfirmModal}
-          handleSubmit={submitAppointment}
-          doctors={doctors}
-        />
+            <BookingConfirmModal
+              show={modalShow}
+              handleClose={closeConfirmModal}
+              handleSubmit={submitAppointment}
+              doctors={doctors}
+            />
           </Stepper.Step>
-          <Stepper.Completed>
-
-          </Stepper.Completed>
+          <Stepper.Completed></Stepper.Completed>
         </Stepper>
 
-        {active !== 0  && active !==3 && (
+        {active !== 0 && active !== 3 && (
           <Group position="center" mt="xl" className="stephandlerbuttonrow m-3">
             <BackProceed
               leftButton={prevStep}
-              rightButton={
-                active === 2
-                  ? handleSubmit
-                  :  nextStep
-              }
+              rightButton={active === 2 ? handleSubmit : nextStep}
               redButtonText={"Back"}
               blueButtonText={active === 2 ? "Confirm" : "Proceed"}
             />
           </Group>
         )}
-
-     
       </Container>
     </>
   );
