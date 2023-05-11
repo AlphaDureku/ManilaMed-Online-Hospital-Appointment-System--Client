@@ -1,8 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Login from "../components/Nurse_Admin_Components/Main_Content/Login";
 
 export default function Admin() {
-  return <>admin</>;
+  return (
+    <>
+      <Login />
+    </>
+  );
 }
 
 // import axios from "axios";

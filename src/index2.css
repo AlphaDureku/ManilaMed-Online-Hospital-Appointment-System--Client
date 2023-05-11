@@ -1,0 +1,17 @@
+/**Nurse Admon**/
+.login--wrapper {
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.login--leftContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #00c2ff, #5addee, #cbffd9);
+  color: #388440;
+  font-weight: 700;
+  font-size: min(1.5rem, 3.5vw);
+}
