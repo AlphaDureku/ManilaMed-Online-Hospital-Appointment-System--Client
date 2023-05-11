@@ -28,7 +28,7 @@ export default function Login() {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const { data } = await axios.got(
+    const { data } = await axios.post(
       "https://server-production-e6a5.up.railway.app/head-admin/login",
       credentials
     );

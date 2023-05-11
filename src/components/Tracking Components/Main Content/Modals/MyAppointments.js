@@ -16,7 +16,7 @@ export default function MyAppointments(props) {
   const updateStatus = async (appointment_ID) => {
     try {
       await axios.post(
-        "/user/cancel-appointment",
+        "https://server-production-e6a5.up.railway.app/user/cancel-appointment",
         {
           appointment_ID: appointment_ID,
         },

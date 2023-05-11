@@ -28,7 +28,7 @@ export default function Admin() {
 
 //   const submitHandler = async (event) => {
 //     event.preventDefault();
-//     const { data } = await axios.got("https://server-production-e6a5.up.railway.app/admin/nurse-login", credentials);
+//     const { data } = await axios.get("https://server-production-e6a5.up.railway.app/admin/nurse-login", credentials);
 //     if (data.data.status) {
 //       //Set token authentication
 //       localStorage.setItem("token", data.data.token);
@@ -40,7 +40,7 @@ export default function Admin() {
 
 //   async function dashboard() {
 //     const token = localStorage.getItem("token");
-//     const res = await axios.got("https://server-production-e6a5.up.railway.app/admin/nurse-dashboard", {
+//     const res = await axios.get("https://server-production-e6a5.up.railway.app/admin/nurse-dashboard", {
 //       params: {
 //         status: "confirmed",
 //       },

@@ -43,7 +43,7 @@ export default function FirstPageForms(props) {
     if (!isValidEmail(email.email)) {
       setIsValid(false);
     } else {
-      const res = await axios.got(
+      const res = await axios.get(
         "https://server-production-e6a5.up.railway.app/booking/send-otp",
         {
           params: {

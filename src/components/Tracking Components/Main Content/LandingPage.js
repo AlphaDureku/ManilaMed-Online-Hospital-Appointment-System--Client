@@ -9,7 +9,7 @@ export default function LandingPage() {
   useEffect(() => {
     const getPatients = async () => {
       try {
-        const response = await axios.got(
+        const response = await axios.get(
           "https://server-production-e6a5.up.railway.app/user/get-patients",
           {
             headers: {

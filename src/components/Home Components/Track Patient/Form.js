@@ -37,7 +37,7 @@ export default function TrackMe() {
 
   async function sendOTP() {
     setLoading(true);
-    const res = await axios.got(
+    const res = await axios.post(
       "https://server-production-e6a5.up.railway.app/trackMe",
       {
         email: user.email,

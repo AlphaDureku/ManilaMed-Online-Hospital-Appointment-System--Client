@@ -34,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.got(
+      const res = await axios.get(
         "https://server-production-e6a5.up.railway.app/initialize"
       );
       const { data } = res.data;
@@ -47,11 +47,11 @@ export default function Home() {
     async function get() {
       setLoading(true);
       const res = await axios.get(
-        `/doctors/search/?Fname=${query.get("Fname")}&Lname=${query.get(
-          "Lname"
-        )}&specialization=${query.get("specialization")}&HMO=${query.get(
-          "HMO"
-        )}`
+        `https://server-production-e6a5.up.railway.app/doctors/search/?Fname=${query.get(
+          "Fname"
+        )}&Lname=${query.get("Lname")}&specialization=${query.get(
+          "specialization"
+        )}&HMO=${query.get("HMO")}`
       );
 
       const { data } = res.data;

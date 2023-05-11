@@ -36,7 +36,7 @@ export default function FirstPage_Modal(props) {
   }
 
   const OnSubmitHandler = async () => {
-    const res = await axios.got(
+    const res = await axios.get(
       "https://server-production-e6a5.up.railway.app/booking/verifyOTP",
       {
         params: {
@@ -61,7 +61,7 @@ export default function FirstPage_Modal(props) {
   };
 
   async function reSendOTP() {
-    const res = await axios.got(
+    const res = await axios.post(
       "https://server-production-e6a5.up.railway.app/booking/send-otp",
       {
         params: {

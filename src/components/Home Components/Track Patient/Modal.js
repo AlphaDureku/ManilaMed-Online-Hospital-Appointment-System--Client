@@ -34,7 +34,7 @@ export default function HomeModal(props) {
   };
 
   const OnSubmitHandler = async () => {
-    const res = await axios.got(
+    const res = await axios.post(
       "https://server-production-e6a5.up.railway.app/verifyOTP",
       {
         inputOTP: enteredOTP,
@@ -62,7 +62,7 @@ export default function HomeModal(props) {
   };
 
   async function reSendOTP() {
-    const res = await axios.got(
+    const res = await axios.post(
       "https://server-production-e6a5.up.railway.app/trackMe",
       {
         email: props.user.email,

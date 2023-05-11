@@ -14,7 +14,7 @@ export default function BookingCompletedPage() {
   let navigate = useNavigate();
   useEffect(() => {
     async function fetchDoctor() {
-      const response = await axios.got(
+      const response = await axios.get(
         "https://server-production-e6a5.up.railway.app/booking/get-appointment",
         {
           params: {
