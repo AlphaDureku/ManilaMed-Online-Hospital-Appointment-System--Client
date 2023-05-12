@@ -54,9 +54,9 @@ export default function Home() {
           "&HMO=" +
           query.get("HMO")
       );
-
+      console.log(res);
       const { data } = res.data;
-      console.log(data);
+
       setdoctors(data.result);
       filterSchedule(data.schedule);
       setLoading(false);
