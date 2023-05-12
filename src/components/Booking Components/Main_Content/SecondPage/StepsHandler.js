@@ -110,11 +110,14 @@ export default function StepsHandler(props) {
     async function get() {
       setLoading(true);
       const res = await axios.get(
-        `/doctors/search/?Fname=${query.get("Fname")}&Lname=${query.get(
-          "Lname"
-        )}&specialization=${query.get("specialization")}&HMO=${query.get(
-          "HMO"
-        )}`
+        "/doctors/search/?Fname=" +
+          query.get("Fname") +
+          "&Lname=" +
+          query.get("Lname") +
+          "&specialization=" +
+          query.get("specialization") +
+          "&HMO=" +
+          query.get("HMO")
       );
       const { data } = res.data;
       setdoctors(data.result);
