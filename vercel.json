@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/:match*",
+      "destination": "https://server-production-e6a5.up.railway.app/:match*"
+    }
+  ]
+}
