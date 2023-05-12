@@ -54,7 +54,7 @@ export default function Home() {
           "&HMO=" +
           query.get("HMO")
       );
-      console.log(res);
+      console.log(JSON.stringify(res));
       const { data } = res.data;
 
       setdoctors(data.result);
