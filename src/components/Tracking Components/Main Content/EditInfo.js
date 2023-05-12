@@ -63,8 +63,8 @@ export default function EditInfo() {
     <>
       <div className="edit-title">Edit Personal Information</div>
       <div className="editPage-Container">
-        <div className="edit-gray">Email: templanzamark2002@gmail.com</div>
-        <div className="edit-gray">Gender: M</div>
+        <div className="edit-gray">Email: {state.email}</div>
+        <div className="edit-gray">Gender: {state.patient_gender}</div>
         <div className="info-row">
           <div className="edit-legend">First Name:</div>
           <input

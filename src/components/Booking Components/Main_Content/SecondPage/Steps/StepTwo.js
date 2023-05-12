@@ -8,6 +8,7 @@ export default function StepTwo(props) {
   const [scheduleStepTwo, setScheduleStepTwo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const { appointmentDetails } = useContext(AppointmentDetailsContext);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export default function StepTwo(props) {
     }
     fetchDoctorCalendar();
   }, []);
-  console.log(scheduleStepTwo);
+
   const customLoader = (
     <svg
       width="54"
@@ -67,7 +68,7 @@ export default function StepTwo(props) {
       />
     );
   }, [scheduleStepTwo]);
-  console.log(scheduleStepTwo);
+
   return (
     <>
       {isLoading && (

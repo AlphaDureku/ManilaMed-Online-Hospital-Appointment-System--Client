@@ -1,6 +1,6 @@
 import { Button, Group, Stepper } from "@mantine/core";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AppointmentDetailsContext } from "../../../../App";
@@ -11,20 +11,27 @@ import StepTwo from "./Steps/StepTwo";
 import BookingConfirmModal from "./Steps/Steps_SubComponents/ConfirmationModal";
 
 const moment = require("moment");
+export const conflictContext = createContext();
 
 export default function StepsHandler(props) {
   const { appointmentDetails, setAppointmentDetails } = useContext(
     AppointmentDetailsContext
   );
+  const [conflicts, setConflicts] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-
+  const conflictOj = {
+    conflicts: conflicts,
+    setConflicts: setConflicts,
+  };
   const [active, setActive] = useState(0);
-  const nextStep = () => {
+  const nextStep = async () => {
     setActive((current) => (current < 3 ? current + 1 : current));
   };
 
-  const prevStep = () =>
+  const prevStep = () => {
+    setConflicts(false);
     setActive((current) => (current > 0 ? current - 1 : current));
+  };
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
@@ -313,7 +320,9 @@ export default function StepsHandler(props) {
             />
           </Stepper.Step>
           <Stepper.Step label="Second step" description="Select Schedule">
-            <StepTwo schedule={schedule} />
+            <conflictContext.Provider value={conflictOj}>
+              <StepTwo schedule={schedule} />
+            </conflictContext.Provider>
           </Stepper.Step>
           <Stepper.Step label="Final step" description="Enter Information">
             <FinalStep
@@ -340,6 +349,7 @@ export default function StepsHandler(props) {
               rightButton={active === 2 ? handleSubmit : nextStep}
               redButtonText={"Back"}
               blueButtonText={active === 2 ? "Confirm" : "Proceed"}
+              isDisabled={conflicts}
             />
           </Group>
         )}

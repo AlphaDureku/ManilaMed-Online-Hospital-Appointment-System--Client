@@ -1429,3 +1429,11 @@ select {
 .gender {
   margin-bottom: 2%;
 }
+
+.conflict {
+  color: red;
+  text-align: center;
+  font-weight: 600;
+  margin-left: 12%;
+  margin-top: 5%;
+}

@@ -1,9 +1,11 @@
 export const initialState = {
+  email: "",
   patient_first_name: "",
   patient_middle_name: "",
   patient_last_name: "",
   patient_address: "",
   patient_contact_number: "",
+  patient_gender: "",
   dateOfBirth: "",
   isDisabled: true,
 };
@@ -13,10 +15,12 @@ export const Reducer = (state, action) => {
     case "FETCH_SUCCESS":
       return {
         ...state,
+        email: action.payload.email,
         patient_first_name: action.payload.patient_first_name,
         patient_middle_name: action.payload.patient_middle_name || "",
         patient_last_name: action.payload.patient_last_name,
         patient_address: action.payload.patient_address,
+        patient_gender: action.payload.patient_gender,
         patient_contact_number: action.payload.patient_contact_number,
         dateOfBirth: action.payload.dateOfBirth,
       };

@@ -1,17 +1,21 @@
 import { Button, Tooltip } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { AppointmentDetailsContext } from "../../../../../../App";
+import { conflictContext } from "../../StepsHandler";
 const moment = require("moment");
 
 export default function SelectAvail(props) {
   const isMobile = useMediaQuery("(max-width: 509px)");
   const [selectedDate, setSelectedDate] = useState();
+
   const { appointmentDetails, setAppointmentDetails } = useContext(
     AppointmentDetailsContext
   );
+  const { conflicts, setConflicts } = useContext(conflictContext);
   console.log(props.scheduleStepTwo);
   useEffect(() => {
     const appointmentDate = new Date(appointmentDetails.schedule_date);
@@ -62,7 +66,22 @@ export default function SelectAvail(props) {
     }
   }
 
-  const handleDateSelect = (date) => {
+  const handleDateSelect = async (date) => {
+    if (appointmentDetails.patient_ID) {
+      const res = await axios.get("/booking/booking-conflict", {
+        params: {
+          date: appointmentDetails.schedule_date,
+          patient_ID: appointmentDetails.patient_ID,
+        },
+      });
+
+      if (res.data.data.length > 0) {
+        setConflicts(true);
+      } else {
+        setConflicts(false);
+      }
+    }
+
     setSelectedDate(date);
     setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
     getSchedID();
@@ -247,6 +266,12 @@ export default function SelectAvail(props) {
                 </span>
               </Row>
             </Container>
+            <p className="conflict">
+              {" "}
+              {conflicts
+                ? "You have an existing schedule with the same date!"
+                : ""}
+            </p>
           </Col>
 
           <Col md={6}>

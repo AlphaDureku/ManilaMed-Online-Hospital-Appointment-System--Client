@@ -19,6 +19,7 @@ export default function BackProceed(props) {
         {props.redButtonText || "Back"}
       </Button>
       <Button
+        disabled={props.isDisabled}
         type="submit"
         size="sm"
         onClick={props.rightButton}

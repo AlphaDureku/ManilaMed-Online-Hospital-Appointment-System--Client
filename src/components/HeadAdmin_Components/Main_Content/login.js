@@ -10,8 +10,10 @@ import {
   MDBRow,
 } from "mdb-react-ui-kit";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -32,7 +34,7 @@ export default function Login() {
     if (data.data.status) {
       //Set token authentication
       localStorage.setItem("token", data.data.token);
-      console.log("login success");
+      navigate("/head/dashboard");
     } else {
       setError(true);
     }
