@@ -14,8 +14,15 @@ export default function App() {
     schedule_ID: "",
     doctor_ID: "",
     recom_Time: "",
+    end_Time: "",
     patient_ID: "",
     appointment_ID: "",
+    doctor_info: {
+      doctor_first_name: "",
+      doctor_last_name: "",
+      doctor_specialization: "",
+      doctor_HMO: "",
+    },
     patient_info: {
       patient_first_name: "",
       patient_last_name: "",

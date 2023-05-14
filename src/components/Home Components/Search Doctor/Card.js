@@ -86,9 +86,11 @@ export default function Card(props) {
   }
 
   function handleDateSelect(date) {
-    console.log(selectedDate);
     setSelectedDate(date);
-    setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
+    setAppointmentDetails((prev) => ({
+      ...prev,
+      schedule_date: moment(date).format("YYYY-MM-DD"),
+    }));
     // D ko alam para san to e comment ko muna
     // const schedules = props.schedule.filter((sched) => {
     //   return date.toDateString() === new Date(sched.day).toDateString();
@@ -169,14 +171,36 @@ export default function Card(props) {
   const onSubmit = () => {
     props.schedule.map((item) => {
       if (item.doctor_ID === selectedDoctorId) {
-        if (item.date === moment(selectedDate).format("MMM D, YYYY")) {
+        if (item.date === moment(selectedDate).format("MMMM D, YYYY")) {
           setAppointmentDetails((prev) => ({
             ...prev,
             schedule_ID: item.schedule_ID,
-            schedule_date: item.date,
+            schedule_date: moment(item.date, "MMMM D, YYYY").format(
+              "YYYY-MM-DD"
+            ),
+          }));
+        } else {
+          setAppointmentDetails((prev) => ({
+            ...prev,
+            schedule_ID: item.schedule_ID,
           }));
         }
       }
+
+      props.doctors.map((item) => {
+        if (item.doctor_ID === selectedDoctorId) {
+          setAppointmentDetails((prev) => ({
+            ...prev,
+            doctor_info: {
+              doctor_first_name: item.doctor_first_name,
+              doctor_last_name: item.doctor_last_name,
+              doctor_specialization: item.specialization,
+              doctor_HMO: item.HMO_Name,
+            },
+          }));
+        }
+      });
+      return null;
     });
     props.nextStep();
   };

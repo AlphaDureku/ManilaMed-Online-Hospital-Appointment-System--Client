@@ -40,7 +40,7 @@ export default function TrackMe() {
     const res = await axios.post("/trackMe", {
       email: user.email,
     });
-    console.log(res);
+
     if (res.data.data.exist) {
       setVerify((prev) => ({ ...prev, exist: true, otp: res.data.data.OTP }));
       setUser((prev) => ({ ...prev, user_ID: res.data.data.user_ID }));

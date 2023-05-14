@@ -10,137 +10,256 @@ const moment = require("moment");
 
 export default function SelectAvail(props) {
   const isMobile = useMediaQuery("(max-width: 509px)");
-  const [selectedDate, setSelectedDate] = useState();
-
+  const [selectedDate, setSelectedDate] = useState("");
+  const [activeSchedule, setActiveSchedule] = useState([]);
   const { appointmentDetails, setAppointmentDetails } = useContext(
     AppointmentDetailsContext
   );
+  const [DisplayDateAndTime, setDisplayDateAndTime] = useState({
+    date: "",
+    day: "",
+    start: "",
+    end: "",
+    recom_time: "",
+    queue: "",
+  });
+  const { schedule } = props;
   const { conflicts, setConflicts } = useContext(conflictContext);
-  console.log(props.scheduleStepTwo);
+
   useEffect(() => {
-    const appointmentDate = new Date(appointmentDetails.schedule_date);
-    setSelectedDate(appointmentDate);
-    getSchedID();
+    setSelectedDate(appointmentDetails.schedule_date);
+    setActiveSchedule(
+      schedule.map((index) => {
+        if (appointmentDetails.doctor_ID === index.doctor_ID) {
+          let time = moment(index.start, "HH:mm:ss");
+          let interval = moment.duration(index.time_interval);
+          for (let i = 1; i < index.queue; i++) {
+            time.add(interval.hours(), "hours");
+            time.add(interval.minutes(), "minutes");
+          }
+          return {
+            date: moment(index.date, "MMMM D, YYYY").format("YYYY-MM-DD"),
+            start: index.start,
+            recom_time: time.format("h:mm A"),
+            day: index.day,
+            end: index.end,
+            queue: index.queue,
+            interval: index.time_interval,
+          };
+        }
+        return null;
+      })
+    );
   }, []);
 
-  function getSchedID() {
-    getDoctorSched().map((schedule) => {
-      setAppointmentDetails((prev) => ({
-        ...prev,
-        schedule_ID: schedule.schedule_ID,
-        recom_Time: moment(schedule.recomTime[0], "h:mm A").format("HH:mm"),
-      }));
-    });
-  }
-
-  function getDayProps(date) {
-    // Disable dates in the past and today
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // set time to midnight
-    if (date < currentDate) {
-      return { disabled: true };
+  useEffect(() => {
+    async function checkConflict() {
+      if (appointmentDetails.patient_ID) {
+        const res = await axios.get("/booking/booking-conflict", {
+          params: {
+            date: appointmentDetails.schedule_date,
+            patient_ID: appointmentDetails.patient_ID,
+          },
+        });
+        const { data } = res.data;
+        if (data.length > 0) {
+          setConflicts(true);
+        } else {
+          setConflicts(false);
+        }
+      }
     }
-
-    const isScheduled = props.schedule.some(
-      (sched) =>
-        date.toDateString() === new Date(sched.date).toDateString() &&
-        sched.doctor_ID === appointmentDetails.doctor_ID
+    checkConflict();
+    setDisplayDateAndTime(
+      activeSchedule.find((index) => {
+        if (index != null && index.date === selectedDate) {
+          setAppointmentDetails((prev) => ({
+            ...prev,
+            schedule_date: selectedDate,
+            recom_Time: index.recom_time,
+            end_Time: index.end,
+          }));
+          return {
+            start: index.recom_time,
+            end: index.end,
+            queue: index.queue,
+            day: index.day,
+            date: index.date,
+          };
+        }
+        return null;
+      })
     );
+  }, [selectedDate]);
 
-    if (date.toDateString() === selectedDate?.toDateString()) {
+  const DateFoDisplay = (date) => {
+    return moment(date).format("MMMM D, YYYY");
+  };
+
+  const getDayProps = (date) => {
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    if (selectedDate === formattedDate) {
       return {
         style: {
           backgroundColor: "rgba(34, 208, 52, 1)",
           color: "black",
         },
       };
-    } else if (isScheduled) {
+    } else if (
+      activeSchedule.some(
+        (item) => item !== null && item.date === formattedDate
+      )
+    ) {
       return {
         style: {
           backgroundColor: "rgba(34, 208, 52, 0.5)",
           color: "black",
         },
       };
-    } else {
-      return { disabled: true };
     }
-  }
+  };
 
   const handleDateSelect = async (date) => {
-    if (appointmentDetails.patient_ID) {
-      const res = await axios.get("/booking/booking-conflict", {
-        params: {
-          date: appointmentDetails.schedule_date,
-          patient_ID: appointmentDetails.patient_ID,
-        },
-      });
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    setAppointmentDetails((prev) => ({
+      ...prev,
+      schedule_date: formattedDate,
+      recom_Time: DisplayDateAndTime ? DisplayDateAndTime.recom_time : "",
+      end_Time: DisplayDateAndTime ? DisplayDateAndTime.end : "",
+    }));
+    setSelectedDate(formattedDate);
 
-      if (res.data.data.length > 0) {
-        setConflicts(true);
-      } else {
-        setConflicts(false);
-      }
-    }
-
-    setSelectedDate(date);
-    setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
-    getSchedID();
   };
+  // let timeStart = moment(startTimePH, "HH:mm");
+  // for (let i = 2; i <= queueNumber; i++) {
+  //   timeStart = timeStart.add(timeInterval, "minutes");
+  // }
 
-  const getDoctorSched = () => {
-    // Convert and Filter schedule
-    const dateInPh = selectedDate
-      ? new Date(
-          selectedDate.getTime() -
-            selectedDate.getTimezoneOffset() * 60000 +
-            8 * 60 * 60000
-        )
-          .toISOString()
-          .substring(0, 10)
-      : null;
-    const filteredSchedule = props.scheduleStepTwo
-      ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
-      : [];
-    // Filter start and end time
-    const getSched = filteredSchedule.filter(
-      (schedule) =>
-        schedule.start &&
-        schedule.end &&
-        schedule.queue &&
-        schedule.time_interval &&
-        schedule.schedule_ID
-    );
-    const moment = require("moment-timezone");
+  // console.log(props.scheduleStepTwo);
+  // useEffect(() => {
+  //   const appointmentDate = new Date(appointmentDetails.schedule_date);
+  //   setSelectedDate(appointmentDate);
+  //   getSchedID();
+  // }, []);
 
-    const doctorSched = getSched.map((schedule) => {
-      const startTime = moment(`${schedule.date}T${schedule.start}`);
-      const endTime = moment(`${schedule.date}T${schedule.end}`);
-      const queueNumber = `${schedule.queue}`;
-      const timeInterval = `${schedule.time_interval}`;
-      const schedule_ID = `${schedule.schedule_ID}`;
+  // function getSchedID() {
+  //   getDoctorSched().map((schedule) => {
+  //     setAppointmentDetails((prev) => ({
+  //       ...prev,
+  //       schedule_ID: schedule.schedule_ID,
+  //       recom_Time: moment(schedule.recomTime[0], "h:mm A").format("HH:mm"),
+  //     }));
+  //   });
+  // }
 
-      const startTimePH = startTime.tz("Asia/Manila").format("h:mm A");
-      const endTimePH = endTime.tz("Asia/Manila").format("h:mm A");
+  // function getDayProps(date) {
+  //   // Disable dates in the past and today
+  //   const currentDate = new Date();
+  //   currentDate.setHours(0, 0, 0, 0); // set time to midnight
+  //   if (date < currentDate) {
+  //     return { disabled: true };
+  //   }
 
-      const recomTime = [];
-      let timeStart = moment(startTimePH, "HH:mm");
-      for (let i = 2; i <= queueNumber; i++) {
-        timeStart = timeStart.add(timeInterval, "minutes");
-      }
-      recomTime.push({
-        start: timeStart.format("h:mm A"),
-      });
-      return {
-        timeSlot: `${startTimePH} - ${endTimePH}`,
-        queueNumber: queueNumber,
-        timeInterval: timeInterval,
-        recomTime: recomTime.map((time) => time.start.toString()),
-        schedule_ID: schedule_ID,
-      };
-    });
+  //   const isScheduled = props.schedule.some(
+  //     (sched) =>
+  //       date.toDateString() === new Date(sched.date).toDateString() &&
+  //       sched.doctor_ID === appointmentDetails.doctor_ID
+  //   );
 
-    return doctorSched;
-  };
+  //   if (date.toDateString() === selectedDate?.toDateString()) {
+  //     return {
+  //       style: {
+  //         backgroundColor: "rgba(34, 208, 52, 1)",
+  //         color: "black",
+  //       },
+  //     };
+  //   } else if (isScheduled) {
+  //     return {
+  //       style: {
+  //         backgroundColor: "rgba(34, 208, 52, 0.5)",
+  //         color: "black",
+  //       },
+  //     };
+  //   } else {
+  //     return { disabled: true };
+  //   }
+  // }
+
+  // const handleDateSelect = async (date) => {
+  //   if (appointmentDetails.patient_ID) {
+  //     const res = await axios.get("/booking/booking-conflict", {
+  //       params: {
+  //         date: appointmentDetails.schedule_date,
+  //         patient_ID: appointmentDetails.patient_ID,
+  //       },
+  //     });
+
+  //     if (res.data.data.length > 0) {
+  //       setConflicts(true);
+  //     } else {
+  //       setConflicts(false);
+  //     }
+  //   }
+
+  //   setSelectedDate(date);
+  //   setAppointmentDetails((prev) => ({ ...prev, schedule_date: date }));
+  //   getSchedID();
+  // };
+
+  // const getDoctorSched = () => {
+  //   // Convert and Filter schedule
+  //   const dateInPh = selectedDate
+  //     ? new Date(
+  //         selectedDate.getTime() -
+  //           selectedDate.getTimezoneOffset() * 60000 +
+  //           8 * 60 * 60000
+  //       )
+  //         .toISOString()
+  //         .substring(0, 10)
+  //     : null;
+  //   const filteredSchedule = props.scheduleStepTwo
+  //     ? props.scheduleStepTwo.filter((schedule) => schedule.date === dateInPh)
+  //     : [];
+  //   // Filter start and end time
+  //   const getSched = filteredSchedule.filter(
+  //     (schedule) =>
+  //       schedule.start &&
+  //       schedule.end &&
+  //       schedule.queue &&
+  //       schedule.time_interval &&
+  //       schedule.schedule_ID
+  //   );
+  //   const moment = require("moment-timezone");
+
+  //   const doctorSched = getSched.map((schedule) => {
+  //     const startTime = moment(`${schedule.date}T${schedule.start}`);
+  //     const endTime = moment(`${schedule.date}T${schedule.end}`);
+  //     const queueNumber = `${schedule.queue}`;
+  //     const timeInterval = `${schedule.time_interval}`;
+  //     const schedule_ID = `${schedule.schedule_ID}`;
+
+  //     const startTimePH = startTime.tz("Asia/Manila").format("h:mm A");
+  //     const endTimePH = endTime.tz("Asia/Manila").format("h:mm A");
+
+  //     const recomTime = [];
+  //     let timeStart = moment(startTimePH, "HH:mm");
+  //     for (let i = 2; i <= queueNumber; i++) {
+  //       timeStart = timeStart.add(timeInterval, "minutes");
+  //     }
+  //     recomTime.push({
+  //       start: timeStart.format("h:mm A"),
+  //     });
+  //     return {
+  //       timeSlot: `${startTimePH} - ${endTimePH}`,
+  //       queueNumber: queueNumber,
+  //       timeInterval: timeInterval,
+  //       recomTime: recomTime.map((time) => time.start.toString()),
+  //       schedule_ID: schedule_ID,
+  //     };
+  //   });
+
+  //   return doctorSched;
+  // };
 
   return (
     <div>
@@ -192,27 +311,19 @@ export default function SelectAvail(props) {
                   <tbody>
                     <tr>
                       <td>
-                        {selectedDate
-                          ? selectedDate.toLocaleString("en-us", {
-                              month: "short",
-                            }) +
-                            " " +
-                            selectedDate.getDate() +
-                            ", " +
-                            selectedDate.getFullYear()
-                          : "-"}
+                        {DisplayDateAndTime
+                          ? DateFoDisplay(DisplayDateAndTime.date)
+                          : "---"}
                       </td>
                       <td>
-                        {selectedDate
-                          ? selectedDate.toLocaleString("en-us", {
-                              weekday: "long",
-                            })
-                          : "-"}
+                        {" "}
+                        {DisplayDateAndTime ? DisplayDateAndTime.day : "---"}
                       </td>
                       <td>
-                        {getDoctorSched()
-                          .map((schedule) => schedule.timeSlot)
-                          .join(", ")}
+                        {DisplayDateAndTime
+                          ? DisplayDateAndTime.recom_time
+                          : "---"}{" "}
+                        - {DisplayDateAndTime ? DisplayDateAndTime.end : "---"}
                       </td>
                     </tr>
                   </tbody>
@@ -226,11 +337,7 @@ export default function SelectAvail(props) {
                     {" "}
                     You are number{" "}
                     <label className="queueNumber">
-                      {getDoctorSched().length > 0
-                        ? getDoctorSched()
-                            .map((schedule) => schedule.queueNumber)
-                            .join(", ")
-                        : "---"}
+                      {DisplayDateAndTime ? DisplayDateAndTime.queue : "---"}
                     </label>{" "}
                     in queue
                   </span>
@@ -240,27 +347,14 @@ export default function SelectAvail(props) {
                     You should be in the hospital on
                     <span className="recomGo">
                       {" "}
-                      {selectedDate
-                        ? selectedDate.toLocaleString("en-us", {
-                            month: "short",
-                          }) +
-                          " " +
-                          selectedDate.getDate() +
-                          ", " +
-                          selectedDate.getFullYear()
-                        : "-"}{" "}
-                      {selectedDate
-                        ? selectedDate.toLocaleString("en-us", {
-                            weekday: "long",
-                          })
-                        : "-"}{" "}
-                      <label>
-                        {getDoctorSched().length > 0
-                          ? getDoctorSched().map(
-                              (schedule) => schedule.recomTime
-                            )
-                          : "---"}
-                      </label>
+                      {DisplayDateAndTime
+                        ? DateFoDisplay(DisplayDateAndTime.date)
+                        : "---"}{" "}
+                      {DisplayDateAndTime ? DisplayDateAndTime.day : "---"}{" "}
+                      {DisplayDateAndTime
+                        ? DisplayDateAndTime.recom_time
+                        : "---"}
+                      {/* <label>{DisplayDateAndTime.queue}</label> */}
                     </span>
                   </span>
                 </span>

@@ -58,7 +58,7 @@ export default function FirstPage_Modal(props) {
   };
 
   async function reSendOTP() {
-    const res = await axios.post("/booking/send-otp", {
+    const res = await axios.get("/booking/send-otp", {
       params: {
         email: props.email,
       },

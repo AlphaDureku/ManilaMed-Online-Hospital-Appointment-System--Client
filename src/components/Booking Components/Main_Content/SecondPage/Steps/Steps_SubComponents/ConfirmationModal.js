@@ -11,17 +11,14 @@ const BookingConfirmModal = (props) => {
       size="md"
       keyboard={false}
     >
-    <Modal.Header>
-      <Modal.Title>Confirm Appointment? </Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-    <BookingConfirmation
-        doctors={props.doctors}
-        />
-    </Modal.Body>
+      <Modal.Header>
+        <Modal.Title>Confirm Appointment? </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <BookingConfirmation doctors={props.doctors} />
+      </Modal.Body>
       <Modal.Footer>
-
-       <div className="confirmbuttonrow">
+        <div className="confirmbuttonrow">
           <BackProceed
             leftButton={props.handleClose}
             rightButton={props.handleSubmit}
@@ -29,8 +26,7 @@ const BookingConfirmModal = (props) => {
             blueButtonText={"Confirm"}
           />
         </div>
-        </Modal.Footer>
-       
+      </Modal.Footer>
     </Modal>
   );
 };

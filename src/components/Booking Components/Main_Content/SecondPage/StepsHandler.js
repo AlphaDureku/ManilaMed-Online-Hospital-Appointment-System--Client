@@ -17,6 +17,7 @@ export default function StepsHandler(props) {
   const { appointmentDetails, setAppointmentDetails } = useContext(
     AppointmentDetailsContext
   );
+  console.log(appointmentDetails);
   const [conflicts, setConflicts] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const conflictOj = {
