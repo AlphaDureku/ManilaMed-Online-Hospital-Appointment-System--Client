@@ -1,8 +1,7 @@
 import { Alert } from "@mantine/core";
-import axios from "axios";
-import { useContext, useEffect, useMemo, useState } from "react";
+
+import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import { AppointmentDetailsContext } from "../../../../../App";
 import SelectAvail from "./Steps_SubComponents/selectAvail";
 export default function StepTwo(props) {
   const [error, setError] = useState(null);

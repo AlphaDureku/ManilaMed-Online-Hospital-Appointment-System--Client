@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import Card from "./LandingPage--Card";
 import { Reducer, initialState } from "./Reducers/Lading_Page";
 export default function LandingPage(props) {

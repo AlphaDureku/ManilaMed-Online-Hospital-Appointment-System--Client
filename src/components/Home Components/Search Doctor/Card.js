@@ -199,6 +199,7 @@ export default function Card(props) {
             },
           }));
         }
+        return null;
       });
       return null;
     });

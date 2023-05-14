@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { useState } from "react";
 
 export default function Form(props) {
   // for responsiveness

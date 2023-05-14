@@ -1,11 +1,9 @@
 import { Route, Routes } from "react-router-dom";
+import BookingCompletedPage from "../../BookingCompletedPage";
 import Booking from "./Booking";
 import CollectInfo from "./CollectInfo";
-import BookingCompletedPage from "../../BookingCompletedPage";
 
 export default function Services() {
-
-
   return (
     <Routes>
       <Route path="/Booking" element={<Booking />} />

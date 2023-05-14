@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useReducer } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { Reducer, initialState } from "./Reducers/Edit_Page";
 

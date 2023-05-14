@@ -1,5 +1,4 @@
 import { Button } from "@mantine/core";
-import Modal from "react-bootstrap/Modal";
 
 export default function BackProceed(props) {
   const object = {

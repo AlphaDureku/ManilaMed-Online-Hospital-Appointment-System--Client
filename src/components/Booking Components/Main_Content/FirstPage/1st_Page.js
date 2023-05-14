@@ -1,10 +1,10 @@
 import { useMediaQuery } from "@mantine/hooks";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import FirstPageForms from "./1st_Page--Forms";
 import FirstPageModal from "./Modals/1st_Page_Modal";
 import TermsAndConditionsModal from "./Modals/Terms&Conditions_Modal";
 export const userContext = createContext();
-export default function FirstPage(props) {
+export default function FirstPage() {
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
   const [email, setEmail] = useState({ email: "", isChecked: false });
   const [loading, setLoading] = useState(false);

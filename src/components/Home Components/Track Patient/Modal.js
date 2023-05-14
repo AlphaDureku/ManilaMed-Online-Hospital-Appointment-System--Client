@@ -1,5 +1,3 @@
-import { Button } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useState } from "react";
@@ -9,12 +7,6 @@ import { useNavigate } from "react-router-dom";
 import VerificationModal from "../../Reusable_Components/Verification_Modal";
 
 export default function HomeModal(props) {
-  // for responsiveness
-  const smallScreen = useMediaQuery(
-    "(min-width: 701px) and (max-width: 1255px)"
-  );
-  const isMobile = useMediaQuery("(max-width:700px");
-
   const [enteredOTP, setEnteredOTP] = useState("");
   const [error, setError] = useState(false);
   let navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AppointmentDetailsContext } from "../../../../../App";
 import { userContext } from "../1st_Page";
-export default function PatientCard(props) {
+export default function PatientCard() {
   //Props
   const { historyPatients } = useContext(userContext);
   const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
