@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import MyAppointments from "./Modals/MyAppointments";
 
-export default function Card() {
+export default function Card(props) {
   const [appointmentList, setAppointmentList] = useState([]);
   const token = localStorage.getItem("userToken");
-  const { id } = useParams();
   const [count, setCount] = useState({});
   const [show, setShow] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -20,7 +18,10 @@ export default function Card() {
   };
   useEffect(() => {
     const getAppointments = async () => {
-      const response = await axios.get(`/user/${id}`, {
+      const response = await axios.get(`/user/get-appointments`, {
+        params: {
+          id: props.patient_ID,
+        },
         headers: {
           Authorization: `Bearer ${token}`,
         },

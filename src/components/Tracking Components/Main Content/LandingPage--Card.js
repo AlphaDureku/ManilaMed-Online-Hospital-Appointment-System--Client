@@ -1,10 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import Loading from "./LandingPage--Card--Loading";
 
 export default function Card(props) {
+  const navigate = useNavigate();
   if (props.loading) {
     return <Loading />;
   }
 
+  const navToView = (patient_ID) => {
+    props.setPatient_ID(patient_ID);
+    navigate("/user/view-appointments");
+  };
+
+  const navToEdit = (patient_ID) => {
+    props.setPatient_ID(patient_ID);
+    navigate("/user/edit-info");
+  };
   const mapPatientElements = props.patientList.map((item, index) => {
     return (
       <div className="patient-card" key={index}>
@@ -13,12 +24,18 @@ export default function Card(props) {
         </div>
         <div className="patient-gender">Patient ({item.patient_gender})</div>
         <div className="card-button">
-          <a href={`/User/View-Appointments/${item.patient_ID}`}>
-            <button className="btn View-btn">View Appointments</button>
-          </a>
-          <a href={`/User/edit-Info/${item.patient_ID}`}>
-            <button className="btn Edit-btn">Edit Personal Info</button>
-          </a>
+          <button
+            className="btn View-btn"
+            onClick={() => navToView(item.patient_ID)}
+          >
+            View Appointments
+          </button>
+          <button
+            className="btn Edit-btn"
+            onClick={() => navToEdit(item.patient_ID)}
+          >
+            Edit Personal Info
+          </button>
         </div>
       </div>
     );

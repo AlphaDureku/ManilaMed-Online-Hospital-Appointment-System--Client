@@ -4,8 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { Reducer, initialState } from "./Reducers/Edit_Page";
 
-export default function EditInfo() {
-  const { id } = useParams();
+export default function EditInfo(props) {
   const navigate = useNavigate();
   document.title = "Patient Information";
   const token = localStorage.getItem("userToken");
@@ -13,7 +12,10 @@ export default function EditInfo() {
 
   useEffect(() => {
     const getPatientInfo = async () => {
-      const response = await axios.get(`/user/get-info/${id}`, {
+      const response = await axios.get(`/user/get-info`, {
+        params: {
+          id: props.patient_ID,
+        },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -21,7 +23,7 @@ export default function EditInfo() {
       dispatch({ type: "FETCH_SUCCESS", payload: response.data.data });
     };
     getPatientInfo();
-  }, [id, token]);
+  }, [props.patient_ID, token]);
 
   async function enableHandler() {
     dispatch({ type: "TOGGLE" });
@@ -30,7 +32,7 @@ export default function EditInfo() {
         "/user/edit-patient",
         {
           info: state,
-          Patient_ID: id,
+          Patient_ID: props.patient_ID,
         },
         {
           headers: {

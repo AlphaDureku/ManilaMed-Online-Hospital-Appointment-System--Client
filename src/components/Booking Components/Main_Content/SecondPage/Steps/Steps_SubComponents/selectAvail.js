@@ -117,6 +117,9 @@ export default function SelectAvail(props) {
         },
       };
     }
+    return {
+      disabled: true,
+    };
   };
 
   const handleDateSelect = async (date) => {
@@ -128,7 +131,6 @@ export default function SelectAvail(props) {
       end_Time: DisplayDateAndTime ? DisplayDateAndTime.end : "",
     }));
     setSelectedDate(formattedDate);
-
   };
   // let timeStart = moment(startTimePH, "HH:mm");
   // for (let i = 2; i <= queueNumber; i++) {

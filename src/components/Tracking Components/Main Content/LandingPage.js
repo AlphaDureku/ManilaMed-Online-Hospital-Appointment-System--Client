@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useEffect, useReducer, useState } from "react";
 import Card from "./LandingPage--Card";
 import { Reducer, initialState } from "./Reducers/Lading_Page";
-export default function LandingPage() {
+export default function LandingPage(props) {
   const token = localStorage.getItem("userToken");
   const [state, dispatch] = useReducer(Reducer, initialState);
 
@@ -40,7 +40,11 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="patient-list_Container">
-            <Card patientList={state.patientList} loading={state.loading} />
+            <Card
+              patientList={state.patientList}
+              loading={state.loading}
+              setPatient_ID={props.setPatient_ID}
+            />
           </div>
           <p className="end-title">
             With your registered email address, we were able to locate{" "}
