@@ -56,7 +56,7 @@ export default function SelectAvail(props) {
     async function checkConflict() {
       if (appointmentDetails.patient_ID) {
         const res = await axios.get(
-          process.env.REACT_ONLINE + "/booking/booking-conflict",
+          process.env.REACT_APP_ONLINE + "/booking/booking-conflict",
           {
             params: {
               date: appointmentDetails.schedule_date,

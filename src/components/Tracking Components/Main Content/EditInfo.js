@@ -13,7 +13,7 @@ export default function EditInfo(props) {
   useEffect(() => {
     const getPatientInfo = async () => {
       const response = await axios.get(
-        process.env.REACT_ONLINE + `/user/get-info`,
+        process.env.REACT_APP_ONLINE + `/user/get-info`,
         {
           params: {
             id: props.patient_ID,

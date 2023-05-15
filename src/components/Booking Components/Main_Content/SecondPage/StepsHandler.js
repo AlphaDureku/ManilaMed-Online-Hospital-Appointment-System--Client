@@ -80,12 +80,12 @@ export default function StepsHandler(props) {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.get(process.env.REACT_ONLINE + "/initialize");
+      const res = await axios.get(process.env.REACT_APP_ONLINE + "/initialize");
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
       if (appointmentDetails.patient_ID) {
         const res = await axios.get(
-          process.env.REACT_ONLINE + "/booking/get-patientInfo",
+          process.env.REACT_APP_ONLINE + "/booking/get-patientInfo",
           {
             params: { patient_ID: appointmentDetails.patient_ID },
           }
@@ -110,7 +110,7 @@ export default function StepsHandler(props) {
     async function get() {
       setLoading(true);
       const res = await axios.get(
-        process.env.REACT_ONLINE +
+        process.env.REACT_APP_ONLINE +
           "/doctors/search/?Fname=" +
           query.get("Fname") +
           "&Lname=" +

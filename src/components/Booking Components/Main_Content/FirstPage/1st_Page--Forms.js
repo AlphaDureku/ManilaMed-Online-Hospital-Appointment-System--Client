@@ -44,7 +44,7 @@ export default function FirstPageForms(props) {
       setIsValid(false);
     } else {
       const res = await axios.get(
-        process.env.REACT_ONLINE + "/booking/send-otp",
+        process.env.REACT_APP_ONLINE + "/booking/send-otp",
         {
           params: {
             email: email.email,

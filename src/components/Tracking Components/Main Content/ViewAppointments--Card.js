@@ -19,7 +19,7 @@ export default function Card(props) {
   useEffect(() => {
     const getAppointments = async () => {
       const response = await axios.get(
-        process.env.REACT_ONLINE + `/user/get-appointments`,
+        process.env.REACT_APP_ONLINE + `/user/get-appointments`,
         {
           params: {
             id: props.patient_ID,
