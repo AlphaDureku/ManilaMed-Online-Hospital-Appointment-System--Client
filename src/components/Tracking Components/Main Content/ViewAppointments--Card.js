@@ -18,14 +18,17 @@ export default function Card(props) {
   };
   useEffect(() => {
     const getAppointments = async () => {
-      const response = await axios.get(`/user/get-appointments`, {
-        params: {
-          id: props.patient_ID,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        process.env.REACT_ONLINE + `/user/get-appointments`,
+        {
+          params: {
+            id: props.patient_ID,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setAppointmentList(response.data.data);
     };
     getAppointments();

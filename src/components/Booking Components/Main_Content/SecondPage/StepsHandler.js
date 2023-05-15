@@ -5,8 +5,8 @@ import { Container } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AppointmentDetailsContext } from "../../../../App";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import FinalStep from "./Steps/FinalStep";
 import StepOne from "./Steps/StepOne";
+import FinalStep from "./Steps/StepThree";
 import StepTwo from "./Steps/StepTwo";
 import BookingConfirmModal from "./Steps/Steps_SubComponents/ConfirmationModal";
 
@@ -77,27 +77,19 @@ export default function StepsHandler(props) {
     address: "",
   });
 
-  // const [searchCompleted, setSearchCompleted] = useState(false);
-  // const [scheduleCompleted, setScheduleCompleted] = useState(false);
-  // const [infoCompleted, setInfoCompleted] = useState(false);
-
-  // const [AppointmentDetails, setAppointmentDetails] = useState({
-  //   doctor_ID: "sdasdf",
-  //   appointment_ID: "",
-  //   patientInfo: { firstName: "", lastName: "" },
-  // });
-
-  //Initialize Specialization and HMO list
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.get("/initialize");
+      const res = await axios.get(process.env.REACT_ONLINE + "/initialize");
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
       if (appointmentDetails.patient_ID) {
-        const res = await axios.get("/booking/get-patientInfo", {
-          params: { patient_ID: appointmentDetails.patient_ID },
-        });
+        const res = await axios.get(
+          process.env.REACT_ONLINE + "/booking/get-patientInfo",
+          {
+            params: { patient_ID: appointmentDetails.patient_ID },
+          }
+        );
         const { data } = res.data;
         setpatientFormData((prev) => ({
           ...prev,
@@ -118,7 +110,8 @@ export default function StepsHandler(props) {
     async function get() {
       setLoading(true);
       const res = await axios.get(
-        "/doctors/search/?Fname=" +
+        process.env.REACT_ONLINE +
+          "/doctors/search/?Fname=" +
           query.get("Fname") +
           "&Lname=" +
           query.get("Lname") +
@@ -174,10 +167,13 @@ export default function StepsHandler(props) {
         },
       }));
       if (appointmentDetails.patient_ID) {
-        await axios.post("/booking/update-info", {
-          info: patientformData,
-          Patient_ID: appointmentDetails.patient_ID,
-        });
+        await axios.post(
+          process.env.REACT_APP_ONLINE + "/booking/update-info",
+          {
+            info: patientformData,
+            Patient_ID: appointmentDetails.patient_ID,
+          }
+        );
       }
       openConfirmModal();
     } else {
@@ -263,7 +259,7 @@ export default function StepsHandler(props) {
 
   const submitAppointment = async () => {
     try {
-      const url = "/booking/set-appointment";
+      const url = process.env.REACT_APP_ONLINE + "/booking/set-appointment";
       const data = {
         appointmentDetails: appointmentDetails,
       };

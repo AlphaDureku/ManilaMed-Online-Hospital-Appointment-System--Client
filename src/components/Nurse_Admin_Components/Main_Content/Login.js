@@ -28,7 +28,10 @@ export default function Login() {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const { data } = await axios.post("/admin/nurse-login", credentials);
+    const { data } = await axios.post(
+      process.env.REACT_APP_ONLINE + "/admin/nurse-login",
+      credentials
+    );
     if (data.data.status) {
       //Set token authentication
       localStorage.setItem("token", data.data.token);

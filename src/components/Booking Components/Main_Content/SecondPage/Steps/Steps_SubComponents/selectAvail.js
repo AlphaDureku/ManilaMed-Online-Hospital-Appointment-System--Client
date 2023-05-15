@@ -55,12 +55,15 @@ export default function SelectAvail(props) {
   useEffect(() => {
     async function checkConflict() {
       if (appointmentDetails.patient_ID) {
-        const res = await axios.get("/booking/booking-conflict", {
-          params: {
-            date: appointmentDetails.schedule_date,
-            patient_ID: appointmentDetails.patient_ID,
-          },
-        });
+        const res = await axios.get(
+          process.env.REACT_ONLINE + "/booking/booking-conflict",
+          {
+            params: {
+              date: appointmentDetails.schedule_date,
+              patient_ID: appointmentDetails.patient_ID,
+            },
+          }
+        );
         const { data } = res.data;
         if (data.length > 0) {
           setConflicts(true);

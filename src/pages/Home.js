@@ -34,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     document.title = "Home";
     async function get() {
-      const res = await axios.get("/initialize");
+      const res = await axios.get(process.env.REACT_APP_ONLINE + "/initialize");
       const { data } = res.data;
       setSelectValues({ specialization: data.specialization, hmo: data.hmo });
     }
@@ -45,7 +45,8 @@ export default function Home() {
     async function get() {
       setLoading(true);
       const res = await axios.get(
-        "/doctors/search/?Fname=" +
+        process.env.REACT_APP_ONLINE +
+          "/doctors/search/?Fname=" +
           query.get("Fname") +
           "&Lname=" +
           query.get("Lname") +

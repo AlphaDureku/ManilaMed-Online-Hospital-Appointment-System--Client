@@ -43,11 +43,14 @@ export default function FirstPageForms(props) {
     if (!isValidEmail(email.email)) {
       setIsValid(false);
     } else {
-      const res = await axios.get("/booking/send-otp", {
-        params: {
-          email: email.email,
-        },
-      });
+      const res = await axios.get(
+        process.env.REACT_ONLINE + "/booking/send-otp",
+        {
+          params: {
+            email: email.email,
+          },
+        }
+      );
       const { data } = res.data.data;
       setTimeout(() => {
         setLoading(false);

@@ -12,14 +12,17 @@ export default function EditInfo(props) {
 
   useEffect(() => {
     const getPatientInfo = async () => {
-      const response = await axios.get(`/user/get-info`, {
-        params: {
-          id: props.patient_ID,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        process.env.REACT_ONLINE + `/user/get-info`,
+        {
+          params: {
+            id: props.patient_ID,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       dispatch({ type: "FETCH_SUCCESS", payload: response.data.data });
     };
     getPatientInfo();
@@ -29,7 +32,7 @@ export default function EditInfo(props) {
     dispatch({ type: "TOGGLE" });
     if (!state.isDisabled) {
       await axios.post(
-        "/user/edit-patient",
+        process.env.REACT_APP_ONLINE + "/user/edit-patient",
         {
           info: state,
           Patient_ID: props.patient_ID,

@@ -23,7 +23,7 @@ export default function MyAppointments(props) {
   const updateStatus = async (appointment_ID) => {
     try {
       await axios.post(
-        "/user/cancel-appointment",
+        process.env.REACT_APP_ONLINE + "/user/cancel-appointment",
         {
           appointment_ID: appointment_ID,
         },

@@ -14,11 +14,14 @@ export default function BookingCompletedPage() {
   let navigate = useNavigate();
   useEffect(() => {
     async function fetchDoctor() {
-      const response = await axios.get("/booking/get-appointment", {
-        params: {
-          appointment_ID: appointment_ID,
-        },
-      });
+      const response = await axios.get(
+        process.env.REACT_ONLINE + "/booking/get-appointment",
+        {
+          params: {
+            appointment_ID: appointment_ID,
+          },
+        }
+      );
       console.log(response);
       setDoctor(response.data.data);
     }
