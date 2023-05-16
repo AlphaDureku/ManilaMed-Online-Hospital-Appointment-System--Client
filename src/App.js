@@ -33,7 +33,7 @@ export default function App() {
       gender: "",
     },
   });
-  console.log(process.env.REACT_APP_ONLINE);
+
   return (
     <AppointmentDetailsContext.Provider
       value={{ appointmentDetails, setAppointmentDetails }}
