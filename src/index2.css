@@ -17,10 +17,22 @@
 }
 
 .login--Btn {
-  width: 100%;
+  width: 80%;
   color: white;
   margin-bottom: 4%;
+ 
 }
+
+.mantine-g9emdi,
+.mantine-9zz0g4{
+  font-family: Inter;
+}
+
+.mantine-1fzet7j{
+  margin-bottom: 10px;
+}
+
+
 
 /**Head Admin **/
 .login-H-leftContent {
@@ -30,11 +42,12 @@
   background: linear-gradient(180deg, black, grey);
   color: white;
   font-weight: 700;
-  font-size: min(1.5rem, 3.5vw);
+  font-size: min(1.9rem, 3.5vw);
 }
 
+
 .headNav {
-  background-color: aliceblue;
+  background-color: #EBEDF0;
   border-bottom: 1px solid grey;
 }
 
@@ -60,19 +73,17 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  background: linear-gradient(180deg, #dadada, black);
-  height: 93vh;
 }
 
 .Head--DashboardContainer > div:nth-child(1) {
   border-radius: 8px 0 0 8px;
-  width: 67%;
+  width: 65%;
   height: 100%;
   background-color: #dbf4ff;
 }
 .Head--DashboardContainer > div:nth-child(2) {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 30%;
+  width: 35%;
   height: 100%;
   background-color: #bfeeff;
 }
@@ -110,4 +121,16 @@
   border: 1px solid red;
   height: 30%;
   width: 95%;
+}
+
+
+.InsertDS{
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.addDocSecButtonRow{
+  justify-content: center !important;
+  display: flex;
 }

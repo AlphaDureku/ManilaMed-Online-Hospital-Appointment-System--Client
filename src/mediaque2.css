@@ -1,0 +1,32 @@
+
+
+@media screen and (max-width: 700px) {
+.subheaderlogin{
+    font-size: 16px;
+}
+}
+
+@media (max-width: 1000px) {
+    .Head--DashboardContainer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .Head--DashboardContainer > div:nth-child(1),
+    .Head--DashboardContainer > div:nth-child(2) {
+        width: 100%;
+      
+      }
+     
+ 
+      .Head--Dashboard-left > div:nth-child(1),
+      .Head--Dashboard-left > div:nth-child(2),
+      .Head--Dashboard-right > div:nth-child(1),
+      .Head--Dashboard-right > div:nth-child(2)
+        {
+     
+        width: 95%;
+      }
+
+
+  }
+  

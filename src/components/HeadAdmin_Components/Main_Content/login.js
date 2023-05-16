@@ -1,4 +1,5 @@
-import { Button } from "@mantine/core";
+import { Container } from "react-bootstrap";
+import { PasswordInput, TextInput, Button } from '@mantine/core';
 import axios from "axios";
 import {
   MDBCard,
@@ -61,7 +62,7 @@ export default function Login() {
 
             <MDBCol md="6">
               <MDBCardBody className="d-flex flex-column">
-                <div className="d-flex flex-row mt-2">
+                <div className="d-flex flex-row mt-4">
                   <MDBIcon
                     fas
                     icon="cubes fa-3x me-3"
@@ -71,31 +72,31 @@ export default function Login() {
                 </div>
 
                 <h5
-                  className="fw-normal my-4 pb-3"
+                  className="fw-normal ms-3 mt-3 mb-5 subheaderlogin"
                   style={{ letterSpacing: "1px" }}
                 >
                   Sign into your admin account
                 </h5>
-
+              <Container className="mb-4">
                 <form onSubmit={onSubmitHandler}>
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    label="Email address"
-                    type="text"
-                    name="username"
-                    value={credentials.username}
-                    size="lg"
-                    onChange={onChangeHandler}
-                  />
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    label="Password"
-                    type="password"
-                    name="password"
-                    value={credentials.password}
-                    size="lg"
-                    onChange={onChangeHandler}
-                  />
+                <TextInput
+                className="mb-3 ms-3" 
+                label="Username"
+                placeholder="Username"
+                type="text"
+                name="username"
+                value={credentials.username}
+                onChange={onChangeHandler}
+                />
+                <PasswordInput
+                  className="mb-5 ms-3"
+                  placeholder="Password"
+                  label="Password"
+                  name="password"
+                  value={credentials.password}
+                  onChange={onChangeHandler}
+                />
+                <div className="text-center">
                   <Button
                     type="submit"
                     variant="gradient"
@@ -104,7 +105,9 @@ export default function Login() {
                   >
                     Login
                   </Button>
+                  </div>
                 </form>
+                </Container>
                 {error ? (
                   <p
                     className="shake-error"
@@ -116,12 +119,11 @@ export default function Login() {
                   >
                     Wrong credentials
                   </p>
+             
                 ) : (
                   ""
                 )}
-                <a className="small text-muted" href="#!">
-                  Forgot password?
-                </a>
+               
               </MDBCardBody>
             </MDBCol>
           </MDBRow>
