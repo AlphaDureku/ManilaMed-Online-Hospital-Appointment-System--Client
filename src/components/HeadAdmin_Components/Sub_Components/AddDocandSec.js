@@ -38,7 +38,7 @@ export default function AddDS () {
                         width: "100%",
                         background: "#E0F7FF",
                         color: "black",
-                        borderRadius: "10px",
+                        borderRadius: "5%",
                         marginTop: "2%",
                    
                       }}
@@ -56,7 +56,7 @@ export default function AddDS () {
                     width: "100%",
                     background: "#E0F7FF",
                     color: "black",
-                    borderRadius: "10px",
+                    borderRadius: "5%",
                     marginTop: "1%",
 
 
