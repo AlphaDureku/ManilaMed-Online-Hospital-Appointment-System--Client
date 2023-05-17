@@ -1,4 +1,3 @@
-import { useMediaQuery } from "@mantine/hooks";
 
 export default function Navbar() {
   return (

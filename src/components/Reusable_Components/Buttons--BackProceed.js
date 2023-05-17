@@ -5,6 +5,11 @@ export default function BackProceed(props) {
     color: props.backColor || "#FF0000",
   };
 
+  const anotherobject = {
+    color: props.rightColor || "#24B7E9",
+
+  }
+
   return (
     <>
       <Button
@@ -24,7 +29,7 @@ export default function BackProceed(props) {
         onClick={props.rightButton}
         style={{
           boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-          backgroundColor: "#24B7E9",
+          backgroundColor: anotherobject.color,
         }}
       >
         {props.blueButtonText}
