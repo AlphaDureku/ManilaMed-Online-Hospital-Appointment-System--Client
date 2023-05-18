@@ -1,17 +1,20 @@
-import NavBar from "../../Booking Components/NavBar/NavBar";
 import AddDS from "./AddDocandSec";
-export default function Content() {
+import AvailableDocandSec from "./availableDocandSec";
+export default function Content(props) {
   return (
     <>
  <div className="Head--DashboardContainer">
   <div className="Head--Dashboard-left">
     <div className="search-row"></div>
-    <div className="ContentTable"></div>
+    <div className="ContentTable">
+    <AvailableDocandSec/>
+    </div>
   </div>
   <div className="Head--Dashboard-right">
     <div className="DocSecTable"></div>
     <div className="DocSecInsert">
-      <AddDS/>
+      <AddDS
+      />
     </div>
   </div>
 </div>

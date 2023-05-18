@@ -4,8 +4,20 @@ import { TextInput, Input, PasswordInput, Button } from '@mantine/core';
 import { IMaskInput } from 'react-imask';
 import axios from 'axios';
 import { CloseButton } from 'react-bootstrap';
+import { notifications } from '@mantine/notifications';
+
 
 const AddSecModal = (props) => {
+
+  const dashboardNotif = () => {
+    notifications.show({
+      title: "Secretary Added",
+      color: "dark",
+      autoClose: 2000,
+    });
+  };
+
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -21,35 +33,115 @@ const AddSecModal = (props) => {
   };
 
   
+  const [formErrors, setFormErrors] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    contactNumber: false,
+    username: false,
+    password: false,
+  });
+
+  const [serverError, setServerError] = useState(null);
+  const validateForm = () => {
+    const errors = {};
+  
+    // Check if firstName is empty
+    if (formData.firstName.trim() === '') {
+      errors.firstName = true;
+    }
+  
+    // Check if lastName is empty
+    if (formData.lastName.trim() === '') {
+      errors.lastName = true;
+    }
+  
+  
+      // Check if email is empty or doesn't match the required format
+    if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = true;
+    }
+
+    // Check if contactNumber is empty or less than 12 digits
+    if (formData.contactNumber.trim() === '' || formData.contactNumber.replace(/[^0-9]/g, '').length < 12 ) {
+      errors.contactNumber = true;
+    }
+
+      // Check if username is empty or has less than 6 characters
+    if (formData.username.trim() === '' || formData.username.length < 6) {
+      errors.username = true;
+    }
+
+    // Check if password is empty or has less than 6 characters
+    if (formData.password.trim() === '' || formData.password.length < 6) {
+      errors.password = true;
+    }
+
+    
+  
+    setFormErrors(errors);
+  
+    // Return true if there are no errors
+    return Object.values(errors).every((error) => !error);
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
   
-    // Send a POST request to the backend server
-    axios
-      .post('/head-admin/add-nurse', {
-        params: {
-          Fname: formData.firstName,
-          Lname: formData.lastName,
-          email: formData.email,
-          contact: formData.contactNumber,
-          username: formData.username,
-          password: formData.password
-         
+    // Validate the form
+    if (validateForm()) {
+      // Form is valid, proceed with submission
+  
+      // Retrieve the token from local storage
+      const token = localStorage.getItem('token');
+      console.log(`token: ${token}`);
+  
+      // Send a POST request to the backend server
+      axios
+        .post(
+          '/head-admin/add-nurse',
+          {
+            Fname: formData.firstName,
+            Lname: formData.lastName,
+            email: formData.email,
+            contact_number: formData.contactNumber,
+            username: formData.username,
+            password: formData.password
           },
-          headers: {
-        //   Authorization: `Bearer ${token}`,
-        },
-      
-      })
-      .then((response) => {
-        // Handle the response from the server
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error(error);
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          // Handle the response from the server
+          console.log(response.data);
+          handleCloseModal();
+          dashboardNotif();
+          setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            contactNumber: '',
+            username: ' ',
+            password: ' ',
+          });
+  
+        })
+        .catch((error) => {
+          // Handle any errors
+          console.error(error);
+          if (error.response && error.response.data && error.response.data.message) {
+            setServerError(error.response.data.message);
+          } else {
+            setServerError('An error occurred. Please try again later.');
+          }
+        });
+          
+    }
   };
+  
 
   const formstyles = {
     input: { borderColor: 'rgba(0, 0, 0, 0.5);' ,
@@ -60,18 +152,45 @@ const AddSecModal = (props) => {
 
   };
 
-
+  const handleCloseModal = () => {
+    setFormErrors({
+      firstName: false,
+      lastName: false,
+      email: false,
+      contactNumber: false,
+      username: false,
+      password: false,
+    });
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      contactNumber: '',
+      username: '',
+      password: '',
+    });
+    setServerError(" ")
+  
+    props.handleCloseSec();
+  };
+  
   
   return (
-    <Modal show={props.showSec} onHide={props.handleCloseSec} centered size="md" keyboard={false} backdrop="static">
+    <Modal show={props.showSec} onHide={handleCloseModal} centered size="md" keyboard={false} backdrop="static">
     
       <Modal.Body style={{ margin: '5%', fontWeight: '600' }}>
           <div style={{ display: 'flex', alignItems: 'center' }} className='mb-3'>
           <div style={{ flex: '1', textAlign: 'center' }} className='ms-4'>ADD SECRETARY</div>
           <div style={{ marginLeft: 'auto' }}>
-            <CloseButton onClick={props.handleCloseSec} />
+            <CloseButton onClick={handleCloseModal} />
           </div>
+         
     </div>
+     <div style={{ display: 'flex', textAlign: "center", justifyContent: "center" }} className='mb-3'>
+        {serverError && (
+          <div style={{ color: 'red', fontSize: '14px' }}>{serverError}</div>
+        )}
+      </div>
         <form onSubmit={handleSubmit}>
         <Input.Wrapper label="First Name"
         className='mb-2' >
@@ -81,6 +200,8 @@ const AddSecModal = (props) => {
             value={formData.firstName}
             onChange={handleChange}
             styles={formstyles}
+            error={formErrors.firstName }
+
           
           />
         </Input.Wrapper>
@@ -92,6 +213,8 @@ const AddSecModal = (props) => {
                 value={formData.lastName}
                 onChange={handleChange}
                 styles={formstyles}
+                error={formErrors.lastName}
+
             />
           </Input.Wrapper>
      
@@ -103,17 +226,21 @@ const AddSecModal = (props) => {
             value={formData.email}
             onChange={handleChange}
             styles={formstyles}
+            error={formErrors.email && " Invalid email"}
+
           />
           </Input.Wrapper>
           <Input.Wrapper label="Contact Number"
             className='mb-2' >
             <Input
               component={IMaskInput}
-              mask="+63 0000000000"
+              mask="+63 9000000000"
               placeholder="Contact Number"
               value={formData.contactNumber}
               onChange={(event) => setFormData((prevFormData) => ({ ...prevFormData, contactNumber: event.target.value }))}
+              onAccept={(value) => setFormData((prevFormData) => ({ ...prevFormData, contactNumber: value }))}
               styles={formstyles}
+              error={formErrors.contactNumber && "Invalid Contact Number"}
 
             />
           </Input.Wrapper>
@@ -125,6 +252,8 @@ const AddSecModal = (props) => {
                 value={formData.username}
                 onChange={handleChange}
                 styles={formstyles}
+                error={formErrors.username && "Invalid Username. It should be atleast 6 characters"}
+
             />
           </Input.Wrapper>
           <Input.Wrapper label="Password"
@@ -135,10 +264,19 @@ const AddSecModal = (props) => {
                   value={formData.password}
                   onChange={handleChange}
                   styles={formstyles}
+                  error={formErrors.password && "Invalid Password. It should be atleast 6 characters"}
+
 
                 />
      </Input.Wrapper>
-      
+          <div style={{ textAlign: 'center' }}>
+        {Object.values(formErrors).some((error) => error) && (
+          <div style={{ color: 'red', fontSize: '14px' }} className="mt-4">Please input all required information.</div>
+        )}
+
+      </div>
+
+            
         </form>
         <div className="addconfirmbuttonrow mt-3" style={{ textAlign: 'center',}}>
           <Button type='submit' onClick={handleSubmit}

@@ -3,8 +3,11 @@ import { Button } from "@mantine/core";
 import AddDoctorModal from "./addDocModal";
 import AddSecModal from "./AddSecModal";
 import { useState } from "react";
+import { IconPlus } from '@tabler/icons-react';
 
-export default function AddDS () {
+
+
+export default function AddDS (props) {
    
     const [modalShowDoc, setModalShowDoc] = useState(false);
     const [modalShowSec, setModalShowSec] = useState(false);
@@ -30,7 +33,9 @@ export default function AddDS () {
         <>
         <Container  className="InsertDS ">
             <Row className="addButtonHeight m-auto ">
-                <Button 
+        
+            <Button 
+                    leftIcon={<IconPlus/>}
                     className="addButtonDS"
                     onClick={openConfirmModalDoc}
                     style={{
@@ -40,16 +45,19 @@ export default function AddDS () {
                         color: "black",
                         borderRadius: "5%",
                         marginTop: "2%",
-                   
+                        paddingRight: "2.1rem",
+
                       }}
                      
                 >
                   ADD DOCTOR
                 </Button>
+          
               
             </Row>
             <Row className="addButtonHeight m-auto ">
                 <Button className="addButtonDS" 
+                leftIcon={<IconPlus/>}
                 onClick={openConfirmModalSec}
                 style={{
                     height: "85%",
@@ -58,6 +66,7 @@ export default function AddDS () {
                     color: "black",
                     borderRadius: "5%",
                     marginTop: "1%",
+
 
 
 

@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <MantineProvider>
     <BrowserRouter>
-      <Notifications position="bottom-right" zIndex={3000} />
+      <Notifications position="top-center" zIndex={3000} />
       <App />
     </BrowserRouter>
   </MantineProvider>
