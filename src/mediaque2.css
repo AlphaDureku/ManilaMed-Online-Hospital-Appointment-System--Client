@@ -6,7 +6,7 @@
 }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
     .Head--DashboardContainer {
       flex-direction: column;
       align-items: stretch;
@@ -19,9 +19,7 @@
      
  
       .Head--Dashboard-left > div:nth-child(1),
-      .Head--Dashboard-left > div:nth-child(2),
-      .Head--Dashboard-right > div:nth-child(1),
-      .Head--Dashboard-right > div:nth-child(2)
+      .Head--Dashboard-left > div:nth-child(2)
         {
      
         width: 95%;
@@ -30,6 +28,23 @@
       .addconfirmbuttonrow > button{
         width: 80px;
       }
+      .Head--Dashboard-right > div:nth-child(1){
+        width: 95%;
+        height: 50%;
+      }
 
+      .Head--Dashboard-right > div:nth-child(2){
+        width: 95%;
+        height: 50%;
+      }
+
+     
+   
   }
-  
+  @media (max-width: 1200px) {
+    .dashboard-container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }

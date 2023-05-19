@@ -153,6 +153,7 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
           console.log(response.data);
           handleCloseModal();
           dashboardNotif();
+          props.setParentState(true);
           setFormData({
             firstName: '',
             lastName: '',
@@ -163,7 +164,6 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
             specialization: '',
             hmo: [],
           });
-        props.handleAddDoctor();          
 
         })
         .catch((error) => {
@@ -354,7 +354,7 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
         <div className="addconfirmbuttonrow mt-3" style={{ textAlign: 'center' }}>
           <Button
             type="submit"
-            onClick={handleSubmit}
+            onClick={handleSubmit }
             style={{
               backgroundColor: '#E0F7FF',
               color: '#000',

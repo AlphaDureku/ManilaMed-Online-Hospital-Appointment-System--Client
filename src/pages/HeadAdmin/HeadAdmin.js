@@ -9,7 +9,8 @@ export default function HeadAdmin() {
     <Routes>
       
       <Route path="/" element={<Login />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard style={{ maxWidth: "1200px" }} />} />
+
     </Routes>
     </>
   );

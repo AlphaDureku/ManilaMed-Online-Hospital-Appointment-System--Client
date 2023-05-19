@@ -7,13 +7,15 @@ import axios from 'axios';
 
 export const DashboardContext = createContext();
 
-export default function Dashboard() {
+export default function Dashboard(props) {
 
   const [dashboardData, setDashboardData] = useState(null);
+  const [parentState, setParentState] = useState();
+
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [parentState]);
     
     const fetchData = async () => {
       try {
@@ -34,11 +36,6 @@ export default function Dashboard() {
 
 
 
- const handleAddDoctor = () => {
-    fetchData();
-  };
-
-
   return (
     <>   
 
@@ -50,7 +47,7 @@ export default function Dashboard() {
       <HeadAdminNavbar />
       <Content/>
       <AddDoctorModal
-      handleAddDoctor={handleAddDoctor}
+      setParentState={setParentState}
       />
   
       </DashboardContext.Provider >

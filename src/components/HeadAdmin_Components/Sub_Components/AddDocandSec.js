@@ -1,4 +1,3 @@
-import { Container, Row } from "react-bootstrap"
 import { Button } from "@mantine/core";
 import AddDoctorModal from "./addDocModal";
 import AddSecModal from "./AddSecModal";
@@ -31,41 +30,38 @@ export default function AddDS (props) {
 
     return (
         <>
-        <Container  className="InsertDS ">
-            <Row className="addButtonHeight m-auto ">
-        
+        <div  className="InsertDS ">
+
             <Button 
                     leftIcon={<IconPlus/>}
                     className="addButtonDS"
                     onClick={openConfirmModalDoc}
                     style={{
-                        height: "85%",
-                        width: "100%",
+                        height: "45%",
+                        width: "95%",
                         background: "#E0F7FF",
                         color: "black",
-                        borderRadius: "5%",
-                        marginTop: "2%",
+                        borderRadius: "10px",
                         paddingRight: "2.1rem",
+                        margin: "5px"
 
                       }}
                      
                 >
                   ADD DOCTOR
                 </Button>
-          
-              
-            </Row>
-            <Row className="addButtonHeight m-auto ">
+           
                 <Button className="addButtonDS" 
                 leftIcon={<IconPlus/>}
                 onClick={openConfirmModalSec}
                 style={{
-                    height: "85%",
-                    width: "100%",
+                    height: "45%",
+                    width: "95%",
                     background: "#E0F7FF",
                     color: "black",
-                    borderRadius: "5%",
-                    marginTop: "1%",
+                    borderRadius: "10px",
+                    margin: "5px"
+
 
 
 
@@ -74,8 +70,7 @@ export default function AddDS (props) {
             >
                     ADD SECRETARY
                 </Button>
-               
-            </Row>
+
             <AddDoctorModal
                     show={modalShowDoc}
                     handleClose={closeConfirmModalDoc}
@@ -84,7 +79,7 @@ export default function AddDS (props) {
             showSec={modalShowSec}
             handleCloseSec={closeConfirmModalSec}
         />
-        </Container>
+        </div>
 
   
         </>

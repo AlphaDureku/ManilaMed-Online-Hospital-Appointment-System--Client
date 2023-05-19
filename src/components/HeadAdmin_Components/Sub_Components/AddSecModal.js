@@ -124,8 +124,8 @@ const AddSecModal = (props) => {
             lastName: '',
             email: '',
             contactNumber: '',
-            username: ' ',
-            password: ' ',
+            username: '',
+            password: '',
           });
   
         })
