@@ -99,7 +99,7 @@ export default function FirstPageForms(props) {
       <div className="FirstPage--buttonRow">
         <BackProceed
           leftButton={() => {
-            navigate(-1);
+            navigate("/");
           }}
           OnchangeHandler={OnSubmitHandler}
           redButtonText={"Cancel"}

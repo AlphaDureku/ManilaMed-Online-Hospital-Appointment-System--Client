@@ -9,7 +9,6 @@ import Track from "./pages/Tracking";
 export const AppointmentDetailsContext = createContext();
 export default function App() {
   const [appointmentDetails, setAppointmentDetails] = useState({
-    email: "mark",
     schedule_date: "",
     schedule_ID: "",
     doctor_ID: "",
@@ -33,7 +32,7 @@ export default function App() {
       gender: "",
     },
   });
-
+  console.table(appointmentDetails);
   return (
     <AppointmentDetailsContext.Provider
       value={{ appointmentDetails, setAppointmentDetails }}

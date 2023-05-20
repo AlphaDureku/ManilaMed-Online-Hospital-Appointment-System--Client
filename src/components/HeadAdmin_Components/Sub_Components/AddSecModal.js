@@ -1,14 +1,12 @@
-import { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import { TextInput, Input, PasswordInput, Button } from '@mantine/core';
-import { IMaskInput } from 'react-imask';
-import axios from 'axios';
-import { CloseButton } from 'react-bootstrap';
-import { notifications } from '@mantine/notifications';
-
+import { Button, Input, PasswordInput, TextInput } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import axios from "axios";
+import { useState } from "react";
+import { CloseButton } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import { IMaskInput } from "react-imask";
 
 const AddSecModal = (props) => {
-
   const dashboardNotif = () => {
     notifications.show({
       title: "Secretary Added",
@@ -17,14 +15,13 @@ const AddSecModal = (props) => {
     });
   };
 
-
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    contactNumber: '',
-    username: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    contactNumber: "",
+    username: "",
+    password: "",
   });
 
   const handleChange = (event) => {
@@ -32,7 +29,6 @@ const AddSecModal = (props) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  
   const [formErrors, setFormErrors] = useState({
     firstName: false,
     lastName: false,
@@ -45,68 +41,68 @@ const AddSecModal = (props) => {
   const [serverError, setServerError] = useState(null);
   const validateForm = () => {
     const errors = {};
-  
+
     // Check if firstName is empty
-    if (formData.firstName.trim() === '') {
+    if (formData.firstName.trim() === "") {
       errors.firstName = true;
     }
-  
+
     // Check if lastName is empty
-    if (formData.lastName.trim() === '') {
+    if (formData.lastName.trim() === "") {
       errors.lastName = true;
     }
-  
-  
-      // Check if email is empty or doesn't match the required format
-    if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
+
+    // Check if email is empty or doesn't match the required format
+    if (formData.email.trim() === "" || !/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = true;
     }
 
     // Check if contactNumber is empty or less than 12 digits
-    if (formData.contactNumber.trim() === '' || formData.contactNumber.replace(/[^0-9]/g, '').length < 12 ) {
+    if (
+      formData.contactNumber.trim() === "" ||
+      formData.contactNumber.replace(/[^0-9]/g, "").length < 12
+    ) {
       errors.contactNumber = true;
     }
 
-      // Check if username is empty or has less than 6 characters
-    if (formData.username.trim() === '' || formData.username.length < 6) {
+    // Check if username is empty or has less than 6 characters
+    if (formData.username.trim() === "" || formData.username.length < 6) {
       errors.username = true;
     }
 
     // Check if password is empty or has less than 6 characters
-    if (formData.password.trim() === '' || formData.password.length < 6) {
+    if (formData.password.trim() === "" || formData.password.length < 6) {
       errors.password = true;
     }
 
-    
-  
     setFormErrors(errors);
-  
+
     // Return true if there are no errors
     return Object.values(errors).every((error) => !error);
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     // Validate the form
     if (validateForm()) {
       // Form is valid, proceed with submission
-  
+
       // Retrieve the token from local storage
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       console.log(`token: ${token}`);
-  
+
       // Send a POST request to the backend server
       axios
         .post(
-          '/head-admin/add-nurse',
+          process.env.REACT_APP_ONLINE + "/head-admin/add-nurse",
           {
             Fname: formData.firstName,
             Lname: formData.lastName,
             email: formData.email,
             contact_number: formData.contactNumber,
             username: formData.username,
-            password: formData.password
+            password: formData.password,
           },
           {
             headers: {
@@ -120,36 +116,38 @@ const AddSecModal = (props) => {
           handleCloseModal();
           dashboardNotif();
           setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            contactNumber: '',
-            username: '',
-            password: '',
+            firstName: "",
+            lastName: "",
+            email: "",
+            contactNumber: "",
+            username: "",
+            password: "",
           });
-  
         })
         .catch((error) => {
           // Handle any errors
           console.error(error);
-          if (error.response && error.response.data && error.response.data.message) {
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.message
+          ) {
             setServerError(error.response.data.message);
           } else {
-            setServerError('An error occurred. Please try again later.');
+            setServerError("An error occurred. Please try again later.");
           }
         });
-          
     }
   };
-  
 
   const formstyles = {
-    input: { borderColor: 'rgba(0, 0, 0, 0.5);' ,
-    '&:focus': {
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0, 123, 255, 0.25)',
-    },},
-
+    input: {
+      borderColor: "rgba(0, 0, 0, 0.5);",
+      "&:focus": {
+        borderColor: "#80bdff",
+        boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
+      },
+    },
   };
 
   const handleCloseModal = () => {
@@ -162,132 +160,156 @@ const AddSecModal = (props) => {
       password: false,
     });
     setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      contactNumber: '',
-      username: '',
-      password: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      contactNumber: "",
+      username: "",
+      password: "",
     });
-    setServerError(" ")
-  
+    setServerError(" ");
+
     props.handleCloseSec();
   };
-  
-  
+
   return (
-    <Modal show={props.showSec} onHide={handleCloseModal} centered size="md" keyboard={false} backdrop="static">
-    
-      <Modal.Body style={{ margin: '5%', fontWeight: '600' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }} className='mb-3'>
-          <div style={{ flex: '1', textAlign: 'center' }} className='ms-4'>ADD SECRETARY</div>
-          <div style={{ marginLeft: 'auto' }}>
+    <Modal
+      show={props.showSec}
+      onHide={handleCloseModal}
+      centered
+      size="md"
+      keyboard={false}
+      backdrop="static"
+    >
+      <Modal.Body style={{ margin: "5%", fontWeight: "600" }}>
+        <div style={{ display: "flex", alignItems: "center" }} className="mb-3">
+          <div style={{ flex: "1", textAlign: "center" }} className="ms-4">
+            ADD SECRETARY
+          </div>
+          <div style={{ marginLeft: "auto" }}>
             <CloseButton onClick={handleCloseModal} />
           </div>
-         
-    </div>
-     <div style={{ display: 'flex', textAlign: "center", justifyContent: "center" }} className='mb-3'>
-        {serverError && (
-          <div style={{ color: 'red', fontSize: '14px' }}>{serverError}</div>
-        )}
-      </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            textAlign: "center",
+            justifyContent: "center",
+          }}
+          className="mb-3"
+        >
+          {serverError && (
+            <div style={{ color: "red", fontSize: "14px" }}>{serverError}</div>
+          )}
+        </div>
         <form onSubmit={handleSubmit}>
-        <Input.Wrapper label="First Name"
-        className='mb-2' >
-          <TextInput
-            name="firstName"
-            placeholder="First Name"
-            value={formData.firstName}
-            onChange={handleChange}
-            styles={formstyles}
-            error={formErrors.firstName }
-
-          
-          />
-        </Input.Wrapper>
-          <Input.Wrapper label="Last Name"
-            className='mb-2' >
+          <Input.Wrapper label="First Name" className="mb-2">
             <TextInput
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-                styles={formstyles}
-                error={formErrors.lastName}
-
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+              styles={formstyles}
+              error={formErrors.firstName}
             />
           </Input.Wrapper>
-     
-        <Input.Wrapper label="Email"
-            className='mb-2' >
-          <TextInput
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            styles={formstyles}
-            error={formErrors.email && " Invalid email"}
-
-          />
+          <Input.Wrapper label="Last Name" className="mb-2">
+            <TextInput
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+              styles={formstyles}
+              error={formErrors.lastName}
+            />
           </Input.Wrapper>
-          <Input.Wrapper label="Contact Number"
-            className='mb-2' >
+
+          <Input.Wrapper label="Email" className="mb-2">
+            <TextInput
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              styles={formstyles}
+              error={formErrors.email && " Invalid email"}
+            />
+          </Input.Wrapper>
+          <Input.Wrapper label="Contact Number" className="mb-2">
             <Input
               component={IMaskInput}
               mask="+63 9000000000"
               placeholder="Contact Number"
               value={formData.contactNumber}
-              onChange={(event) => setFormData((prevFormData) => ({ ...prevFormData, contactNumber: event.target.value }))}
-              onAccept={(value) => setFormData((prevFormData) => ({ ...prevFormData, contactNumber: value }))}
+              onChange={(event) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  contactNumber: event.target.value,
+                }))
+              }
+              onAccept={(value) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  contactNumber: value,
+                }))
+              }
               styles={formstyles}
               error={formErrors.contactNumber && "Invalid Contact Number"}
-
             />
           </Input.Wrapper>
-          <Input.Wrapper label="Username"
-            className='mb-2' >
+          <Input.Wrapper label="Username" className="mb-2">
             <TextInput
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-                styles={formstyles}
-                error={formErrors.username && "Invalid Username. It should be atleast 6 characters"}
-
+              name="username"
+              placeholder="Username"
+              value={formData.username}
+              onChange={handleChange}
+              styles={formstyles}
+              error={
+                formErrors.username &&
+                "Invalid Username. It should be atleast 6 characters"
+              }
             />
           </Input.Wrapper>
-          <Input.Wrapper label="Password"
-            className='mb-2' >
-          <PasswordInput
-                  placeholder="Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  styles={formstyles}
-                  error={formErrors.password && "Invalid Password. It should be atleast 6 characters"}
-
-
-                />
-     </Input.Wrapper>
-          <div style={{ textAlign: 'center' }}>
-        {Object.values(formErrors).some((error) => error) && (
-          <div style={{ color: 'red', fontSize: '14px' }} className="mt-4">Please input all required information.</div>
-        )}
-
-      </div>
-
-            
+          <Input.Wrapper label="Password" className="mb-2">
+            <PasswordInput
+              placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              styles={formstyles}
+              error={
+                formErrors.password &&
+                "Invalid Password. It should be atleast 6 characters"
+              }
+            />
+          </Input.Wrapper>
+          <div style={{ textAlign: "center" }}>
+            {Object.values(formErrors).some((error) => error) && (
+              <div style={{ color: "red", fontSize: "14px" }} className="mt-4">
+                Please input all required information.
+              </div>
+            )}
+          </div>
         </form>
-        <div className="addconfirmbuttonrow mt-3" style={{ textAlign: 'center',}}>
-          <Button type='submit' onClick={handleSubmit}
-          style={{backgroundColor: '#E0F7FF', color: '#000' , boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)', border: ' 1px solid #ced4da'}}>ADD</Button>
+        <div
+          className="addconfirmbuttonrow mt-3"
+          style={{ textAlign: "center" }}
+        >
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            style={{
+              backgroundColor: "#E0F7FF",
+              color: "#000",
+              boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
+              border: " 1px solid #ced4da",
+            }}
+          >
+            ADD
+          </Button>
         </div>
-    
-        </Modal.Body>
-     
-    
-        </Modal>
-    );
+      </Modal.Body>
+    </Modal>
+  );
 };
 
 export default AddSecModal;
