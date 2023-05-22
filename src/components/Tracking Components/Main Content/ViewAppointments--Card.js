@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MyAppointments from "./Modals/MyAppointments";
+import Loading from "./ViewAppointments--Card--Loading";
 
 export default function Card(props) {
   const [appointmentList, setAppointmentList] = useState([]);
@@ -18,6 +19,7 @@ export default function Card(props) {
   };
   useEffect(() => {
     const getAppointments = async () => {
+      props.setLoading(true);
       const response = await axios.get(
         process.env.REACT_APP_ONLINE + `/user/get-appointments`,
         {
@@ -32,6 +34,9 @@ export default function Card(props) {
       setAppointmentList(response.data.data);
     };
     getAppointments();
+    setTimeout(() => {
+      props.setLoading(false);
+    }, 200);
     // eslint-disable-next-line
   }, [refreshContent]);
 
@@ -120,7 +125,9 @@ export default function Card(props) {
     return false;
   });
 
-  return (
+  return props.loading ? (
+    <Loading />
+  ) : (
     <>
       {count.pending > 0 ? (
         <div className="appointment-item">

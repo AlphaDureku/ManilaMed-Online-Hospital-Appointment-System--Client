@@ -17,7 +17,7 @@ export default function StepsHandler(props) {
   const { appointmentDetails, setAppointmentDetails } = useContext(
     AppointmentDetailsContext
   );
-  console.log(appointmentDetails);
+  const navigate = useNavigate();
   const [conflicts, setConflicts] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const conflictOj = {
@@ -78,7 +78,9 @@ export default function StepsHandler(props) {
   });
 
   useEffect(() => {
-    document.title = "Home";
+    if (!appointmentDetails.email) {
+      navigate("/Services/booking");
+    }
     async function get() {
       const res = await axios.get(process.env.REACT_APP_ONLINE + "/initialize");
       const { data } = res.data;
@@ -254,8 +256,6 @@ export default function StepsHandler(props) {
       throw new Error("Failed to post data.");
     }
   }
-
-  const navigate = useNavigate();
 
   const submitAppointment = async () => {
     try {

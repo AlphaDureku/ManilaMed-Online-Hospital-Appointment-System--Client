@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@mantine/hooks";
-import { createContext, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import FirstPageForms from "./1st_Page--Forms";
 import FirstPageModal from "./Modals/1st_Page_Modal";
 import TermsAndConditionsModal from "./Modals/Terms&Conditions_Modal";

@@ -169,7 +169,6 @@ const AddDoctorModal = (props) => {
             specialization: "",
             hmo: [],
           });
-
         })
         .catch((error) => {
           // Handle any errors
