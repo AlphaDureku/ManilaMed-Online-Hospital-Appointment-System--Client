@@ -2,6 +2,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Button, Chip, Group } from "@mantine/core";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
+import AddPairModal from "./addpairModal";
+import axios from "axios";
 
 export default function AvailableDocandSec(props) {
   const [originalDoctorData, setOriginalDoctorData] = useState([]);
@@ -10,6 +12,18 @@ export default function AvailableDocandSec(props) {
   const [sortOption, setSortOption] = useState("1");
   const [sortedDoctorData, setSortedDoctorData] = useState([]);
   const [sortedNursesData, setSortedNursesData] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+
+
+  function handleOpenModal(doctorId, DLname, DFname) {
+    setSelectedDoctor({ id: doctorId, lname: DLname, fname: DFname });
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
 
 
   useEffect(() => {
@@ -61,6 +75,32 @@ export default function AvailableDocandSec(props) {
     const option = e.target.value;
     setSelectedOption(option);
   };
+
+  const handleDelete = async () => {
+    const token = localStorage.getItem('token');
+    const doctorId = selectedDoctor ? selectedDoctor.id : "";
+
+      try {
+        const response = await axios.post( 
+          process.env.REACT_APP_ONLINE +
+          '/head-admin/remove-doctor',
+          {
+            doctor_ID: doctorId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
+  
 
   return (
     <>
@@ -126,6 +166,8 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
+                    onClick={() => handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)} 
+
                   >
                     ADD PAIR
                   </Button>
@@ -140,6 +182,7 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
+                    onClick={handleDelete}
                   >
                     DELETE
                   </Button>
@@ -188,6 +231,13 @@ export default function AvailableDocandSec(props) {
             </div>
           ))
         )}
+
+        <AddPairModal
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        doctor={selectedDoctor}
+        nurses={props.extractedNurses}
+        />
       </Container>
     </>
   );

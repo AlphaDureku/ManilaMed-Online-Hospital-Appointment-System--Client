@@ -98,7 +98,7 @@ const AddSecModal = (props) => {
   
       // Send a POST request to the backend server
       axios
-        .post(
+        .post(  process.env.REACT_APP_ONLINE +
           '/head-admin/add-nurse',
           {
             Fname: formData.firstName,

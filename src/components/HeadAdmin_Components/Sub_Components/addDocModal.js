@@ -1,18 +1,25 @@
-import { useState, useContext } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import { TextInput, Select, Input, MultiSelect, NativeSelect, Button } from '@mantine/core';
-import { IMaskInput } from 'react-imask';
-import axios from 'axios';
-import { CloseButton, Container } from 'react-bootstrap';
-import { DashboardContext } from '../Main_Content/Dashboard';
-import { notifications } from '@mantine/notifications';
-
+import {
+  Button,
+  Input,
+  MultiSelect,
+  NativeSelect,
+  Select,
+  TextInput,
+} from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { CloseButton, Container } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import { IMaskInput } from "react-imask";
+import { DashboardContext } from "../Main_Content/Dashboard";
 
 const AddDoctorModal = (props) => {
   const dashboardData = useContext(DashboardContext);
 
   const HmoLists = dashboardData?.dashboardData?.data?.HmoLists || [];
-  const SpecializationList = dashboardData?.dashboardData?.data?.SpecializationList || [];
+  const SpecializationList =
+    dashboardData?.dashboardData?.data?.SpecializationList || [];
 
   const HMOListsData = HmoLists.map((item) => ({
     value: item.HMO_ID,
@@ -20,7 +27,7 @@ const AddDoctorModal = (props) => {
   }));
 
   const specData = [
-    { value: '', label: 'Specialization' },
+    { value: "", label: "Specialization" },
     ...SpecializationList.map((item) => ({
       value: item.specialization_ID,
       label: item.specialization_Name,
@@ -28,17 +35,15 @@ const AddDoctorModal = (props) => {
   ];
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    gender: '',
-    contactNumber: '',
-    roomNumber: '',
-    specialization: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    gender: "",
+    contactNumber: "",
+    roomNumber: "",
+    specialization: "",
     hmo: [],
   });
-
-
 
   const dashboardNotif = () => {
     notifications.show({
@@ -47,7 +52,6 @@ const AddDoctorModal = (props) => {
       autoClose: 2000,
     });
   };
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -66,71 +70,73 @@ const AddDoctorModal = (props) => {
   });
   const [serverError, setServerError] = useState(null);
 
-  
   const validateForm = () => {
     const errors = {};
-  
+
     // Check if firstName is empty
-    if (formData.firstName.trim() === '') {
+    if (formData.firstName.trim() === "") {
       errors.firstName = true;
     }
-  
+
     // Check if lastName is empty
-    if (formData.lastName.trim() === '') {
+    if (formData.lastName.trim() === "") {
       errors.lastName = true;
     }
-  
+
     // Check if gender is empty
-    if (formData.gender === '') {
+    if (formData.gender === "") {
       errors.gender = true;
     }
-  
+
     // Check if specialization is empty
-    if (formData.specialization === '') {
+    if (formData.specialization === "") {
       errors.specialization = true;
     }
-  
+
     // Check if hmo is empty
     if (formData.hmo.length === 0) {
       errors.hmo = true;
     }
-  
-   // Check if email is empty or doesn't match the required format
-if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
-  errors.email = true;
-}
+
+    // Check if email is empty or doesn't match the required format
+    if (formData.email.trim() === "" || !/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = true;
+    }
 
     // Check if contactNumber is empty or less than 12 digits
-    if (formData.contactNumber.trim() === '' || formData.contactNumber.replace(/[^0-9]/g, '').length < 12) {
+    if (
+      formData.contactNumber.trim() === "" ||
+      formData.contactNumber.replace(/[^0-9]/g, "").length < 12
+    ) {
       errors.contactNumber = true;
     }
-  
+
     // Check if roomNumber is empty
-    if (formData.roomNumber.trim() === '') {
+    if (formData.roomNumber.trim() === "") {
       errors.roomNumber = true;
     }
-  
+
     setFormErrors(errors);
-  
+
     // Return true if there are no errors
     return Object.values(errors).every((error) => !error);
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     // Validate the form
     if (validateForm()) {
       // Form is valid, proceed with submission
-  
+
       // Retrieve the token from local storage
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       console.log(`token: ${token}`);
-  
+
       // Send a POST request to the backend server
       axios
         .post(
-          '/head-admin/add-doctor',
+          process.env.REACT_APP_ONLINE + "/head-admin/add-doctor",
           {
             Fname: formData.firstName,
             Lname: formData.lastName,
@@ -146,22 +152,21 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
               Authorization: `Bearer ${token}`,
             },
           }
-
         )
         .then((response) => {
           // Handle the response from the server
           console.log(response.data);
           handleCloseModal();
           dashboardNotif();
-          props.setParentState(true);
+          setServerError("");
           setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            gender: '',
-            contactNumber: '',
-            roomNumber: '',
-            specialization: '',
+            firstName: "",
+            lastName: "",
+            email: "",
+            gender: "",
+            contactNumber: "",
+            roomNumber: "",
+            specialization: "",
             hmo: [],
           });
 
@@ -169,25 +174,25 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
         .catch((error) => {
           // Handle any errors
           console.error(error);
-          if (error.response && error.response.data && error.response.data.message) {
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.message
+          ) {
             setServerError(error.response.data.message);
           } else {
-            setServerError('An error occurred. Please try again later.');
+            setServerError("An error occurred. Please try again later.");
           }
         });
-
-
-          
     }
   };
-  
 
   const formstyles = {
     input: {
-      borderColor: 'rgba(0, 0, 0, 0.5);',
-      '&:focus': {
-        borderColor: '#80bdff',
-        boxShadow: '0 0 0 0.2rem rgba(0, 123, 255, 0.25)',
+      borderColor: "rgba(0, 0, 0, 0.5);",
+      "&:focus": {
+        borderColor: "#80bdff",
+        boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
       },
     },
   };
@@ -202,41 +207,51 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
       email: false,
       contactNumber: false,
       roomNumber: false,
-     
     });
     setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      gender: '',
-      contactNumber: '',
-      roomNumber: '',
-      specialization: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      gender: "",
+      contactNumber: "",
+      roomNumber: "",
+      specialization: "",
       hmo: [],
     });
-    setServerError(" ")
+    setServerError(" ");
 
-  
     props.handleClose();
   };
-  
 
   return (
-    <Modal show={props.show} onHide={handleCloseModal} centered size="md" keyboard={false} backdrop="static">
-      <Modal.Body style={{ margin: '5%', fontWeight: '600' }}>
-        <div style={{ display: 'flex', alignItems: 'center' }} className="mb-3">
-          <div style={{ flex: '1', textAlign: 'center' }} className="ms-4">
+    <Modal
+      show={props.show}
+      onHide={handleCloseModal}
+      centered
+      size="md"
+      keyboard={false}
+      backdrop="static"
+    >
+      <Modal.Body style={{ margin: "5%", fontWeight: "600" }}>
+        <div style={{ display: "flex", alignItems: "center" }} className="mb-3">
+          <div style={{ flex: "1", textAlign: "center" }} className="ms-4">
             ADD DOCTOR
           </div>
-          <div style={{ marginLeft: 'auto' }}>
-            <CloseButton onClick={handleCloseModal  } />
+          <div style={{ marginLeft: "auto" }}>
+            <CloseButton onClick={handleCloseModal} />
           </div>
-               
         </div>
-        <div style={{ display: 'flex', textAlign: "center", justifyContent: "center" }} className='mb-3'>
-        {serverError && (
-          <div style={{ color: 'red', fontSize: '14px' }}>{serverError}</div>
-        )}
+        <div
+          style={{
+            display: "flex",
+            textAlign: "center",
+            justifyContent: "center",
+          }}
+          className="mb-3"
+        >
+          {serverError && (
+            <div style={{ color: "red", fontSize: "14px" }}>{serverError}</div>
+          )}
         </div>
         <form onSubmit={handleSubmit}>
           <Input.Wrapper label="First Name" className="mb-2">
@@ -263,12 +278,17 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
             <Select
               name="gender"
               data={[
-                { value: 'M', label: 'Male' },
-                { value: 'F', label: 'Female' },
+                { value: "M", label: "Male" },
+                { value: "F", label: "Female" },
               ]}
               placeholder="Gender"
               value={formData.gender}
-              onChange={(value) => setFormData((prevFormData) => ({ ...prevFormData, gender: value }))}
+              onChange={(value) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  gender: value,
+                }))
+              }
               styles={formstyles}
               error={formErrors.gender}
             />
@@ -279,25 +299,30 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
               data={specData}
               placeholder="Specialization"
               value={formData.specialization}
-              onChange={(event) => setFormData((prevFormData) => ({ ...prevFormData, specialization: event.target.value }))}
+              onChange={(event) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  specialization: event.target.value,
+                }))
+              }
               styles={formstyles}
               error={formErrors.specialization}
             />
           </Input.Wrapper>
           <Input.Wrapper label="Select HMO" className="mb-2">
-          <MultiSelect
-            name="hmo"
-            data={HMOListsData}
-            placeholder="HMO"
-            searchable
-            clearable
-            nothingFound="Nothing found"
-            value={formData.hmo}
-            onChange={(value) => setFormData((prevFormData) => ({ ...prevFormData, hmo: value }))}
-            styles={formstyles}
-          />
-
-
+            <MultiSelect
+              name="hmo"
+              data={HMOListsData}
+              placeholder="HMO"
+              searchable
+              clearable
+              nothingFound="Nothing found"
+              value={formData.hmo}
+              onChange={(value) =>
+                setFormData((prevFormData) => ({ ...prevFormData, hmo: value }))
+              }
+              styles={formstyles}
+            />
           </Input.Wrapper>
           <Input.Wrapper label="Email" className="mb-2">
             <TextInput
@@ -315,9 +340,18 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
               mask="+63 9000000000"
               placeholder="Contact Number"
               value={formData.contactNumber}
-              onChange={(event) => setFormData((prevFormData) => ({ ...prevFormData, contactNumber: event.target.value }))}
-              onAccept={(value) => setFormData((prevFormData) => ({ ...prevFormData, contactNumber: value }))}
-
+              onChange={(event) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  contactNumber: event.target.value,
+                }))
+              }
+              onAccept={(value) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  contactNumber: value,
+                }))
+              }
               styles={formstyles}
               error={formErrors.contactNumber && "Invalid Contact Number"}
             />
@@ -328,38 +362,43 @@ if (formData.email.trim() === '' || !/\S+@\S+\.\S+/.test(formData.email)) {
               mask="000"
               placeholder="Room Number"
               value={formData.roomNumber}
-              onChange={(event) => setFormData((prevFormData) => ({ ...prevFormData, roomNumber: event.target.value }))}
+              onChange={(event) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  roomNumber: event.target.value,
+                }))
+              }
               styles={formstyles}
               error={formErrors.roomNumber}
             />
           </Input.Wrapper>
-          <div style={{textAlign: 'center'}}>
-          {(formErrors.firstName ||
-            formErrors.lastName ||
-            formErrors.gender ||
-            formErrors.specialization ||
-            formErrors.hmo ||
-            formErrors.email ||
-            formErrors.contactNumber ||
-            formErrors.roomNumber) && (
-            <div style={{ color: 'red', fontSize: '14px' }}>Please enter all required information .</div>
-          )}
-
-
-
+          <div style={{ textAlign: "center" }}>
+            {(formErrors.firstName ||
+              formErrors.lastName ||
+              formErrors.gender ||
+              formErrors.specialization ||
+              formErrors.hmo ||
+              formErrors.email ||
+              formErrors.contactNumber ||
+              formErrors.roomNumber) && (
+              <div style={{ color: "red", fontSize: "14px" }}>
+                Please enter all required information .
+              </div>
+            )}
           </div>
-        
-
         </form>
-        <div className="addconfirmbuttonrow mt-3" style={{ textAlign: 'center' }}>
+        <div
+          className="addconfirmbuttonrow mt-3"
+          style={{ textAlign: "center" }}
+        >
           <Button
             type="submit"
-            onClick={handleSubmit }
+            onClick={handleSubmit}
             style={{
-              backgroundColor: '#E0F7FF',
-              color: '#000',
-              boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
-              border: ' 1px solid #ced4da',
+              backgroundColor: "#E0F7FF",
+              color: "#000",
+              boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
+              border: " 1px solid #ced4da",
             }}
           >
             ADD

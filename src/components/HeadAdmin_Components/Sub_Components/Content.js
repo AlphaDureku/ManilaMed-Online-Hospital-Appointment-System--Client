@@ -20,10 +20,12 @@ export default function Content(props) {
   });
   
   const extractedNurses = nurses.map((nurse) => {
-    const { doctor_Secretary_first_name, doctor_Secretary_last_name, doctor_Secretary_ID } = nurse;
-    return { doctor_Secretary_first_name, doctor_Secretary_last_name, doctor_Secretary_ID };
+    const { doctor_Secretary_first_name, doctor_Secretary_last_name, doctor_Secretary_ID, doctor_Secretary_username, doctor_Secretary_password } = nurse;
+    return { doctor_Secretary_first_name, doctor_Secretary_last_name, doctor_Secretary_ID, doctor_Secretary_username, doctor_Secretary_password };
   });
   
+  console.log(extractedDoctorData); 
+  console.log(extractedNurses);
 
 
   return (
@@ -31,15 +33,16 @@ export default function Content(props) {
  <div className="Head--DashboardContainer">
   <div className="Head--Dashboard-left">
     <div className="search-row">
-      <SearchComponent
+    <SearchComponent
        extractedDoctorData={extractedDoctorData}
        extractedNurses={extractedNurses}/>
     </div>
     <div className="ContentTable">
-      <AvailableDocandSec
+    <AvailableDocandSec
         extractedDoctorData={extractedDoctorData}
         extractedNurses={extractedNurses}
       />
+      
     </div>
   </div>
   <div className="Head--Dashboard-right">
@@ -47,8 +50,7 @@ export default function Content(props) {
 
     </div>
     <div className="DocSecInsert">
-      <AddDS
-      />
+     <AddDS/>
     </div>
   </div>
 </div>
