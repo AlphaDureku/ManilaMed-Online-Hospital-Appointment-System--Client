@@ -1437,3 +1437,215 @@ select {
   margin-left: 12%;
   margin-top: 5%;
 }
+
+/**Nurse Page CSS**/
+.smallLoading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 87%;
+}
+
+.errorMSG {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 87%;
+  text-align: center;
+  font-weight: 600;
+  color: red;
+}
+
+.adminMainContainer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+.Admin--Dashboard_Container {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+  height: 93.5vh;
+  justify-content: flex-end;
+}
+
+.Admin--Dashboard_Container > div:nth-child(1) {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #e0f7ff;
+}
+.Admin--Dashboard_Container .search-row {
+  height: 10%;
+  width: 95%;
+  border: 1px solid pink;
+}
+
+.Admin--Dashboard_Container .AppointmentTable {
+  height: 85%;
+  width: 95%;
+}
+.Admin--Dashboard_Container > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid green;
+  width: 35%;
+}
+
+.Admin--Dashboard_Container .Dashboard--Calendar {
+  border: 1px solid green;
+  height: 65%;
+  width: 95%;
+}
+.Admin--Dashboard_Container .Dashboard--Data {
+  border: 1px solid black;
+  height: 30%;
+  width: 95%;
+}
+
+.AppointmentTable {
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.AppointmentTable > div:nth-child(1) {
+  height: 12%;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+}
+
+.AppointmentTable > div:nth-child(1) > div > p {
+  margin: 0;
+  padding: 0;
+}
+
+.AppointmentTable > div:nth-child(1) > div {
+  width: 50%;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.AppointmentTable > div:nth-child(1) > div:nth-child(2) {
+  text-align: end;
+}
+
+.DateRange {
+  border: none;
+  color: #2f9d44;
+  font-weight: 600;
+  padding: 5px;
+}
+
+.AppointmentTable > div:nth-child(2) {
+  height: auto;
+  width: 95%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+
+  font-size: 1.4rem;
+}
+
+.statusSelector > label > input + div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: max(130px, 10vw);
+  width: max(120px, 9vw);
+  border-radius: 15%;
+  text-align: center;
+}
+.statusSelector > label:nth-child(1) > input + div {
+  background-color: #ececec;
+  color: #949494;
+  font-weight: 600;
+  border: 1px solid black;
+}
+.statusSelector > label:nth-child(2) > input + div {
+  color: #388440;
+  font-weight: 600;
+  background-color: #caffcf;
+  border: 1px solid #949494;
+}
+.statusSelector > label:nth-child(3) > input + div {
+  color: #ff0000;
+  font-weight: 600;
+  background-color: #ffb6b6;
+  border: 1px solid #ff0000;
+}
+
+.statusSelector > label:nth-child(4) > input + div {
+  color: blue;
+  font-weight: 600;
+  background-color: #8eabfa;
+  border: 1px solid #00c2ff;
+}
+
+.statusSelector--label > input {
+  visibility: hidden;
+  position: absolute;
+}
+
+.statusSelector--label {
+  cursor: pointer;
+}
+
+.statusSelector--label > input:checked + div {
+  transform: scale(1.03, 1.15);
+}
+.statusSelector--label > input:hover:not(input:checked) + div {
+  transform: scale(1.02);
+}
+.AppointmentTable > div:nth-child(3) {
+  height: 53%;
+  width: 95%;
+  background-color: #f4f4f4;
+  border-radius: 15px;
+}
+
+.Admin--AppointmentContainer {
+  overflow-y: auto;
+}
+
+.Admin--CardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgray;
+  width: 95%;
+  margin: 2% auto;
+  border-radius: 8px;
+  padding: 0.5% 2%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.Admin--CardContainer > div:nth-child(1) {
+  width: 70%;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.Admin--CardContainer > div:nth-child(2) {
+  width: 30%;
+  text-align: end;
+}
+.Admin--CardContainer > div:nth-child(2) > button {
+  border: none;
+  padding: 3% 10%;
+  border-radius: 30px;
+  font-weight: 600;
+}

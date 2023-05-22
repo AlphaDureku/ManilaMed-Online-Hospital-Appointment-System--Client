@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, Loader, PasswordInput, TextInput } from "@mantine/core";
 import axios from "axios";
 import {
   MDBCard,
@@ -6,10 +6,11 @@ import {
   MDBCol,
   MDBContainer,
   MDBIcon,
-  MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
 import { useState } from "react";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [credentials, setCredentials] = useState({
@@ -17,7 +18,8 @@ export default function Login() {
     password: "",
   });
   const [error, setError] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const onChangeHandler = (event) => {
     setError(false);
     setCredentials((prev) => ({
@@ -27,18 +29,22 @@ export default function Login() {
   };
 
   const onSubmitHandler = async (event) => {
+    setError(false);
+    setLoading(true);
     event.preventDefault();
     const { data } = await axios.post(
       process.env.REACT_APP_ONLINE + "/admin/nurse-login",
       credentials
     );
+    console.log(data);
     if (data.data.status) {
       //Set token authentication
-      localStorage.setItem("token", data.data.token);
-      console.log("login success");
+      localStorage.setItem("nurseToken", data.data.token);
+      navigate("/admin/dashboard");
     } else {
       setError(true);
     }
+    setLoading(false);
   };
   return (
     <div className="login--wrapper">
@@ -57,9 +63,9 @@ export default function Login() {
               </div>
             </MDBCol>
 
-            <MDBCol md="6">
+            <MDBCol md="6" style={{ position: "relative" }}>
               <MDBCardBody className="d-flex flex-column">
-                <div className="d-flex flex-row mt-2">
+                <div className="d-flex flex-row mt-4">
                   <MDBIcon
                     fas
                     icon="cubes fa-3x me-3"
@@ -69,51 +75,53 @@ export default function Login() {
                 </div>
 
                 <h5
-                  className="fw-normal my-4 pb-3"
+                  className="fw-normal ms-3 mt-3 mb-5 subheaderlogin"
                   style={{ letterSpacing: "1px" }}
                 >
                   Sign into your admin account
                 </h5>
-
-                <form onSubmit={onSubmitHandler}>
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    label="Email address"
-                    type="text"
-                    name="username"
-                    value={credentials.username}
-                    size="lg"
-                    onChange={onChangeHandler}
-                  />
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    label="Password"
-                    type="password"
-                    name="password"
-                    value={credentials.password}
-                    size="lg"
-                    onChange={onChangeHandler}
-                  />
-                  <Button
-                    type="submit"
-                    variant="gradient"
-                    className="login--Btn"
-                    gradient={{ from: "#00c2ff", to: "#5addee", deg: 105 }}
-                  >
-                    Login
-                  </Button>
-                </form>
+                <Container className="mb-4">
+                  <form onSubmit={onSubmitHandler}>
+                    <TextInput
+                      className="mb-3 ms-3"
+                      label="Username"
+                      placeholder="Username"
+                      type="text"
+                      name="username"
+                      value={credentials.username}
+                      onChange={onChangeHandler}
+                    />
+                    <PasswordInput
+                      className="mb-5 ms-3"
+                      placeholder="Password"
+                      label="Password"
+                      name="password"
+                      value={credentials.password}
+                      onChange={onChangeHandler}
+                    />
+                    <div className="text-center">
+                      <Button
+                        type="submit"
+                        variant="gradient"
+                        className="login--Btn"
+                        gradient={{ from: "#00c2ff", to: "#5addee", deg: 105 }}
+                      >
+                        Login
+                      </Button>
+                    </div>
+                  </form>
+                </Container>
                 {error ? (
-                  <p
-                    className="shake-error"
-                    style={{
-                      margin: "0 auto",
-                      color: "red",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Wrong credentials
-                  </p>
+                  <p className="shake-error errorMSG">Wrong credentials</p>
+                ) : (
+                  ""
+                )}
+                {loading ? (
+                  <Loader
+                    size={"sm"}
+                    color={"teal"}
+                    className="smallLoading"
+                  ></Loader>
                 ) : (
                   ""
                 )}

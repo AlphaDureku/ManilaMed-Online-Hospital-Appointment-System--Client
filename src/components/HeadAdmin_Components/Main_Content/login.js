@@ -1,5 +1,4 @@
-import { Container } from "react-bootstrap";
-import { PasswordInput, TextInput, Button } from '@mantine/core';
+import { Button, PasswordInput, TextInput } from "@mantine/core";
 import axios from "axios";
 import {
   MDBCard,
@@ -11,6 +10,7 @@ import {
   MDBRow,
 } from "mdb-react-ui-kit";
 import { useState } from "react";
+import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -77,36 +77,36 @@ export default function Login() {
                 >
                   Sign into your admin account
                 </h5>
-              <Container className="mb-4">
-                <form onSubmit={onSubmitHandler}>
-                <TextInput
-                className="mb-3 ms-3" 
-                label="Username"
-                placeholder="Username"
-                type="text"
-                name="username"
-                value={credentials.username}
-                onChange={onChangeHandler}
-                />
-                <PasswordInput
-                  className="mb-5 ms-3"
-                  placeholder="Password"
-                  label="Password"
-                  name="password"
-                  value={credentials.password}
-                  onChange={onChangeHandler}
-                />
-                <div className="text-center">
-                  <Button
-                    type="submit"
-                    variant="gradient"
-                    className="login--Btn"
-                    gradient={{ from: "black", to: "grey", deg: 105 }}
-                  >
-                    Login
-                  </Button>
-                  </div>
-                </form>
+                <Container className="mb-4">
+                  <form onSubmit={onSubmitHandler}>
+                    <TextInput
+                      className="mb-3 ms-3"
+                      label="Username"
+                      placeholder="Username"
+                      type="text"
+                      name="username"
+                      value={credentials.username}
+                      onChange={onChangeHandler}
+                    />
+                    <PasswordInput
+                      className="mb-5 ms-3"
+                      placeholder="Password"
+                      label="Password"
+                      name="password"
+                      value={credentials.password}
+                      onChange={onChangeHandler}
+                    />
+                    <div className="text-center">
+                      <Button
+                        type="submit"
+                        variant="gradient"
+                        className="login--Btn"
+                        gradient={{ from: "black", to: "grey", deg: 105 }}
+                      >
+                        Login
+                      </Button>
+                    </div>
+                  </form>
                 </Container>
                 {error ? (
                   <p
@@ -119,11 +119,9 @@ export default function Login() {
                   >
                     Wrong credentials
                   </p>
-             
                 ) : (
                   ""
                 )}
-               
               </MDBCardBody>
             </MDBCol>
           </MDBRow>

@@ -6,31 +6,31 @@ import HeadAdminNavbar from "../Sub_Components/headAdminNav";
 
 export const DashboardContext = createContext();
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const [dashboardData, setDashboardData] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const response = await axios.get(
-          process.env.REACT_APP_ONLINE + "/head-admin/dashboard",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setDashboardData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(
+        process.env.REACT_APP_ONLINE + "/head-admin/dashboard",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setDashboardData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>

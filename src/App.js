@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./pages/Admin";
-import HeadAdmin from "./pages/HeadAdmin/HeadAdmin";
+import HeadAdmin from "./pages/HeadAdmin";
 import Home from "./pages/Home";
 import Services from "./pages/Services/Services";
 import Track from "./pages/Tracking";

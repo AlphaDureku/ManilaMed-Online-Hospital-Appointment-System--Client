@@ -3,6 +3,7 @@ export default function Card(props) {
     Pending: { backgroundColor: "#ececec" },
     Accepted: { backgroundColor: "#dbffdf" },
     Rejected: { backgroundColor: "#ffb6b6" },
+    Completed: { backgroundColor: "#88d4f7" },
   };
 
   return (
@@ -14,12 +15,18 @@ export default function Card(props) {
             ? styles.Pending
             : props.selectedStatus === "Accepted"
             ? styles.Accepted
-            : styles.Rejected
+            : props.selectedStatus === "Cancelled"
+            ? styles.Rejected
+            : styles.Completed
         }
       >
-        <div>Mark Angelo Templanza</div>
         <div>
-          <button style={{ backgroundColor: " #29cc97" }}>10/05/2020</button>
+          {props.data.Fname} {props.data.Lname}
+        </div>
+        <div>
+          <button style={{ backgroundColor: " #29cc97" }}>
+            {props.data.appointmentDate}
+          </button>
         </div>
       </div>
     </>

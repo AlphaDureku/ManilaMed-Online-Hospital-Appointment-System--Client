@@ -4,6 +4,8 @@ import Card from "./AppointmentCard";
 
 export default function Content() {
   const [selectedStatus, setSelectedStatus] = useState("Pending");
+  const [DisplayedPatients, setDisplayedPatients] = useState([]);
+  const [patientCounter, setPatientCounter] = useState({});
   const token = localStorage.getItem("nurseToken");
   useEffect(() => {
     async function getData() {
@@ -16,16 +18,53 @@ export default function Content() {
         }
       );
       const { data } = res.data;
+      setDisplayedPatients(data.AppointmentsData);
       console.log(data);
     }
     getData();
   }, []);
 
+  useEffect(() => {
+    // Count the number of appointments in each state and update state
+    const newCounts = DisplayedPatients.reduce(
+      (accumulator, currentValue) => {
+        if (currentValue.Status === "Pending") {
+          accumulator.pending++;
+        } else if (currentValue.Status === "Confirmed") {
+          accumulator.confirmed++;
+        } else if (currentValue.Status === "Completed") {
+          accumulator.completed++;
+        } else {
+          accumulator.cancelled++;
+        }
+        return accumulator;
+      },
+      { pending: 0, confirmed: 0, completed: 0, cancelled: 0 }
+    );
+
+    setPatientCounter(newCounts);
+  }, [DisplayedPatients]);
+
   const onChangeHandler = (event) => {
     const { value } = event.target;
     setSelectedStatus(value);
   };
-  console.log(selectedStatus);
+
+  const filterByStatus = DisplayedPatients.filter((item) => {
+    if (selectedStatus === "Cancelled") {
+      if (item.status === "Rejected" || item.status === "Cancelled") {
+        return item;
+      }
+    }
+    if (item.Status === selectedStatus) {
+      return item;
+    }
+    return null;
+  });
+
+  const renderCard = filterByStatus.map((item, index) => {
+    return <Card selectedStatus={selectedStatus} data={item} key={index} />;
+  });
   return (
     <div className="Admin--Dashboard_Container">
       <div>
@@ -35,7 +74,9 @@ export default function Content() {
             <div>
               <p style={{ color: "#434343" }}>Total Appointments</p>
 
-              <p style={{ color: "#388440" }}>Total: 34</p>
+              <p style={{ color: "#388440" }}>
+                Total: {DisplayedPatients.length}
+              </p>
             </div>
             <div>
               <select className="DateRange">
@@ -58,7 +99,8 @@ export default function Content() {
               ></input>
               <div>
                 Pending<br></br>
-                <br></br>0
+                <br></br>
+                {patientCounter.pending}
               </div>
             </label>
             <label className="statusSelector--label">
@@ -70,25 +112,38 @@ export default function Content() {
               ></input>
               <div>
                 Accepted<br></br>
-                <br></br>0
+                <br></br>
+                {patientCounter.confirmed}
               </div>
             </label>
             <label className="statusSelector--label">
               <input
                 type="radio"
                 name="status"
-                value="Rejected"
+                value="Cancelled"
                 onChange={onChangeHandler}
               ></input>
               <div>
-                Rejected<br></br>
-                <br></br>0
+                Cancelled<br></br>
+                <br></br>
+                {patientCounter.cancelled}
+              </div>
+            </label>
+            <label className="statusSelector--label">
+              <input
+                type="radio"
+                name="status"
+                value="Completed"
+                onChange={onChangeHandler}
+              ></input>
+              <div>
+                Completed<br></br>
+                <br></br>
+                {patientCounter.completed}
               </div>
             </label>
           </div>
-          <div className="Admin--AppointmentContainer">
-            <Card selectedStatus={selectedStatus} />
-          </div>
+          <div className="Admin--AppointmentContainer">{renderCard}</div>
         </div>
       </div>
       <div>
