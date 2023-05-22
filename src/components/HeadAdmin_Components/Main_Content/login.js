@@ -12,7 +12,7 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Log() {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",

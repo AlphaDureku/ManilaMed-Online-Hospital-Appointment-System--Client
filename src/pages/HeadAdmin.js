@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../components/HeadAdmin_Components/Main_Content/Dashboard";
-import Login from "../components/HeadAdmin_Components/Main_Content/Login";
+import Login from "../components/HeadAdmin_Components/Main_Content/Log";
 
 export default function HeadAdmin() {
   return (
