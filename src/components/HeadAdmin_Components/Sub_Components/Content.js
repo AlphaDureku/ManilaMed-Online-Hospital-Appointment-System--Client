@@ -11,8 +11,7 @@ export default function Content(props) {
   const nurses = dashboardData?.dashboardData?.data?.NurseLists || [];
 
 
-  console.log(nurses);
-  console.log(doctorsWithoutSec);
+
 
   const extractedDoctorData = doctorsWithoutSec.map((doctor) => {
     const { DFname, DLname, doctor_ID, date_added } = doctor;
@@ -24,10 +23,6 @@ export default function Content(props) {
     return { doctor_Secretary_first_name, doctor_Secretary_last_name, doctor_Secretary_ID, doctor_Secretary_username, doctor_Secretary_password };
   });
   
-  console.log(extractedDoctorData); 
-  console.log(extractedNurses);
-
-
   return (
     <>
  <div className="Head--DashboardContainer">

@@ -13,7 +13,7 @@ export default function  AddPairModal(props){
     const [matchError, setMatchError] = useState(false);
     const [noSelectError, setNoSelectError] = useState(false);
 
-
+  
 
     const formstyles = {
         input: {

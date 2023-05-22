@@ -3,7 +3,7 @@ import { Button, Chip, Group } from "@mantine/core";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import AddPairModal from "./addpairModal";
-import axios from "axios";
+import VerificationModal from "./verificationModal";
 
 export default function AvailableDocandSec(props) {
   const [originalDoctorData, setOriginalDoctorData] = useState([]);
@@ -14,7 +14,7 @@ export default function AvailableDocandSec(props) {
   const [sortedNursesData, setSortedNursesData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-
+  const [verifyModal, setVerifyModal] = useState(false);
 
   function handleOpenModal(doctorId, DLname, DFname) {
     setSelectedDoctor({ id: doctorId, lname: DLname, fname: DFname });
@@ -23,6 +23,14 @@ export default function AvailableDocandSec(props) {
 
   function handleCloseModal() {
     setOpenModal(false);
+  }
+
+  function handleVerifyModal() {
+    setVerifyModal(true);
+  }
+
+  function CloseVerifyModal() {
+    setVerifyModal(false);
   }
 
 
@@ -76,31 +84,13 @@ export default function AvailableDocandSec(props) {
     setSelectedOption(option);
   };
 
-  const handleDelete = async () => {
-    const token = localStorage.getItem('token');
-    const doctorId = selectedDoctor ? selectedDoctor.id : "";
+  const handleDelete = (doctorId) => {
+    setSelectedDoctor({ id: doctorId });
+    handleVerifyModal();
+  };
 
-      try {
-        const response = await axios.post( 
-          process.env.REACT_APP_ONLINE +
-          '/head-admin/remove-doctor',
-          {
-            doctor_ID: doctorId,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log(response);
-
-      } catch (error) {
-        console.error(error);
-        
-      }
-    }
   
+
 
   return (
     <>
@@ -166,8 +156,7 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
-                    onClick={() => handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)} 
-
+                    onClick={() => handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)}
                   >
                     ADD PAIR
                   </Button>
@@ -182,7 +171,7 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
-                    onClick={handleDelete}
+                    onClick={() => handleDelete(doctor.doctor_ID)}
                   >
                     DELETE
                   </Button>
@@ -233,10 +222,16 @@ export default function AvailableDocandSec(props) {
         )}
 
         <AddPairModal
-        openModal={openModal}
-        handleCloseModal={handleCloseModal}
-        doctor={selectedDoctor}
-        nurses={props.extractedNurses}
+          openModal={openModal}
+          handleCloseModal={handleCloseModal}
+          doctor={selectedDoctor}
+          nurses={props.extractedNurses}
+        />
+
+        <VerificationModal
+        openModal={verifyModal}
+        handleCloseModal={CloseVerifyModal}
+        selectedDoctor={selectedDoctor}
         />
       </Container>
     </>

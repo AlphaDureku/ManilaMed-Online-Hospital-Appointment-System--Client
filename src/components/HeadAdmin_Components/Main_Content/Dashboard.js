@@ -12,8 +12,7 @@ export default function Dashboard(props) {
 
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    
     
     const fetchData = async () => {
       try {
@@ -33,7 +32,8 @@ export default function Dashboard(props) {
       }
     };
 
-
+    fetchData();
+  }, []);
 
   return (
     <>   
