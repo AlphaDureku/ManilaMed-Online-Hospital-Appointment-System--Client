@@ -6,27 +6,24 @@ import HeadAdminNavbar from "../Sub_Components/headAdminNav";
 
 export const DashboardContext = createContext();
 
-export default function Dashboard(props) {
-
+export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
 
-
   useEffect(() => {
-    
-    
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
 
-        const response = await axios.get('/head-admin/dashboard', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        const response = await axios.get(
+          process.env.REACT_APP_ONLINE + "/head-admin/dashboard",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         setDashboardData(response.data);
-        
       } catch (error) {
         console.error(error);
       }
@@ -36,19 +33,15 @@ export default function Dashboard(props) {
   }, []);
 
   return (
-    <>   
+    <>
+      <Navbar />
 
-
-      <Navbar/>  
-      
-     <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr' }}>
-     <DashboardContext.Provider value={{dashboardData}}>
-      <HeadAdminNavbar />
-      <Content/>
-    
-  
-      </DashboardContext.Provider >
-    </div>
+      <div style={{ display: "grid", gridTemplateColumns: "auto 1fr" }}>
+        <DashboardContext.Provider value={{ dashboardData }}>
+          <HeadAdminNavbar />
+          <Content />
+        </DashboardContext.Provider>
+      </div>
     </>
   );
 }
