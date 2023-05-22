@@ -6,7 +6,7 @@ import HeadAdminNavbar from "../Sub_Components/headAdminNav";
 
 export const DashboardContext = createContext();
 
-export default function Dashboard(props) {
+export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
 
   useEffect(() => {
