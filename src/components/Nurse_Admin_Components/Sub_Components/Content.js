@@ -11,6 +11,7 @@ export default function Content() {
   const [doctorList, setDoctorList] = useState([]);
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
+  const [update, setUpdate] = useState(false);
   const token = localStorage.getItem("nurseToken");
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function Content() {
       console.log(data);
     }
     getData();
-  }, []);
+  }, [update]);
 
   useEffect(() => {
     // Count the number of appointments in each state and update state
@@ -116,7 +117,14 @@ export default function Content() {
     : [];
 
   const renderCard = filterByStatus.map((item, index) => {
-    return <Card selectedStatus={selectedStatus} data={item} key={index} />;
+    return (
+      <Card
+        selectedStatus={selectedStatus}
+        data={item}
+        key={index}
+        setUpdate={setUpdate}
+      />
+    );
   });
 
   const renderSelectOptions = doctorList
@@ -184,7 +192,7 @@ export default function Content() {
               <input
                 type="radio"
                 name="status"
-                value="Accepted"
+                value="Confirmed"
                 onChange={onChangeHandler}
               ></input>
               <div>
