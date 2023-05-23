@@ -1,28 +1,13 @@
 import { Modal, CloseButton } from "react-bootstrap";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import axios from "axios";
-import { Button } from "@mantine/core";
-export default function VerificationModal (props){
+export default function DeleteDoctorVerificationModal (props){
   
-
-  const checkNurseBinding = async () => {
-    const nurseId = props.selectedNurse.id; 
-    console.log(nurseId);
-    try {
-      const response = await axios.get(process.env.REACT_APP_ONLINE +`/head-admin/check-nursebinding?nurse_ID=${nurseId}`);
-      console.log(response.data); 
-    } catch (error) {
-      console.error(error); 
-    }
-  };
-  
-
-
 
     const handleDelete = async () => {
         const token = localStorage.getItem('token');
         const doctorId = props.selectedDoctor.id;
-        const nurseId = props.selectedNurse.id;
+
     
         try {
           const response = await axios.post(
@@ -36,8 +21,7 @@ export default function VerificationModal (props){
               },
             }
           );
-          console.log(response);
-          // Trigger the page reload
+                    // Trigger the page reload
         window.location.reload();
         // Store the value in localStorage
         localStorage.setItem("deleteSuccess", "true");
@@ -45,6 +29,7 @@ export default function VerificationModal (props){
         } catch (error) {
           console.error(error);
         }
+
         props.handleCloseModal();
 
       };
@@ -71,7 +56,6 @@ export default function VerificationModal (props){
             rightButton={handleDelete}
             redButtonText={"Cancel"}
             blueButtonText={"Delete"}/>
-            <Button onClick={checkNurseBinding}>here</Button>
         </div>
 
 

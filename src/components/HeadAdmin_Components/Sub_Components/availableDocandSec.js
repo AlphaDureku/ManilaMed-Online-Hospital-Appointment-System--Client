@@ -3,8 +3,8 @@ import { Button, Chip, Group, TextInput } from "@mantine/core";
 import { IconPlus, IconX, IconSearch, IconEdit } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import AddPairModal from "./addpairModal";
-import VerificationModal from "./verificationModal";
-
+import DeleteDoctorVerificationModal from "./deleteDoctorVerificationModal";
+import DeleteSecVerificationModal from "./deleteSecVerify";
 
 export default function AvailableDocandSec(props) {
   const [originalDoctorData, setOriginalDoctorData] = useState([]);
@@ -14,7 +14,8 @@ export default function AvailableDocandSec(props) {
   const [openModal, setOpenModal] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState('');
   const [selectedNurse, setSelectedNurse] = useState('');
-  const [verifyModal, setVerifyModal] = useState(false);
+  const [docVerifyModal, setDocVerifyModal] = useState(false);
+  const [secVerifyModal, setSecVerifyModal] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedOption, setSelectedOption] = useState(() => {
     const savedSelectedOption = localStorage.getItem("selectedOption");
@@ -27,22 +28,32 @@ export default function AvailableDocandSec(props) {
   });
 
 
-  function handleOpenModal(doctorId, DLname, DFname, nurseId) {
+  function handleOpenModal(doctorId, DLname, DFname) {
     setSelectedDoctor({ id: doctorId, lname: DLname, fname: DFname });
-    setSelectedNurse({ id: nurseId });
     setOpenModal(true);
   }
+
 
   function handleCloseModal() {
     setOpenModal(false);
   }
 
-  function handleVerifyModal() {
-    setVerifyModal(true);
+  function handleDocVerifyModal(doctorId) {
+    setSelectedDoctor({ id: doctorId });
+    setDocVerifyModal(true);
   }
 
-  function CloseVerifyModal() {
-    setVerifyModal(false);
+  function CloseDocVerifyModal() {
+    setDocVerifyModal(false);
+  }
+
+  function handleSecVerifyModal(nurseId) {
+    setSelectedNurse({ id: nurseId });
+    setSecVerifyModal(true);
+  }
+
+  function CloseSecVerifyModal() {
+    setSecVerifyModal(false);
   }
 
   useEffect(() => {
@@ -94,10 +105,8 @@ export default function AvailableDocandSec(props) {
     setSelectedOption(option);
   };
 
-  const handleDelete = (doctorId) => {
-    setSelectedDoctor({ id: doctorId });
-    handleVerifyModal();
-  };
+
+
 
   const handleSearch = (e) => {
     setSearchKeyword(e.target.value);
@@ -255,7 +264,7 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
-                    onClick={() => handleDelete(doctor.doctor_ID)}
+                    onClick={() => handleDocVerifyModal(doctor.doctor_ID)}
                   >
                     DELETE
                   </Button>
@@ -296,7 +305,7 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
-                    onClick={() => handleDelete(nurse.doctor_Secretary_ID)}
+                    onClick={() => handleSecVerifyModal(nurse.doctor_Secretary_ID)}
                   >
                     DELETE
                   </Button>
@@ -313,10 +322,14 @@ export default function AvailableDocandSec(props) {
           nurses={props.extractedNurses}
         />
 
-        <VerificationModal
-          openModal={verifyModal}
-          handleCloseModal={CloseVerifyModal}
+        <DeleteDoctorVerificationModal
+          openModal={docVerifyModal}
+          handleCloseModal={CloseDocVerifyModal}
           selectedDoctor={selectedDoctor}
+        />
+         <DeleteSecVerificationModal
+          openModal={secVerifyModal}
+          handleCloseModal={CloseSecVerifyModal}
           selectedNurse={selectedNurse}
         />
       </div>
