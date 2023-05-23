@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import MantineSearchBar from "./AdminSearchBar";
 import Card from "./AppointmentCard";
 
 export default function Content() {
   const [selectedStatus, setSelectedStatus] = useState("Pending");
+  const [selectedDateRange, setSelectedDateRange] = useState("Day");
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
   const token = localStorage.getItem("nurseToken");
@@ -26,21 +28,23 @@ export default function Content() {
 
   useEffect(() => {
     // Count the number of appointments in each state and update state
-    const newCounts = DisplayedPatients.reduce(
-      (accumulator, currentValue) => {
-        if (currentValue.Status === "Pending") {
-          accumulator.pending++;
-        } else if (currentValue.Status === "Confirmed") {
-          accumulator.confirmed++;
-        } else if (currentValue.Status === "Completed") {
-          accumulator.completed++;
-        } else {
-          accumulator.cancelled++;
-        }
-        return accumulator;
-      },
-      { pending: 0, confirmed: 0, completed: 0, cancelled: 0 }
-    );
+    const newCounts = DisplayedPatients
+      ? DisplayedPatients.reduce(
+          (accumulator, currentValue) => {
+            if (currentValue.Status === "Pending") {
+              accumulator.pending++;
+            } else if (currentValue.Status === "Confirmed") {
+              accumulator.confirmed++;
+            } else if (currentValue.Status === "Completed") {
+              accumulator.completed++;
+            } else {
+              accumulator.cancelled++;
+            }
+            return accumulator;
+          },
+          { pending: 0, confirmed: 0, completed: 0, cancelled: 0 }
+        )
+      : { pending: 0, confirmed: 0, completed: 0, cancelled: 0 };
 
     setPatientCounter(newCounts);
   }, [DisplayedPatients]);
@@ -50,40 +54,53 @@ export default function Content() {
     setSelectedStatus(value);
   };
 
-  const filterByStatus = DisplayedPatients.filter((item) => {
-    if (selectedStatus === "Cancelled") {
-      if (item.status === "Rejected" || item.status === "Cancelled") {
-        return item;
-      }
-    }
-    if (item.Status === selectedStatus) {
-      return item;
-    }
-    return null;
-  });
+  const onSelectHandler = (event) => {
+    const { value } = event.target;
+    setSelectedDateRange(value);
+  };
 
+  const filterByStatus = DisplayedPatients
+    ? DisplayedPatients.filter((item) => {
+        if (selectedStatus === "Cancelled") {
+          if (item.status === "Rejected" || item.status === "Cancelled") {
+            return item;
+          }
+        }
+        if (item.Status === selectedStatus) {
+          return item;
+        }
+        return null;
+      })
+    : [];
+  console.log(selectedDateRange);
   const renderCard = filterByStatus.map((item, index) => {
     return <Card selectedStatus={selectedStatus} data={item} key={index} />;
   });
   return (
     <div className="Admin--Dashboard_Container">
       <div>
-        <div className="search-row"></div>
+        <div className="search-row">
+          <MantineSearchBar />
+        </div>
         <div className="AppointmentTable">
           <div>
             <div>
               <p style={{ color: "#434343" }}>Total Appointments</p>
 
               <p style={{ color: "#388440" }}>
-                Total: {DisplayedPatients.length}
+                Total: {DisplayedPatients ? DisplayedPatients.length : 0}
               </p>
             </div>
             <div>
-              <select className="DateRange">
-                <option>This Day</option>
-                <option>This Week</option>
-                <option>This Month</option>
-                <option>This Year</option>
+              <select
+                className="DateRange"
+                value={selectedDateRange}
+                onChange={onSelectHandler}
+              >
+                <option value={"Day"}>This Day</option>
+                <option value={"Week"}>This Week</option>
+                <option value={"Month"}>This Month</option>
+                <option value={"Year"}>This Year</option>
               </select>
             </div>
           </div>

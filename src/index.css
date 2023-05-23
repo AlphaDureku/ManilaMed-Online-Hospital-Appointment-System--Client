@@ -1465,7 +1465,7 @@ select {
 .Admin--Dashboard_Container {
   display: flex;
   flex-direction: row;
-  border: 1px solid red;
+
   height: 93.5vh;
   justify-content: flex-end;
 }
@@ -1479,13 +1479,14 @@ select {
   background-color: #e0f7ff;
 }
 .Admin--Dashboard_Container .search-row {
-  height: 10%;
+  height: 5%;
   width: 95%;
-  border: 1px solid pink;
+  display: flex;
+  align-items: center;
 }
 
 .Admin--Dashboard_Container .AppointmentTable {
-  height: 85%;
+  height: 90%;
   width: 95%;
 }
 .Admin--Dashboard_Container > div:nth-child(2) {
@@ -1523,7 +1524,6 @@ select {
   width: 95%;
   display: flex;
   flex-direction: row;
-
   justify-content: center;
 }
 
@@ -1567,6 +1567,7 @@ select {
   height: max(130px, 10vw);
   width: max(120px, 9vw);
   border-radius: 15%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-align: center;
 }
 .statusSelector > label:nth-child(1) > input + div {
@@ -1585,7 +1586,6 @@ select {
   color: #ff0000;
   font-weight: 600;
   background-color: #ffb6b6;
-  border: 1px solid #ff0000;
 }
 
 .statusSelector > label:nth-child(4) > input + div {
