@@ -26,10 +26,14 @@ export default function HomeModal(props) {
   };
 
   const OnSubmitHandler = async () => {
-    const res = await axios.post(process.env.REACT_APP_ONLINE + "/verifyOTP", {
-      inputOTP: enteredOTP,
-      user_ID: props.user.user_ID,
-    });
+    const res = await axios.post(
+      process.env.REACT_APP_ONLINE + "/verifyOTP",
+      {
+        inputOTP: enteredOTP,
+        user_ID: props.user.user_ID,
+      },
+      { withCredentials: true }
+    );
     const { isVerified, userToken } = res.data.data;
     if (isVerified) {
       props.setVerify((prev) => ({ ...prev, verified: true }));

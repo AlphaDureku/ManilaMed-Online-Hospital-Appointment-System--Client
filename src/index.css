@@ -20,7 +20,9 @@ body {
 .navheaderend {
   color: #618665 !important;
 }
-
+select:focus {
+  outline: none;
+}
 .nav-link:hover {
   font-weight: 550;
 }
@@ -1484,7 +1486,28 @@ select {
   display: flex;
   align-items: center;
 }
+.Admin--SelectDoctor {
+  border-radius: 15px;
+  border: none;
+  width: max(240px, 16.5vw);
+  padding: 1% 4% 1% 1%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  appearance: none;
+  background-image: url("./images/arrowdown.png"); /* Custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: 95% 55%;
+  background-size: 14px; /* Adjust the size of the arrow icon */
+  font-weight: 600;
+  color: #434343;
+}
+.search-row > div:nth-child(1) {
+  width: 25%;
+}
+.search-row > div:nth-child(2) {
+  width: 75%;
 
+  text-align: end;
+}
 .Admin--Dashboard_Container .AppointmentTable {
   height: 90%;
   width: 95%;
@@ -1545,8 +1568,17 @@ select {
 .DateRange {
   border: none;
   color: #2f9d44;
+  border-radius: 15px;
+  border: none;
+  width: max(100px, 6.5vw);
+  padding-right: 1%;
+  appearance: none;
+  background-image: url("./images/arrowdown.png"); /* Custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: 95% 55%;
+  background-size: 14px; /* Adjust the size of the arrow icon */
   font-weight: 600;
-  padding: 5px;
+  color: #434343;
 }
 
 .AppointmentTable > div:nth-child(2) {

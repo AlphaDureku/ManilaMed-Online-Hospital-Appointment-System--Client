@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MantineSearchBar from "./AdminSearchBar";
+import SelectedDoctor from "./AdminSelectDoctor";
 import Card from "./AppointmentCard";
 
 export default function Content() {
   const [selectedStatus, setSelectedStatus] = useState("Pending");
   const [selectedDateRange, setSelectedDateRange] = useState("Day");
+  const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [doctorList, setDoctorList] = useState([]);
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
   const token = localStorage.getItem("nurseToken");
+
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
@@ -17,10 +21,13 @@ export default function Content() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         }
       );
       const { data } = res.data;
       setDisplayedPatients(data.AppointmentsData);
+      setDoctorList(data.DoctorData);
+      setSelectedDoctor(data.DoctorData[0].doctor_ID);
       console.log(data);
     }
     getData();
@@ -54,9 +61,44 @@ export default function Content() {
     setSelectedStatus(value);
   };
 
-  const onSelectHandler = (event) => {
+  const onSelectHandler = async (event) => {
     const { value } = event.target;
     setSelectedDateRange(value);
+    const res = await axios.get(
+      process.env.REACT_APP_ONLINE + "/admin/change-dateRange",
+      {
+        params: {
+          DateRange: value,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
+    const { data } = res.data;
+    setDisplayedPatients(data.appointmentsData);
+  };
+
+  const onDoctorChangeHandler = async (event) => {
+    const { value } = event.target;
+    setSelectedDoctor(value);
+    const res = await axios.get(
+      process.env.REACT_APP_ONLINE + "/admin/change-doctor",
+      {
+        params: {
+          doctor_ID: value,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
+
+    const { data } = res.data;
+    console.log(data);
+    setDisplayedPatients(data.appointmentsData);
   };
 
   const filterByStatus = DisplayedPatients
@@ -72,15 +114,33 @@ export default function Content() {
         return null;
       })
     : [];
-  console.log(selectedDateRange);
+
   const renderCard = filterByStatus.map((item, index) => {
     return <Card selectedStatus={selectedStatus} data={item} key={index} />;
   });
+
+  const renderSelectOptions = doctorList
+    ? doctorList.map((item, index) => {
+        return <SelectedDoctor data={item} key={index} />;
+      })
+    : [];
+
   return (
     <div className="Admin--Dashboard_Container">
       <div>
         <div className="search-row">
-          <MantineSearchBar />
+          <div>
+            <MantineSearchBar />
+          </div>
+          <div>
+            <select
+              className="Admin--SelectDoctor"
+              value={selectedDoctor}
+              onChange={onDoctorChangeHandler}
+            >
+              {renderSelectOptions}
+            </select>
+          </div>
         </div>
         <div className="AppointmentTable">
           <div>
