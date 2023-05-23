@@ -1,10 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { Button, Chip, Group, TextInput } from "@mantine/core";
-import { IconPlus, IconX } from "@tabler/icons-react";
+import { IconPlus, IconX, IconSearch, IconEdit } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import AddPairModal from "./addpairModal";
 import VerificationModal from "./verificationModal";
-import { IconSearch } from '@tabler/icons-react';
 
 
 export default function AvailableDocandSec(props) {
@@ -112,7 +111,7 @@ export default function AvailableDocandSec(props) {
     const filteredData = data.filter((item) => {
       const { DLname, DFname, doctor_Secretary_last_name, doctor_Secretary_first_name } = item;
 
-      const fullName = `${DFname} ${DLname}`;
+      const fullName = `${DFname}  ${DLname}`;
       const nurseFullName = `${doctor_Secretary_first_name} ${doctor_Secretary_last_name}`;
 
       return (
@@ -130,13 +129,14 @@ export default function AvailableDocandSec(props) {
   
   const formstyles = {
     input: {
-      borderColor: "rgba(0, 0, 0, 0.5);",
-      backgroundColor: "rgba(255, 255, 255, 0);",
+      borderColor: "#24B7E9",
+      backgroundColor: "rgba(255, 255, 255, 0.9);",
       "&:focus": {
         borderColor: "#80bdff",
         boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
 
       },
+      borderRadius: "10px",
 
 
     },
@@ -275,7 +275,7 @@ export default function AvailableDocandSec(props) {
                 <Col className="docandsecContent" style={{ alignSelf: "flex-end", display: "flex" }}>
                   <Button
                     variant="default"
-                    leftIcon={<IconPlus />}
+                    leftIcon={<IconEdit />}
                     style={{
                       width: "80%",
                       color: "#848484",

@@ -1,7 +1,22 @@
 import { Modal, CloseButton } from "react-bootstrap";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import axios from "axios";
+import { Button } from "@mantine/core";
 export default function VerificationModal (props){
+  
+
+  const checkNurseBinding = async () => {
+    const nurseId = props.selectedNurse.id; 
+    console.log(nurseId);
+    try {
+      const response = await axios.get(process.env.REACT_APP_ONLINE +`/head-admin/check-nursebinding?nurse_ID=${nurseId}`);
+      console.log(response.data); 
+    } catch (error) {
+      console.error(error); 
+    }
+  };
+  
+
 
 
     const handleDelete = async () => {
@@ -33,6 +48,9 @@ export default function VerificationModal (props){
         props.handleCloseModal();
 
       };
+      
+
+
  
     return (
       <>
@@ -53,6 +71,7 @@ export default function VerificationModal (props){
             rightButton={handleDelete}
             redButtonText={"Cancel"}
             blueButtonText={"Delete"}/>
+            <Button onClick={checkNurseBinding}>here</Button>
         </div>
 
 
