@@ -1,5 +1,4 @@
 import { Button, Input, PasswordInput, TextInput } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useState } from "react";
 import { CloseButton } from "react-bootstrap";
@@ -7,13 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import { IMaskInput } from "react-imask";
 
 const AddSecModal = (props) => {
-  const dashboardNotif = () => {
-    notifications.show({
-      title: "Secretary Added",
-      color: "dark",
-      autoClose: 2000,
-    });
-  };
+
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -116,7 +109,6 @@ const AddSecModal = (props) => {
           // Handle the response from the server
           console.log(response.data);
           handleCloseModal();
-          dashboardNotif();
           setFormData({
             firstName: "",
             lastName: "",
@@ -125,6 +117,10 @@ const AddSecModal = (props) => {
             username: "",
             password: "",
           });
+          // Trigger the page reload
+        window.location.reload();
+        // Store the value in localStorage
+        localStorage.setItem("secAdded", "true");
         })
         .catch((error) => {
           // Handle any errors

@@ -85,29 +85,31 @@
 }
 .Head--Dashboard-left {
   display: flex;
-  border: 1px solid red;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
-  border-radius: 8px 0 0 8px;
   width: 65%;
   height: 100%;
   background-color: #dbf4ff;
 }
-.Head--Dashboard-left > div:nth-child(1) {
-  border: 1px solid blue;
-  height: 10%;
-  width: 95%;
+
+.headAdmin-UpDownContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 8px 0 0 8px;
+  width: 100%;
+  height: 100%;
 }
-.Head--Dashboard-left > div:nth-child(2) {
-  height: 85%;
+
+.Head--Dashboard-left > div:nth-child(1) {
+  height: 100%;
   width: 95%;
-  background-color: white;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: space-evenly;
+
 
 }
 
@@ -176,13 +178,32 @@
   width: 90px;
 }
 
+.headAdmin-downContainer{
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  height: 89%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.headAdmin-upContainer{
+  border-radius: 10px;
+  width: 30%;
+  height: 5%;
+  align-items: center;
+  display: flex;
+}
 .availableDoctorandSecList{
   background-color: rgba(217, 217, 217, 0.3);
   width: 95%;
-  height: 68vh;
+  height: 90%;
   border-radius: 10px;
   overflow-y: scroll;
-
+  display: flex;
+  flex-direction: column;
 }
 .selectObject{
   width: 250px;
@@ -200,6 +221,7 @@
   border-bottom: 1px solid #848484;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+
 }
 
 .docandsecrow{
@@ -213,4 +235,12 @@
   margin-top: 1%;
   margin-bottom: 1%;
   margin-left:5% ;
+}
+
+.confirmbutton > button{
+  margin: 10px;
+}
+
+.headAdmin-search{
+  background: rgba(255, 255, 255, 0.72);
 }

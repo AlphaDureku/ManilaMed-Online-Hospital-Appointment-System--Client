@@ -8,6 +8,7 @@ export const DashboardContext = createContext();
 
 export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
+  
 
   useEffect(() => {
     fetchData();
@@ -31,6 +32,8 @@ export default function Dashboard() {
       console.error(error);
     }
   };
+
+  
 
   return (
     <>

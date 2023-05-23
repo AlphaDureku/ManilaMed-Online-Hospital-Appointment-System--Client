@@ -1,23 +1,36 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { Button, Chip, Group } from "@mantine/core";
+import { Button, Chip, Group, TextInput } from "@mantine/core";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import AddPairModal from "./addpairModal";
 import VerificationModal from "./verificationModal";
+import { IconSearch } from '@tabler/icons-react';
+
 
 export default function AvailableDocandSec(props) {
   const [originalDoctorData, setOriginalDoctorData] = useState([]);
   const [originalNurses, setOriginalNurses] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("1");
-  const [sortOption, setSortOption] = useState("1");
   const [sortedDoctorData, setSortedDoctorData] = useState([]);
   const [sortedNursesData, setSortedNursesData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState('');
+  const [selectedNurse, setSelectedNurse] = useState('');
   const [verifyModal, setVerifyModal] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [selectedOption, setSelectedOption] = useState(() => {
+    const savedSelectedOption = localStorage.getItem("selectedOption");
+    return savedSelectedOption ? String(savedSelectedOption) : "1";
+  });
+  const [sortOption, setSortOption] = useState(() => {
+    const savedSortOption = localStorage.getItem("sortOption");
+    console.log(savedSortOption);
+    return savedSortOption ? String(savedSortOption) : "1";
+  });
 
-  function handleOpenModal(doctorId, DLname, DFname) {
+
+  function handleOpenModal(doctorId, DLname, DFname, nurseId) {
     setSelectedDoctor({ id: doctorId, lname: DLname, fname: DFname });
+    setSelectedNurse({ id: nurseId });
     setOpenModal(true);
   }
 
@@ -33,7 +46,6 @@ export default function AvailableDocandSec(props) {
     setVerifyModal(false);
   }
 
-
   useEffect(() => {
     setOriginalDoctorData(props.extractedDoctorData);
     setOriginalNurses(props.extractedNurses);
@@ -41,7 +53,6 @@ export default function AvailableDocandSec(props) {
 
   useEffect(() => {
     if (selectedOption === "1") {
-      setSortOption("1"); // Reset sortOption to the initial value
       setSortedDoctorData(props.extractedDoctorData);
       setSortedNursesData(props.extractedNurses);
     } else {
@@ -89,15 +100,80 @@ export default function AvailableDocandSec(props) {
     handleVerifyModal();
   };
 
-  
+  const handleSearch = (e) => {
+    setSearchKeyword(e.target.value);
+  };
 
+  const filterContent = (data) => {
+    if (searchKeyword.trim() === "") {
+      return data;
+    }
+
+    const filteredData = data.filter((item) => {
+      const { DLname, DFname, doctor_Secretary_last_name, doctor_Secretary_first_name } = item;
+
+      const fullName = `${DFname} ${DLname}`;
+      const nurseFullName = `${doctor_Secretary_first_name} ${doctor_Secretary_last_name}`;
+
+      return (
+        fullName.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+        nurseFullName.toLowerCase().includes(searchKeyword.toLowerCase())
+      );
+    });
+
+    return filteredData;
+  };
+
+  const filteredDoctorData = filterContent(sortedDoctorData);
+  const filteredNursesData = filterContent(sortedNursesData);
+
+  
+  const formstyles = {
+    input: {
+      borderColor: "rgba(0, 0, 0, 0.5);",
+      backgroundColor: "rgba(255, 255, 255, 0);",
+      "&:focus": {
+        borderColor: "#80bdff",
+        boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
+
+      },
+
+
+    },
+  };
+
+  useEffect(() => {
+    localStorage.setItem("selectedOption", String(selectedOption));
+  }, [selectedOption]);
+  
+  useEffect(() => {
+    localStorage.setItem("sortOption", String(sortOption));
+  }, [sortOption]);
+  
 
   return (
     <>
-      <Container className="mb-2">
+
+  <div className="headAdmin-UpDownContainer"> 
+ 
+
+    <div className="headAdmin-upContainer">
+    <TextInput
+          className="headAdmin-search"
+          placeholder="Search"
+          value={searchKeyword}
+          onChange={handleSearch}
+          styles={formstyles}
+          style={{width: "100%"}}
+          icon={<IconSearch/>}
+        />
+    </div>
+
+    <div className="headAdmin-downContainer">
+      <Container className="mb-1 mt-2 ">
         <Row>
           <Col>
-            <select className="form-select ms-4 selectObject" onChange={handleOptionChange}>
+            <select className="form-select ms-4 selectObject" onChange={handleOptionChange} value={selectedOption}>
               <option value="1">Available Doctors</option>
               <option value="2">Available Secretary</option>
             </select>
@@ -110,7 +186,7 @@ export default function AvailableDocandSec(props) {
                   radius="sm"
                   value="1"
                   onClick={() => setSortOption("1")}
-                  checked={sortOption === "1"}
+                  checked={sortOption === "1" }
                 >
                   Recently Added
                 </Chip>
@@ -119,6 +195,8 @@ export default function AvailableDocandSec(props) {
                   radius="sm"
                   value="2"
                   onClick={() => setSortOption("2")}
+                  checked={sortOption === "2"}
+
                 >
                   A-Z
                 </Chip>
@@ -127,6 +205,8 @@ export default function AvailableDocandSec(props) {
                   radius="sm"
                   value="3"
                   onClick={() => setSortOption("3")}
+                  checked={sortOption === "3" }
+
                 >
                   Z-A
                 </Chip>
@@ -136,11 +216,13 @@ export default function AvailableDocandSec(props) {
         </Row>
       </Container>
 
-      <Container className="availableDoctorandSecList mb-2">
+      <div className="availableDoctorandSecList mb-2">
+  
+
         {selectedOption === "1" ? (
-          sortedDoctorData.map((doctor) => (
-            <div key={doctor.doctor_ID} className="docandseccontainer mt-2">
-              <Row className="docandsecrow">
+          filteredDoctorData.map((doctor) => (
+            <div key={doctor.doctor_ID} className="docandseccontainer mt-2 ms-2 me-2">
+              <div className="docandsecrow ">
                 <Col className="docandsecContent" style={{ fontSize: "16px", fontWeight: "600" }}>
                   {"Dr."} {doctor.DLname}
                   {", "}
@@ -156,7 +238,9 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
-                    onClick={() => handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)}
+                    onClick={() =>
+                      handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)
+                    }
                   >
                     ADD PAIR
                   </Button>
@@ -176,13 +260,13 @@ export default function AvailableDocandSec(props) {
                     DELETE
                   </Button>
                 </Col>
-              </Row>
+              </div>
             </div>
           ))
         ) : (
-          sortedNursesData.map((nurse) => (
-            <div key={nurse.doctor_Secretary_ID} className="docandseccontainer mt-2">
-              <Row className="docandsecrow">
+          filteredNursesData.map((nurse) => (
+            <div key={nurse.doctor_Secretary_ID} className="docandseccontainer mt-2 ms-2 me-2">
+              <div className="docandsecrow">
                 <Col className="docandsecContent" style={{ fontSize: "16px", fontWeight: "600" }}>
                   {nurse.doctor_Secretary_last_name}
                   {", "}
@@ -212,11 +296,12 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
+                    onClick={() => handleDelete(nurse.doctor_Secretary_ID)}
                   >
                     DELETE
                   </Button>
                 </Col>
-              </Row>
+              </div>
             </div>
           ))
         )}
@@ -229,11 +314,15 @@ export default function AvailableDocandSec(props) {
         />
 
         <VerificationModal
-        openModal={verifyModal}
-        handleCloseModal={CloseVerifyModal}
-        selectedDoctor={selectedDoctor}
+          openModal={verifyModal}
+          handleCloseModal={CloseVerifyModal}
+          selectedDoctor={selectedDoctor}
+          selectedNurse={selectedNurse}
         />
-      </Container>
+      </div>
+      </div>
+      </div>
     </>
   );
 }
+

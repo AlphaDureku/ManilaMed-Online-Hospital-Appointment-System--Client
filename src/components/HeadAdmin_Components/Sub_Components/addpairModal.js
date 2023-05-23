@@ -7,13 +7,12 @@ import axios from "axios";
 
 export default function  AddPairModal(props){
 
-    const formDoctorName =  props.doctor ? props.doctor.lname + ", " + props.doctor.fname : "";
+    const formDoctorName =  props.doctor ? props.doctor.fname + ", " + props.doctor.lname : "";
     const [selectedNurse, setSelectedNurse] = useState(null); 
-    const [matchSuccess, setMatchSuccess] = useState(false);
     const [matchError, setMatchError] = useState(false);
     const [noSelectError, setNoSelectError] = useState(false);
 
-  
+
 
     const formstyles = {
         input: {
@@ -59,22 +58,23 @@ export default function  AddPairModal(props){
               }
             );
             if (response.status === 200) {
-              setMatchSuccess(true);
-              setMatchError(false);
+              props.handleCloseModal();
+            // Trigger the page reload
+          window.location.reload();
+            // Store the value in localStorage
+        localStorage.setItem("pairSuccess", "true");
+
             } else {
-              setMatchSuccess(false);
               setMatchError(true);
             }
           } catch (error) {
             console.error(error);
-            setMatchSuccess(false);
             setMatchError(true);
           }
         }
       };
       
       function handleModalExit(){
-        setMatchSuccess(false);
         setMatchError(false);
         setNoSelectError(false)
         setSelectedNurse(" "); 
@@ -129,11 +129,7 @@ export default function  AddPairModal(props){
               }}
             > MATCH</Button>
         </Row>
-        {matchSuccess && (
-              <Row className="mt-3 m-auto">
-                <Alert icon={<IconCheck size="1rem" />} title="Match Complete" color="teal" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "40px" }} />
-              </Row>
-            )}
+    
             {matchError && (
               <Row className="mt-3 m-auto">
                 <Alert icon={<IconAlertCircle size="1rem" />} title="Match Error" color="red" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "40px" }} />

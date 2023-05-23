@@ -34,6 +34,8 @@ const AddDoctorModal = (props) => {
     })),
   ];
 
+  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -45,13 +47,7 @@ const AddDoctorModal = (props) => {
     hmo: [],
   });
 
-  const dashboardNotif = () => {
-    notifications.show({
-      title: "Doctor Added",
-      color: "dark",
-      autoClose: 2000,
-    });
-  };
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -122,6 +118,7 @@ const AddDoctorModal = (props) => {
     return Object.values(errors).every((error) => !error);
   };
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -157,7 +154,6 @@ const AddDoctorModal = (props) => {
           // Handle the response from the server
           console.log(response.data);
           handleCloseModal();
-          dashboardNotif();
           setServerError("");
           setFormData({
             firstName: "",
@@ -169,6 +165,10 @@ const AddDoctorModal = (props) => {
             specialization: "",
             hmo: [],
           });
+        // Trigger the page reload
+        window.location.reload();
+           // Store the value in localStorage
+        localStorage.setItem("doctorAdded", "true");
 
         })
         .catch((error) => {
