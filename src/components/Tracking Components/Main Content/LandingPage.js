@@ -43,11 +43,7 @@ export default function LandingPage(props) {
             </p>
           </div>
           <div className="patient-list_Container">
-            <Card
-              patientList={state.patientList}
-              loading={state.loading}
-              setPatient_ID={props.setPatient_ID}
-            />
+            <Card patientList={state.patientList} loading={state.loading} />
           </div>
           <p className="end-title">
             With your registered email address, we were able to locate{" "}

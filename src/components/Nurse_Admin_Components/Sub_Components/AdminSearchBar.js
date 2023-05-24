@@ -29,9 +29,10 @@ const MantineSearchBar = () => {
         }}
       >
         <Input
-          icon={<IconSearch size={25} color="#00c2ff" />}
+          icon={<IconSearch size={20} color="#00c2ff" />}
           placeholder="Search Appointments"
           radius="xl"
+          className="Admin--Search"
         />
       </MantineProvider>
     </>

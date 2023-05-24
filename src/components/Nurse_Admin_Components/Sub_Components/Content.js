@@ -6,13 +6,13 @@ import Card from "./AppointmentCard";
 
 export default function Content() {
   const [selectedStatus, setSelectedStatus] = useState("Pending");
-  const [selectedDateRange, setSelectedDateRange] = useState("Day");
+  const [selectedDateRange, setSelectedDateRange] = useState("Week");
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [doctorList, setDoctorList] = useState([]);
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
-  const [update, setUpdate] = useState(false);
   const token = localStorage.getItem("nurseToken");
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -29,7 +29,6 @@ export default function Content() {
       setDisplayedPatients(data.AppointmentsData);
       setDoctorList(data.DoctorData);
       setSelectedDoctor(data.DoctorData[0].doctor_ID);
-      console.log(data);
     }
     getData();
   }, [update]);
@@ -98,7 +97,6 @@ export default function Content() {
     );
 
     const { data } = res.data;
-    console.log(data);
     setDisplayedPatients(data.appointmentsData);
   };
 

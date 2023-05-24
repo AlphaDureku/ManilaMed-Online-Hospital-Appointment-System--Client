@@ -12,7 +12,6 @@ export default function Card(props) {
 
   const modalToggler = () => {
     setShowModal((prev) => !prev);
-    console.log("hi");
   };
   const onClickHandler = () => {
     setShowModal(true);

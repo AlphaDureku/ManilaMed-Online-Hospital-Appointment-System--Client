@@ -1,8 +1,7 @@
-
 export default function Navbar() {
   return (
     <>
-      <div className="container-fluid headNav">
+      <div className="container-fluid Admin--HeadNav">
         <nav className="navbar navbar-expand-lg falign-content-end  ">
           <span className="navbar-brand " href="#test">
             {" "}
@@ -14,7 +13,6 @@ export default function Navbar() {
               />
             </span>
           </span>
-        
         </nav>
       </div>
     </>

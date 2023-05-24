@@ -7,6 +7,15 @@ export const initialState = {
   patient_contact_number: "",
   patient_gender: "",
   dateOfBirth: "",
+  errors: {
+    email: false,
+    patient_first_name: false,
+    patient_last_name: false,
+    patient_address: false,
+    patient_contact_number: false,
+    patient_gender: false,
+    dateOfBirth: false,
+  },
   isDisabled: true,
 };
 
@@ -28,6 +37,15 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         [action.payload.name]: action.payload.value,
+      };
+
+    case "SET_ERROR":
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          [action.payload.name]: action.payload.value,
+        },
       };
     case "TOGGLE":
       return {

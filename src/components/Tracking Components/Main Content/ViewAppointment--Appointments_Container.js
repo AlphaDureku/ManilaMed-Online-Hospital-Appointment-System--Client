@@ -2,17 +2,13 @@ import { Button } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "./ViewAppointments--Card";
-export default function Appointments(props) {
+export default function Appointments() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   return (
     <div className="Appointment_Container">
-      <Card
-        patient_ID={props.patient_ID}
-        loading={loading}
-        setLoading={setLoading}
-      />
+      <Card loading={loading} setLoading={setLoading} />
       {!loading ? (
         <Button
           onClick={() => {

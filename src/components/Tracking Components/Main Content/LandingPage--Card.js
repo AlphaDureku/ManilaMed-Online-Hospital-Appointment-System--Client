@@ -8,12 +8,12 @@ export default function Card(props) {
   }
 
   const navToView = (patient_ID) => {
-    props.setPatient_ID(patient_ID);
+    localStorage.setItem("patient_ID", patient_ID);
     navigate("/user/view-appointments");
   };
 
   const navToEdit = (patient_ID) => {
-    props.setPatient_ID(patient_ID);
+    localStorage.setItem("patient_ID", patient_ID);
     navigate("/user/edit-info");
   };
   const mapPatientElements = props.patientList.map((item, index) => {

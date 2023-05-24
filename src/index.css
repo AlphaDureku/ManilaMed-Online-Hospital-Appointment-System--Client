@@ -1459,17 +1459,26 @@ select {
   font-weight: 600;
   color: red;
 }
-
-.adminMainContainer {
-  display: grid;
-  grid-template-columns: auto 1fr;
+.Admin--HeadNav {
+  background-color: aliceblue;
+  border-bottom: 1px solid grey;
+  height: 6.5vh;
 }
-.Admin--Dashboard_Container {
+.adminMainContainer {
   display: flex;
   flex-direction: row;
-
-  height: 93.5vh;
+  min-height: 93.5vh;
+}
+.Admin--Dashboard_Container {
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
+}
+.Admin--SideBar {
+  width: 5%;
+  background-color: #00c2ff;
 }
 
 .Admin--Dashboard_Container > div:nth-child(1) {
@@ -1486,10 +1495,15 @@ select {
   display: flex;
   align-items: center;
 }
+
+.Admin--Search {
+  width: max(120px, 100%);
+}
+
 .Admin--SelectDoctor {
   border-radius: 15px;
   border: none;
-  width: max(240px, 16.5vw);
+  width: max(120px, 16.5vw);
   padding: 1% 4% 1% 1%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   appearance: none;

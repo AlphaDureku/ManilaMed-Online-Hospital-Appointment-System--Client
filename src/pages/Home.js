@@ -29,7 +29,6 @@ export default function Home() {
     hmo: [],
   });
 
-  localStorage.setItem("currentPage", 1);
   //Initialize Specialization and HMO list
   useEffect(() => {
     document.title = "Home";

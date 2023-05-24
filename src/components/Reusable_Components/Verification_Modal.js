@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import BackProceed from "./Buttons--BackProceed";
 
 export default function VerificationModal(props) {
-  console.log("rendered");
   return (
     <>
       <Modal

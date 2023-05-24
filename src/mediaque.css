@@ -863,10 +863,30 @@
 }
 
 @media screen and (max-width: 800px) {
+  .adminMainContainer {
+    flex-direction: column-reverse;
+  }
   .Admin--Dashboard_Container {
     flex-direction: column;
     justify-content: start;
   }
+  .Admin--Dashboard_Container {
+    width: 100%;
+    height: 93.5vh;
+  }
+  .Admin--SideBar {
+    width: 100%;
+    height: 6.5vh;
+    background-color: #00c2ff;
+  }
+
+  .Admin--Dashboard_Container .search-row {
+    height: 10%;
+  }
+  .Admin--SelectDoctor {
+    font-weight: 500;
+  }
+
   .Admin--Dashboard_Container > div:nth-child(1) {
     height: 75%;
     width: 100%;

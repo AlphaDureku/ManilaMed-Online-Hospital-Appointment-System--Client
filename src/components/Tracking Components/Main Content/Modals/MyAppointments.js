@@ -16,7 +16,7 @@ export default function MyAppointments(props) {
     setShowConfirm,
     setRefreshContent,
   } = props;
-  console.log(selectedAppointment);
+
   const navigate = useNavigate();
   const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const token = localStorage.getItem("userToken");
@@ -58,8 +58,6 @@ export default function MyAppointments(props) {
       navigate("/services/collect-info");
     }
   };
-
-  console.log(selectedAppointment);
 
   const modalBody = (
     <>

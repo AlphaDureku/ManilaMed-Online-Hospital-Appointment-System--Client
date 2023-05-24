@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { Reducer, initialState } from "./Reducers/Edit_Page";
@@ -9,6 +9,7 @@ export default function EditInfo(props) {
   document.title = "Patient Information";
   const token = localStorage.getItem("userToken");
   const [state, dispatch] = useReducer(Reducer, initialState);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const getPatientInfo = async () => {
@@ -16,7 +17,7 @@ export default function EditInfo(props) {
         process.env.REACT_APP_ONLINE + `/user/get-info`,
         {
           params: {
-            id: props.patient_ID,
+            id: localStorage.getItem("patient_ID"),
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -26,23 +27,35 @@ export default function EditInfo(props) {
       dispatch({ type: "FETCH_SUCCESS", payload: response.data.data });
     };
     getPatientInfo();
-  }, [props.patient_ID, token]);
+  }, [token]);
 
   async function enableHandler() {
-    dispatch({ type: "TOGGLE" });
-    if (!state.isDisabled) {
-      await axios.post(
-        process.env.REACT_APP_ONLINE + "/user/edit-patient",
-        {
-          info: state,
-          Patient_ID: props.patient_ID,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+    let error = false;
+    for (const property in state.errors) {
+      if (property === "patient_middle_name") {
+        continue;
+      }
+      if (state.errors[property]) {
+        error = true;
+        setHasError(true);
+      }
+    }
+    if (!error) {
+      dispatch({ type: "TOGGLE" });
+      if (!state.isDisabled) {
+        await axios.post(
+          process.env.REACT_APP_ONLINE + "/user/edit-patient",
+          {
+            info: state,
+            Patient_ID: localStorage.getItem("patient_ID"),
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
     }
   }
   function backButtonHandler() {
@@ -61,6 +74,12 @@ export default function EditInfo(props) {
   }
   function onChangeHandler(event) {
     const { name, value } = event.target;
+    setHasError(false);
+    if (!value && name !== "patient_middle_name") {
+      dispatch({ type: "SET_ERROR", payload: { name: name, value: true } });
+    } else {
+      dispatch({ type: "SET_ERROR", payload: { name: name, value: false } });
+    }
     dispatch({ type: "CHANGE_INPUT", payload: { name: name, value: value } });
   }
 
@@ -78,6 +97,9 @@ export default function EditInfo(props) {
             value={state.patient_first_name}
             disabled={state.isDisabled}
             onChange={onChangeHandler}
+            style={{
+              border: state.errors.patient_first_name ? "1px solid red" : "",
+            }}
           ></input>
         </div>
         <div className="info-row">
@@ -88,6 +110,9 @@ export default function EditInfo(props) {
             value={state.patient_middle_name}
             disabled={state.isDisabled}
             onChange={onChangeHandler}
+            style={{
+              border: state.errors.patient_middle_name ? "1px solid red" : "",
+            }}
           ></input>
         </div>
         <div className="info-row">
@@ -98,6 +123,9 @@ export default function EditInfo(props) {
             value={state.patient_last_name}
             disabled={state.isDisabled}
             onChange={onChangeHandler}
+            style={{
+              border: state.errors.patient_last_name ? "1px solid red" : "",
+            }}
           ></input>
         </div>
         <div className="info-row">
@@ -109,6 +137,7 @@ export default function EditInfo(props) {
             value={state.dateOfBirth}
             disabled={state.isDisabled}
             onChange={onChangeHandler}
+            style={{ border: state.errors.dateOfBirth ? "1px solid red" : "" }}
           ></input>
         </div>
         <div className="info-row">
@@ -119,6 +148,9 @@ export default function EditInfo(props) {
             value={state.patient_address}
             disabled={state.isDisabled}
             onChange={onChangeHandler}
+            style={{
+              border: state.errors.patient_address ? "1px solid red" : "",
+            }}
           ></input>
         </div>
         <div className="info-row">
@@ -129,8 +161,14 @@ export default function EditInfo(props) {
             value={state.patient_contact_number}
             disabled={state.isDisabled}
             onChange={onChangeHandler}
+            style={{
+              border: state.errors.patient_contact_number
+                ? "1px solid red"
+                : "",
+            }}
           ></input>
         </div>
+
         <div className="edit-Button_Row">
           <BackProceed
             leftButton={backButtonHandler}
@@ -138,6 +176,21 @@ export default function EditInfo(props) {
             blueButtonText={state.isDisabled ? "Edit" : "Save Changes"}
           />
         </div>
+        {hasError ? (
+          <p
+            className="shake-error"
+            style={{
+              textAlign: "center",
+              fontWeight: 600,
+              color: "red",
+              marginTop: "3.5%",
+            }}
+          >
+            All fields are required
+          </p>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

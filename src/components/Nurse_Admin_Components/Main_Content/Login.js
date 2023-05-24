@@ -36,7 +36,6 @@ export default function Login() {
       process.env.REACT_APP_ONLINE + "/admin/nurse-login",
       credentials
     );
-    console.log(data);
     if (data.data.status) {
       //Set token authentication
       localStorage.setItem("nurseToken", data.data.token);

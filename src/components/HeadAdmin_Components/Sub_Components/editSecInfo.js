@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { Modal, CloseButton } from "react-bootstrap";
-import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
-import { Input, PasswordInput, TextInput, Switch } from "@mantine/core";
+import { Input, PasswordInput, Switch, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { CloseButton, Modal } from "react-bootstrap";
+import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function EditSecInfo(props) {
@@ -45,7 +45,6 @@ export default function EditSecInfo(props) {
   const [noChangeError, setNoChangeError] = useState(false);
   const [networkError, setNetworkError] = useState(false);
 
-
   useEffect(() => {
     getNurseInfo();
   }, [props.openModal]);
@@ -65,7 +64,7 @@ export default function EditSecInfo(props) {
         }
       );
       const data = response.data.data;
-  
+
       if (data !== null) {
         setFormData({
           firstName: data.nurse_Fname || "",
@@ -76,21 +75,19 @@ export default function EditSecInfo(props) {
           password: "",
         });
         setOrigFormData({
-            firstName: data.nurse_Fname || "",
-            lastName: data.nurse_Lname || "",
-            email: data.nurse_Email || "",
-            contactNumber: data.nurse_Contact || "",
-            username: data.nurse_Username || "",
-            password: "",
-          });
+          firstName: data.nurse_Fname || "",
+          lastName: data.nurse_Lname || "",
+          email: data.nurse_Email || "",
+          contactNumber: data.nurse_Contact || "",
+          username: data.nurse_Username || "",
+          password: "",
+        });
       }
     } catch (error) {
       console.error(error);
     }
     setLoading(false);
-
   };
-  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -111,19 +108,18 @@ export default function EditSecInfo(props) {
       formData.firstName !== origFormData.firstName ||
       formData.lastName !== origFormData.lastName ||
       formData.email !== origFormData.email ||
-      formData.contactNumber !== origFormData.contactNumber||
+      formData.contactNumber !== origFormData.contactNumber ||
       formData.username !== origFormData.username ||
       formData.password !== "";
-    
+
     const isValid = validateForm();
 
     if (!hasChanges) {
-      setNoChangeError(true)
+      setNoChangeError(true);
       setLoading(false);
       return;
-    }
-    else if (isValid && hasChanges) {
-    setNoChangeError(false)
+    } else if (isValid && hasChanges) {
+      setNoChangeError(false);
       const postData = {
         NurseModel: {
           nurse_ID: nurseId,
@@ -136,7 +132,7 @@ export default function EditSecInfo(props) {
           nurse_NewPassword: formData.password,
         },
       };
-  
+
       try {
         const response = await axios.post(
           process.env.REACT_APP_ONLINE + "/head-admin/update-nurse",
@@ -150,17 +146,15 @@ export default function EditSecInfo(props) {
         handleCancel();
         EditedNotif();
         console.log("Nurse information updated successfully:", response.data);
-      props.setUpdate((prev)=>!prev);
+        props.setUpdate((prev) => !prev);
       } catch (error) {
-        setNetworkError(true)
+        setNetworkError(true);
         console.error("Error updating nurse information:", error);
       }
     }
     setLoading(false);
-
   };
-  
-  
+
   const handleEditFieldToggle = (fieldName) => {
     setEditFields((prevEditFields) => ({
       ...prevEditFields,
@@ -182,51 +176,54 @@ export default function EditSecInfo(props) {
     },
   };
   const validateForm = () => {
-  const errors = {};
+    const errors = {};
 
-  // Check if firstName is empty
-  if (formData.firstName.trim() === "") {
-    errors.firstName = true;
-  }
+    // Check if firstName is empty
+    if (formData.firstName.trim() === "") {
+      errors.firstName = true;
+    }
 
-  // Check if lastName is empty
-  if (formData.lastName.trim() === "") {
-    errors.lastName = true;
-  }
+    // Check if lastName is empty
+    if (formData.lastName.trim() === "") {
+      errors.lastName = true;
+    }
 
-  // Check if email is empty or doesn't match the required format
-  if (formData.email.trim() === "" || !/\S+@\S+\.\S+/.test(formData.email)) {
-    errors.email = true;
-  }
+    // Check if email is empty or doesn't match the required format
+    if (formData.email.trim() === "" || !/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = true;
+    }
 
-  // Check if contactNumber is empty or less than 12 digits
-  if (
-    formData.contactNumber.trim() === "" ||
-    formData.contactNumber.replace(/[^0-9]/g, "").length < 12
-  ) {
-    errors.contactNumber = true;
-  }
+    // Check if contactNumber is empty or less than 12 digits
+    if (
+      formData.contactNumber.trim() === "" ||
+      formData.contactNumber.replace(/[^0-9]/g, "").length < 12
+    ) {
+      errors.contactNumber = true;
+    }
 
-  // Check if username is empty or has less than 6 characters
-  if (formData.username.trim() === "" || formData.username.length < 6) {
-    errors.username = true;
-  }
+    // Check if username is empty or has less than 6 characters
+    if (formData.username.trim() === "" || formData.username.length < 6) {
+      errors.username = true;
+    }
 
-  // Only validate the password if it has been edited
-  if (isFieldEditable("password") && (formData.password === "" || formData.password.length < 6)) {
-    errors.password = true;
-  }
+    // Only validate the password if it has been edited
+    if (
+      isFieldEditable("password") &&
+      (formData.password === "" || formData.password.length < 6)
+    ) {
+      errors.password = true;
+    }
 
-  setFormErrors(errors);
+    setFormErrors(errors);
 
-  // Return true if there are no errors, false otherwise
-  return Object.keys(errors).length === 0;
-};
+    // Return true if there are no errors, false otherwise
+    return Object.keys(errors).length === 0;
+  };
 
-const handleCancel = () => {
+  const handleCancel = () => {
     setFormErrors({});
     setNoChangeError(false);
-    setNetworkError(false)
+    setNetworkError(false);
     setEditFields({
       firstName: false,
       lastName: false,
@@ -237,13 +234,10 @@ const handleCancel = () => {
     });
     props.handleCloseModal();
     setFormData(origFormData);
-
   };
-  
 
   return (
     <>
-
       <Modal
         show={props.openModal}
         onHide={handleCancel}
@@ -251,9 +245,8 @@ const handleCancel = () => {
         size="md"
         keyboard={false}
         backdrop="static"
-        >
-            <RequestLoadingOverlay loading={loading}>
-
+      >
+        <RequestLoadingOverlay loading={loading}>
           <Modal.Body style={{ margin: "5%", fontWeight: "600" }}>
             <div
               style={{ display: "flex", alignItems: "center" }}
@@ -268,22 +261,25 @@ const handleCancel = () => {
               <div style={{ marginLeft: "auto" }}>
                 <CloseButton onClick={handleCancel} />
               </div>
-               {networkError && (
-            <div style={{ color: "red", fontSize: "14px" }} className="mt-4">
-                Nrwork Error
-            </div>
-            )}
+              {networkError && (
+                <div
+                  style={{ color: "red", fontSize: "14px" }}
+                  className="mt-4"
+                >
+                  Nrwork Error
+                </div>
+              )}
             </div>
 
             <form onSubmit={handleSubmit}>
               <Input.Wrapper label="First Name" className="mb-2">
-                  <label
-                    className="edit-NurseInfo mt-2 ms-2"
-                    onClick={() => handleEditFieldToggle("firstName")}
-                  >
-                    Edit
-                  </label>
-            
+                <label
+                  className="edit-NurseInfo mt-2 ms-2"
+                  onClick={() => handleEditFieldToggle("firstName")}
+                >
+                  Edit
+                </label>
+
                 <TextInput
                   name="firstName"
                   placeholder="First Name"
@@ -292,17 +288,16 @@ const handleCancel = () => {
                   styles={formstyles}
                   disabled={!isFieldEditable("firstName")}
                   error={formErrors.firstName && "First Name is required"}
-
                 />
               </Input.Wrapper>
               <Input.Wrapper label="Last Name" className="mb-2">
-                  <label
-                    className="edit-NurseInfo mt-2 ms-2"
-                    onClick={() => handleEditFieldToggle("lastName")}
-                  >
-                    Edit
-                  </label>
-                
+                <label
+                  className="edit-NurseInfo mt-2 ms-2"
+                  onClick={() => handleEditFieldToggle("lastName")}
+                >
+                  Edit
+                </label>
+
                 <TextInput
                   name="lastName"
                   placeholder="Last Name"
@@ -311,18 +306,17 @@ const handleCancel = () => {
                   styles={formstyles}
                   disabled={!isFieldEditable("lastName")}
                   error={formErrors.lastName && "Last Name is required"}
-
                 />
               </Input.Wrapper>
-  
+
               <Input.Wrapper label="Email" className="mb-2">
-                  <label
-                    className="edit-NurseInfo mt-2 ms-2"
-                    onClick={() => handleEditFieldToggle("email")}
-                  >
-                    Edit
-                  </label>
-                
+                <label
+                  className="edit-NurseInfo mt-2 ms-2"
+                  onClick={() => handleEditFieldToggle("email")}
+                >
+                  Edit
+                </label>
+
                 <TextInput
                   name="email"
                   placeholder="Email"
@@ -331,17 +325,16 @@ const handleCancel = () => {
                   styles={formstyles}
                   disabled={!isFieldEditable("email")}
                   error={formErrors.email && "Email must be valid"}
-
                 />
               </Input.Wrapper>
               <Input.Wrapper label="Contact Number" className="mb-2">
-                  <label
-                    className="edit-NurseInfo mt-2 ms-2"
-                    onClick={() => handleEditFieldToggle("contactNumber")}
-                  >
-                    Edit
-                  </label>
-                
+                <label
+                  className="edit-NurseInfo mt-2 ms-2"
+                  onClick={() => handleEditFieldToggle("contactNumber")}
+                >
+                  Edit
+                </label>
+
                 <TextInput
                   name="contactNumber"
                   placeholder="Contact Number"
@@ -350,19 +343,18 @@ const handleCancel = () => {
                   styles={formstyles}
                   disabled={!isFieldEditable("contactNumber")}
                   error={
-                    formErrors.contactNumber &&
-                    "Contact Number must be valid"
+                    formErrors.contactNumber && "Contact Number must be valid"
                   }
                 />
               </Input.Wrapper>
               <Input.Wrapper label="Username" className="mb-2">
-                  <label
-                    className="edit-NurseInfo mt-2 ms-2"
-                    onClick={() => handleEditFieldToggle("username")}
-                  >
-                    Edit
-                  </label>
-                
+                <label
+                  className="edit-NurseInfo mt-2 ms-2"
+                  onClick={() => handleEditFieldToggle("username")}
+                >
+                  Edit
+                </label>
+
                 <TextInput
                   name="username"
                   placeholder="Username"
@@ -377,13 +369,13 @@ const handleCancel = () => {
                 />
               </Input.Wrapper>
               <Input.Wrapper label="New Password" className="mb-2">
-                  <label
-                    className="edit-NurseInfo mt-2 ms-2"
-                    onClick={() => handleEditFieldToggle("password")}
-                  >
-                    Edit
-                  </label>
-                
+                <label
+                  className="edit-NurseInfo mt-2 ms-2"
+                  onClick={() => handleEditFieldToggle("password")}
+                >
+                  Edit
+                </label>
+
                 <PasswordInput
                   placeholder="Password"
                   name="password"
@@ -399,16 +391,21 @@ const handleCancel = () => {
               </Input.Wrapper>
               <div style={{ textAlign: "center" }}>
                 {Object.values(formErrors).some((error) => error) && (
-                  <div style={{ color: "red", fontSize: "14px" }} className="mt-4">
+                  <div
+                    style={{ color: "red", fontSize: "14px" }}
+                    className="mt-4"
+                  >
                     Please input all required information.
                   </div>
                 )}
-            {noChangeError && (
-            <div style={{ color: "red", fontSize: "14px" }} className="mt-4">
-                No Changes are made
-            </div>
-            )}
-           
+                {noChangeError && (
+                  <div
+                    style={{ color: "red", fontSize: "14px" }}
+                    className="mt-4"
+                  >
+                    No Changes are made
+                  </div>
+                )}
               </div>
               <div
                 className="confirmbutton mt-3 mb-2"
@@ -427,13 +424,9 @@ const handleCancel = () => {
                 />
               </div>
             </form>
-
           </Modal.Body>
-          </RequestLoadingOverlay>
-
-        </Modal>
-
-      </>
-    );
-  }
-  
+        </RequestLoadingOverlay>
+      </Modal>
+    </>
+  );
+}

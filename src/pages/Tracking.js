@@ -10,36 +10,15 @@ export default function Track() {
   useEffect(() => {
     document.title = "Track Me";
   }, []);
-  const [patient_ID, setPatient_ID] = useState("");
+
   return (
     <>
       <div className="wrapper">
         <NavBar />
         <Routes>
-          <Route
-            index
-            element={
-              <LandingPage
-                patient_ID={patient_ID}
-                setPatient_ID={setPatient_ID}
-              />
-            }
-          />
-          <Route
-            path="/Edit-Info"
-            element={
-              <EditInfo patient_ID={patient_ID} setPatient_ID={setPatient_ID} />
-            }
-          />
-          <Route
-            path="/View-Appointments"
-            element={
-              <ViewAppointments
-                patient_ID={patient_ID}
-                setPatient_ID={setPatient_ID}
-              />
-            }
-          />
+          <Route index element={<LandingPage />} />
+          <Route path="/Edit-Info" element={<EditInfo />} />
+          <Route path="/View-Appointments" element={<ViewAppointments />} />
         </Routes>
         <Footer />
       </div>

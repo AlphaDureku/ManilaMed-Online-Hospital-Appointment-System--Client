@@ -11,6 +11,7 @@ export default function Card(props) {
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState({});
   const [refreshContent, setRefreshContent] = useState(false);
+
   document.title = "Appointment History";
 
   const handleShow = (patient) => {
@@ -24,7 +25,7 @@ export default function Card(props) {
         process.env.REACT_APP_ONLINE + `/user/get-appointments`,
         {
           params: {
-            id: props.patient_ID,
+            id: localStorage.getItem("patient_ID"),
           },
           headers: {
             Authorization: `Bearer ${token}`,
