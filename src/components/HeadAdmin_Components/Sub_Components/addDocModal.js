@@ -12,9 +12,12 @@ import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { IMaskInput } from "react-imask";
 import { DashboardContext } from "../Main_Content/Dashboard";
+import { notifications } from "@mantine/notifications";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 const AddDoctorModal = (props) => {
   const dashboardData = useContext(DashboardContext);
+  
 
   const HmoLists = dashboardData?.dashboardData?.data?.HmoLists || [];
   const SpecializationList =
@@ -24,6 +27,8 @@ const AddDoctorModal = (props) => {
     value: item.HMO_ID,
     label: item.HMO_Name,
   }));
+  const [loading, setLoading] = useState(false);
+
 
   const specData = [
     { value: "", label: "Specialization" },
@@ -33,6 +38,13 @@ const AddDoctorModal = (props) => {
     })),
   ];
 
+  const AddedNotif = () => {
+    notifications.show({
+      title: "Doctor Added",
+      color: "dark",
+      autoClose: 2000,
+    });
+  };
   
 
   const [formData, setFormData] = useState({
@@ -128,7 +140,7 @@ const AddDoctorModal = (props) => {
       // Retrieve the token from local storage
       const token = localStorage.getItem("token");
       console.log(`token: ${token}`);
-
+      setLoading(true);
       // Send a POST request to the backend server
       axios
         .post(
@@ -164,11 +176,9 @@ const AddDoctorModal = (props) => {
             specialization: "",
             hmo: [],
           });
-        // Trigger the page reload
-        window.location.reload();
-           // Store the value in localStorage
-        localStorage.setItem("doctorAdded", "true");
-
+          props.setUpdate((prev)=>!prev);
+          AddedNotif();
+          setLoading(false);
         })
         .catch((error) => {
           // Handle any errors
@@ -184,6 +194,7 @@ const AddDoctorModal = (props) => {
           }
         });
     }
+
   };
 
   const formstyles = {
@@ -231,6 +242,7 @@ const AddDoctorModal = (props) => {
       keyboard={false}
       backdrop="static"
     >
+       <RequestLoadingOverlay loading={loading}>
       <Modal.Body style={{ margin: "5%", fontWeight: "600" }}>
         <div style={{ display: "flex", alignItems: "center" }} className="mb-3">
           <div style={{ flex: "1", textAlign: "center" }} className="ms-4">
@@ -404,6 +416,7 @@ const AddDoctorModal = (props) => {
           </Button>
         </div>
       </Modal.Body>
+      </RequestLoadingOverlay>
     </Modal>
   );
 };

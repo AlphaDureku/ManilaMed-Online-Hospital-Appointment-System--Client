@@ -4,10 +4,12 @@ import { useState } from "react";
 import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { IMaskInput } from "react-imask";
+import { notifications } from "@mantine/notifications";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 const AddSecModal = (props) => {
 
-
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -32,6 +34,14 @@ const AddSecModal = (props) => {
     password: false,
   });
 
+  
+  const AddedNotif = () => {
+    notifications.show({
+      title: "Secretary Added",
+      color: "dark",
+      autoClose: 2000,
+    });
+  };
   const [serverError, setServerError] = useState(null);
   const validateForm = () => {
     const errors = {};
@@ -86,7 +96,7 @@ const AddSecModal = (props) => {
       // Retrieve the token from local storage
       const token = localStorage.getItem("token");
       console.log(`token: ${token}`);
-
+      setLoading(true);
       // Send a POST request to the backend server
       axios
         .post(
@@ -108,7 +118,7 @@ const AddSecModal = (props) => {
         .then((response) => {
           // Handle the response from the server
           console.log(response.data);
-          handleCloseModal();
+           handleCloseModal();
           setFormData({
             firstName: "",
             lastName: "",
@@ -117,10 +127,11 @@ const AddSecModal = (props) => {
             username: "",
             password: "",
           });
-          // Trigger the page reload
-        window.location.reload();
-        // Store the value in localStorage
-        localStorage.setItem("secAdded", "true");
+          props.setUpdate((prev)=>!prev);
+          AddedNotif();
+          setLoading(false);
+
+
         })
         .catch((error) => {
           // Handle any errors
@@ -179,6 +190,7 @@ const AddSecModal = (props) => {
       keyboard={false}
       backdrop="static"
     >
+      <RequestLoadingOverlay loading={loading}>
       <Modal.Body style={{ margin: "5%", fontWeight: "600" }}>
         <div style={{ display: "flex", alignItems: "center" }} className="mb-3">
           <div style={{ flex: "1", textAlign: "center" }} className="ms-4">
@@ -306,6 +318,7 @@ const AddSecModal = (props) => {
           </Button>
         </div>
       </Modal.Body>
+      </RequestLoadingOverlay>
     </Modal>
   );
 };

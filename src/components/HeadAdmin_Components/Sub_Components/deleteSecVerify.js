@@ -2,9 +2,20 @@ import { Modal, CloseButton } from "react-bootstrap";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { useState } from "react";
 import axios from "axios";
+import { notifications } from "@mantine/notifications";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function DeleteSecVerificationModal(props) {
   const [doctorNames, setDoctorNames] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const Notif = () => {
+    notifications.show({
+      title: "Secretary Deleted",
+      color: "dark",
+      autoClose: 2000,
+    });
+  };
 
   const checkNurseBinding = async () => {
     const token = localStorage.getItem("token");
@@ -33,6 +44,7 @@ export default function DeleteSecVerificationModal(props) {
       } else {
         console.log(response);
       }
+
     } catch (error) {
       console.error(error);
     }
@@ -41,6 +53,7 @@ export default function DeleteSecVerificationModal(props) {
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
     const nurseId = props.selectedNurse.id;
+    setLoading(true);
 
     try {
       const response = await axios.post(
@@ -54,14 +67,16 @@ export default function DeleteSecVerificationModal(props) {
           },
         }
       );
-      // Trigger the page reload
-      window.location.reload();
-      // Store the value in localStorage
-      localStorage.setItem("deleteSuccess", "true");
+    
+      props.setUpdate((prev)=>!prev);
+      Notif();
+      setLoading(false);
+      handleDeleteClose();
+
+
     } catch (error) {
       console.error(error);
     }
-    handleDeleteClose();
   };
 
   function handleDeleteClose(){
@@ -80,6 +95,7 @@ export default function DeleteSecVerificationModal(props) {
         keyboard={false}
         backdrop="static"
       >
+        <RequestLoadingOverlay loading={loading}>
         <Modal.Body style={{ margin: "2%", fontWeight: "600" }}>
           <div
             style={{ display: "flex", alignItems: "center" }}
@@ -115,13 +131,14 @@ export default function DeleteSecVerificationModal(props) {
             }}
           >
             <BackProceed
-              leftButton={props.handleCloseModal}
+              leftButton={handleDeleteClose}
               rightButton={checkNurseBinding}
               redButtonText={"Cancel"}
               blueButtonText={"Delete"}
             />
           </div>
         </Modal.Body>
+        </RequestLoadingOverlay>
       </Modal>
     </>
   );

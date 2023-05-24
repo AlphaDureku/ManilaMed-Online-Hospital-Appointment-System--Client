@@ -3,6 +3,8 @@ import { TextInput, Select, Button, Alert } from "@mantine/core";
 import { IconAlertCircle, IconCheck } from '@tabler/icons-react';
 import { useState } from "react";
 import axios from "axios";
+import { notifications } from "@mantine/notifications";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 
 export default function  AddPairModal(props){
@@ -11,8 +13,16 @@ export default function  AddPairModal(props){
     const [selectedNurse, setSelectedNurse] = useState(null); 
     const [matchError, setMatchError] = useState(false);
     const [noSelectError, setNoSelectError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-
+    const Notif = () => {
+      notifications.show({
+        title: "Match Complete",
+        color: "dark",
+        autoClose: 2000,
+      });
+    };
+  
 
     const formstyles = {
         input: {
@@ -42,7 +52,7 @@ export default function  AddPairModal(props){
         else if (selectedNurse) {
           setNoSelectError(false);
 
-  
+            setLoading(true);
           try {
             const response = await axios.post( 
               process.env.REACT_APP_ONLINE +
@@ -58,11 +68,14 @@ export default function  AddPairModal(props){
               }
             );
             if (response.status === 200) {
+              props.setUpdate((prev)=>!prev);
+              Notif();
+              setLoading(false);
+              setSelectedNurse(null); 
               props.handleCloseModal();
-            // Trigger the page reload
-          window.location.reload();
-            // Store the value in localStorage
-        localStorage.setItem("pairSuccess", "true");
+
+
+
 
             } else {
               setMatchError(true);
@@ -85,6 +98,7 @@ export default function  AddPairModal(props){
         <>
         <Modal show={props.openModal} onHide={handleModalExit}
         centered size="lg" keyboard={false} backdrop="static">
+           <RequestLoadingOverlay loading={loading}>
         <Modal.Body style={{ margin: '5%', fontWeight: '600' }}>
         <div style={{ display: 'flex', alignItems: 'center' }} className="mb-">
           <div style={{ flex: '1', textAlign: 'center' }} className="ms-4">
@@ -142,7 +156,7 @@ export default function  AddPairModal(props){
            )}
         </div>
         </Modal.Body>
-
+        </RequestLoadingOverlay>
 
 
         </Modal>

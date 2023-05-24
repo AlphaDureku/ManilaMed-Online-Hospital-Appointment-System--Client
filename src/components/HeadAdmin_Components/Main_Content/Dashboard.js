@@ -8,11 +8,12 @@ export const DashboardContext = createContext();
 
 export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
+  const [update, setUpdate] = useState(false);
   
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [update]);
 
   const fetchData = async () => {
     try {
@@ -42,7 +43,9 @@ export default function Dashboard() {
       <div style={{ display: "grid", gridTemplateColumns: "auto 1fr" }}>
         <DashboardContext.Provider value={{ dashboardData }}>
           <HeadAdminNavbar />
-          <Content />
+          <Content 
+          setUpdate={setUpdate}
+          />
         </DashboardContext.Provider>
       </div>
     </>

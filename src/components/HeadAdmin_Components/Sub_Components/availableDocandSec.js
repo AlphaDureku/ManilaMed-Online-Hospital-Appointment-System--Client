@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import AddPairModal from "./addpairModal";
 import DeleteDoctorVerificationModal from "./deleteDoctorVerificationModal";
 import DeleteSecVerificationModal from "./deleteSecVerify";
+import EditSecInfo from "./editSecInfo";
 
 export default function AvailableDocandSec(props) {
   const [originalDoctorData, setOriginalDoctorData] = useState([]);
@@ -16,6 +17,7 @@ export default function AvailableDocandSec(props) {
   const [selectedNurse, setSelectedNurse] = useState('');
   const [docVerifyModal, setDocVerifyModal] = useState(false);
   const [secVerifyModal, setSecVerifyModal] = useState(false);
+  const [secEditModal, setSecEditModal] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedOption, setSelectedOption] = useState(() => {
     const savedSelectedOption = localStorage.getItem("selectedOption");
@@ -54,6 +56,15 @@ export default function AvailableDocandSec(props) {
 
   function CloseSecVerifyModal() {
     setSecVerifyModal(false);
+  }
+
+  function editSecModal(nurseId) {
+    setSelectedNurse({ id: nurseId });
+    setSecEditModal(true);
+  }
+
+  function closeEditSecModal() {
+    setSecEditModal(false);
   }
 
   useEffect(() => {
@@ -291,6 +302,8 @@ export default function AvailableDocandSec(props) {
                       borderRadius: "5px",
                       fontSize: "16px",
                     }}
+                    onClick={() => editSecModal(nurse.doctor_Secretary_ID)}
+
                   >
                     EDIT
                   </Button>
@@ -320,17 +333,31 @@ export default function AvailableDocandSec(props) {
           handleCloseModal={handleCloseModal}
           doctor={selectedDoctor}
           nurses={props.extractedNurses}
+          setUpdate={props.setUpdate}
+
         />
 
         <DeleteDoctorVerificationModal
           openModal={docVerifyModal}
           handleCloseModal={CloseDocVerifyModal}
           selectedDoctor={selectedDoctor}
+          setUpdate={props.setUpdate}
+
         />
          <DeleteSecVerificationModal
           openModal={secVerifyModal}
           handleCloseModal={CloseSecVerifyModal}
           selectedNurse={selectedNurse}
+          setUpdate={props.setUpdate}
+
+        />
+        <EditSecInfo
+        openModal={secEditModal}
+        handleCloseModal={closeEditSecModal}
+        selectedNurse={selectedNurse}
+        setUpdate={props.setUpdate}
+
+
         />
       </div>
       </div>

@@ -74,10 +74,14 @@ export default function AddDS (props) {
             <AddDoctorModal
                     show={modalShowDoc}
                     handleClose={closeConfirmModalDoc}
+                    setUpdate={props.setUpdate}
+
                 />
                  <AddSecModal
             showSec={modalShowSec}
             handleCloseSec={closeConfirmModalSec}
+            setUpdate={props.setUpdate}
+
         />
         </div>
 
