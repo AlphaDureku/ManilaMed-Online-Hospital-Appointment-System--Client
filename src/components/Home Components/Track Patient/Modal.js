@@ -32,6 +32,11 @@ export default function HomeModal(props) {
         inputOTP: enteredOTP,
         user_ID: props.user.user_ID,
       },
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      },
       { withCredentials: true }
     );
     const { isVerified, userToken } = res.data.data;

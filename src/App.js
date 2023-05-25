@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./pages/Admin";
