@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 import Modal from "./Modal";
 
 export default function TrackMe() {
-  axios.defaults.withCredentials = true;
   const [user, setUser] = useState({ email: "", user_ID: "" });
   const [show, setShow] = useState(false);
   const [submit, setSubmit] = useState(false);
@@ -38,21 +37,28 @@ export default function TrackMe() {
 
   async function sendOTP() {
     setLoading(true);
-    const res = await axios.post(
-      process.env.REACT_APP_ONLINE + "/trackMe",
-      {
-        email: user.email,
-      },
-      { withCredentials: true }
-    );
 
-    if (res.data.data.exist) {
-      setVerify((prev) => ({ ...prev, exist: true, otp: res.data.data.OTP }));
-      setUser((prev) => ({ ...prev, user_ID: res.data.data.user_ID }));
+    const response = await fetch(process.env.REACT_APP_ONLINE + "/trackMe", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: user.email,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.data.exist) {
+      setVerify((prev) => ({ ...prev, exist: true, otp: data.data.OTP }));
+      setUser((prev) => ({ ...prev, user_ID: data.data.user_ID }));
       setTimeout(() => {
         OTPNotif();
       }, 800);
     }
+
     setTimeout(() => {
       setLoading(false);
     }, 500);
