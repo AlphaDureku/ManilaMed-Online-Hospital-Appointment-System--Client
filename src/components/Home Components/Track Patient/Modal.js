@@ -36,8 +36,8 @@ export default function HomeModal(props) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      },
-      { withCredentials: true }
+        withCredentials: true,
+      }
     );
     const { isVerified, userToken } = res.data.data;
     if (isVerified) {

@@ -46,8 +46,8 @@ export default function TrackMe() {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      },
-      { withCredentials: true }
+        withCredentials: true,
+      }
     );
 
     if (res.data.data.exist) {
