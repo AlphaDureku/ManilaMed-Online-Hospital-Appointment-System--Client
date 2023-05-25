@@ -26,23 +26,29 @@ export default function HomeModal(props) {
   };
 
   const OnSubmitHandler = async () => {
-    axios.defaults.withCredentials = true;
-    const res = await axios.post(
-      process.env.REACT_APP_ONLINE + "/verifyOTP",
-      {
+    const response = await fetch(process.env.REACT_APP_ONLINE + "/verifyOTP", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         inputOTP: enteredOTP,
         user_ID: props.user.user_ID,
-      },
-      { withCredentials: true }
-    );
-    const { isVerified, userToken } = res.data.data;
+      }),
+    });
+
+    const data = await response.json();
+
+    const { isVerified, userToken } = data.data;
     if (isVerified) {
       props.setVerify((prev) => ({ ...prev, verified: true }));
-      //Send request that a user is verified create a session for that patient
+      // Send request that a user is verified create a session for that patient
       localStorage.setItem("userToken", userToken);
       navigate("/User");
       return;
     }
+
     setError(true);
     return;
   };
