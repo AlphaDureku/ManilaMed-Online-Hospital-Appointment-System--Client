@@ -37,28 +37,21 @@ export default function TrackMe() {
 
   async function sendOTP() {
     setLoading(true);
-
-    const response = await fetch(process.env.REACT_APP_ONLINE + "/trackMe", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    const res = await axios.post(
+      process.env.REACT_APP_ONLINE + "/trackMe",
+      {
         email: user.email,
-      }),
-    });
+      },
+      { withCredentials: true }
+    );
 
-    const data = await response.json();
-
-    if (data.data.exist) {
-      setVerify((prev) => ({ ...prev, exist: true, otp: data.data.OTP }));
-      setUser((prev) => ({ ...prev, user_ID: data.data.user_ID }));
+    if (res.data.data.exist) {
+      setVerify((prev) => ({ ...prev, exist: true, otp: res.data.data.OTP }));
+      setUser((prev) => ({ ...prev, user_ID: res.data.data.user_ID }));
       setTimeout(() => {
         OTPNotif();
       }, 800);
     }
-
     setTimeout(() => {
       setLoading(false);
     }, 500);

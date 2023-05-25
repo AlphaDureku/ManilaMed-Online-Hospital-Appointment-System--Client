@@ -34,7 +34,7 @@ export default function App() {
       gender: "",
     },
   });
-  axios.defaults.withCredentials = true;
+
   return (
     <AppointmentDetailsContext.Provider
       value={{ appointmentDetails, setAppointmentDetails }}
