@@ -26,6 +26,7 @@ export default function HomeModal(props) {
   };
 
   const OnSubmitHandler = async () => {
+    axios.defaults.withCredentials = true;
     const res = await axios.post(
       process.env.REACT_APP_ONLINE + "/verifyOTP",
       {

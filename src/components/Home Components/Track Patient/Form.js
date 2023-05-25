@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import Modal from "./Modal";
 
 export default function TrackMe() {
+  axios.defaults.withCredentials = true;
   const [user, setUser] = useState({ email: "", user_ID: "" });
   const [show, setShow] = useState(false);
   const [submit, setSubmit] = useState(false);
