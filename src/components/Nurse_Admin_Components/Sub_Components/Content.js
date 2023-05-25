@@ -149,7 +149,7 @@ export default function Content() {
           </div>
         </div>
         <div className="AppointmentTable">
-          <div>
+          <div className="AppointmentTable--Header">
             <div>
               <p style={{ color: "#434343" }}>Total Appointments</p>
 

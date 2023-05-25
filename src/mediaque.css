@@ -863,9 +863,6 @@
 }
 
 @media screen and (max-width: 800px) {
-  .adminMainContainer {
-    flex-direction: column-reverse;
-  }
   .Admin--Dashboard_Container {
     flex-direction: column;
     justify-content: start;
@@ -874,15 +871,23 @@
     width: 100%;
     height: 93.5vh;
   }
+  .adminMainContainer {
+    flex-direction: column-reverse;
+  }
   .Admin--SideBar {
     width: 100%;
     height: 6.5vh;
-    background-color: #00c2ff;
+    flex-direction: row;
+  }
+  .Admin--SideBar > div:nth-child(3) {
+    margin-top: 0;
+  }
+  .Admin--IconContainer {
+    margin: 0 auto;
+    width: 13%;
+    height: 45px;
   }
 
-  .Admin--Dashboard_Container .search-row {
-    height: 10%;
-  }
   .Admin--SelectDoctor {
     font-weight: 500;
   }
