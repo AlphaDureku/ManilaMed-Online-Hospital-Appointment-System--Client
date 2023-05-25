@@ -22,11 +22,11 @@ export default function LandingPage() {
     async function getData() {
       const res = await axios.get(
         process.env.REACT_APP_ONLINE + "/admin/nurse-dashboard",
+        { withCredentials: true },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          withCredentials: true,
         }
       );
       const { data } = res.data;
@@ -72,6 +72,7 @@ export default function LandingPage() {
     setSelectedDateRange(value);
     const res = await axios.get(
       process.env.REACT_APP_ONLINE + "/admin/change-dateRange",
+      { withCredentials: true },
       {
         params: {
           DateRange: value,
@@ -79,7 +80,6 @@ export default function LandingPage() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        withCredentials: true,
       }
     );
     const { data } = res.data;
@@ -91,6 +91,7 @@ export default function LandingPage() {
     setSelectedDoctor(value);
     const res = await axios.get(
       process.env.REACT_APP_ONLINE + "/admin/change-doctor",
+      { withCredentials: true },
       {
         params: {
           doctor_ID: value,
@@ -98,7 +99,6 @@ export default function LandingPage() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        withCredentials: true,
       }
     );
 

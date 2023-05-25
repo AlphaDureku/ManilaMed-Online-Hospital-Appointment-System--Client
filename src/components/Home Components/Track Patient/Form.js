@@ -39,10 +39,10 @@ export default function TrackMe() {
     setLoading(true);
     const res = await axios.post(
       process.env.REACT_APP_ONLINE + "/trackMe",
+      { withCredentials: true },
       {
         email: user.email,
-      },
-      { withCredentials: true }
+      }
     );
 
     if (res.data.data.exist) {
