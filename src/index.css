@@ -1,6 +1,6 @@
 body {
-  font-family: "Inter";
   box-sizing: border-box;
+  font-family: "Inter";
   margin: 0;
   padding: 0;
 }
@@ -10,8 +10,8 @@ body {
 /* Navbar */
 .navbarcontainer {
   background-color: #fff !important;
-  font-size: 16px;
   border-bottom: 1px solid #cbffd9;
+  font-size: 16px;
 }
 .navheader {
   margin-right: 55px;
@@ -31,10 +31,10 @@ select:focus {
 
 /* HeaderImg */
 .headerwave-container {
+  align-items: left;
   background: linear-gradient(180deg, #00c2ff, #5addee, #cbffd9);
   display: flex;
   flex-direction: column;
-  align-items: left;
   min-height: 30vh;
   padding-left: 10vw;
   padding-right: 10vw;
@@ -46,20 +46,20 @@ select:focus {
 }
 
 .homeinfo {
+  color: #388440;
   font-size: 50px;
   font-weight: 700;
-  color: #388440;
   margin-bottom: 35px;
 }
 
 .headermed-container {
-  background: url("./images/headermed3.png");
-  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
+  background: url("./images/headermed3.png");
   height: 58vh;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 
 .headerbutton {
@@ -67,51 +67,51 @@ select:focus {
 }
 
 .homefloatinginfo-container {
+  align-items: left;
   background: rgba(243, 243, 243, 0.9);
   border-radius: 20px;
-  height: 12vw;
-  width: 30vw;
-  position: absolute;
   bottom: 2vw;
-  right: 1.5vw;
-  left: auto;
-  top: auto;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
   display: flex;
   flex-direction: column;
-  align-items: left;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+  height: 12vw;
+  left: auto;
+  position: absolute;
+  right: 1.5vw;
+  top: auto;
+  width: 30vw;
 }
 
 .floatinginfotitle {
-  text-align: right;
+  color: #388440;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.5vw;
   font-weight: 600;
-  color: #388440;
-  margin-top: 1vw;
   margin-left: 1vw;
   margin-right: 1vw;
-  font-family: "Montserrat", sans-serif;
+  margin-top: 1vw;
+  text-align: right;
 }
 
 .floatinginfodescription {
+  color: #323232;
+  font-size: 0.88vw;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.88vw;
-  text-align: justify;
-  color: #323232;
   margin-left: 1vw;
   margin-right: 1vw;
+  text-align: justify;
 }
 
 /* HeaderImg */
 
 /* HowTo */
 #myCarousel {
+  color: #848484;
   font-size: 22px;
   font-weight: 500;
-  color: #848484;
-  text-align: center;
   padding-bottom: 20px;
+  text-align: center;
 }
 #howtobg {
   background: rgba(36, 183, 233, 0.15);
@@ -1465,6 +1465,7 @@ select {
   height: 6.5vh;
 }
 .adminMainContainer {
+  font-family: "Montserrat", sans-serif;
   display: flex;
   flex-direction: row;
   min-height: 93.5vh;
@@ -1483,6 +1484,7 @@ select {
   padding: 2% 0 2% 0;
   width: 4%;
   background-color: #00c2ff;
+  z-index: 99;
 }
 .Admin--IconContainer {
   display: flex;
@@ -1533,18 +1535,18 @@ select {
 }
 
 .Admin--SelectDoctor {
-  border-radius: 15px;
-  border: none;
-  width: max(150px, 16.5vw);
-  padding: 1% 4% 1% 1%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   appearance: none;
   background-image: url("./images/arrowdown.png"); /* Custom arrow icon */
-  background-repeat: no-repeat;
   background-position: 95% 55%;
+  background-repeat: no-repeat;
   background-size: 14px; /* Adjust the size of the arrow icon */
-  font-weight: 600;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: #434343;
+  font-weight: 600;
+  padding: 1% 4% 1% 1%;
+  width: max(150px, 16.5vw);
 }
 .search-row > div:nth-child(1) {
   width: 25%;
@@ -1558,42 +1560,84 @@ select {
   width: 95%;
 }
 .RightContent {
+  align-items: center;
+  background-color: #c3f0ff;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  border: 1px solid green;
+  justify-content: space-evenly;
   width: 35%;
 }
 
-.Admin--Dashboard_Container .Dashboard--Calendar {
-  border: 1px solid green;
-  height: 55%;
-  width: 95%;
+.Dashboard--Calendar {
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 52%;
+  width: 92%;
 }
-.Admin--Dashboard_Container .Dashboard--Data {
-  border: 1px solid black;
+.Dashboard--Calendar > div:nth-child(1) {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 4% 4% 0 4%;
+}
+.Dashboard--Calendar > div:nth-child(1) > h3 {
+  color: #434343;
+  font-size: min(1.2rem, 3.5vw);
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+.Dashboard--Calendar > div:nth-child(1) > button {
+  background-color: #29cc97;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: min(1rem, 3vw);
+  padding: 1% 4%;
+}
+.Dashboard--Calendar > div:nth-child(2) {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+.Dashboard--Data {
+  background-color: white;
+  border-radius: 15px;
   height: 40%;
-  width: 95%;
+  width: 92%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Dashboard--Data > button {
+  border-radius: 20px;
+  background-color: #29cc97;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: min(1rem, 3vw);
+  padding: 1% 4%;
 }
 
 .AppointmentTable {
-  font-family: "Inter", sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   background-color: white;
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  justify-content: space-around;
   padding: 1% 0 0 0;
 }
 
 .AppointmentTable > div:nth-child(1) {
-  height: 8%;
-  width: 95%;
   display: flex;
   flex-direction: row;
+  height: 8%;
   justify-content: center;
+  width: 95%;
 }
 
 .AppointmentTable > div:nth-child(1) > div > p {
@@ -1612,19 +1656,19 @@ select {
 }
 
 .DateRange {
-  border: none;
-  color: #2f9d44;
-  border-radius: 15px;
-  border: none;
-  width: max(120px, 8.5vw);
-  padding-right: 1%;
   appearance: none;
   background-image: url("./images/arrowdown.png"); /* Custom arrow icon */
-  background-repeat: no-repeat;
   background-position: 95% 55%;
+  background-repeat: no-repeat;
   background-size: min(1rem, 3vw);
-  font-weight: 600;
+  border-radius: 15px;
+  border: none;
+  border: none;
+  color: #2f9d44;
   color: #434343;
+  font-weight: 600;
+  padding-right: 1%;
+  width: max(120px, 8.5vw);
 }
 
 .AppointmentTable > div:nth-child(2) {

@@ -14,6 +14,7 @@ export default function LandingPage() {
   const [doctorList, setDoctorList] = useState([]);
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
+  const [calendarData, setCalendarData] = useState([]);
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
 
@@ -29,16 +30,17 @@ export default function LandingPage() {
         }
       );
       const { data } = res.data;
+      console.log(data);
       setDisplayedPatients(data.AppointmentsData);
       setDoctorList(data.DoctorData);
       setSelectedDoctor(data.DoctorData[0].doctor_ID);
+      setCalendarData(data.calendarData);
     }
     getData();
     // eslint-disable-next-line
   }, [update]);
 
   useEffect(() => {
-    // Count the number of appointments in each state and update state
     const newCounts = DisplayedPatients
       ? DisplayedPatients.reduce(
           (accumulator, currentValue) => {
@@ -153,7 +155,7 @@ export default function LandingPage() {
         />
       </div>
       <div className="RightContent">
-        <DashboardCalender />
+        <DashboardCalender calendarData={calendarData} />
         <InsertAppointment />
       </div>
     </div>

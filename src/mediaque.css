@@ -932,4 +932,13 @@
   .Admin--Flex > div:nth-child(2) {
     width: 80%;
   }
+
+  .RightContent {
+    padding: 5% 0;
+    gap: 5%;
+    height: 550px;
+  }
+  .Dashboard--Calendar > div:nth-child(2) {
+    margin: 5% 0;
+  }
 }
