@@ -1,13 +1,29 @@
+import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Dashboard from "../components/Nurse_Admin_Components/Main_Content/Dashboard";
+import Content from "../components/Nurse_Admin_Components/Main_Content/Content";
 import Login from "../components/Nurse_Admin_Components/Main_Content/Login";
 
+export const AdminPageContext = createContext();
 export default function Admin() {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const AdminPageContextObject = {
+    currentPage: currentPage,
+    setCurrentPage: setCurrentPage,
+  };
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <AdminPageContext.Provider value={AdminPageContextObject}>
+              <Content />
+            </AdminPageContext.Provider>
+          }
+        />
       </Routes>
     </>
   );

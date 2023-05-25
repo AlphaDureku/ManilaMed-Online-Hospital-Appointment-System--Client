@@ -2,16 +2,11 @@ import Modal from "react-bootstrap/Modal";
 import BackProceed from "./Buttons--BackProceed";
 
 const ConfirmModal = (props) => {
+  const { show, handleClose, title, handleSubmit, question } = props;
   return (
-    <Modal
-      show={props.show}
-      onHide={props.handleClose}
-      centered
-      size="md"
-      keyboard={false}
-    >
+    <Modal show={show} onHide={handleClose} centered size="md" keyboard={false}>
       <Modal.Header closeButton>
-        <Modal.Title>{props.title}</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body
         style={{
@@ -20,13 +15,13 @@ const ConfirmModal = (props) => {
           fontWeight: "600",
         }}
       >
-        {props.question}
+        {question}
       </Modal.Body>
       <Modal.Footer>
         <div className="confirmbuttonrow">
           <BackProceed
-            leftButton={props.handleClose}
-            rightButton={props.handleSubmit}
+            leftButton={handleClose}
+            rightButton={handleSubmit}
             redButtonText={"Cancel"}
             blueButtonText={"Confirm"}
           />

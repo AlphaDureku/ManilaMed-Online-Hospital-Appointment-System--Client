@@ -16,6 +16,7 @@ export default function App() {
     end_Time: "",
     patient_ID: "",
     appointment_ID: "",
+    email: "",
     doctor_info: {
       doctor_first_name: "",
       doctor_last_name: "",
@@ -32,7 +33,7 @@ export default function App() {
       gender: "",
     },
   });
-  console.table(appointmentDetails);
+
   return (
     <AppointmentDetailsContext.Provider
       value={{ appointmentDetails, setAppointmentDetails }}

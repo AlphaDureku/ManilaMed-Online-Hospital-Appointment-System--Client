@@ -1,11 +1,4 @@
-import {
-  Button,
-  Container,
-  Flex,
-  Input,
-  MantineProvider,
-  Space,
-} from "@mantine/core";
+import { Input, MantineProvider } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
 const MantineSearchBar = () => {

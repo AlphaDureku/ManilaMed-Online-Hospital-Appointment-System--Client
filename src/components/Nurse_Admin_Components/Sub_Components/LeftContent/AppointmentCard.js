@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AppointmentDetailsModal from "./Modals/AppointmentDetails";
+import AppointmentDetailsModal from "../Modals/AppointmentDetails";
 
 export default function Card(props) {
   const [showModal, setShowModal] = useState(false);

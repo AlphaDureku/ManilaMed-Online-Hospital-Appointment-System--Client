@@ -1,11 +1,14 @@
-import { Button, Tooltip } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
+import { useContext } from "react";
 import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { AppointmentDetailsContext } from "../../../../App";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-
 export default function AppointmentDetailsModal(props) {
   const { data, show, toggle, styles, setUpdate } = props;
+  const navigate = useNavigate();
+  const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const token = localStorage.getItem("nurseToken");
   const ButtonTextSelector = () => {
     if (data.Status === "Pending") {
@@ -15,6 +18,19 @@ export default function AppointmentDetailsModal(props) {
     } else {
       return "Rebook Appointment";
     }
+  };
+
+  const showNotification = (updateStatus) => {
+    notifications.show({
+      title: `Successfully ${updateStatus} Appointment!`,
+      color:
+        updateStatus === "Confirmed"
+          ? "teal"
+          : updateStatus === "Completed"
+          ? "blue"
+          : "red",
+      autoClose: 2000,
+    });
   };
 
   const headerColorSelector = () => {
@@ -34,6 +50,13 @@ export default function AppointmentDetailsModal(props) {
       return statusUpdater("Confirmed");
     } else if (data.Status === "Confirmed") {
       return statusUpdater("Completed");
+    } else {
+      setAppointmentDetails((prev) => ({
+        ...prev,
+        patient_ID: data.patient_ID,
+        email: data.email,
+      }));
+      navigate("/services/collect-info");
     }
   };
 
@@ -51,6 +74,8 @@ export default function AppointmentDetailsModal(props) {
       }
     );
     setUpdate((prev) => !prev);
+    showNotification(updateStatus);
+    toggle();
   };
 
   const modalBody = (
@@ -96,7 +121,7 @@ export default function AppointmentDetailsModal(props) {
       </div>
       <hr></hr>
       <div className="Admin--Flex">
-        <div className="">
+        <div className="Tracker--modal--patient-details">
           Status: <b>{data.Status}</b>
         </div>
         <div className="Admin--ButtonRow">

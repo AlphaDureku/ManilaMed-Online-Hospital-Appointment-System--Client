@@ -1470,7 +1470,7 @@ select {
   min-height: 93.5vh;
 }
 .Admin--Dashboard_Container {
-  width: 95%;
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: row;
@@ -1488,8 +1488,9 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 15% 0;
   width: 80%;
-  height: 60px;
+  height: 5%;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -1505,7 +1506,7 @@ select {
   margin-top: auto;
 }
 
-.Admin--Dashboard_Container > div:nth-child(1) {
+.LeftContent {
   width: 65%;
   display: flex;
   flex-direction: column;
@@ -1550,14 +1551,13 @@ select {
 }
 .search-row > div:nth-child(2) {
   width: 75%;
-
   text-align: end;
 }
 .Admin--Dashboard_Container .AppointmentTable {
   height: 88%;
   width: 95%;
 }
-.Admin--Dashboard_Container > div:nth-child(2) {
+.RightContent {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -1568,12 +1568,12 @@ select {
 
 .Admin--Dashboard_Container .Dashboard--Calendar {
   border: 1px solid green;
-  height: 65%;
+  height: 55%;
   width: 95%;
 }
 .Admin--Dashboard_Container .Dashboard--Data {
   border: 1px solid black;
-  height: 30%;
+  height: 40%;
   width: 95%;
 }
 
@@ -1585,6 +1585,7 @@ select {
   align-items: center;
   background-color: white;
   border-radius: 15px;
+  padding: 1% 0 0 0;
 }
 
 .AppointmentTable > div:nth-child(1) {
@@ -1632,7 +1633,6 @@ select {
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4%;
   font-size: 1.4rem;
 }
 
@@ -1640,12 +1640,12 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: max(100px, 10vw);
+  height: max(80px, 10vw);
   width: max(100px, 9vw);
   border-radius: 15%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-align: center;
-  font-size: min(1.1rem, 3.8vw);
+  font-size: min(1.1rem, 3vw);
 }
 .statusSelector > label:nth-child(1) > input + div {
   background-color: #ececec;
@@ -1680,6 +1680,8 @@ select {
 
 .statusSelector--label {
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .statusSelector--label > input:checked + div {
@@ -1727,7 +1729,7 @@ select {
 .Admin--CardContainer > div:nth-child(2) > button {
   border: none;
   padding: 2% 10%;
-  font-size: min(1.2rem, 2.8vw);
+  font-size: min(1rem, 2.8vw);
   border-radius: 30px;
   font-weight: 600;
 }
@@ -1750,4 +1752,22 @@ select {
 }
 .Admin--Flex > div:nth-child(2) > button {
   margin: 2%;
+}
+
+.Admin--ButtonRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Admin--ButtonRow > button {
+  font-size: min(0.9rem, 2.4vw);
+  border-radius: 20px;
+
+  width: 50%;
+}
+
+/**Nurse CSS Calendar Page**/
+.Admin--Calendar_Container {
+  border: 1px solid red;
+  margin-bottom: auto;
 }
