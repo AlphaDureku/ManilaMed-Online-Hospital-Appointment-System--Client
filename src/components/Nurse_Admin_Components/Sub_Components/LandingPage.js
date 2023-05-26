@@ -17,7 +17,7 @@ export default function LandingPage() {
   const [calendarData, setCalendarData] = useState([]);
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
-
+  axios.defaults.withCredentials = true;
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
@@ -30,7 +30,6 @@ export default function LandingPage() {
         }
       );
       const { data } = res.data;
-      console.log(data);
       setDisplayedPatients(data.AppointmentsData);
       setDoctorList(data.DoctorData);
       setSelectedDoctor(data.DoctorData[0].doctor_ID);

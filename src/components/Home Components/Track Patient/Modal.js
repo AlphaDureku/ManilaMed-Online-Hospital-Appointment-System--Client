@@ -33,9 +33,6 @@ export default function HomeModal(props) {
         user_ID: props.user.user_ID,
       },
       {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
         withCredentials: true,
       }
     );

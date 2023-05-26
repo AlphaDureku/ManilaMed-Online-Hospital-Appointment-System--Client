@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+axios.defaults.withCredentials = true;
 export default function Login() {
   const [credentials, setCredentials] = useState({
     username: "",
