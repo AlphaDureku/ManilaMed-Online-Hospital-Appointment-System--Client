@@ -41,4 +41,15 @@
      
    
   }
+
+  @media (max-width: 768px) {
+    .skeleton-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .skeleton-item {
+      width: 100%;
+    }
+  }
   

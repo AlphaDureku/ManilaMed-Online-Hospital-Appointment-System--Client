@@ -118,7 +118,6 @@
   background-color: #bfeeff;
 }
 .Head--Dashboard-right > div:nth-child(1) {
-  border: 1px solid red;
   height: 65%;
   width: 95%;
 }
@@ -195,6 +194,7 @@
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 .selectObject {
   width: 250px;
@@ -239,4 +239,95 @@
 
 .edit-NurseInfo:hover {
   cursor: pointer;
+}
+
+.skeleton-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.skeleton-item {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+
+
+.noDocSecCard{
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  font-size: 20px;
+  color: #212529;
+  font-weight: 600;
+  margin-top: 30px !important;
+
+}
+
+.updatepair-container{
+  background-color: #ffff;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.updatelist{
+  background-color: rgba(217, 217, 217, 0.3);
+  width: 95%;
+  height: 460px;
+  border-radius: 10px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  padding: 15px;
+
+}
+.upcontainer{
+  display: flex;
+  width: 95%;
+}
+
+
+.update-tag{
+width: 40%;
+}
+
+.update-search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+
+.docwithsec-container{
+  background: #d9d9d9;
+  border-bottom: 1px solid #848484;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.mantine-18jomfw{
+  font-weight: 500;
+}
+
+.mantine-731ldn{
+  font-weight: 500;
+  color: #848484;
+}
+
+.secretaryupdate-containerlist{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

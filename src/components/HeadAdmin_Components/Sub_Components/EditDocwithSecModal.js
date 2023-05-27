@@ -1,21 +1,24 @@
+import { Modal, CloseButton, Col, Row } from "react-bootstrap";
 import { Alert, Button, Select, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { IconAlertCircle, IconCheck } from "@tabler/icons-react";
-import axios from "axios";
-import { useState } from "react";
-import { CloseButton, Col, Modal, Row } from "react-bootstrap";
+import { IconAlertCircle } from "@tabler/icons-react";
+import { useState, useEffect } from "react";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
+import axios from "axios";
 
-export default function AddPairModal(props) {
-  const formDoctorName = props.doctor
-    ? props.doctor.fname + ", " + props.doctor.lname
+export default function EditDocwithSecModal(props) {
+  const formDoctorName = props.selectedDoctor
+    ? props.selectedDoctor.dfname + ", " + props.selectedDoctor.dlname
     : "";
-  const [selectedNurse, setSelectedNurse] = useState(null);
+
+  const [selectedNurse, setSelectedNurse] = useState();
   const [matchError, setMatchError] = useState(false);
   const [noSelectError, setNoSelectError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [originalNurse, setOriginalNurse] = useState();
+  const [networkError, setNetworkError] = useState(false);
 
-  const Notif = () => {
+  const MatchNotif = () => {
     notifications.show({
       title: "Match Complete",
       color: "dark",
@@ -23,17 +26,11 @@ export default function AddPairModal(props) {
     });
   };
 
-  const formstyles = {
-    input: {
-      borderColor: "rgba(0, 0, 0, 0.5)",
-      cursor: "pointer",
-      boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-      "&:focus": {
-        borderColor: "#80bdff",
-        boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
-      },
-    },
-  };
+  useEffect(() => {
+    setSelectedNurse(props.selectedDoctor.nurseid);
+    setOriginalNurse(props.selectedDoctor.nurseid);
+  }, [props.selectedDoctor.nurseid]);
+
   const nurseOptions =
     props.nurses && props.nurses.length > 0
       ? props.nurses.map((nurse) => ({
@@ -44,14 +41,18 @@ export default function AddPairModal(props) {
 
   const handleMatch = async () => {
     const token = localStorage.getItem("token");
-    const doctorId = props.doctor ? props.doctor.id : "";
+    const doctorId = props.selectedDoctor.doctorid;
 
     if (!selectedNurse) {
       setNoSelectError(true);
-    } else if (selectedNurse) {
+    } else if (selectedNurse === originalNurse) {
+      setMatchError(true);
+    } else {
       setNoSelectError(false);
-
+      setMatchError(false);
       setLoading(true);
+      setNetworkError(false);
+
       try {
         const response = await axios.post(
           process.env.REACT_APP_ONLINE + "/head-admin/match-doctor",
@@ -67,7 +68,7 @@ export default function AddPairModal(props) {
         );
         if (response.status === 200) {
           props.setUpdate((prev) => !prev);
-          Notif();
+          MatchNotif();
           setLoading(false);
           setSelectedNurse(null);
           props.handleCloseModal();
@@ -76,15 +77,28 @@ export default function AddPairModal(props) {
         }
       } catch (error) {
         console.error(error);
-        setMatchError(true);
+        setNetworkError(true);
       }
     }
+  };
+
+  const formstyles = {
+    input: {
+      borderColor: "rgba(0, 0, 0, 0.5)",
+      cursor: "pointer",
+      boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+      "&:focus": {
+        borderColor: "#80bdff",
+        boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
+      },
+    },
   };
 
   function handleModalExit() {
     setMatchError(false);
     setNoSelectError(false);
-    setSelectedNurse(" ");
+    setSelectedNurse(props.selectedDoctor.nurseid);
+    setNetworkError(false);
     props.handleCloseModal();
   }
 
@@ -104,57 +118,58 @@ export default function AddPairModal(props) {
               style={{ display: "flex", alignItems: "center" }}
               className="mb-"
             >
-              <div style={{ flex: "1", textAlign: "center" }} className="ms-4">
-                PAIRING
+              <div style={{ flex: "1", textAlign: "center" }} className="ms-5">
+                UPDATE PAIRING
               </div>
               <div style={{ marginLeft: "auto" }}>
                 <CloseButton onClick={handleModalExit} />
               </div>
             </div>
-            <div className="addpair-body ">
-              <Row className="mt-4 mb-3">
-                <Col>
+            <div className="mt-4">
+              <Row>
+                <Col md={6}>
                   <TextInput
+                    id="doctorName"
                     value={formDoctorName}
-                    styles={formstyles}
                     readOnly
+                    styles={formstyles}
                     label="Doctor:"
                   />
                 </Col>
-                <Col>
+                <Col md={6}>
                   <Select
-                    placeholder="Select Secretary"
-                    label="Secretary:"
-                    searchable
-                    clearable
-                    styles={formstyles}
-                    data={nurseOptions}
-                    onChange={(value) => setSelectedNurse(value)}
+                    id="nurseSelect"
                     value={selectedNurse}
+                    onChange={(value) => setSelectedNurse(value)}
+                    placeholder="Select nurse"
+                    data={nurseOptions}
+                    styles={formstyles}
+                    label="Nurse:"
+                    clearable
                   />
                 </Col>
               </Row>
-              <Row className="m-auto">
-                <Button
-                  onClick={handleMatch}
-                  style={{
-                    backgroundColor: "#E0F7FF",
-                    color: "#000",
-                    boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    border: " 1px solid #ced4da",
-                    borderRadius: "5px",
-                  }}
-                >
-                  {" "}
-                  MATCH
-                </Button>
-              </Row>
+            </div>
 
+            <div className="mt-3">
+              <Button
+                onClick={handleMatch}
+                fullWidth
+                style={{
+                  backgroundColor: "#E0F7FF",
+                  color: "#000",
+                  boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
+                  border: " 1px solid #ced4da",
+                  borderRadius: "5px",
+                }}
+              >
+                Update Pairing
+              </Button>
               {matchError && (
                 <Row className="mt-3 m-auto">
                   <Alert
                     icon={<IconAlertCircle size="1rem" />}
-                    title="Match Error"
+                    title="No changes made"
                     color="red"
                     style={{
                       display: "flex",
@@ -169,7 +184,22 @@ export default function AddPairModal(props) {
                 <Row className="mt-3 m-auto">
                   <Alert
                     icon={<IconAlertCircle size="1rem" />}
-                    title="Please Select a secratary"
+                    title="Please select a secretary"
+                    color="red"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "40px",
+                    }}
+                  />
+                </Row>
+              )}
+              {networkError && (
+                <Row className="mt-3 m-auto">
+                  <Alert
+                    icon={<IconAlertCircle size="1rem" />}
+                    title="Network Error. Please try again later."
                     color="red"
                     style={{
                       display: "flex",

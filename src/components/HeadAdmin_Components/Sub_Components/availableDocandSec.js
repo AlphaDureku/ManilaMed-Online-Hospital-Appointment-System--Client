@@ -6,6 +6,7 @@ import AddPairModal from "./addpairModal";
 import DeleteDoctorVerificationModal from "./deleteDoctorVerificationModal";
 import DeleteSecVerificationModal from "./deleteSecVerify";
 import EditSecInfo from "./editSecInfo";
+import RequestLoadingSkeleton from "./RequestLoadingSkeleton";
 
 export default function AvailableDocandSec(props) {
   const [originalDoctorData, setOriginalDoctorData] = useState([]);
@@ -28,6 +29,8 @@ export default function AvailableDocandSec(props) {
     console.log(savedSortOption);
     return savedSortOption ? String(savedSortOption) : "1";
   });
+  const [loading, setLoading] = useState(false);
+
 
 
   function handleOpenModal(doctorId, DLname, DFname) {
@@ -68,8 +71,12 @@ export default function AvailableDocandSec(props) {
   }
 
   useEffect(() => {
+    setLoading(true);
     setOriginalDoctorData(props.extractedDoctorData);
     setOriginalNurses(props.extractedNurses);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, [props.extractedDoctorData, props.extractedNurses]);
 
   useEffect(() => {
@@ -78,6 +85,7 @@ export default function AvailableDocandSec(props) {
       setSortedNursesData(props.extractedNurses);
     } else {
       setSortedDoctorData([]);
+
     }
   }, [props.extractedDoctorData, props.extractedNurses, selectedOption]);
 
@@ -236,11 +244,14 @@ export default function AvailableDocandSec(props) {
         </Row>
       </Container>
 
-      <div className="availableDoctorandSecList mb-2">
-  
-
-        {selectedOption === "1" ? (
-          filteredDoctorData.map((doctor) => (
+        <div className="availableDoctorandSecList mb-2">
+  {loading ? (
+    <RequestLoadingSkeleton />
+  ) : (
+    <div>
+      {selectedOption === "1" ? (
+        <>
+          {filteredDoctorData.map((doctor) => (
             <div key={doctor.doctor_ID} className="docandseccontainer mt-2 ms-2 me-2">
               <div className="docandsecrow ">
                 <Col className="docandsecContent" style={{ fontSize: "16px", fontWeight: "600" }}>
@@ -257,10 +268,10 @@ export default function AvailableDocandSec(props) {
                       color: "#848484",
                       borderRadius: "5px",
                       fontSize: "16px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+
                     }}
-                    onClick={() =>
-                      handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)
-                    }
+                    onClick={() => handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)}
                   >
                     ADD PAIR
                   </Button>
@@ -274,6 +285,8 @@ export default function AvailableDocandSec(props) {
                       color: "#848484",
                       borderRadius: "5px",
                       fontSize: "16px",
+                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+
                     }}
                     onClick={() => handleDocVerifyModal(doctor.doctor_ID)}
                   >
@@ -282,59 +295,70 @@ export default function AvailableDocandSec(props) {
                 </Col>
               </div>
             </div>
-          ))
-        ) : (
-          filteredNursesData.map((nurse) => (
-            <div key={nurse.doctor_Secretary_ID} className="docandseccontainer mt-2 ms-2 me-2">
-              <div className="docandsecrow">
-                <Col className="docandsecContent" style={{ fontSize: "16px", fontWeight: "600" }}>
-                  {nurse.doctor_Secretary_last_name}
-                  {", "}
-                  {nurse.doctor_Secretary_first_name}
-                </Col>
-                <Col className="docandsecContent" style={{ alignSelf: "flex-end", display: "flex" }}>
-                  <Button
-                    variant="default"
-                    leftIcon={<IconEdit />}
-                    style={{
-                      width: "80%",
-                      color: "#848484",
-                      borderRadius: "5px",
-                      fontSize: "16px",
-                    }}
-                    onClick={() => editSecModal(nurse.doctor_Secretary_ID)}
+          ))}
+          {filteredDoctorData.length === 0 && <div className="noDocSecCard ms-2 mt-2 me-2">No available doctor</div>}
+        </>
+      ) : (
+        <>
+          {filteredNursesData.length > 0 ? (
+            filteredNursesData.map((nurse) => (
+              <div key={nurse.doctor_Secretary_ID} className="docandseccontainer mt-2 ms-2 me-2">
+                <div className="docandsecrow">
+                  <Col className="docandsecContent" style={{ fontSize: "16px", fontWeight: "600" }}>
+                    {nurse.doctor_Secretary_last_name}
+                    {", "}
+                    {nurse.doctor_Secretary_first_name}
+                  </Col>
+                  <Col className="docandsecContent" style={{ alignSelf: "flex-end", display: "flex" }}>
+                    <Button
+                      variant="default"
+                      leftIcon={<IconEdit />}
+                      style={{
+                        width: "80%",
+                        color: "#848484",
+                        borderRadius: "5px",
+                        fontSize: "16px",
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
 
-                  >
-                    EDIT
-                  </Button>
-                </Col>
-                <Col className="" style={{ marginTop: "1%", marginBottom: "1%" }}>
-                  <Button
-                    variant="default"
-                    leftIcon={<IconX />}
-                    style={{
-                      width: "80%",
-                      color: "#848484",
-                      borderRadius: "5px",
-                      fontSize: "16px",
-                    }}
-                    onClick={() => handleSecVerifyModal(nurse.doctor_Secretary_ID)}
-                  >
-                    DELETE
-                  </Button>
-                </Col>
+                      }}
+                      onClick={() => editSecModal(nurse.doctor_Secretary_ID)}
+                    >
+                      EDIT
+                    </Button>
+                  </Col>
+                  <Col className="" style={{ marginTop: "1%", marginBottom: "1%" }}>
+                    <Button
+                      variant="default"
+                      leftIcon={<IconX />}
+                      style={{
+                        width: "80%",
+                        color: "#848484",
+                        borderRadius: "5px",
+                        fontSize: "16px",
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+
+                      }}
+                      onClick={() => handleSecVerifyModal(nurse.doctor_Secretary_ID)}
+                    >
+                      DELETE
+                    </Button>
+                  </Col>
+                </div>
               </div>
-            </div>
-          ))
-        )}
-
+            ))
+          ) : (
+            <div className="noDocSecCard ms-2 mt-2 me-2">No available secretary</div>
+          )}
+        </>
+      )}
+    </div>
+      )}
         <AddPairModal
           openModal={openModal}
           handleCloseModal={handleCloseModal}
           doctor={selectedDoctor}
           nurses={props.extractedNurses}
           setUpdate={props.setUpdate}
-
         />
 
         <DeleteDoctorVerificationModal
@@ -342,24 +366,25 @@ export default function AvailableDocandSec(props) {
           handleCloseModal={CloseDocVerifyModal}
           selectedDoctor={selectedDoctor}
           setUpdate={props.setUpdate}
-
         />
-         <DeleteSecVerificationModal
+
+        <DeleteSecVerificationModal
           openModal={secVerifyModal}
           handleCloseModal={CloseSecVerifyModal}
           selectedNurse={selectedNurse}
           setUpdate={props.setUpdate}
-
         />
+
         <EditSecInfo
-        openModal={secEditModal}
-        handleCloseModal={closeEditSecModal}
-        selectedNurse={selectedNurse}
-        setUpdate={props.setUpdate}
-
-
+          openModal={secEditModal}
+          handleCloseModal={closeEditSecModal}
+          selectedNurse={selectedNurse}
+          setUpdate={props.setUpdate}
         />
       </div>
+
+
+    
       </div>
       </div>
     </>

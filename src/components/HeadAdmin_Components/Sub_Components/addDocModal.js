@@ -79,37 +79,37 @@ const AddDoctorModal = (props) => {
 
   const validateForm = () => {
     const errors = {};
-
-    // Check if firstName is empty
-    if (formData.firstName.trim() === "") {
+  
+    // Check if firstName is empty or contains numbers
+    if (formData.firstName.trim() === "" || /\d/.test(formData.firstName)) {
       errors.firstName = true;
     }
-
-    // Check if lastName is empty
-    if (formData.lastName.trim() === "") {
+  
+    // Check if lastName is empty or contains numbers
+    if (formData.lastName.trim() === "" || /\d/.test(formData.lastName)) {
       errors.lastName = true;
     }
-
+  
     // Check if gender is empty
     if (formData.gender === "") {
       errors.gender = true;
     }
-
+  
     // Check if specialization is empty
     if (formData.specialization === "") {
       errors.specialization = true;
     }
-
+  
     // Check if hmo is empty
     if (formData.hmo.length === 0) {
       errors.hmo = true;
     }
-
+  
     // Check if email is empty or doesn't match the required format
     if (formData.email.trim() === "" || !/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = true;
     }
-
+  
     // Check if contactNumber is empty or less than 12 digits
     if (
       formData.contactNumber.trim() === "" ||
@@ -117,33 +117,29 @@ const AddDoctorModal = (props) => {
     ) {
       errors.contactNumber = true;
     }
-
+  
     // Check if roomNumber is empty
     if (formData.roomNumber.trim() === "") {
       errors.roomNumber = true;
     }
-
+  
     setFormErrors(errors);
-
+  
     // Return true if there are no errors
     return Object.values(errors).every((error) => !error);
   };
+  
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Validate the form
+  
     if (validateForm()) {
-      // Form is valid, proceed with submission
-
-      // Retrieve the token from local storage
+  
       const token = localStorage.getItem("token");
-      console.log(`token: ${token}`);
       setLoading(true);
-      // Send a POST request to the backend server
-      axios
-        .post(
+      try {
+        const response = await axios.post(
           process.env.REACT_APP_ONLINE + "/head-admin/add-doctor",
           {
             Fname: formData.firstName,
@@ -160,12 +156,12 @@ const AddDoctorModal = (props) => {
               Authorization: `Bearer ${token}`,
             },
           }
-        )
-        .then((response) => {
-          // Handle the response from the server
-          console.log(response.data);
+        );
+        console.log(response.data);
+        if (response.data.data === true) {
           handleCloseModal();
           setServerError("");
+          setFormErrors(false)
           setFormData({
             firstName: "",
             lastName: "",
@@ -176,26 +172,24 @@ const AddDoctorModal = (props) => {
             specialization: "",
             hmo: [],
           });
-          props.setUpdate((prev)=>!prev);
+          props.setUpdate((prev) => !prev);
           AddedNotif();
-          setLoading(false);
-        })
-        .catch((error) => {
-          // Handle any errors
-          console.error(error);
-          if (
-            error.response &&
-            error.response.data &&
-            error.response.data.message
-          ) {
-            setServerError(error.response.data.message);
-          } else {
-            setServerError("An error occurred. Please try again later.");
-          }
-        });
+        } else {
+          setFormErrors((prevErrors) => ({
+            ...prevErrors,
+            email: "Email already in use",
+          }));
+        }
+      } catch (error) {
+        console.error(error);
+        setServerError("An error occurred. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
     }
-
   };
+  
+  
 
   const formstyles = {
     input: {
@@ -272,7 +266,8 @@ const AddDoctorModal = (props) => {
               value={formData.firstName}
               onChange={handleChange}
               styles={formstyles}
-              error={formErrors.firstName}
+              error={formErrors.firstName && "Invalid First Name"}
+
             />
           </Input.Wrapper>
           <Input.Wrapper label="Last Name" className="mb-2">
@@ -282,7 +277,7 @@ const AddDoctorModal = (props) => {
               value={formData.lastName}
               onChange={handleChange}
               styles={formstyles}
-              error={formErrors.lastName}
+              error={formErrors.lastName && "Invalid Last Name"}
             />
           </Input.Wrapper>
           <Input.Wrapper label="Gender" className="mb-2">
@@ -342,7 +337,8 @@ const AddDoctorModal = (props) => {
               value={formData.email}
               onChange={handleChange}
               styles={formstyles}
-              error={formErrors.email && "Invalid email."}
+              error={formErrors.email && (formErrors.email === true ? "Invalid email." : "Email already in use")}
+
             />
           </Input.Wrapper>
           <Input.Wrapper label="Contact Number" className="mb-2">

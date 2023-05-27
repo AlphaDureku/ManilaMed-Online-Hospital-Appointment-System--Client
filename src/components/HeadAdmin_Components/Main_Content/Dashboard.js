@@ -1,15 +1,16 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Navbar from "../NavBar/NavBar";
 import Content from "../Sub_Components/Content";
 import HeadAdminNavbar from "../Sub_Components/headAdminNav";
+
+
 
 export const DashboardContext = createContext();
 
 export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
   const [update, setUpdate] = useState(false);
-  
 
   useEffect(() => {
     fetchData();
@@ -34,18 +35,17 @@ export default function Dashboard() {
     }
   };
 
-  
 
   return (
     <>
+   
       <Navbar />
-
       <div style={{ display: "grid", gridTemplateColumns: "auto 1fr" }}>
         <DashboardContext.Provider value={{ dashboardData }}>
           <HeadAdminNavbar />
-          <Content 
-          setUpdate={setUpdate}
-          />
+       
+            <Content setUpdate={setUpdate} />
+        
         </DashboardContext.Provider>
       </div>
     </>
