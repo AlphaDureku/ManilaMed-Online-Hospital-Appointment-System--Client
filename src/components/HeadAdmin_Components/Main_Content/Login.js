@@ -1,4 +1,4 @@
-import { Button, PasswordInput, TextInput } from "@mantine/core";
+import { Button, Loader, PasswordInput, TextInput } from "@mantine/core";
 import axios from "axios";
 import {
   MDBCard,
@@ -19,6 +19,8 @@ export default function LoginPage() {
     password: "",
   });
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   const onChangeHandler = (event) => {
     setError(false);
@@ -29,6 +31,8 @@ export default function LoginPage() {
   };
 
   const onSubmitHandler = async (event) => {
+    setError(false);
+    setLoading(true);
     event.preventDefault();
     const { data } = await axios.post(
       process.env.REACT_APP_ONLINE + "/head-admin/login",
@@ -41,6 +45,8 @@ export default function LoginPage() {
     } else {
       setError(true);
     }
+    setLoading(false);
+
   };
   return (
     <div className="login--wrapper">
@@ -121,6 +127,18 @@ export default function LoginPage() {
                 ) : (
                   ""
                 )}
+                <div className="loadingContainer">
+                {loading ? (
+                  <Loader
+                    size={"sm"}
+                    color={"teal"}
+                    className="smallLoadingHead"
+                  ></Loader>
+                ) : (
+                  ""
+                )}
+                </div>
+                
               </MDBCardBody>
             </MDBCol>
           </MDBRow>

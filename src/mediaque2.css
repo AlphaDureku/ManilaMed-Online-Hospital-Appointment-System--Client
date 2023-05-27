@@ -10,6 +10,7 @@
     .Head--DashboardContainer {
       flex-direction: column;
       align-items: stretch;
+   
     }
     .Head--DashboardContainer > div:nth-child(1),
     .Head--DashboardContainer > div:nth-child(2) {
@@ -31,15 +32,23 @@
       .Head--Dashboard-right > div:nth-child(1){
         width: 95%;
         height: 50%;
+        margin-top: 30px;
       }
 
       .Head--Dashboard-right > div:nth-child(2){
         width: 95%;
         height: 50%;
+        margin-top: 25px;
+        margin-bottom: 15px;
+      }
+      .updatelist{
+      margin-bottom: 20px;
+      
       }
 
-     
-   
+      .availableDoctorandSecList {
+       margin-top: 8px;
+      }
   }
 
   @media (max-width: 768px) {
@@ -53,3 +62,65 @@
     }
   }
   
+
+  @media screen and (max-width: 800px) {
+    .HeadAdmin--Dashboard_Container {
+      flex-direction: column;
+      justify-content: start;
+    }
+    .HeadAdmin--Dashboard_Container {
+      width: 100%;
+      height: 1000px;
+    }
+    .HeadadminMainContainer {
+      flex-direction: column-reverse;
+      min-height: 100vh;
+    }
+    .HeadAdmin--SideBar {
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      flex-direction: row;
+    }
+    .HeadAdmin--SideBar > div:nth-child(3) {
+      margin-top: 0;
+    }
+    .HeadAdmin--IconContainer {
+      margin: 0 auto;
+      width: 13%;
+      height: 45px;
+    }
+    .headAdmin-upContainer{
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .headAdmin-UpDownContainer {
+      margin-bottom: 25px;
+    }
+
+   
+  }
+  
+@media screen and (max-width: 760px) {
+  .headdashboard-filter{
+    display: flex !important ;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0;
+  }
+  
+.headNav {
+  padding-bottom: 50px;
+}
+
+  .update-tag{
+  width: 40%;
+  margin-right: 10%;
+  margin-left: 10px;
+  }
+ 
+}
+

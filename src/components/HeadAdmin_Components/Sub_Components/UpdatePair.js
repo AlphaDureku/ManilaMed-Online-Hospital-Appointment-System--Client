@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import  { useState, useEffect } from "react";
 import { TextInput, Accordion, Button } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import EditDocwithSec from "./EditDocwithSecModal";
 import RemovePairing from "./removePairing";
+import LoadingSkeleton from "./loadingskeleton";
 export default function UpdatePair(props) {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [openModal, setOpenModal] = useState(false);
     const [openRemoveModal, setOpenRemoveModal] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState("")
+    const [showLoadingSkeleton, setShowLoadingSkeleton] = useState(true);
+
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        setShowLoadingSkeleton(false);
+      }, 1000); 
+  
+      return () => clearTimeout(timeout);
+    }, []);
 
     function handleOpenModal(
       doctor_ID,
@@ -74,18 +84,21 @@ export default function UpdatePair(props) {
     )
     .sort((a, b) => a.DLname.localeCompare(b.DLname));
 
+    const totalDoctors = sortedDoctors.length;
+
+
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
 
   return (
     <>
-      <div className="updatepair-container">
-        <div className="upcontainer mb-4">
-          <div className="update-tag">
-            <span className="ms-1">Doctors with Secretary</span>
+      <div className="updatepair-container ">
+        <div className="upcontainer mb-4 mt-3">
+          <div className="update-tag ">
+            <span className="">Doctors with Secretary</span>
             <br />
-            <span className="ms-1">Total: </span>
+            <span className="">Total: {totalDoctors} </span>
           </div>
           <div className="update-search">
             <TextInput
@@ -99,8 +112,11 @@ export default function UpdatePair(props) {
             />
           </div>
         </div>
-
+      
         <div className="updatelist">
+            {showLoadingSkeleton ? (
+        <LoadingSkeleton />
+      ) : (
           <Accordion
             variant="separated"
             defaultValue="doctorswithsec"
@@ -124,14 +140,18 @@ export default function UpdatePair(props) {
                 <Accordion.Panel>
                   <div className="secretaryupdate-containerlist">
                     Secretary: {doctor.nurse_Lname}, {doctor.nurse_Fname}
+                  <div className="update-buttoncontainer">
                     <Button
                       style={{
-                        width: "20%",
+                        width: "100%",
                         marginTop: "10px",
                         backgroundColor: "#ffffff",
                         border: "1px solid #000",
                         color: "#000000",
                         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        fontSize: "min(0.9rem, 3.4vw)",
+
+
                       }}
                       onClick={() => handleOpenModal(doctor.doctor_ID, doctor.DLname, doctor.DFname,  doctor.nurse_ID, doctor.nurse_Lname, doctor.nurse_Fname)}
                     >
@@ -139,24 +159,29 @@ export default function UpdatePair(props) {
                     </Button>
                     <Button
                       style={{
-                        width: "20%",
+                        width: "100%",
                         marginTop: "10px",
                         backgroundColor: "#ffffff",
                         border: "1px solid #000",
                         color: "#000000",
                         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        fontSize: "min(0.9rem, 3.4vw)",
+
+
                       }}
                       onClick={() => handleOpenRemoveModal(doctor.doctor_ID)}
                     >
                       Remove
                     </Button>
-              
+                    </div>
                   </div>
                 </Accordion.Panel>
               </Accordion.Item>
             ))}
           </Accordion>
+           )}
         </div>
+     
       </div>
 
 

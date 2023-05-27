@@ -11,7 +11,7 @@ export default function Content(props) {
   const nurses = dashboardData?.dashboardData?.data?.NurseLists || [];
   const doctorsWithSec = dashboardData?.dashboardData?.data?.DoctorsWithNurses || [];
 
-  
+   
   const extractedDoctorData = doctorsWithoutSec.map((doctor) => {
     const { DFname, DLname, doctor_ID, date_added } = doctor;
     return { DFname, DLname, doctor_ID, date_added };
@@ -60,7 +60,7 @@ export default function Content(props) {
             extractedDoctorWithNursesData= {extractedDoctorWithNursesData}
             extractedNurses={extractedNurses}
             setUpdate={props.setUpdate}
-
+            loading={props.loading}
 
             />
           </div>

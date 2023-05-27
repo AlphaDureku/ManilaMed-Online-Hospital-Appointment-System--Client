@@ -7,6 +7,7 @@ import DeleteDoctorVerificationModal from "./deleteDoctorVerificationModal";
 import DeleteSecVerificationModal from "./deleteSecVerify";
 import EditSecInfo from "./editSecInfo";
 import RequestLoadingSkeleton from "./RequestLoadingSkeleton";
+import { useMediaQuery } from "@mantine/hooks";
 
 export default function AvailableDocandSec(props) {
   const [originalDoctorData, setOriginalDoctorData] = useState([]);
@@ -30,6 +31,8 @@ export default function AvailableDocandSec(props) {
     return savedSortOption ? String(savedSortOption) : "1";
   });
   const [loading, setLoading] = useState(false);
+  const breakPointMobile = useMediaQuery("(max-width: 650px)");
+
 
 
 
@@ -198,15 +201,15 @@ export default function AvailableDocandSec(props) {
     </div>
 
     <div className="headAdmin-downContainer">
-      <Container className="mb-1 mt-2 ">
+      <Container className="mb-1 mt-2 headdashboard-filter">
         <Row>
-          <Col>
-            <select className="form-select ms-4 selectObject" onChange={handleOptionChange} value={selectedOption}>
+          <Col className="headdashboard-filter">
+            <select className="form-select  selectObject" onChange={handleOptionChange} value={selectedOption}>
               <option value="1">Available Doctors</option>
               <option value="2">Available Secretary</option>
             </select>
           </Col>
-          <Col>
+          <Col className="headdashboard-filter">
             <Chip.Group>
               <Group position="center" className="mt-1">
                 <Chip
@@ -254,7 +257,7 @@ export default function AvailableDocandSec(props) {
           {filteredDoctorData.map((doctor) => (
             <div key={doctor.doctor_ID} className="docandseccontainer mt-2 ms-2 me-2">
               <div className="docandsecrow ">
-                <Col className="docandsecContent" style={{ fontSize: "16px", fontWeight: "600" }}>
+                <Col className="docandsecContent mt-2 mb-2" >
                   {"Dr."} {doctor.DLname}
                   {", "}
                   {doctor.DFname}
@@ -262,29 +265,30 @@ export default function AvailableDocandSec(props) {
                 <Col className="docandsecContent" style={{ alignSelf: "flex-end", display: "flex" }}>
                   <Button
                     variant="default"
-                    leftIcon={<IconPlus />}
+                    leftIcon={!breakPointMobile ? <IconPlus /> : null}
                     style={{
-                      width: "80%",
+                      width: "90%",
                       color: "#848484",
                       borderRadius: "5px",
-                      fontSize: "16px",
+                      fontSize: "min(1rem, 3.5vw)",
                       boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
 
                     }}
                     onClick={() => handleOpenModal(doctor.doctor_ID, doctor.DFname, doctor.DLname)}
                   >
-                    ADD PAIR
+                    
+                    {breakPointMobile ? "PAIR" : "ADD PAIR"}
                   </Button>
                 </Col>
                 <Col className="" style={{ marginTop: "1%", marginBottom: "1%" }}>
                   <Button
                     variant="default"
-                    leftIcon={<IconX />}
+                    leftIcon={!breakPointMobile ? <IconX /> : null}
                     style={{
-                      width: "80%",
+                      width: "90%",
                       color: "#848484",
                       borderRadius: "5px",
-                      fontSize: "16px",
+                      fontSize: "min(1rem, 3.5vw)",
                       boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
 
                     }}
@@ -304,7 +308,7 @@ export default function AvailableDocandSec(props) {
             filteredNursesData.map((nurse) => (
               <div key={nurse.doctor_Secretary_ID} className="docandseccontainer mt-2 ms-2 me-2">
                 <div className="docandsecrow">
-                  <Col className="docandsecContent" style={{ fontSize: "16px", fontWeight: "600" }}>
+                  <Col className="docandsecContent" >
                     {nurse.doctor_Secretary_last_name}
                     {", "}
                     {nurse.doctor_Secretary_first_name}
@@ -312,13 +316,14 @@ export default function AvailableDocandSec(props) {
                   <Col className="docandsecContent" style={{ alignSelf: "flex-end", display: "flex" }}>
                     <Button
                       variant="default"
-                      leftIcon={<IconEdit />}
+                      leftIcon={!breakPointMobile ? <IconEdit /> : null}
                       style={{
-                        width: "80%",
+                        width: "90%",
                         color: "#848484",
                         borderRadius: "5px",
-                        fontSize: "16px",
-                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        fontSize: "min(1rem, 3.5vw)",
+
 
                       }}
                       onClick={() => editSecModal(nurse.doctor_Secretary_ID)}
@@ -329,13 +334,14 @@ export default function AvailableDocandSec(props) {
                   <Col className="" style={{ marginTop: "1%", marginBottom: "1%" }}>
                     <Button
                       variant="default"
-                      leftIcon={<IconX />}
+                      leftIcon={!breakPointMobile ? <IconX /> : null}
                       style={{
-                        width: "80%",
+                        width: "90%",
                         color: "#848484",
                         borderRadius: "5px",
-                        fontSize: "16px",
-                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        fontSize: "min(1rem, 3.5vw)",
+
 
                       }}
                       onClick={() => handleSecVerifyModal(nurse.doctor_Secretary_ID)}

@@ -1,109 +1,121 @@
-import { useState, useEffect } from 'react';
+import { Tooltip } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem } from '@mantine/core';
-import {
-  IconHome2,
-  IconUser,
-  IconSettings,
-  IconLogout,
-  IconSwitchHorizontal,
-} from '@tabler/icons-react';
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ConfirmModal from "../../Reusable_Components/ConfirmationModal";
+import { HeadAdminPageContext } from "../../../pages/HeadAdmin";
 
-const useStyles = createStyles((theme) => ({
-  link: {
-    width: rem(50),
-    height: rem(50),
-    borderRadius: theme.radius.md,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: theme.white,
-    opacity: 1,
+export default function HeadAdminNavbar() {
+  const [show, setShow] = useState(false);
+  const breakPointMobile = useMediaQuery("(max-width: 800px)");
+  const navigate = useNavigate();
+  const { setCurrentPage, currentPage } = useContext(HeadAdminPageContext);
 
-    '&:hover': {
-      opacity: 1,
-      backgroundColor: "#000"
-    },
-  },
-
-  active: {
-    opacity: 1,
-    '&, &:hover': {
-      backgroundColor: "#000"
-    },
-  },
-}));
-
-function NavbarLink({ icon: Icon, label, active, onClick }) {
-  const { classes, cx } = useStyles();
-  return (
-    <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
-      <UnstyledButton onClick={onClick} className={cx(classes.link, { [classes.active]: active })}>
-        <Icon size="1.2rem" stroke={1.5} />
-      </UnstyledButton>
-    </Tooltip>
-  );
-}
-
-const mockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconUser, label: 'Account' },
-  { icon: IconSettings, label: 'Settings' },
-];
-
-const HeadAdminNavbar = () => {
-  const [active, setActive] = useState(2);
-  const [navbarHeight, setNavbarHeight] = useState(0);
-
-  const breakPointMobile = useMediaQuery("(min-width: 600px)");
-
-
-  const handleResize = () => {
-    const height = window.innerHeight;
-    setNavbarHeight(height);
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/head");
   };
 
-  useEffect(() => {
-    handleResize(); // Set initial navbarHeight
-    window.addEventListener('resize', handleResize); // Update navbarHeight on window resize
-    return () => {
-      window.removeEventListener('resize', handleResize); // Cleanup event listener
-    };
-  }, []);
+  const onClickIcon = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const handleClose = () => {
+    setShow((prev) => !prev);
+  };
 
-  const links = mockdata.map((link, index) => (
-    <NavbarLink
-      {...link}
-      key={link.label}
-      active={index === active}
-      onClick={() => setActive(index)}
-    />
-  ));
-
+  const activePageHighlight = (pageNumber) => {
+    if (pageNumber === currentPage) {
+      return { backgroundColor: "white", stroke: "black" };
+    }
+  };
+  const activePagColor = (pageNumber) => {
+    if (pageNumber === currentPage) {
+      return "black";
+    }
+    return "white";
+  };
   return (
-    <Navbar
-      height={`calc(${navbarHeight}px - 64px)`} 
-      width={{
-        base: 80
-      }}
-      p="md"
-      sx={{
-        background: 'linear-gradient(360deg, #000000 0%, #FFFFFF 100%)',
-      }}
-    >
-      <Center></Center>
-      <Navbar.Section grow mt={100}>
-        <Stack justify="center" spacing={0}>
-          {links}
-        </Stack>
-      </Navbar.Section>
-      <Navbar.Section>
-        <Stack justify="center" spacing={0}>
-          <NavbarLink icon={IconLogout} label="Logout" />
-        </Stack>
-      </Navbar.Section>
-    </Navbar>
+    <div className="HeadAdmin--SideBar">
+      <Tooltip label="Home" position="right">
+        <div
+          className="HeadAdmin--IconContainer"
+          onClick={() => onClickIcon(1)}
+          style={activePageHighlight(1)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-home-2 Admin--Icons"
+            width={breakPointMobile ? "28" : "35"}
+            height={breakPointMobile ? "28" : "35"}
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke={activePagColor(1)}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+            <path d="M10 12h4v4h-4z"></path>
+          </svg>
+        </div>
+      </Tooltip>
+      <Tooltip label="Settings" position="right">
+        <div
+          className="HeadAdmin--IconContainer"
+          onClick={() => onClickIcon(3)}
+          style={activePageHighlight(3)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-settings-2 Admin--Icons"
+            width={breakPointMobile ? "28" : "35"}
+            height={breakPointMobile ? "28" : "35"}
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke={activePagColor(3)}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
+            <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+          </svg>
+        </div>
+      </Tooltip>
+      <Tooltip label="Logout" position="right">
+        <div
+          className="Admin--IconContainer ThirdChild"
+          onClick={() => setShow(true)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-logout Admin--Icons"
+            width={breakPointMobile ? "28" : "35"}
+            height={breakPointMobile ? "28" : "35"}
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="white"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+            <path d="M9 12h12l-3 -3"></path>
+            <path d="M18 15l3 -3"></path>
+          </svg>
+        </div>
+      </Tooltip>
+      <ConfirmModal
+        show={show}
+        handleClose={handleClose}
+        question={"Are you sure you wanted to logout?"}
+        title={"Logout"}
+        handleSubmit={logout}
+      />
+    </div>
   );
 }
-
-export default HeadAdminNavbar;

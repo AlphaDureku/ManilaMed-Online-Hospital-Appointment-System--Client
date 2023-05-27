@@ -31,45 +31,49 @@ export default function AddDS (props) {
     return (
         <>
         <div  className="InsertDS ">
-
-            <Button 
+        <div className="head-addrow">
+            
+        <Button 
                     leftIcon={<IconPlus/>}
                     className="addButtonDS"
                     onClick={openConfirmModalDoc}
                     style={{
-                        height: "45%",
-                        width: "95%",
+                        height: "100%",
+                        width: "100%",
                         background: "#E0F7FF",
                         color: "black",
-                        borderRadius: "10px",
-                        paddingRight: "2.1rem",
-                        margin: "5px"
+                        borderRadius: "5px",
+                        padding: "12px",
+                        fontSize: "min(1.2rem, 3.5vw)",
+
+
 
                       }}
                      
                 >
                   ADD DOCTOR
                 </Button>
-           
-                <Button className="addButtonDS" 
+        </div>
+
+        <div className="head-addrow">
+        <Button className="addButtonDS" 
                 leftIcon={<IconPlus/>}
                 onClick={openConfirmModalSec}
                 style={{
-                    height: "45%",
-                    width: "95%",
+                    height: "100%",
+                    width: "100%",
                     background: "#E0F7FF",
                     color: "black",
-                    borderRadius: "10px",
-                    margin: "5px"
-
-
-
-
+                    borderRadius: "5px",
+                    fontSize: "min(1.2rem, 3.5vw)",
+                    padding: "12px"
 
                   }}
             >
                     ADD SECRETARY
                 </Button>
+        </div>
+               
 
             <AddDoctorModal
                     show={modalShowDoc}
