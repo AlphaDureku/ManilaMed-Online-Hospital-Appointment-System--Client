@@ -471,3 +471,77 @@ margin-right: 20%;
 .options-row{
   margin-left: 15%;
 }
+/* Mobile Calendar Border */
+.mantine-9i5j7m,
+.mantine-1rs0pph{
+  border-radius: 7px;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #848484;
+
+}
+/* Month Header */
+.mantine-1o826j7{
+  font-family: "Montserrat";
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.mantine-1o826j7:hover{
+  background: rgba(34, 208, 52, 1);
+
+}
+
+/* Arrows */
+.mantine-1cu0wh0:hover{
+  background: rgba(34, 208, 52, 1);
+}
+
+/* Month Selection */
+.mantine-wnpn15{
+  font-family: "Montserrat";
+  font-weight: 600;
+}
+
+.mantine-wnpn15:hover{
+  background: rgba(34, 208, 52, 1);
+
+}
+
+/* Year Selection */
+.mantine-wnpn15{
+  font-family: "Montserrat";
+  font-weight: 600;
+}
+
+.mantine-wnpn15:hover{
+  background: rgba(34, 208, 52, 1);
+
+}
+
+
+/* days of the week */
+.mantine-1ly8oam{
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+  font-family: "Montserrat";
+  font-weight: 500;
+
+}
+/* dates */
+.mantine-1osnan1{
+  font-family: "Montserrat";
+  font-weight: 600;
+  height: 2rem;
+  width: 2rem;
+  font-size: 14px;
+  margin-bottom: 0.3rem;
+}
+
+.mantine-22yr1m[data-weekend],
+.mantine-1osnan1[data-weekend]{
+  color: #000;
+}

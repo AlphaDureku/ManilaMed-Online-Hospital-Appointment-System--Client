@@ -13,6 +13,8 @@ export default function HeadAdminNavbar() {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("sortOption");
+    localStorage.removeItem("selectedOption");
     navigate("/head");
   };
 
@@ -112,7 +114,7 @@ export default function HeadAdminNavbar() {
       <ConfirmModal
         show={show}
         handleClose={handleClose}
-        question={"Are you sure you wanted to logout?"}
+        question={"Are you sure you want to logout?"}
         title={"Logout"}
         handleSubmit={logout}
       />

@@ -163,7 +163,7 @@ export default function EditDocwithSecModal(props) {
                   borderRadius: "5px",
                 }}
               >
-                Update Pairing
+                Update
               </Button>
               {matchError && (
                 <Row className="mt-3 m-auto">

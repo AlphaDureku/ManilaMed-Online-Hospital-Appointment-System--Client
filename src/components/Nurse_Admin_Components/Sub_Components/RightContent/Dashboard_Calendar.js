@@ -23,7 +23,7 @@ export default function DashboardCalender(props) {
       };
     }
     return {
-      disabled: true,
+      disabled: false,
     };
   };
   return (
@@ -49,7 +49,7 @@ export default function DashboardCalender(props) {
           centered
           size="xl"
         >
-          <Modal.Header closeButton></Modal.Header>
+          <Modal.Header closeButton>Set Availability</Modal.Header>
           <Modal.Body>
             <DatePicker
               getDayProps={getDayProps}

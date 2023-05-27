@@ -845,10 +845,9 @@ select {
 .mantine-kyxsp3 {
   font-family: "Montserrat";
   font-weight: 600;
-  margin-top: 5px;
   margin-bottom: 0;
-  margin-left: 50px;
-  margin-right: 50px;
+
+
 }
 .mantine-kyxsp3:hover {
   background: rgba(34, 208, 52, 1);
@@ -1482,9 +1481,10 @@ select {
   flex-direction: column;
   align-items: center;
   padding: 2% 0 2% 0;
-  width: 4%;
   background-color: #00c2ff;
   z-index: 99;
+  width: 80px;
+
 }
 .Admin--IconContainer {
   display: flex;
