@@ -3,8 +3,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HeadAdminPageContext } from "../../../pages/HeadAdmin";
-import ConfirmModal from "../../Reusable_Components/ConfirmationModal";
-
+import ConfirmLogOutModal from "./ConfirmLogOutModal";
 export default function HeadAdminNavbar() {
   const [show, setShow] = useState(false);
   const breakPointMobile = useMediaQuery("(max-width: 800px)");
@@ -36,6 +35,8 @@ export default function HeadAdminNavbar() {
     }
     return "white";
   };
+
+  
   return (
     <div className="HeadAdmin--SideBar">
       <Tooltip label="Home" position="right">
@@ -111,7 +112,7 @@ export default function HeadAdminNavbar() {
           </svg>
         </div>
       </Tooltip>
-      <ConfirmModal
+      <ConfirmLogOutModal
         show={show}
         handleClose={handleClose}
         question={"Are you sure you want to logout?"}

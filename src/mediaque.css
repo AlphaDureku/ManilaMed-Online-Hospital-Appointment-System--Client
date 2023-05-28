@@ -875,6 +875,10 @@
     flex-direction: column-reverse;
     min-height: 100vh;
   }
+  .adminMainContainer1 {
+    flex-direction: column-reverse;
+    min-height: 93.5vh;
+  }
   .Admin--SideBar {
     position: sticky;
     bottom: 0;

@@ -178,15 +178,16 @@ export default function EditSecInfo(props) {
   const validateForm = () => {
     const errors = {};
 
-    // Check if firstName is empty
-    if (formData.firstName.trim() === "") {
-      errors.firstName = true;
-    }
+  // Check if firstName is empty or contains numbers
+  if (formData.firstName.trim() === "" || /\d/.test(formData.firstName)) {
+    errors.firstName = true;
+  }
 
-    // Check if lastName is empty
-    if (formData.lastName.trim() === "") {
-      errors.lastName = true;
-    }
+  // Check if lastName is empty or contains numbers
+  if (formData.lastName.trim() === "" || /\d/.test(formData.lastName)) {
+    errors.lastName = true;
+  }
+
 
     // Check if email is empty or doesn't match the required format
     if (formData.email.trim() === "" || !/\S+@\S+\.\S+/.test(formData.email)) {
@@ -261,7 +262,18 @@ export default function EditSecInfo(props) {
               <div style={{ marginLeft: "auto" }}>
                 <CloseButton onClick={handleCancel} />
               </div>
-              {networkError && (
+          
+              
+            </div>
+            <div
+            style={{
+              display: "flex",
+              textAlign: "center",
+              justifyContent: "center",
+            }}
+            className="mb-3"
+          >
+                {networkError && (
                 <div
                   style={{ color: "red", fontSize: "14px" }}
                   className="mt-4"
@@ -269,7 +281,8 @@ export default function EditSecInfo(props) {
                   Nrwork Error
                 </div>
               )}
-            </div>
+
+          </div>
 
             <form onSubmit={handleSubmit}>
               <Input.Wrapper label="First Name" className="mb-2">
@@ -287,7 +300,7 @@ export default function EditSecInfo(props) {
                   onChange={handleChange}
                   styles={formstyles}
                   disabled={!isFieldEditable("firstName")}
-                  error={formErrors.firstName && "First Name is required"}
+                  error={formErrors.firstName && "Invalid First name"}
                 />
               </Input.Wrapper>
               <Input.Wrapper label="Last Name" className="mb-2">
@@ -305,7 +318,7 @@ export default function EditSecInfo(props) {
                   onChange={handleChange}
                   styles={formstyles}
                   disabled={!isFieldEditable("lastName")}
-                  error={formErrors.lastName && "Last Name is required"}
+                  error={formErrors.lastName && "Invalid Last Name"}
                 />
               </Input.Wrapper>
 

@@ -26,6 +26,8 @@ export default function DashboardCalender(props) {
       disabled: false,
     };
   };
+
+  
   return (
     <>
       <div className="Dashboard--Calendar">
@@ -62,6 +64,7 @@ export default function DashboardCalender(props) {
                 alignItems: "center",
               }}
             ></DatePicker>
+
           </Modal.Body>
         </Modal>
       </div>

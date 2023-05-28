@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { HeadAdminPageContext } from "../../../pages/HeadAdmin";
 import Navbar from "../NavBar/NavBar";
 import Content from "../Sub_Components/Content";
@@ -14,7 +13,6 @@ export default function Dashboard() {
   const [update, setUpdate] = useState(false);
   const { currentPage } = useContext(HeadAdminPageContext);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -41,16 +39,18 @@ export default function Dashboard() {
     }
   };
 
+console.log(dashboardData);
+
   return (
     <>
       <Navbar />
-      <div className="adminMainContainer">
+      <div className="adminMainContainer1">
         <DashboardContext.Provider value={{ dashboardData }}>
           <HeadAdminNavbar />
           {currentPage === 1 ? (
             <Content setUpdate={setUpdate} loading={loading} />
           ) : (
-            <HeadSettings />
+            <HeadSettings  setUpdate={setUpdate} />
           )}
         </DashboardContext.Provider>
       </div>

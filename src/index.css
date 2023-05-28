@@ -841,6 +841,12 @@ select {
   margin-bottom: 0.3rem;
 }
 
+.mantine-22yr1m:hover {
+  background: rgba(34, 208, 52, 1);
+
+}
+
+
 /* monthheader*/
 .mantine-kyxsp3 {
   font-family: "Montserrat";
@@ -1380,6 +1386,7 @@ select {
   width: 90px;
 }
 
+
 .bookingConfirmationCard {
   max-width: 360px !important;
   border: 2px solid #000000 !important;
@@ -1462,6 +1469,12 @@ select {
   height: 6.5vh;
 }
 .adminMainContainer {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: row;
+  min-height: 93.5vh;
+}
+.adminMainContainer1 {
   font-family: "Montserrat", sans-serif;
   display: flex;
   flex-direction: row;

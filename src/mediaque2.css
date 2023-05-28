@@ -74,7 +74,7 @@
     }
     .HeadadminMainContainer {
       flex-direction: column-reverse;
-      min-height: 100vh;
+      min-height: 93.5vh;
     }
     .HeadAdmin--SideBar {
       position: sticky;
@@ -100,7 +100,16 @@
       margin-bottom: 25px;
     }
 
-   
+    .head-settingspage {
+      margin-bottom: auto;
+      flex-grow:1;
+    }
+    
+    .navbar-img{
+      width: 75% !important;
+
+
+    }
   }
   
 @media screen and (max-width: 760px) {
@@ -124,3 +133,44 @@
  
 }
 
+@media screen and (max-width:800px) {
+  .quickinfo-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 30px;
+  } 
+  
+  .img-none{
+   
+    height: 150px !important;
+  }
+
+  .name-col{
+    margin-left: 5%;
+    margin-top: 20%;
+  }
+  .quickinfo-row{
+   margin-top: 15%;
+  }
+
+  .headmanager-tag, .options-tagtitle, .manage-profileandsec{
+    font-size: 16px;
+  }
+  .headmanager-title, .sub-manage{
+    font-size: 14px;
+
+  }
+
+  
+  
+}
+
+
+@media screen and (width:375px) and (height:667px){
+  .adminMainContainer1 {
+    min-height: 92.3vh;
+  }
+} 
+  

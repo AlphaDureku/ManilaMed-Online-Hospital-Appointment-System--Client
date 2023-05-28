@@ -55,7 +55,7 @@ export default function AddDS (props) {
                 </Button>
         </div>
 
-        <div className="head-addrow">
+        <div className="head-addrow1">
         <Button className="addButtonDS" 
                 leftIcon={<IconPlus/>}
                 onClick={openConfirmModalSec}

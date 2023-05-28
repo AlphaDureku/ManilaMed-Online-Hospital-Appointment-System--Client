@@ -27,7 +27,6 @@ export default function AvailableDocandSec(props) {
   });
   const [sortOption, setSortOption] = useState(() => {
     const savedSortOption = localStorage.getItem("sortOption");
-    console.log(savedSortOption);
     return savedSortOption ? String(savedSortOption) : "1";
   });
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,36 @@
-import { Divider } from "@mantine/core";
+import { Divider, TextInput } from "@mantine/core";
+import { DashboardContext } from "./Dashboard";
+import { useContext, useState } from "react";
+import HeadAdminProfile from "../Sub_Components/headAdmin-Profile";
+import HeadAdminUsernamePass from "../Sub_Components/HeadAdminUsernamePass";
 
-export default function HeadSettings() {
+export default function HeadSettings(props) {
+
+  const dashboardData = useContext(DashboardContext);
+  const adminInfo = dashboardData?.dashboardData?.data?.AdminInfo || [];
+  const [openInfoModal, setopenInfoModal] = useState(false);
+  const [openUserPassModal, setopenUserPassModal] = useState(false);
+
+
+  const { head_Manager_Fname, head_Manager_Lname, head_Manager_ID, head_Manager_username } = adminInfo;
+
+  function handleOpenProfile() {
+    setopenInfoModal(true);
+  }
+
+  function handleCloseProfile() {
+    setopenInfoModal(false);
+  }
+
+  
+  function handleOpenUserPass() {
+    setopenUserPassModal(true);
+  }
+
+  function handleCloseUserPass() {
+    setopenUserPassModal(false);
+  }
+
   return (
     <>
       <div className="head-settingspage">
@@ -13,23 +43,48 @@ export default function HeadSettings() {
             />
           </div>
           <div className="name-col">
-            <p>Admin name</p>
-            <p>Admin</p>
+            <p className="headmanager-tag">{head_Manager_Fname} {head_Manager_Lname}</p>
+            <p className="headmanager-title"> Head Admin</p>
           </div>
         </div>
         <Divider size="md" style={{ marginLeft: "3%", marginRight: "3%" }} />
         <div className="manageprofile-options">
           <div className="options-tagtitle">General</div>
           <div className="options-row">
-            <p>Manage Profile</p>
-            <p>Change your personal information</p>
+            <div className="manage-row">
+            <p className="manage-profileandsec" onClick={handleOpenProfile}>Manage Profile</p>
+            </div>
+            <p className="sub-manage">Change your personal information</p>
             <Divider size="md" />
           </div>
           <div className="options-row mt-3">
-            <p>Security</p>
-            <p>Change your password</p>
+            <div className="manage-row-down">
+            <p className="manage-profileandsec" onClick={handleOpenUserPass}>Security</p>
+            </div>
+            <p className="sub-manage">Change your password</p>
           </div>
         </div>
+
+    <HeadAdminProfile
+    openModal = {openInfoModal}
+    handleCloseProfile = {handleCloseProfile}
+    fname={head_Manager_Fname}
+    lname={head_Manager_Lname}
+    Id ={head_Manager_ID}
+    setUpdate={props.setUpdate} 
+    />
+
+    <HeadAdminUsernamePass
+    openModal = {openUserPassModal}
+    handleCloseUserPass = {handleCloseUserPass}
+    setUpdate={props.setUpdate} 
+    username={head_Manager_username}
+    Id ={head_Manager_ID}
+
+
+    />
+
+
       </div>
     </>
   );

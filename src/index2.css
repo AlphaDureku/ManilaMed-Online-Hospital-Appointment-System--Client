@@ -48,11 +48,6 @@
 
 }
 
-.navbar-img{
-  width: 75% !important;
-
-
-}
 
 .secName {
   font-weight: 600;
@@ -147,6 +142,16 @@
   width: 95%;
   height: 50%;
   margin-top: 2%;
+  margin-bottom: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.head-addrow1{
+  width: 95%;
+  height: 50%;
   margin-bottom: 2%;
   display: flex;
   align-items: center;
@@ -312,12 +317,11 @@
 .updatelist{
   background-color: rgba(217, 217, 217, 0.3);
   width: 95%;
-  height: 78%;
+  height:47vh;
   border-radius: 10px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   padding: 15px;
   
 
@@ -430,6 +434,7 @@ margin-right: 20%;
   width: 100%;
   display: flex;
   flex-direction: column;
+  color: #848484;
 }
 
 .quickinfo-row{
@@ -441,8 +446,7 @@ margin-right: 20%;
 }
 
 .icon-col{
-  height: 10%;
-  width: 10%;
+
   margin: 5%;
   margin-bottom: 0%;
 }
@@ -451,9 +455,22 @@ margin-right: 20%;
   margin-top: 10%;
 }
 
+.headmanager-tag{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.headmanager-title{
+  font-weight: 500;
+  
+}
+
+
+
 .img-none{
   outline: 1px solid #000;
   border-bottom:1px solid #000;
+  height: 215px !important;
 }
 
 .manageprofile-options{
@@ -464,8 +481,27 @@ margin-right: 20%;
 
 }
 
+.manage-profileandsec:hover{
+  cursor: pointer;
+  color: #000;
+}
+
+.manage-profileandsec{
+  font-weight: 600;
+  text-decoration-line: underline;
+}
+
+.manage-row{
+  width: 127px;
+}
+.manage-row-down{
+  width: 70px;
+}
+
 .options-tagtitle{
   margin-bottom: 40px;
+  font-size: 19px;
+  font-weight: 600;
 }
 
 .options-row{
@@ -541,7 +577,17 @@ margin-right: 20%;
   margin-bottom: 0.3rem;
 }
 
+.mantine-1osnan1:hover{
+  background: rgba(34, 208, 52, 1);
+
+}
+
 .mantine-22yr1m[data-weekend],
 .mantine-1osnan1[data-weekend]{
   color: #000;
+}
+
+.headconfirmbuttonrow > button {
+  margin: 5px;
+  width: 90px;
 }
