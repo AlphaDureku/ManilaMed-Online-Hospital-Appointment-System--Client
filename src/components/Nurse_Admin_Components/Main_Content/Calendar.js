@@ -12,13 +12,49 @@ export default function Calendar() {
   axios.defaults.withCredentials = true;
   const breakPointMobile = useMediaQuery("(max-width: 1200px)");
   const [thatDaysPatient, setThatDaysPatient] = useState([]);
-  const { selectedDoctor, setSelectedDoctor, doctorList } =
-    useContext(AdminContext);
+  const [selectedDate, setSelectedDate] = useState(
+    moment().format("MM-DD-YYYY")
+  );
+  const {
+    selectedDoctor,
+    setSelectedDoctor,
+    doctorList,
+    calendarData,
+    setCalendarData,
+  } = useContext(AdminContext);
   const token = localStorage.getItem("nurseToken");
+
+  const onDoctorChangeHandler = async (event) => {
+    const { value } = event.target;
+    const res = await axios.get(
+      process.env.REACT_APP_ONLINE + "/admin/change-doctor",
+      {
+        withCredentials: true,
+        params: {
+          doctor_ID: value,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const { data } = res.data;
+    setCalendarData(data.calendarData);
+    setSelectedDoctor(value);
+    setSelectedDate("");
+    setThatDaysPatient([]);
+  };
 
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
-    if (
+    if (selectedDate === formattedDate) {
+      return {
+        style: {
+          backgroundColor: "rgba(34, 208, 52, 1)",
+          color: "black",
+        },
+      };
+    } else if (
       calendarData.some((item) => item !== null && item.date2 === formattedDate)
     ) {
       return {
@@ -29,17 +65,19 @@ export default function Calendar() {
       };
     }
     return {
-      disabled: false,
+      disabled: true,
     };
   };
 
-  useEffect(() => {
+  const handleDateSelect = async (date) => {
+    const formattedDate = moment(date).format("MM-DD-YYYY");
+    setSelectedDate(moment(date).format("YYYY-MM-DD"));
     const appointmentThatDay = async () => {
       const { data } = await axios.get(
         process.env.REACT_APP_ONLINE + "/admin/appointments-ThatDay",
         {
           params: {
-            date: "05-31-23",
+            date: formattedDate,
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -49,11 +87,6 @@ export default function Calendar() {
       setThatDaysPatient(data.data);
     };
     appointmentThatDay();
-  }, []);
-  console.log(thatDaysPatient);
-  const onDoctorChangeHandler = async (event) => {
-    const { value } = event.target;
-    setSelectedDoctor(value);
   };
 
   const renderCard = thatDaysPatient.map((item, index) => {
@@ -100,9 +133,9 @@ export default function Calendar() {
             <div>
               {" "}
               <DatePicker
-                // getDayProps={getDayProps}
-                // onChange={handleDateSelect}
-                // value={selectedDate}
+                getDayProps={getDayProps}
+                onChange={handleDateSelect}
+                value={selectedDate}
                 size={breakPointMobile ? "xs" : "lg"}
               ></DatePicker>
             </div>

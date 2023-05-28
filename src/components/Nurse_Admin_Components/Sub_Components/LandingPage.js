@@ -14,13 +14,18 @@ export default function LandingPage() {
   const [selectedDateRange, setSelectedDateRange] = useState("Week");
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
-  const [calendarData, setCalendarData] = useState([]);
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
   axios.defaults.withCredentials = true;
 
-  const { selectedDoctor, setSelectedDoctor, doctorList, setDoctorList } =
-    useContext(AdminContext);
+  const {
+    selectedDoctor,
+    setSelectedDoctor,
+    doctorList,
+    setDoctorList,
+    calendarData,
+    setCalendarData,
+  } = useContext(AdminContext);
 
   useEffect(() => {
     async function getData() {
@@ -152,7 +157,6 @@ export default function LandingPage() {
         return <SelectedDoctor data={item} key={index} />;
       })
     : [];
-
 
   return (
     <div className="Admin--Dashboard_Container">

@@ -15,12 +15,15 @@ export default function Content() {
   const { currentPage } = useContext(AdminPageContext);
   const [doctorList, setDoctorList] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [calendarData, setCalendarData] = useState([]);
 
   const AdminValues = {
     selectedDoctor: selectedDoctor,
     setSelectedDoctor: setSelectedDoctor,
     doctorList: doctorList,
     setDoctorList: setDoctorList,
+    calendarData: calendarData,
+    setCalendarData: setCalendarData,
   };
 
   return (
