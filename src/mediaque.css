@@ -960,4 +960,8 @@
   .Admin--Calendar_Container > div:nth-child(1) {
     flex-shrink: 0;
   }
+  .head-settingspage {
+    margin-bottom: auto;
+    flex-grow: 1;
+  }
 }

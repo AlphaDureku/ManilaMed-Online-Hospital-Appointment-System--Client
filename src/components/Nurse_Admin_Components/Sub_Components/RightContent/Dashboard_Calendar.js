@@ -13,6 +13,7 @@ export default function DashboardCalender(props) {
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
     if (
+      calendarData &&
       calendarData.some((item) => item !== null && item.date2 === formattedDate)
     ) {
       return {

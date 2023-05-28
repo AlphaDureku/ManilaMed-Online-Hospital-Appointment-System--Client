@@ -1890,9 +1890,10 @@ select {
 
 .Schedule_Calendar_Container > div:nth-child(4) {
   flex-grow: 1;
-  margin-top: 2%;
   display: flex;
   justify-content: center;
+
+  align-items: center;
 }
 
 .legend {
@@ -1908,6 +1909,31 @@ select {
 }
 .Calendar_Container--right {
   width: 50%;
-  border: 1px solid green;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   height: 100%;
+  background-color: #c3f0ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+  gap: 4%;
+}
+
+.Calendar_Container--right > div {
+  background-color: white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  border-radius: 15px;
+}
+
+.Calendar_Container--right > div:nth-child(1) {
+  padding-top: 1%;
+  height: 50%;
+}
+
+.Calendar_Container--right > div:nth-child(2) {
+  height: 23%;
+}
+.Calendar_Container--right > div:nth-child(3) {
+  height: 23%;
 }

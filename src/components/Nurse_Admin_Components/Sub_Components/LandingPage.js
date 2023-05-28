@@ -12,7 +12,6 @@ import InsertAppointment from "./RightContent/InserAppointment";
 export default function LandingPage() {
   const [selectedStatus, setSelectedStatus] = useState("Pending");
   const [selectedDateRange, setSelectedDateRange] = useState("Week");
-
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
   const [calendarData, setCalendarData] = useState([]);
@@ -36,10 +35,11 @@ export default function LandingPage() {
           }
         );
         const { data } = res.data;
+
         setDisplayedPatients(data.AppointmentsData);
         setDoctorList(data.DoctorData);
-        setSelectedDoctor(data.DoctorData[0].doctor_ID);
         setCalendarData(data.calendarData);
+        setSelectedDoctor(data.selectedDoctor);
       } catch (error) {
         ErrorHandler(error);
       }
@@ -115,6 +115,7 @@ export default function LandingPage() {
         }
       );
       const { data } = res.data;
+      setCalendarData(data.calendarData);
       setDisplayedPatients(data.appointmentsData);
     } catch (error) {
       ErrorHandler(error);

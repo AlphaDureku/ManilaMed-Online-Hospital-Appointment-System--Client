@@ -1,36 +1,64 @@
 import { DatePicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
-import { useContext } from "react";
+import axios from "axios";
+import moment from "moment";
+import { useContext, useEffect, useState } from "react";
 import SelectedDoctor from "../Sub_Components/LeftContent/AdminSelectDoctor";
+import Card from "../Sub_Components/LeftContent/AppointmentCard";
 import SearchRowAndSelectDoctor from "../Sub_Components/LeftContent/searchRowAndSelectDoctor";
 import { AdminContext } from "./Content";
 
 export default function Calendar() {
+  axios.defaults.withCredentials = true;
   const breakPointMobile = useMediaQuery("(max-width: 1200px)");
-  const { selectedDoctor, setSelectedDoctor, doctorList, setDoctorList } =
+  const [thatDaysPatient, setThatDaysPatient] = useState([]);
+  const { selectedDoctor, setSelectedDoctor, doctorList } =
     useContext(AdminContext);
+  const token = localStorage.getItem("nurseToken");
 
-  // const getDayProps = (date) => {
-  //   const formattedDate = moment(date).format("YYYY-MM-DD");
-  //   if (
-  //     calendarData.some((item) => item !== null && item.date2 === formattedDate)
-  //   ) {
-  //     return {
-  //       style: {
-  //         backgroundColor: "rgba(34, 208, 52, 0.5)",
-  //         color: "black",
-  //       },
-  //     };
-  //   }
-  //   return {
-  //     disabled: false,
-  //   };
-  // };
+  const getDayProps = (date) => {
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    if (
+      calendarData.some((item) => item !== null && item.date2 === formattedDate)
+    ) {
+      return {
+        style: {
+          backgroundColor: "rgba(34, 208, 52, 0.5)",
+          color: "black",
+        },
+      };
+    }
+    return {
+      disabled: false,
+    };
+  };
 
+  useEffect(() => {
+    const appointmentThatDay = async () => {
+      const { data } = await axios.get(
+        process.env.REACT_APP_ONLINE + "/admin/appointments-ThatDay",
+        {
+          params: {
+            date: "05-31-23",
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setThatDaysPatient(data.data);
+    };
+    appointmentThatDay();
+  }, []);
+  console.log(thatDaysPatient);
   const onDoctorChangeHandler = async (event) => {
     const { value } = event.target;
     setSelectedDoctor(value);
   };
+
+  const renderCard = thatDaysPatient.map((item, index) => {
+    return <Card data={item} key={index} selectedStatus={"Confirmed"} />;
+  });
 
   const renderSelectOptions = doctorList
     ? doctorList.map((item, index) => {
@@ -81,7 +109,11 @@ export default function Calendar() {
           </div>
           <div></div>
         </div>
-        <div className="Calendar_Container--right"></div>
+        <div className="Calendar_Container--right">
+          <div>{renderCard}</div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </>
   );

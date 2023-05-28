@@ -13,8 +13,8 @@ export const AdminContext = createContext();
 export default function Content() {
   const breakPointMobile = useMediaQuery("(max-width: 800px)");
   const { currentPage } = useContext(AdminPageContext);
-  const [selectedDoctor, setSelectedDoctor] = useState("");
   const [doctorList, setDoctorList] = useState([]);
+  const [selectedDoctor, setSelectedDoctor] = useState("");
 
   const AdminValues = {
     selectedDoctor: selectedDoctor,
