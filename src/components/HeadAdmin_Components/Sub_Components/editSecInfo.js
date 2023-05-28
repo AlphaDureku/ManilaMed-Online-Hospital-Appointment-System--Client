@@ -51,7 +51,7 @@ export default function EditSecInfo(props) {
 
   const getNurseInfo = async () => {
     setLoading(true);
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
     const nurseId = props.selectedNurse.id;
     try {
       const response = await axios.get(
@@ -102,7 +102,7 @@ export default function EditSecInfo(props) {
     setLoading(true);
 
     const nurseId = props.selectedNurse.id;
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
 
     const hasChanges =
       formData.firstName !== origFormData.firstName ||

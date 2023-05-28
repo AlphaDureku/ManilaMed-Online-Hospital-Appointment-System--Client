@@ -941,4 +941,19 @@
   .Dashboard--Calendar > div:nth-child(2) {
     margin: 5% 0;
   }
+
+  .Admin--Calendar_Container {
+    flex-direction: column;
+  }
+  .Admin--Calendar_Container > div:nth-child(1) {
+    height: 100%;
+    border: 1px solid red;
+  }
+
+  .Admin--Calendar_Container > div {
+    width: 100%;
+  }
+  .Admin--Calendar_Container > div:nth-child(1) {
+    flex-shrink: 0;
+  }
 }

@@ -1,9 +1,9 @@
-import { Modal, CloseButton } from "react-bootstrap";
-import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
-import axios from "axios";
 import { notifications } from "@mantine/notifications";
-import RequestLoadingOverlay from "./RequestLoadingOverlay";
+import axios from "axios";
 import { useState } from "react";
+import { CloseButton, Modal } from "react-bootstrap";
+import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function RemovePairing(props) {
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export default function RemovePairing(props) {
   };
 
   const handleDeleteMatch = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
     const doctorId = props.selectedDoctor.doctorid;
 
     try {
@@ -42,7 +42,6 @@ export default function RemovePairing(props) {
       } else {
         console.error(response.data);
         setError(true);
-
       }
     } catch (error) {
       console.error(error);
@@ -51,11 +50,10 @@ export default function RemovePairing(props) {
     }
   };
 
-  function handleClose (){
+  function handleClose() {
     setLoading(false);
     setError(false);
     props.handleCloseModal();
-
   }
 
   return (
@@ -99,17 +97,17 @@ export default function RemovePairing(props) {
                 redButtonText={"Cancel"}
                 blueButtonText={"Remove"}
               />
-              
             </div>
             {error && (
-        <div style={{ margin: "10px", textAlign: "center", color: "red" }}>
-          Network error occurred. Please try again later.
-        </div>
-      )}
+              <div
+                style={{ margin: "10px", textAlign: "center", color: "red" }}
+              >
+                Network error occurred. Please try again later.
+              </div>
+            )}
           </Modal.Body>
         </RequestLoadingOverlay>
       </Modal>
-  
     </>
   );
 }

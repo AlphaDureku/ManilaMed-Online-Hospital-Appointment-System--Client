@@ -1,10 +1,10 @@
-import { Modal, CloseButton, Col, Row } from "react-bootstrap";
 import { Alert, Button, Select, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
-import { useState, useEffect } from "react";
-import RequestLoadingOverlay from "./RequestLoadingOverlay";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { CloseButton, Col, Modal, Row } from "react-bootstrap";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function EditDocwithSecModal(props) {
   const formDoctorName = props.selectedDoctor
@@ -40,7 +40,7 @@ export default function EditDocwithSecModal(props) {
       : [];
 
   const handleMatch = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
     const doctorId = props.selectedDoctor.doctorid;
 
     if (!selectedNurse) {

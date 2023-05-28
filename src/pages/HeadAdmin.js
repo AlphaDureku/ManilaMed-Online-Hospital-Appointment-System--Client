@@ -1,7 +1,7 @@
+import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../components/HeadAdmin_Components/Main_Content/Dashboard";
 import LoginPage from "../components/HeadAdmin_Components/Main_Content/Login";
-import { createContext, useState } from "react";
 
 export const HeadAdminPageContext = createContext();
 
@@ -21,8 +21,8 @@ export default function HeadAdmin() {
           path="/dashboard"
           element={
             <HeadAdminPageContext.Provider value={HeadAdminPageContextObject}>
-             <Dashboard  />
-          </HeadAdminPageContext.Provider>
+              <Dashboard />
+            </HeadAdminPageContext.Provider>
           }
         />
       </Routes>

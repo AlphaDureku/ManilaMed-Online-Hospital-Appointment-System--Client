@@ -8,9 +8,11 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ErrorHandler } from "../../../utils/errorHandler";
+
 axios.defaults.withCredentials = true;
 export default function Login() {
   const [credentials, setCredentials] = useState({
@@ -28,22 +30,32 @@ export default function Login() {
     }));
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("nurseToken")) {
+      navigate("/admin/dashboard");
+    }
+  });
+
   const onSubmitHandler = async (event) => {
     setError(false);
     setLoading(true);
     event.preventDefault();
-    const { data } = await axios.post(
-      process.env.REACT_APP_ONLINE + "/admin/nurse-login",
-      credentials
-    );
-    if (data.data.status) {
-      //Set token authentication
-      localStorage.setItem("nurseToken", data.data.token);
-      navigate("/admin/dashboard");
-    } else {
-      setError(true);
+    try {
+      const { data } = await axios.post(
+        process.env.REACT_APP_ONLINE + "/admin/nurse-login",
+        credentials
+      );
+      if (data.data.status) {
+        //Set token authentication
+        localStorage.setItem("nurseToken", data.data.token);
+        navigate("/admin/dashboard");
+      } else {
+        setError(true);
+      }
+      setLoading(false);
+    } catch (error) {
+      ErrorHandler(error);
     }
-    setLoading(false);
   };
   return (
     <div className="login--wrapper">

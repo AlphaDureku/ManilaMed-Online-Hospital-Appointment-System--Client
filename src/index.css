@@ -846,8 +846,6 @@ select {
   font-family: "Montserrat";
   font-weight: 600;
   margin-bottom: 0;
-
-
 }
 .mantine-kyxsp3:hover {
   background: rgba(34, 208, 52, 1);
@@ -1484,7 +1482,6 @@ select {
   background-color: #00c2ff;
   z-index: 99;
   width: 80px;
-
 }
 .Admin--IconContainer {
   display: flex;
@@ -1575,6 +1572,7 @@ select {
   flex-direction: column;
   height: 52%;
   width: 92%;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
 .Dashboard--Calendar > div:nth-child(1) {
   align-items: center;
@@ -1612,6 +1610,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
 .Dashboard--Data > button {
   border-radius: 20px;
@@ -1630,6 +1629,7 @@ select {
   font-family: "Inter", sans-serif;
   justify-content: space-around;
   padding: 1% 0 0 0;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .AppointmentTable > div:nth-child(1) {
@@ -1812,6 +1812,89 @@ select {
 
 /**Nurse CSS Calendar Page**/
 .Admin--Calendar_Container {
-  border: 1px solid red;
   margin-bottom: auto;
+  width: 100%;
+  height: 93.5vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.Calendar_Container--left {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  background-color: #e0f7ff;
+  padding: 1.2% 1.5%;
+  display: flex;
+  flex-direction: column;
+}
+.Calendar_Container--left > div:nth-child(1) {
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Calendar_Container--left > div:nth-child(1) .search-row {
+  display: flex;
+  align-items: center;
+}
+
+.Schedule_Calendar_Container {
+  background-color: white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  height: 65%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+  gap: 5%;
+  flex-shrink: 0;
+}
+.Schedule_Calendar_Container > div {
+  display: flex;
+}
+
+.Schedule_Calendar_Container > div:nth-child(1) h3 {
+  color: #434343;
+  font-size: min(1.2rem, 3.5vw);
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.Schedule_Calendar_Container > div:nth-child(3) {
+  display: flex;
+}
+
+.Schedule_Calendar_Container > div:nth-child(3) > div {
+  width: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Schedule_Calendar_Container > div:nth-child(4) {
+  flex-grow: 1;
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+}
+
+.legend {
+  margin-right: 8px;
+}
+
+.Calendar_Container--left > div:nth-child(3) {
+  background-color: white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  margin-top: 5%;
+  flex-grow: 1;
+}
+.Calendar_Container--right {
+  width: 50%;
+  border: 1px solid green;
+  height: 100%;
 }

@@ -1,8 +1,8 @@
-import { Modal, CloseButton } from "react-bootstrap";
-import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
-import { useState } from "react";
-import axios from "axios";
 import { notifications } from "@mantine/notifications";
+import axios from "axios";
+import { useState } from "react";
+import { CloseButton, Modal } from "react-bootstrap";
+import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function DeleteSecVerificationModal(props) {
@@ -18,7 +18,7 @@ export default function DeleteSecVerificationModal(props) {
   };
 
   const checkNurseBinding = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
     const nurseId = props.selectedNurse.id;
     try {
       const response = await axios.get(
@@ -31,27 +31,26 @@ export default function DeleteSecVerificationModal(props) {
         }
       );
 
-
       if (response.data && response.data.success) {
         const responseData = response.data.data;
         if (Array.isArray(responseData) && responseData.length > 0) {
-          const names = responseData.map((entry) => `${entry.DLname} ${entry.DFname}`);
+          const names = responseData.map(
+            (entry) => `${entry.DLname} ${entry.DFname}`
+          );
           setDoctorNames(names);
         } else {
           handleDelete();
-
         }
       } else {
         console.log(response);
       }
-
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleDelete = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
     const nurseId = props.selectedNurse.id;
     setLoading(true);
 
@@ -67,22 +66,19 @@ export default function DeleteSecVerificationModal(props) {
           },
         }
       );
-    
-      props.setUpdate((prev)=>!prev);
+
+      props.setUpdate((prev) => !prev);
       Notif();
       setLoading(false);
       handleDeleteClose();
-
-
     } catch (error) {
       console.error(error);
     }
   };
 
-  function handleDeleteClose(){
-    setDoctorNames([])
+  function handleDeleteClose() {
+    setDoctorNames([]);
     props.handleCloseModal();
-
   }
 
   return (
@@ -96,48 +92,57 @@ export default function DeleteSecVerificationModal(props) {
         backdrop="static"
       >
         <RequestLoadingOverlay loading={loading}>
-        <Modal.Body style={{ margin: "2%", fontWeight: "600" }}>
-          <div
-            style={{ display: "flex", alignItems: "center" }}
-            className="mt-2"
-          >
+          <Modal.Body style={{ margin: "2%", fontWeight: "600" }}>
             <div
-              style={{ flex: "1", textAlign: "center", fontSize: "1.2rem" }}
-              className="ms-4"
+              style={{ display: "flex", alignItems: "center" }}
+              className="mt-2"
             >
-              Confirm Delete?
+              <div
+                style={{ flex: "1", textAlign: "center", fontSize: "1.2rem" }}
+                className="ms-4"
+              >
+                Confirm Delete?
+              </div>
+              <div style={{ marginLeft: "auto" }}>
+                <CloseButton onClick={handleDeleteClose} />
+              </div>
             </div>
-            <div style={{ marginLeft: "auto" }}>
-              <CloseButton onClick={handleDeleteClose} />
+            {doctorNames.length > 0 && (
+              <div
+                className=" checkbinding-error mt-3"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  color: "red",
+                }}
+              >
+                <p>Cannot be deleted, Secretary is still linked to doctor:</p>
+                {doctorNames.map((name, index) => (
+                  <div style={{ color: "#212529" }} key={index}>
+                    Dr. {name}
+                  </div>
+                ))}
+              </div>
+            )}
+            <div
+              className="confirmbutton mt-3 mb-2"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "",
+              }}
+            >
+              <BackProceed
+                leftButton={handleDeleteClose}
+                rightButton={checkNurseBinding}
+                redButtonText={"Cancel"}
+                blueButtonText={"Delete"}
+              />
             </div>
-          </div>
-          {doctorNames.length > 0 && (
-          <div className =" checkbinding-error mt-3"style={{display: "flex", justifyContent: "center", alignItems:"center", flexDirection: "column", color: "red" }}>
-            <p>Cannot be deleted, 
-            Secretary is still linked to doctor:
-            </p>
-            {doctorNames.map((name, index) => (
-              <div style={{color: "#212529"}} key={index}>Dr. {name}</div>
-            ))}
-          </div>
-          )}
-          <div
-            className="confirmbutton mt-3 mb-2"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "",
-            }}
-          >
-            <BackProceed
-              leftButton={handleDeleteClose}
-              rightButton={checkNurseBinding}
-              redButtonText={"Cancel"}
-              blueButtonText={"Delete"}
-            />
-          </div>
-        </Modal.Body>
+          </Modal.Body>
         </RequestLoadingOverlay>
       </Modal>
     </>

@@ -1,13 +1,11 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { HeadAdminPageContext } from "../../../pages/HeadAdmin";
 import Navbar from "../NavBar/NavBar";
 import Content from "../Sub_Components/Content";
 import HeadAdminNavbar from "../Sub_Components/headAdminNav";
-import { HeadAdminPageContext } from "../../../pages/HeadAdmin";
-import { useContext } from "react";
 import HeadSettings from "./HeadSettings";
-
-
 
 export const DashboardContext = createContext();
 
@@ -16,8 +14,7 @@ export default function Dashboard() {
   const [update, setUpdate] = useState(false);
   const { currentPage } = useContext(HeadAdminPageContext);
   const [loading, setLoading] = useState(false);
-
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -27,7 +24,7 @@ export default function Dashboard() {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("headToken");
 
       const response = await axios.get(
         process.env.REACT_APP_ONLINE + "/head-admin/dashboard",
@@ -44,11 +41,10 @@ export default function Dashboard() {
     }
   };
 
-
   return (
     <>
-    <Navbar />
-        <div className="adminMainContainer">
+      <Navbar />
+      <div className="adminMainContainer">
         <DashboardContext.Provider value={{ dashboardData }}>
           <HeadAdminNavbar />
           {currentPage === 1 ? (
@@ -57,10 +53,7 @@ export default function Dashboard() {
             <HeadSettings />
           )}
         </DashboardContext.Provider>
-        </div>
-  
+      </div>
     </>
   );
 }
-
-

@@ -1,5 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ErrorHandler } from "../../../utils/errorHandler";
+import { AdminContext } from "../Main_Content/Content";
 import SelectedDoctor from "./LeftContent/AdminSelectDoctor";
 import Card from "./LeftContent/AppointmentCard";
 import AppointmentTable from "./LeftContent/AppointmentTable";
@@ -10,30 +12,37 @@ import InsertAppointment from "./RightContent/InserAppointment";
 export default function LandingPage() {
   const [selectedStatus, setSelectedStatus] = useState("Pending");
   const [selectedDateRange, setSelectedDateRange] = useState("Week");
-  const [selectedDoctor, setSelectedDoctor] = useState("");
-  const [doctorList, setDoctorList] = useState([]);
+
   const [DisplayedPatients, setDisplayedPatients] = useState([]);
   const [patientCounter, setPatientCounter] = useState({});
   const [calendarData, setCalendarData] = useState([]);
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
   axios.defaults.withCredentials = true;
+
+  const { selectedDoctor, setSelectedDoctor, doctorList, setDoctorList } =
+    useContext(AdminContext);
+
   useEffect(() => {
     async function getData() {
-      const res = await axios.get(
-        process.env.REACT_APP_ONLINE + "/admin/nurse-dashboard",
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const { data } = res.data;
-      setDisplayedPatients(data.AppointmentsData);
-      setDoctorList(data.DoctorData);
-      setSelectedDoctor(data.DoctorData[0].doctor_ID);
-      setCalendarData(data.calendarData);
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_ONLINE + "/admin/nurse-dashboard",
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { data } = res.data;
+        setDisplayedPatients(data.AppointmentsData);
+        setDoctorList(data.DoctorData);
+        setSelectedDoctor(data.DoctorData[0].doctor_ID);
+        setCalendarData(data.calendarData);
+      } catch (error) {
+        ErrorHandler(error);
+      }
     }
     getData();
     // eslint-disable-next-line
@@ -69,40 +78,47 @@ export default function LandingPage() {
   const onSelectHandler = async (event) => {
     const { value } = event.target;
     setSelectedDateRange(value);
-    const res = await axios.get(
-      process.env.REACT_APP_ONLINE + "/admin/change-dateRange",
-      {
-        withCredentials: true,
-        params: {
-          DateRange: value,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const { data } = res.data;
-    setDisplayedPatients(data.appointmentsData);
+    try {
+      const res = await axios.get(
+        process.env.REACT_APP_ONLINE + "/admin/change-dateRange",
+        {
+          withCredentials: true,
+          params: {
+            DateRange: value,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const { data } = res.data;
+      setDisplayedPatients(data.appointmentsData);
+    } catch (error) {
+      ErrorHandler(error);
+    }
   };
 
   const onDoctorChangeHandler = async (event) => {
     const { value } = event.target;
     setSelectedDoctor(value);
-    const res = await axios.get(
-      process.env.REACT_APP_ONLINE + "/admin/change-doctor",
-      {
-        withCredentials: true,
-        params: {
-          doctor_ID: value,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const { data } = res.data;
-    setDisplayedPatients(data.appointmentsData);
+    try {
+      const res = await axios.get(
+        process.env.REACT_APP_ONLINE + "/admin/change-doctor",
+        {
+          withCredentials: true,
+          params: {
+            doctor_ID: value,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const { data } = res.data;
+      setDisplayedPatients(data.appointmentsData);
+    } catch (error) {
+      ErrorHandler(error);
+    }
   };
 
   const filterByStatus = DisplayedPatients

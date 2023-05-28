@@ -2,8 +2,8 @@ import { Tooltip } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ConfirmModal from "../../Reusable_Components/ConfirmationModal";
 import { HeadAdminPageContext } from "../../../pages/HeadAdmin";
+import ConfirmModal from "../../Reusable_Components/ConfirmationModal";
 
 export default function HeadAdminNavbar() {
   const [show, setShow] = useState(false);
@@ -12,7 +12,7 @@ export default function HeadAdminNavbar() {
   const { setCurrentPage, currentPage } = useContext(HeadAdminPageContext);
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("headToken");
     localStorage.removeItem("sortOption");
     localStorage.removeItem("selectedOption");
     navigate("/head");

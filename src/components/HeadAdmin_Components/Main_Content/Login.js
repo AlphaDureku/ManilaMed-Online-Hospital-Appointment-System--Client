@@ -8,7 +8,7 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +21,11 @@ export default function LoginPage() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem("headToken")) {
+      navigate("/head/dashboard");
+    }
+  });
 
   const onChangeHandler = (event) => {
     setError(false);
@@ -40,13 +45,12 @@ export default function LoginPage() {
     );
     if (data.data.status) {
       //Set token authentication
-      localStorage.setItem("token", data.data.token);
+      localStorage.setItem("headToken", data.data.token);
       navigate("/head/dashboard");
     } else {
       setError(true);
     }
     setLoading(false);
-
   };
   return (
     <div className="login--wrapper">
@@ -128,17 +132,16 @@ export default function LoginPage() {
                   ""
                 )}
                 <div className="loadingContainer">
-                {loading ? (
-                  <Loader
-                    size={"sm"}
-                    color={"teal"}
-                    className="smallLoadingHead"
-                  ></Loader>
-                ) : (
-                  ""
-                )}
+                  {loading ? (
+                    <Loader
+                      size={"sm"}
+                      color={"teal"}
+                      className="smallLoadingHead"
+                    ></Loader>
+                  ) : (
+                    ""
+                  )}
                 </div>
-                
               </MDBCardBody>
             </MDBCol>
           </MDBRow>

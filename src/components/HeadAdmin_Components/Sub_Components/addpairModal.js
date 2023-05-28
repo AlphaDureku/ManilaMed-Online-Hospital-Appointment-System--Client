@@ -43,7 +43,7 @@ export default function AddPairModal(props) {
       : [];
 
   const handleMatch = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
     const doctorId = props.doctor ? props.doctor.id : "";
 
     if (!selectedNurse) {
