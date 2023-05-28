@@ -14,6 +14,7 @@ export default function HeadAdminNavbar() {
     localStorage.removeItem("headToken");
     localStorage.removeItem("sortOption");
     localStorage.removeItem("selectedOption");
+    setCurrentPage(1)
     navigate("/head");
   };
 

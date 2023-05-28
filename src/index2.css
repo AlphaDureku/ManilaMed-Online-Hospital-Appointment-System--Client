@@ -587,7 +587,78 @@ margin-right: 20%;
   color: #000;
 }
 
+.mantine-1osnan1[data-selected],
+.mantine-22yr1m[data-selected]{
+  background-color: rgb(34, 208, 52);
+  color: #000;
+}
+.mantine-1osnan1[data-selected]:active,
+.mantine-22yr1m[data-selected]:active,
+.mantine-1osnan1[data-selected]:hover,
+.mantine-22yr1m[data-selected]:hover{
+  background-color: rgb(34, 208, 52);
+
+}
+
 .headconfirmbuttonrow > button {
   margin: 5px;
   width: 90px;
+}
+
+.set-avail-container{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-calendarModalContainer{
+  margin-right: 7%;
+  margin-left: 7%;
+
+}
+
+
+.insert-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.space1{
+  margin-right: 50px;
+}
+
+.space2{
+  margin-right: 43px;
+
+}
+.space3{
+  margin-right: 76px;
+}
+.space4{
+  margin-right: 100px;
+}
+.space5{
+  margin-right: 50px;
+}
+
+.Admin--SetButtonRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.Admin--SetButtonRow > button {
+  font-size: min(0.9rem, 2.4vw);
+  border-radius: 20px;
+  width: 30%;
+  margin: 15px;
+}
+
+.insert-errormsg{
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: red;
 }

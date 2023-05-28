@@ -174,3 +174,8 @@
   }
 } 
   
+@media screen and (max-width:1000px) {
+  .set-avail-container{
+    flex-direction: column;
+}
+}
