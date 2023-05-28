@@ -1,8 +1,9 @@
-import { Divider, TextInput } from "@mantine/core";
+import { Divider } from "@mantine/core";
 import { DashboardContext } from "./Dashboard";
 import { useContext, useState } from "react";
 import HeadAdminProfile from "../Sub_Components/headAdmin-Profile";
 import HeadAdminUsernamePass from "../Sub_Components/HeadAdminUsernamePass";
+
 
 export default function HeadSettings(props) {
 
@@ -34,6 +35,7 @@ export default function HeadSettings(props) {
   return (
     <>
       <div className="head-settingspage">
+
         <div className="quickinfo-row">
           <div className="icon-col">
             <img
@@ -43,10 +45,15 @@ export default function HeadSettings(props) {
             />
           </div>
           <div className="name-col">
-            <p className="headmanager-tag">{head_Manager_Fname} {head_Manager_Lname}</p>
+              <p className="headmanager-tag">
+              {head_Manager_Fname && head_Manager_Lname
+                ? `${head_Manager_Fname} ${head_Manager_Lname}`
+                : "Admin"}
+            </p>
             <p className="headmanager-title"> Head Admin</p>
           </div>
         </div>
+
         <Divider size="md" style={{ marginLeft: "3%", marginRight: "3%" }} />
         <div className="manageprofile-options">
           <div className="options-tagtitle">General</div>

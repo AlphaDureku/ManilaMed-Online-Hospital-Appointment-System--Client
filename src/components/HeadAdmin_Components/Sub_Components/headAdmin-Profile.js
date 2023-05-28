@@ -116,6 +116,11 @@ export default function HeadAdminProfile ( props) {
         EditedNotif();
         handleCancel();
         console.log("Admim information updated successfully:", response.data);
+        setOrigFormData((prevOrigFormData) => ({
+          ...prevOrigFormData,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+        }));
         props.setUpdate((prev) => !prev);
       } catch (error) {
         setNetworkError(true);

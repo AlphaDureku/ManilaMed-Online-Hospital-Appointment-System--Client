@@ -16,31 +16,36 @@ export default function HeadAdminUsernamePass(props) {
 
   const [networkError, setNetworkError] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-
   const validateForm = () => {
     const errors = {};
-
+  
     // Check if username is empty or has less than 6 characters
     if (formData.username.trim() === "" || formData.username.length < 6) {
       errors.username = true;
+    } else {
+      errors.username = false; // Clear the error if the username is valid
     }
-
-      // Check if password is less than 6 characters
+  
+    // Check if password is less than 6 characters
     if (formData.password.length < 6 && formData.password !== origFormData.password) {
-        errors.password = true;
+      errors.password = true;
+    } else {
+      errors.password = false; // Clear the error if the password is valid
     }
-
-
+  
     // Check if password and confirm password are the same
     if (formData.password !== formData.confirmPassword) {
       errors.confirmPassword = true;
+    } else {
+      errors.confirmPassword = false; // Clear the error if the passwords match
     }
-
+  
     setFormErrors(errors);
-
+  
     // Return true if there are no errors, false otherwise
-    return Object.keys(errors).length === 0;
+    return Object.values(errors).every((error) => !error);
   };
+  
 
   const [formData, setFormData] = useState({
     username: props.username,
@@ -48,7 +53,7 @@ export default function HeadAdminUsernamePass(props) {
     confirmPassword: "",
   });
 
-  const [origFormData] = useState({
+  const [origFormData, setOrigFormData] = useState({
     username: props.username,
     password: "",
     confirmPassword: "",
@@ -106,12 +111,19 @@ export default function HeadAdminUsernamePass(props) {
         handleCancel();
         console.log("Admin information updated successfully:", response.data);
         props.setUpdate((prev) => !prev);
+        setOrigFormData((prevOrigFormData) => ({
+          ...prevOrigFormData,
+          username: formData.username,
+        }));
+        
       } catch (error) {
         setNetworkError(true);
         console.error("Error updating Admin information:", error);
       }
     }
   };
+
+  console.log(origFormData.username);
   
   const handleChange = (event, fieldName) => {
     const { value } = event.target;
@@ -134,7 +146,8 @@ export default function HeadAdminUsernamePass(props) {
         password: "",
         confirmPassword: "",
       }));
-    
+   
+   
   };
 
   
@@ -197,6 +210,8 @@ export default function HeadAdminUsernamePass(props) {
                 styles={formstyles}
                 disabled={!isFieldEditable("username")}
                 onChange={(e) => handleChange(e, "username")}
+                error={formErrors.username && "Invalid"}
+
               />
             </Input.Wrapper>
             <Input.Wrapper label="New Password" className="mb-2">

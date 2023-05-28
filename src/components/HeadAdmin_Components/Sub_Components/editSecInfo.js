@@ -234,7 +234,6 @@ export default function EditSecInfo(props) {
       password: false,
     });
     props.handleCloseModal();
-    setFormData(origFormData);
   };
 
   return (
