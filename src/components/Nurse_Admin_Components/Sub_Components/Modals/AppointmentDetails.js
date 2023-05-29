@@ -100,8 +100,7 @@ export default function AppointmentDetailsModal(props) {
         <div>
           <p className="Tracker--modal--doctor-details">
             <b>
-              Dr.
-              {data.doctor_Fname} {data.doctor_Lname}
+              Dr. {data.doctor_Fname} {data.doctor_Lname}
             </b>
           </p>
           <p className="Tracker--modal--patient-details">

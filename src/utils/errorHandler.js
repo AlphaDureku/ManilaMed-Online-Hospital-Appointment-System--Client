@@ -3,7 +3,7 @@ export function ErrorHandler(error, setShowUnauthorizedModal) {
 
   switch (status) {
     case 500:
-      window.location.href = "/serverDown";
+      console.log(status);
       break;
     case 401:
       console.log(status);
