@@ -126,7 +126,11 @@ export default function MyAppointments(props) {
                 className="modalButton"
                 type="submit"
                 size="sm"
-                onClick={() => TogglerModal()}
+                onClick={
+                  selectedAppointment.status === "Confirmed"
+                    ? ""
+                    : () => TogglerModal()
+                }
                 style={{
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   backgroundColor:

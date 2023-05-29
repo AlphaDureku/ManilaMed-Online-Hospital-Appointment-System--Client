@@ -113,6 +113,7 @@ export default function LandingPage() {
           withCredentials: true,
           params: {
             doctor_ID: value,
+            DateRange: selectedDateRange,
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -176,7 +177,7 @@ export default function LandingPage() {
         />
       </div>
       <div className="RightContent">
-        <DashboardCalender calendarData={calendarData} />
+        <DashboardCalender calendarData={calendarData} setUpdate={setUpdate} />
         <InsertAppointment />
       </div>
     </div>

@@ -843,9 +843,7 @@ select {
 
 .mantine-22yr1m:hover {
   background: rgba(34, 208, 52, 1);
-
 }
-
 
 /* monthheader*/
 .mantine-kyxsp3 {
@@ -1386,7 +1384,6 @@ select {
   width: 90px;
 }
 
-
 .bookingConfirmationCard {
   max-width: 360px !important;
   border: 2px solid #000000 !important;
@@ -1609,6 +1606,10 @@ select {
   font-size: min(1rem, 3vw);
   padding: 1% 4%;
 }
+.Dashboard--Calendar > div:nth-child(1) > button:hover {
+  background-color: rgb(38, 168, 51);
+}
+
 .Dashboard--Calendar > div:nth-child(2) {
   align-items: center;
   display: flex;
@@ -1919,21 +1920,153 @@ select {
   gap: 4%;
 }
 
+.Calendar_Container--container {
+  background-color: #f4f4f4;
+  height: 92%;
+  width: 95%;
+  padding: 1% 0;
+  overflow: auto;
+  border-radius: 15px;
+}
 .Calendar_Container--right > div {
-  background-color: white;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   width: 100%;
   border-radius: 15px;
 }
 
 .Calendar_Container--right > div:nth-child(1) {
-  padding-top: 1%;
+  background-color: white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.Calendar_Container--right > div:nth-child(2) {
+.NotifyPatients {
+  height: 23%;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.NotifyPatients > div:nth-child(1) {
+  font-weight: 600;
+  font-size: min(1.6rem, 3.9vw);
+  text-align: center;
+  color: #434343;
+}
+
+.NotifyPatients > div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+  width: 100%;
+  justify-content: space-around;
+  flex-grow: 1;
+}
+
+.NotifyPatients > div:nth-child(2) > button {
+  height: 40%;
+  padding: 0 6%;
+  font-size: min(1.2rem, 3.5vw);
+}
+
+.NotifyPatients > div:nth-child(2) > button:nth-child(1) {
+  color: white;
+  background-color: #29cc97;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5rem;
+  font-size: min(1.1rem, 3vw);
+}
+.NotifyPatients > div:nth-child(2) > button:nth-child(2) {
+  color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: red;
+  border-radius: 5rem;
+  font-size: min(1.1rem, 3vw);
+}
+.CancelAll {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 3%;
   height: 23%;
 }
-.Calendar_Container--right > div:nth-child(3) {
+
+.CancelAll > div {
+  background-color: white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5%;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 100%;
+  width: 50%;
+  font-size: min(1.4rem, 3.5vw);
+  font-weight: 600;
+  text-align: center;
+  color: #434343;
+}
+
+.CancelAll > div:nth-child(1) > button:hover,
+.NotifyPatients > div:nth-child(2) > button:nth-child(1):hover,
+.NotifyDoctor > button:hover {
+  background-color: rgb(38, 168, 51) !important;
+}
+.CancelAll > div:nth-child(2) > button:hover,
+.NotifyPatients > div:nth-child(2) > button:nth-child(2):hover {
+  background-color: rgb(185, 31, 31);
+}
+.CancelAll > div:nth-child(1) > button {
+  background-color: #29cc97;
+  border-radius: 3rem;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: min(1rem, 3vw);
   height: 23%;
+  width: 50%;
+  border-radius: 5rem;
+}
+
+.CancelAll > div:nth-child(2) > button {
+  color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: red;
+  border-radius: 5rem;
+  height: 23%;
+  width: 50%;
+  font-size: min(1rem, 3vw);
+}
+
+.NotifyDoctor {
+  height: 23%;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  gap: 20%;
+}
+
+.NotifyDoctor > button {
+  background-color: #29cc97;
+  border-radius: 3rem;
+  height: 30%;
+  width: 35%;
+  font-size: min(1.1rem, 3vw);
+}
+
+.NotifyDoctor > div:nth-child(1) {
+  font-weight: 600;
+  font-size: min(1.6rem, 3.9vw);
+  text-align: center;
+  color: #434343;
 }

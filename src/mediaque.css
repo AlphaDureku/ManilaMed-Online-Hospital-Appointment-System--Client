@@ -937,6 +937,18 @@
     width: 80%;
   }
 
+  .Admin--Calendar_Container {
+    height: 100%;
+  }
+  .NotifyDoctor {
+    height: 14vh;
+  }
+
+  .NotifyDoctor > button {
+    height: 35%;
+    width: 50%;
+  }
+
   .RightContent {
     padding: 5% 0;
     gap: 5%;
@@ -951,7 +963,12 @@
   }
   .Admin--Calendar_Container > div:nth-child(1) {
     height: 100%;
-    border: 1px solid red;
+
+    padding: 2.5%;
+  }
+  .Admin--Calendar_Container > div:nth-child(2) {
+    height: 80vh;
+    padding: 2.5%;
   }
 
   .Admin--Calendar_Container > div {
@@ -959,6 +976,14 @@
   }
   .Admin--Calendar_Container > div:nth-child(1) {
     flex-shrink: 0;
+  }
+  .CancelAll > div:nth-child(2) > button {
+    height: 25%;
+    width: 88%;
+  }
+  .CancelAll > div:nth-child(1) > button {
+    height: 25%;
+    width: 88%;
   }
   .head-settingspage {
     margin-bottom: auto;

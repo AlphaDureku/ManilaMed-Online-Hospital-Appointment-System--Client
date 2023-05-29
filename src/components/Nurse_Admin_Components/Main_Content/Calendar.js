@@ -1,8 +1,9 @@
+import { Button } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
 import moment from "moment";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import SelectedDoctor from "../Sub_Components/LeftContent/AdminSelectDoctor";
 import Card from "../Sub_Components/LeftContent/AppointmentCard";
 import SearchRowAndSelectDoctor from "../Sub_Components/LeftContent/searchRowAndSelectDoctor";
@@ -10,6 +11,7 @@ import { AdminContext } from "./Content";
 
 export default function Calendar() {
   axios.defaults.withCredentials = true;
+  const token = localStorage.getItem("nurseToken");
   const breakPointMobile = useMediaQuery("(max-width: 1200px)");
   const [thatDaysPatient, setThatDaysPatient] = useState([]);
   const [selectedDate, setSelectedDate] = useState(
@@ -22,7 +24,6 @@ export default function Calendar() {
     calendarData,
     setCalendarData,
   } = useContext(AdminContext);
-  const token = localStorage.getItem("nurseToken");
 
   const onDoctorChangeHandler = async (event) => {
     const { value } = event.target;
@@ -99,6 +100,41 @@ export default function Calendar() {
       })
     : [];
 
+  const selectedDateChecker = async (action) => {
+    if (!selectedDate) {
+      return console.log("Please select a date");
+    } else if (thatDaysPatient.length === 0) {
+      return console.log("No Patient Appointments on date:" + selectedDate);
+    }
+    switch (action) {
+      case "Arrived":
+        console.log("Notified Arrived");
+        break;
+      case "Late":
+        console.log("Notified Late");
+        break;
+      case "CancelAll":
+        console.log("Cancelled All");
+        break;
+      case "NotifyDoctor":
+        const { data } = await axios.post(
+          process.env.REACT_APP_ONLINE + "/admin/notify-doctorForToday",
+          {
+            date: moment(selectedDate).format("MM-DD-YYYY"),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(data);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <div className="Admin--Calendar_Container">
@@ -140,12 +176,41 @@ export default function Calendar() {
               ></DatePicker>
             </div>
           </div>
-          <div></div>
+          <div className="NotifyDoctor">
+            <div>Notify Doctor on Appointments</div>
+            <Button onClick={() => selectedDateChecker("NotifyDoctor")}>
+              Notify Doctor
+            </Button>
+          </div>
         </div>
         <div className="Calendar_Container--right">
-          <div>{renderCard}</div>
-          <div></div>
-          <div></div>
+          <div>
+            <div className="Calendar_Container--container">{renderCard}</div>
+          </div>
+          <div className="NotifyPatients">
+            <div>Notify Patients</div>
+            <div>
+              <Button onClick={() => selectedDateChecker("Arrived")}>
+                Doctor Has Arrived
+              </Button>
+              <Button onClick={() => selectedDateChecker("Late")}>
+                Doctor is Running Late
+              </Button>
+            </div>
+          </div>
+          <div className="CancelAll">
+            <div>
+              <div>Manually Set an Appointment</div>
+              <Button>Set Appointment</Button>
+            </div>
+            <div>
+              {" "}
+              <div>Notify patients on Cancellation </div>
+              <Button onClick={() => selectedDateChecker("CancelAll")}>
+                Cancel Appointments
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </>

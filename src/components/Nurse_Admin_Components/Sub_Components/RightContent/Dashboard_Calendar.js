@@ -16,17 +16,16 @@ export default function DashboardCalender(props) {
     setSelectedDate(date);
   };
 
-
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
     const currentDate = moment().format("YYYY-MM-DD");
-  
+
     if (formattedDate < currentDate) {
       return {
         disabled: true,
       };
     }
-  
+
     if (
       calendarData &&
       calendarData.some((item) => item !== null && item.date2 === formattedDate)
@@ -35,22 +34,20 @@ export default function DashboardCalender(props) {
         style: {
           backgroundColor: "rgba(34, 208, 52, 0.5)",
           color: "black",
-        }, 
+        },
         disabled: true,
-
       };
     }
-  
+
     return {
       disabled: false,
     };
   };
-  
- function handleCloseModal (){
+
+  function handleCloseModal() {
     setShowModal(false);
   }
 
-  
   return (
     <>
       <div className="Dashboard--Calendar">
@@ -63,7 +60,6 @@ export default function DashboardCalender(props) {
         <div>
           <DatePicker
             getDayProps={getDayProps}
-         
             size={breakPointMobile ? "xs" : "lg"}
           ></DatePicker>
         </div>
@@ -74,37 +70,33 @@ export default function DashboardCalender(props) {
           size="xl"
         >
           <Modal.Header closeButton>
-            <div className="modal-title h4" >
-            Set Availability
-
-            </div>
-            </Modal.Header>
+            <div className="modal-title h4">Set Availability</div>
+          </Modal.Header>
           <Modal.Body>
             <div className="set-avail-container">
               <div className="admin-calendarModalContainer">
                 <DatePicker
-                getDayProps={getDayProps}
-                onChange={handleDateSelect}
-                value={selectedDate}
-                size={breakPointMobile ? "xs" : "lg"}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              ></DatePicker>
+                  getDayProps={getDayProps}
+                  onChange={handleDateSelect}
+                  value={selectedDate}
+                  size={breakPointMobile ? "xs" : "lg"}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                ></DatePicker>
               </div>
               <div>
-              <InsertAvailability
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-              handleCloseModal={handleCloseModal}/>
-
+                <InsertAvailability
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  handleCloseModal={handleCloseModal}
+                  setShowModal={setShowModal}
+                  setUpdate={props.setUpdate}
+                />
               </div>
-           
-            
             </div>
-            
           </Modal.Body>
         </Modal>
       </div>
