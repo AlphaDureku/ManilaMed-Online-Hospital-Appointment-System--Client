@@ -5,6 +5,7 @@ import HeadAdmin from "./pages/HeadAdmin";
 import Home from "./pages/Home";
 import Services from "./pages/Services/Services";
 import Track from "./pages/Tracking";
+import ServerDown from "./pages/serverDown";
 
 export const AppointmentDetailsContext = createContext();
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/User/*" element={<Track />} />
         <Route path="/Admin/*" element={<Admin />} />
         <Route path="/Head/*" element={<HeadAdmin />} />
+        <Route path="/ServerDown" element={<ServerDown />} />
       </Routes>
     </AppointmentDetailsContext.Provider>
   );

@@ -87,7 +87,13 @@ export default function AppointmentTable(props) {
             </div>
           </label>
         </div>
-        <div className="Admin--AppointmentContainer">{renderCard}</div>
+        <div className="Admin--AppointmentContainer">
+          {renderCard.length === 0 ? (
+            <div className="Empty">No Appointments Found</div>
+          ) : (
+            renderCard
+          )}
+        </div>
       </div>
     </>
   );

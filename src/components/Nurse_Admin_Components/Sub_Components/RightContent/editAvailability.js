@@ -1,4 +1,4 @@
-import { ActionIcon, Input, NumberInput, Select, Button } from "@mantine/core";
+import { ActionIcon, Button, Input, NumberInput, Select } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { IconClock } from "@tabler/icons-react";
 import axios from "axios";
@@ -7,21 +7,19 @@ import React, { useEffect, useRef, useState } from "react";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 
 export default function EditAvailability(props) {
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
-    const [selectedInterval, setSelectedInterval] = useState("");
-    const [numberOfPatients, setNumberOfPatients] = useState("");
-    const [origstartTime, setorigStartTime] = useState("");
-    const [origendTime, setorigEndTime] = useState("");
-    const [origselectedInterval, setorigSelectedInterval] = useState("");
-    const [orignumberOfPatients, setorigNumberOfPatients] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [selectedInterval, setSelectedInterval] = useState("");
+  const [numberOfPatients, setNumberOfPatients] = useState("");
+  const [origstartTime, setorigStartTime] = useState("");
+  const [origendTime, setorigEndTime] = useState("");
+  const [origselectedInterval, setorigSelectedInterval] = useState("");
+  const [orignumberOfPatients, setorigNumberOfPatients] = useState("");
 
-
-
-    const [error, setError] = useState("");
-    const [schedID, setSchedID] = useState("");
-    const startTimeRef = useRef();
-    const endTimeRef = useRef();
+  const [error, setError] = useState("");
+  const [schedID, setSchedID] = useState("");
+  const startTimeRef = useRef();
+  const endTimeRef = useRef();
   const formattedDate = props.selectedDate
     ? moment(props.selectedDate).format("MM/DD/YYYY")
     : "";
@@ -41,34 +39,30 @@ export default function EditAvailability(props) {
   );
 
   useEffect(() => {
-  if (selectedDateData) {
-    // Set the form values based on the availability data
-    setStartTime(selectedDateData.start);
-    setEndTime(selectedDateData.end);
-    setSelectedInterval(selectedDateData.timeInterval);
-    setNumberOfPatients(selectedDateData.maxPatient);
-    setorigStartTime(selectedDateData.start);
-    setorigEndTime(selectedDateData.end);
-    setorigSelectedInterval(selectedDateData.timeInterval);
-    setorigNumberOfPatients(selectedDateData.maxPatient);
-    setSchedID(selectedDateData.schedule_ID);
-  } else {
-    // Reset the form values
-    setStartTime("");
-    setEndTime("");
-    setSelectedInterval("");
-    setNumberOfPatients("");
-    setorigStartTime("");
-    setorigEndTime("");
-    setorigSelectedInterval("");
-    setorigNumberOfPatients("");
-    setSchedID("");
-
-  }
-}, [props.selectedDate]);
-
-
-  
+    if (selectedDateData) {
+      // Set the form values based on the availability data
+      setStartTime(selectedDateData.start);
+      setEndTime(selectedDateData.end);
+      setSelectedInterval(selectedDateData.timeInterval);
+      setNumberOfPatients(selectedDateData.maxPatient);
+      setorigStartTime(selectedDateData.start);
+      setorigEndTime(selectedDateData.end);
+      setorigSelectedInterval(selectedDateData.timeInterval);
+      setorigNumberOfPatients(selectedDateData.maxPatient);
+      setSchedID(selectedDateData.schedule_ID);
+    } else {
+      // Reset the form values
+      setStartTime("");
+      setEndTime("");
+      setSelectedInterval("");
+      setNumberOfPatients("");
+      setorigStartTime("");
+      setorigEndTime("");
+      setorigSelectedInterval("");
+      setorigNumberOfPatients("");
+      setSchedID("");
+    }
+  }, [props.selectedDate]);
 
   const handleDateChange = (event) => {
     props.setSelectedDate(event.target.value);
@@ -83,13 +77,9 @@ export default function EditAvailability(props) {
   };
 
   const handleIntervalChange = (value) => {
-   
     setSelectedInterval(value);
     console.log(selectedInterval);
   };
-  
-
-
 
   const handleSubmit = async () => {
     try {
@@ -105,10 +95,10 @@ export default function EditAvailability(props) {
         const start = moment(startTime, "hh:mm A");
         const end = moment(endTime, "hh:mm A");
         const duration = moment.duration(end.diff(start));
-  
+
         const [hours, minutes] = selectedInterval.split(":");
         const intervalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-  
+
         console.log(startTime);
         console.log(origstartTime);
         console.log(endTime);
@@ -117,10 +107,7 @@ export default function EditAvailability(props) {
         console.log(origselectedInterval);
         console.log(numberOfPatients);
         console.log(orignumberOfPatients);
-        if (
-          intervalMinutes >= 30 &&
-          duration.asMinutes() >= intervalMinutes
-        ) {
+        if (intervalMinutes >= 30 && duration.asMinutes() >= intervalMinutes) {
           const postData = {
             schedule_ID: schedID,
             startTime: moment(startTime, "hh:mm A").format("HH:mm:ss"),
@@ -128,7 +115,7 @@ export default function EditAvailability(props) {
             intervalTime: selectedInterval,
             maxPatient: numberOfPatients.toString(),
           };
-  
+
           console.log(postData);
           const response = await axios.post(
             process.env.REACT_APP_ONLINE + "/admin/update-availability",
@@ -142,7 +129,7 @@ export default function EditAvailability(props) {
           console.log(response);
           if (response.data.success === true) {
             console.log("Availability edit successfully");
-           handleCloseModal();
+            handleCloseModal();
             props.setUpdate((prev) => !prev);
             // Reset the form or perform any other necessary actions
           } else {
@@ -150,11 +137,15 @@ export default function EditAvailability(props) {
             setError("Network error");
           }
         } else {
-          console.error("The interval time should be at least the allotted time");
-          setError("Availability schedule should be at least the allotted time");
+          console.error(
+            "The interval time should be at least the allotted time"
+          );
+          setError(
+            "Availability schedule should be at least the allotted time"
+          );
           setNumberOfPatients("");
         }
-        } else if (
+      } else if (
         startTime === origstartTime ||
         endTime === origendTime ||
         selectedInterval === origselectedInterval ||
@@ -181,39 +172,38 @@ export default function EditAvailability(props) {
     try {
       setError(""); // Clear any previous errors
       const token = localStorage.getItem("nurseToken");
-      
-        const postData = {
-          schedule_ID: schedID,
-        };
-  
-        console.log(postData);
-        const response = await axios.post(
-          process.env.REACT_APP_ONLINE + "/admin/delete-availability",
-          postData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        
-        console.log(response);
-        if (response.data.success === true) {
-          console.log("Availability delete successful");
-          props.setUpdate((prev) => !prev);
-          handleCloseModal();
-        } else {
-          console.error("Failed to delete availability");
-          setError("Network error");
+
+      const postData = {
+        schedule_ID: schedID,
+      };
+
+      console.log(postData);
+      const response = await axios.post(
+        process.env.REACT_APP_ONLINE + "/admin/delete-availability",
+        postData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-    
+      );
+
+      console.log(response);
+      if (response.data.success === true) {
+        console.log("Availability delete successful");
+        props.setUpdate((prev) => !prev);
+        handleCloseModal();
+        props.setSelectedDate(null);
+      } else {
+        console.error("Failed to delete availability");
+        setError("Network error");
+      }
     } catch (error) {
       setError("Network error");
       console.error("Failed to delete availability:", error);
     }
   };
-  
-  
+
   function handleCloseModal() {
     props.setShowModal(false);
     setStartTime("");
@@ -226,8 +216,6 @@ export default function EditAvailability(props) {
     setorigNumberOfPatients("");
     setSchedID("");
   }
-
-
 
   const selectOptions = [
     {
@@ -281,17 +269,16 @@ export default function EditAvailability(props) {
           </div>
         </div>
         <div className="ms-3 ">
-          <p  className="setavail-tagjunior">Time Interval: </p>
+          <p className="setavail-tagjunior">Time Interval: </p>
         </div>
         <div className="ms-5 insert-row">
           <div className="space2">
-            <p  className="setavail-tagjunior" >Per Patient</p>
+            <p className="setavail-tagjunior">Per Patient</p>
           </div>
           <div style={{ width: "175px" }}>
             <Select
-             data={selectOptions} 
-             value={selectedInterval}
-
+              data={selectOptions}
+              value={selectedInterval}
               styles={formstyles}
               searchable
               clearable
@@ -301,12 +288,12 @@ export default function EditAvailability(props) {
           </div>
         </div>
         <div className="ms-3">
-          <p  className="setavail-tagjunior">Selected Time: </p>
+          <p className="setavail-tagjunior">Selected Time: </p>
         </div>
         <div className="ms-5">
           <div className="insert-row">
             <div className="space3">
-              <p  className="setavail-tagjunior">FROM: </p>
+              <p className="setavail-tagjunior">FROM: </p>
             </div>
             <div>
               <TimeInput
@@ -324,7 +311,7 @@ export default function EditAvailability(props) {
           </div>
           <div className="mt-2 insert-row">
             <div className="space4">
-              <p  className="setavail-tagjunior">TO: </p>
+              <p className="setavail-tagjunior">TO: </p>
             </div>
             <div>
               <TimeInput
@@ -348,7 +335,7 @@ export default function EditAvailability(props) {
         </div>
         <div className="ms-3 insert-row">
           <div className="space5">
-            <p  className="setavail-tagjunior">No. of Patients</p>
+            <p className="setavail-tagjunior">No. of Patients</p>
           </div>
           <div style={{ width: "90px" }}>
             <NumberInput
@@ -367,12 +354,14 @@ export default function EditAvailability(props) {
       </div>
       <div className="Admin--SetButtonRow mt-3">
         <Button
-           style={{
+          style={{
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             backgroundColor: "red",
           }}
           onClick={props.handleCloseModal}
-        >Cancel</Button>
+        >
+          Cancel
+        </Button>
 
         <BackProceed
           leftButton={handleDelete}

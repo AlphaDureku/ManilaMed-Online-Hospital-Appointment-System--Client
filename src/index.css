@@ -2070,3 +2070,21 @@ select {
   text-align: center;
   color: #434343;
 }
+
+.Empty {
+  font-weight: 600;
+  font-size: min(1.6rem, 3.9vw);
+  text-align: center;
+  margin-top: 20%;
+}
+
+.serverDownContainer {
+  height: 100vh;
+  width: 100vw;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: 600;
+}

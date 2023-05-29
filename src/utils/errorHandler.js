@@ -1,4 +1,14 @@
-export function ErrorHandler(error) {
+export function ErrorHandler(error, setShowUnauthorizedModal) {
   const { status } = error.response;
-  console.log(status);
+
+  switch (status) {
+    case 500:
+      window.location.href = "/serverDown";
+      break;
+    case 401:
+      console.log(status);
+      break;
+    default:
+      break;
+  }
 }

@@ -1,11 +1,15 @@
-import { Button } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
-import { useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import axios from "axios";
 import moment from "moment";
 import { useContext, useState } from "react";
+import { ErrorHandler } from "../../../utils/errorHandler";
+import ConfirmModal from "../../Reusable_Components/ConfirmationModal";
+import CancelAllRow from "../Sub_Components/CalendarPage/CancelAllRow";
+import CardContainer from "../Sub_Components/CalendarPage/CardContainer";
+import NotifyDoctor from "../Sub_Components/CalendarPage/NotifyDoctor";
+import NotifyPatients from "../Sub_Components/CalendarPage/NotifyPatients";
+import ScheduleCalendar from "../Sub_Components/CalendarPage/ScheduleCalendar";
 import SelectedDoctor from "../Sub_Components/LeftContent/AdminSelectDoctor";
 import Card from "../Sub_Components/LeftContent/AppointmentCard";
 import SearchRowAndSelectDoctor from "../Sub_Components/LeftContent/searchRowAndSelectDoctor";
@@ -14,11 +18,12 @@ import { AdminContext } from "./Content";
 export default function Calendar() {
   axios.defaults.withCredentials = true;
   const token = localStorage.getItem("nurseToken");
-  const breakPointMobile = useMediaQuery("(max-width: 1200px)");
   const [thatDaysPatient, setThatDaysPatient] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(
-    moment().format("MM-DD-YYYY")
-  );
+  const [show, setShow] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalQuestion, setModalQuestion] = useState("");
+  const [action, setAction] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
   const {
     selectedDoctor,
     setSelectedDoctor,
@@ -29,25 +34,32 @@ export default function Calendar() {
 
   const onDoctorChangeHandler = async (event) => {
     const { value } = event.target;
-    const res = await axios.get(
-      process.env.REACT_APP_ONLINE + "/admin/change-doctor",
-      {
-        withCredentials: true,
-        params: {
-          doctor_ID: value,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const { data } = res.data;
-    setCalendarData(data.calendarData);
-    setSelectedDoctor(value);
-    setSelectedDate("");
-    setThatDaysPatient([]);
+    try {
+      const res = await axios.get(
+        process.env.REACT_APP_ONLINE + "/admin/change-doctor",
+        {
+          withCredentials: true,
+          params: {
+            doctor_ID: value,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const { data } = res.data;
+      setCalendarData(data.calendarData);
+      setSelectedDoctor(value);
+      setSelectedDate("");
+      setThatDaysPatient([]);
+    } catch (error) {
+      ErrorHandler(error);
+    }
   };
 
+  const handleClose = () => {
+    setShow(false);
+  };
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
     if (selectedDate === formattedDate) {
@@ -75,19 +87,24 @@ export default function Calendar() {
   const handleDateSelect = async (date) => {
     const formattedDate = moment(date).format("MM-DD-YYYY");
     setSelectedDate(moment(date).format("YYYY-MM-DD"));
+
     const appointmentThatDay = async () => {
-      const { data } = await axios.get(
-        process.env.REACT_APP_ONLINE + "/admin/appointments-ThatDay",
-        {
-          params: {
-            date: formattedDate,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setThatDaysPatient(data.data);
+      try {
+        const { data } = await axios.get(
+          process.env.REACT_APP_ONLINE + "/admin/appointments-ThatDay",
+          {
+            params: {
+              date: formattedDate,
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setThatDaysPatient(data.data);
+      } catch (error) {
+        ErrorHandler(error);
+      }
     };
     appointmentThatDay();
   };
@@ -125,6 +142,46 @@ export default function Calendar() {
         false
       );
     }
+    setShow(true);
+    notificationSenderFilter(action);
+  };
+
+  const notificationSenderFilter = async (params) => {
+    switch (params) {
+      case "Arrived":
+        setModalTitle("Notify Patients");
+        setModalQuestion(
+          "Are you sure you want to notify patients that the doctor has arrived?"
+        );
+        break;
+      case "Late":
+        setModalTitle("Notify Patients");
+        setModalQuestion(
+          "Are you sure you want to notify patients that the doctor is going to be late?"
+        );
+        break;
+      case "CancelAll":
+        setModalTitle("Cancel All Appointment");
+        setModalQuestion(
+          "Are you sure you want to cancel all appointments for date: " +
+            moment(selectedDate).format("MMM DD, YYYY") +
+            "?"
+        );
+        break;
+      case "NotifyDoctor":
+        setModalTitle("Notify Doctor");
+        setModalQuestion(
+          "Are you sure you want to notify the doctor for todays appointment?"
+        );
+        break;
+      default:
+        break;
+    }
+    setAction(params);
+  };
+
+  const handleSubmit = async () => {
+    setShow(false);
     switch (action) {
       case "Arrived":
         await axios.post(
@@ -139,9 +196,7 @@ export default function Calendar() {
             },
           }
         );
-        console.log("Notified Arrived");
         Notification("Successfully Notified Patients", true);
-        ///
         break;
       case "Late":
         await axios.post(
@@ -158,12 +213,21 @@ export default function Calendar() {
         );
         console.log("Notified Late");
         Notification("Successfully Notified Patients", true);
-        ///
         break;
       case "CancelAll":
-        console.log("Cancelled All");
+        await axios.post(
+          process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
+          {
+            date: moment(selectedDate).format("MM-DD-YYYY"),
+            notificationType: "CancellAll",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         Notification("Successfully Cancelled All Patient Appointments", true);
-        ///
         break;
       case "NotifyDoctor":
         await axios.post(
@@ -183,7 +247,6 @@ export default function Calendar() {
         break;
     }
   };
-
   return (
     <>
       <div className="Admin--Calendar_Container">
@@ -195,73 +258,31 @@ export default function Calendar() {
               renderSelectOptions={renderSelectOptions}
             />
           </div>
-          <div className="Schedule_Calendar_Container">
-            <div>
-              <h3>Schedule Calendar</h3>
-            </div>
-            <div>Choose a date to view appointments</div>
-            <div>
-              <div style={{ color: "#2f9d44", fontWeight: "600" }}>
-                <img
-                  src="/images/lightgreenLegend.png"
-                  alt=""
-                  className="legend"
-                ></img>
-                With Appointments
-              </div>
-              <div style={{ color: "#434343", fontWeight: "600" }}>
-                {" "}
-                <img src="/images/whitec.png" alt="" className="legend"></img>No
-                appointments
-              </div>
-            </div>
-            <div>
-              {" "}
-              <DatePicker
-                getDayProps={getDayProps}
-                onChange={handleDateSelect}
-                value={selectedDate}
-                size={breakPointMobile ? "xs" : "lg"}
-              ></DatePicker>
-            </div>
-          </div>
-          <div className="NotifyDoctor">
-            <div>Notify Doctor on Appointments</div>
-            <Button onClick={() => selectedDateChecker("NotifyDoctor")}>
-              Notify Doctor
-            </Button>
-          </div>
+          <ScheduleCalendar
+            getDayProps={getDayProps}
+            handleDateSelect={handleDateSelect}
+            selectedDate={selectedDate}
+          />
+          <NotifyDoctor selectedDateChecker={selectedDateChecker} />
         </div>
         <div className="Calendar_Container--right">
           <div>
-            <div className="Calendar_Container--container">{renderCard}</div>
+            <CardContainer
+              thatDaysPatient={thatDaysPatient}
+              renderCard={renderCard}
+            />
           </div>
-          <div className="NotifyPatients">
-            <div>Notify Patients</div>
-            <div>
-              <Button onClick={() => selectedDateChecker("Arrived")}>
-                Doctor Has Arrived
-              </Button>
-              <Button onClick={() => selectedDateChecker("Late")}>
-                Doctor is Running Late
-              </Button>
-            </div>
-          </div>
-          <div className="CancelAll">
-            <div>
-              <div>Manually Set an Appointment</div>
-              <Button>Set Appointment</Button>
-            </div>
-            <div>
-              {" "}
-              <div>Notify patients on Cancellation </div>
-              <Button onClick={() => selectedDateChecker("CancelAll")}>
-                Cancel Appointments
-              </Button>
-            </div>
-          </div>
+          <NotifyPatients selectedDateChecker={selectedDateChecker} />
+          <CancelAllRow selectedDateChecker={selectedDateChecker} />
         </div>
       </div>
+      <ConfirmModal
+        show={show}
+        handleClose={handleClose}
+        title={modalTitle}
+        handleSubmit={handleSubmit}
+        question={modalQuestion}
+      />
     </>
   );
 }
