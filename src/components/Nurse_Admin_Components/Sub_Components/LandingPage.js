@@ -51,7 +51,6 @@ export default function LandingPage() {
       }
     }
 
-
     async function getUpdateDataCalendar() {
       try {
         const res = await axios.get(
@@ -74,7 +73,6 @@ export default function LandingPage() {
     getData();
     // eslint-disable-next-line
   }, [update]);
-
 
   useEffect(() => {
     const newCounts = DisplayedPatients
@@ -151,7 +149,6 @@ export default function LandingPage() {
     }
   };
 
-
   const filterByStatus = DisplayedPatients
     ? DisplayedPatients.filter((item) => {
         if (selectedStatus === "Cancelled") {
@@ -183,8 +180,6 @@ export default function LandingPage() {
       })
     : [];
 
-
-
   return (
     <div className="Admin--Dashboard_Container">
       <div className="LeftContent">
@@ -203,10 +198,10 @@ export default function LandingPage() {
         />
       </div>
       <div className="RightContent">
-        <DashboardCalender 
-        calendarData={calendarData} 
-        setUpdate={setUpdate} 
-        updateDataCalendar={updateDataCalendar}
+        <DashboardCalender
+          calendarData={calendarData}
+          setUpdate={setUpdate}
+          updateDataCalendar={updateDataCalendar}
         />
         <InsertAppointment />
       </div>

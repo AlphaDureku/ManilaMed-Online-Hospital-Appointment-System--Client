@@ -109,8 +109,6 @@ const AddSecModal = (props) => {
           }
         );
 
-        console.log(response.data);
-
         if (response.data.data === true) {
           handleCloseModal();
           setServerError("");

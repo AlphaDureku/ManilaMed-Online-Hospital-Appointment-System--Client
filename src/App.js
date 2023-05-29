@@ -28,7 +28,7 @@ export default function App() {
       patient_first_name: "",
       patient_last_name: "",
       middle_name: "",
-      contact_number: "",
+      contact_number: "+63",
       address: "",
       dateOfBirth: "",
       gender: "",
