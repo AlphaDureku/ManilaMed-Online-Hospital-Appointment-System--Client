@@ -181,17 +181,7 @@ export default function EditAvailability(props) {
     try {
       setError(""); // Clear any previous errors
       const token = localStorage.getItem("nurseToken");
-      if (
-        formattedDate &&
-        startTime &&
-        endTime &&
-        selectedInterval &&
-        numberOfPatients &&
-        (startTime !== origstartTime ||
-          endTime !== origendTime ||
-          selectedInterval !== origselectedInterval ||
-          numberOfPatients !== orignumberOfPatients)
-      ) {
+      
         const postData = {
           schedule_ID: schedID,
         };
@@ -210,16 +200,13 @@ export default function EditAvailability(props) {
         console.log(response);
         if (response.data.success === true) {
           console.log("Availability delete successful");
+          props.setUpdate((prev) => !prev);
           handleCloseModal();
-          
         } else {
           console.error("Failed to delete availability");
           setError("Network error");
         }
-      } else {
-        console.error("Please fill all the required fields");
-        setError("Please fill all the fields");
-      }
+    
     } catch (error) {
       setError("Network error");
       console.error("Failed to delete availability:", error);
