@@ -1,5 +1,4 @@
 import { MantineProvider } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -13,7 +12,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <MantineProvider>
     <BrowserRouter>
-      <Notifications position="top-center" zIndex={3000} />
       <App />
     </BrowserRouter>
   </MantineProvider>

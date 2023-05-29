@@ -1,3 +1,4 @@
+import { Notifications } from "@mantine/notifications";
 import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Content from "../components/Nurse_Admin_Components/Main_Content/Content";
@@ -13,9 +14,9 @@ export default function Admin() {
   };
   return (
     <>
+      <Notifications position="bottom-right" zIndex={3000} />
       <Routes>
         <Route path="/" element={<Login />} />
-
         <Route
           path="/dashboard"
           element={

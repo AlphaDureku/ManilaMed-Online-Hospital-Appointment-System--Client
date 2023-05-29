@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { Notifications } from "@mantine/notifications";
 import Faqs from "../components/Home Components/FAQS/Faqs";
 import HomeFooter from "../components/Home Components/Footer/HomeFooter";
 import HeaderImg from "../components/Home Components/Hero Section/heroSection";
@@ -11,6 +12,7 @@ import Card from "../components/Home Components/Search Doctor/Card";
 import Form from "../components/Home Components/Search Doctor/Form";
 import Services from "../components/Home Components/Services/services";
 import TrackMe from "../components/Home Components/Track Patient/Form";
+
 const moment = require("moment");
 
 export default function Home() {
@@ -82,6 +84,7 @@ export default function Home() {
   //Sub-Components
   return (
     <>
+      <Notifications position="top-center" zIndex={3000} />
       <div className="home_body">
         {<Navbar />}
         {<HeaderImg />}

@@ -1,8 +1,8 @@
+import { Notifications } from "@mantine/notifications";
 import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../components/HeadAdmin_Components/Main_Content/Dashboard";
 import LoginPage from "../components/HeadAdmin_Components/Main_Content/Login";
-
 export const HeadAdminPageContext = createContext();
 
 export default function HeadAdmin() {
@@ -15,6 +15,7 @@ export default function HeadAdmin() {
 
   return (
     <>
+      <Notifications position="top-center" zIndex={3000} />
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route

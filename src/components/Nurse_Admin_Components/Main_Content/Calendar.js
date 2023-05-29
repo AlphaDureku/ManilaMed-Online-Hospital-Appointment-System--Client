@@ -1,6 +1,8 @@
 import { Button } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
+import { IconCheck, IconX } from "@tabler/icons-react";
 import axios from "axios";
 import moment from "moment";
 import { useContext, useState } from "react";
@@ -100,24 +102,71 @@ export default function Calendar() {
       })
     : [];
 
+  const Notification = (message, status) => {
+    notifications.show({
+      title: status ? "Success!" : "Notification Unsuccessful!",
+      icon: status ? <IconCheck size="3rem" /> : <IconX size="3rem" />,
+      message: message,
+      color: status ? "teal" : "red",
+      autoClose: 4000,
+    });
+  };
+
   const selectedDateChecker = async (action) => {
     if (!selectedDate) {
-      return console.log("Please select a date");
+      return Notification(
+        "Please select a valid date from the calendar: ",
+        false
+      );
     } else if (thatDaysPatient.length === 0) {
-      return console.log("No Patient Appointments on date:" + selectedDate);
+      return Notification(
+        "No Patient Appointments on Date: " +
+          moment(selectedDate).format("MMM DD, YYYY"),
+        false
+      );
     }
     switch (action) {
       case "Arrived":
+        await axios.post(
+          process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
+          {
+            date: moment(selectedDate).format("MM-DD-YYYY"),
+            notificationType: "Arrived",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         console.log("Notified Arrived");
+        Notification("Successfully Notified Patients", true);
+        ///
         break;
       case "Late":
+        await axios.post(
+          process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
+          {
+            date: moment(selectedDate).format("MM-DD-YYYY"),
+            notificationType: "Late",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         console.log("Notified Late");
+        Notification("Successfully Notified Patients", true);
+        ///
         break;
       case "CancelAll":
         console.log("Cancelled All");
+        Notification("Successfully Cancelled All Patient Appointments", true);
+        ///
         break;
       case "NotifyDoctor":
-        const { data } = await axios.post(
+        await axios.post(
           process.env.REACT_APP_ONLINE + "/admin/notify-doctorForToday",
           {
             date: moment(selectedDate).format("MM-DD-YYYY"),
@@ -128,7 +177,7 @@ export default function Calendar() {
             },
           }
         );
-        console.log(data);
+        Notification("Successfully Notified Doctor", true);
         break;
       default:
         break;
