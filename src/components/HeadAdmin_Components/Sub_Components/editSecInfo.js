@@ -146,6 +146,7 @@ export default function EditSecInfo(props) {
         const { data } = response.data;
 
         if (data.duplicate) {
+          setFormErrors((prev) => ({ ...prev, [data.duplicate]: "duplicate" }));
           console.log(data);
         } else {
           handleCancel();
@@ -337,7 +338,13 @@ export default function EditSecInfo(props) {
                   onChange={handleChange}
                   styles={formstyles}
                   disabled={!isFieldEditable("email")}
-                  error={formErrors.email && "Email must be valid"}
+                  error={
+                    formErrors.email === "duplicate"
+                      ? "Email already exists"
+                      : formErrors.email
+                      ? "Email must be valid"
+                      : ""
+                  }
                 />
               </Input.Wrapper>
               <Input.Wrapper label="Contact Number" className="mb-2">
@@ -376,8 +383,11 @@ export default function EditSecInfo(props) {
                   styles={formstyles}
                   disabled={!isFieldEditable("username")}
                   error={
-                    formErrors.username &&
-                    "Username is Invalid. It must have at least 6 characters"
+                    formErrors.username === "duplicate"
+                      ? "Username already exists"
+                      : formErrors.username
+                      ? "Username is Invalid. It must have at least 6 characters"
+                      : ""
                   }
                 />
               </Input.Wrapper>
