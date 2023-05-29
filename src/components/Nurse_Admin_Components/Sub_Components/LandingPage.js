@@ -16,6 +16,7 @@ export default function LandingPage() {
   const [patientCounter, setPatientCounter] = useState({});
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
+  const [updateDataCalendar, setUpdateDataCalendar] = useState([]);
   axios.defaults.withCredentials = true;
 
   const {
@@ -49,9 +50,31 @@ export default function LandingPage() {
         ErrorHandler(error);
       }
     }
+
+
+    async function getUpdateDataCalendar() {
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_ONLINE + "/admin/avail-schedule-forUpdate",
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { data } = res.data;
+        setUpdateDataCalendar(data);
+      } catch (error) {
+        ErrorHandler(error);
+      }
+    }
+
+    getUpdateDataCalendar();
     getData();
     // eslint-disable-next-line
   }, [update]);
+
 
   useEffect(() => {
     const newCounts = DisplayedPatients
@@ -128,6 +151,7 @@ export default function LandingPage() {
     }
   };
 
+
   const filterByStatus = DisplayedPatients
     ? DisplayedPatients.filter((item) => {
         if (selectedStatus === "Cancelled") {
@@ -159,6 +183,8 @@ export default function LandingPage() {
       })
     : [];
 
+
+
   return (
     <div className="Admin--Dashboard_Container">
       <div className="LeftContent">
@@ -177,7 +203,11 @@ export default function LandingPage() {
         />
       </div>
       <div className="RightContent">
-        <DashboardCalender calendarData={calendarData} setUpdate={setUpdate} />
+        <DashboardCalender 
+        calendarData={calendarData} 
+        setUpdate={setUpdate} 
+        updateDataCalendar={updateDataCalendar}
+        />
         <InsertAppointment />
       </div>
     </div>
