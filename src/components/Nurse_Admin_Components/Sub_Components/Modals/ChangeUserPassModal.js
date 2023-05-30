@@ -167,8 +167,8 @@ export default function ChangeUserPassModal(props) {
           }
         );
         const { data } = response.data;
+        console.log(data);
         if (data.samePassword && !data.duplicate) {
-          console.log(data.message);
           props.handleCloseModal();
           props.setUpdate((prev) => !prev);
           EditedNotif();
@@ -178,11 +178,21 @@ export default function ChangeUserPassModal(props) {
             newPassword: "",
             confirmPassword: "",
           }));
-          handleEditFieldToggle("username");
-          handleEditFieldToggle("password");
+          setEditFields(() => ({
+            username: false,
+            password: false,
+          }));
         } else if (!data.samePassword) {
+          setFormErrors((prev) => ({
+            ...prev,
+            oldPassword: "Wrong Password!",
+          }));
           console.log("Wrong pasword");
         } else {
+          setFormErrors((prev) => ({
+            ...prev,
+            username: "username already exist!",
+          }));
           console.log("Duplicate username");
         }
       } catch (error) {
@@ -255,18 +265,8 @@ export default function ChangeUserPassModal(props) {
                   error={formErrors.username && "Invalid"}
                 />
               </Input.Wrapper>
-              <Input.Wrapper label="Old Password" className="mb-2">
-              
-                <PasswordInput
-                  value={formData.oldPassword}
-                  styles={formstyles}
-                  onChange={(e) => handleChange(e, "oldPassword")}
-                  error={formErrors.oldPassword && "Old Password is invalid"}
-                  disabled={!isFieldEditable("password")}
-                />
-              </Input.Wrapper>
               <Input.Wrapper label="New Password" className="mb-2 ">
-                  <label
+                <label
                   className="edit-NurseInfo mt-2 ms-2"
                   onClick={() => handleEditFieldToggle("password")}
                 >
@@ -292,6 +292,17 @@ export default function ChangeUserPassModal(props) {
                   error={formErrors.confirmPassword && "Passwords do not match"}
                   disabled={!isFieldEditable("password")}
                   className="mt-2"
+                />
+              </Input.Wrapper>
+              <Input.Wrapper label="Current Password" className="mb-2">
+                <PasswordInput
+                  value={formData.oldPassword}
+                  styles={formstyles}
+                  onChange={(e) => handleChange(e, "oldPassword")}
+                  error={
+                    formErrors.oldPassword &&
+                    "Please enter your current password for verification"
+                  }
                 />
               </Input.Wrapper>
               <div style={{ textAlign: "center" }}>
