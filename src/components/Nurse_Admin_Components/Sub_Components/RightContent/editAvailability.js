@@ -1,13 +1,11 @@
 import { ActionIcon, Button, Input, NumberInput, Select } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
-import { IconClock } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
+import { IconCheck, IconClock } from "@tabler/icons-react";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import { notifications } from "@mantine/notifications";
-import { IconCheck } from "@tabler/icons-react";
-
 
 export default function EditAvailability(props) {
   const [startTime, setStartTime] = useState("");
@@ -19,30 +17,28 @@ export default function EditAvailability(props) {
   const [origselectedInterval, setorigSelectedInterval] = useState("");
   const [orignumberOfPatients, setorigNumberOfPatients] = useState("");
 
+  const EditNotif = () => {
+    notifications.show({
+      title: "Edit Success!",
+      color: "teal",
+      autoClose: 2000,
+      icon: <IconCheck size="3rem" />,
+    });
+  };
 
-    const EditNotif = () => {
-      notifications.show({
-        title: "Edit Success!",
-        color: "teal",
-        autoClose: 2000,
-        icon: <IconCheck size="3rem" /> 
-      });
-    };
+  const DeleteNotif = () => {
+    notifications.show({
+      title: "Delete Success!",
+      color: "teal",
+      autoClose: 2000,
+      icon: <IconCheck size="3rem" />,
+    });
+  };
 
-    const DeleteNotif = () => {
-      notifications.show({
-        title: "Delete Success!",
-        color: "teal",
-        autoClose: 2000,
-        icon: <IconCheck size="3rem" /> 
-      });
-    };
-    
-    
-    const [error, setError] = useState("");
-    const [schedID, setSchedID] = useState("");
-    const startTimeRef = useRef();
-    const endTimeRef = useRef();
+  const [error, setError] = useState("");
+  const [schedID, setSchedID] = useState("");
+  const startTimeRef = useRef();
+  const endTimeRef = useRef();
   const formattedDate = props.selectedDate
     ? moment(props.selectedDate).format("MM/DD/YYYY")
     : "";
@@ -108,7 +104,15 @@ export default function EditAvailability(props) {
     try {
       setError(""); // Clear any previous errors
       const token = localStorage.getItem("nurseToken");
+
       if (
+        startTime === origstartTime &&
+        endTime === origendTime &&
+        selectedInterval === origselectedInterval &&
+        numberOfPatients === orignumberOfPatients
+      ) {
+        setError("No changes");
+      } else if (
         formattedDate &&
         startTime &&
         endTime &&
@@ -138,7 +142,7 @@ export default function EditAvailability(props) {
             intervalTime: selectedInterval,
             maxPatient: numberOfPatients.toString(),
           };
-  
+
           props.setLoading(true);
           const response = await axios.post(
             process.env.REACT_APP_ONLINE + "/admin/update-availability",
@@ -150,10 +154,11 @@ export default function EditAvailability(props) {
             }
           );
           console.log(response);
+
           if (response.data.success === true) {
             console.log("Availability edit successfully");
             EditNotif();
-           handleCloseModal();
+            handleCloseModal();
             props.setUpdate((prev) => !prev);
             props.setLoading(false);
 
@@ -171,13 +176,6 @@ export default function EditAvailability(props) {
           );
           setNumberOfPatients("");
         }
-      } else if (
-        startTime === origstartTime ||
-        endTime === origendTime ||
-        selectedInterval === origselectedInterval ||
-        numberOfPatients === orignumberOfPatients
-      ) {
-        setError("No changes");
       } else if (
         !formattedDate ||
         !startTime ||
@@ -243,7 +241,6 @@ export default function EditAvailability(props) {
     setSchedID("");
     props.setLoading(false);
     props.setIsUpdated(false);
-
   }
 
   const selectOptions = [
@@ -282,7 +279,9 @@ export default function EditAvailability(props) {
       <div className="">
         <div>
           <p className="setavail-tagtitle mt-2 ms-1">Clinic Hours</p>
-          <p className="setavail-juniortag ms-1">Set the date and time according to the doctor's availability</p>
+          <p className="setavail-juniortag ms-1">
+            Set the date and time according to the doctor's availability
+          </p>
         </div>
         <div className="ms-4 insert-row">
           <div className="space1">
@@ -298,7 +297,7 @@ export default function EditAvailability(props) {
           </div>
         </div>
         <div className="ms-4 ">
-          <p  className="setavail-tagjunior">Time Interval: </p>
+          <p className="setavail-tagjunior">Time Interval: </p>
         </div>
         <div className="ms-5 insert-row">
           <div className="space2">
@@ -317,7 +316,7 @@ export default function EditAvailability(props) {
           </div>
         </div>
         <div className="ms-4">
-          <p  className="setavail-tagjunior">Selected Time: </p>
+          <p className="setavail-tagjunior">Selected Time: </p>
         </div>
         <div className="ms-5">
           <div className="insert-row">
@@ -360,11 +359,13 @@ export default function EditAvailability(props) {
         <hr />
         <div>
           <p className="setavail-tagtitle mt-2 ms-1">No. of Patients</p>
-          <p className="setavail-juniortag ms-1">Set the maximum number of patients</p>
+          <p className="setavail-juniortag ms-1">
+            Set the maximum number of patients
+          </p>
         </div>
         <div className="ms-4 insert-row">
           <div className="space5">
-            <p  className="setavail-tagjunior ms-1">No. of Patients</p>
+            <p className="setavail-tagjunior ms-1">No. of Patients</p>
           </div>
           <div style={{ width: "90px" }}>
             <NumberInput

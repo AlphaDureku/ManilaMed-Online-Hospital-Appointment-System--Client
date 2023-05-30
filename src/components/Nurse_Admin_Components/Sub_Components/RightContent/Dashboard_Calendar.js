@@ -13,7 +13,8 @@ import InsertAvailability from "./insertAvailability";
 
 export default function DashboardCalender(props) {
   const token = localStorage.getItem("nurseToken");
-  const breakPointMobile = useMediaQuery("(max-width: 1200px)");
+  const breakPointMobile = useMediaQuery("(max-width: 1280px)");
+  const breakPointMobileforModal = useMediaQuery("(max-width: 1000px)");
   const { calendarData } = props;
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
@@ -143,22 +144,17 @@ export default function DashboardCalender(props) {
           </Button>
         </div>
 
-        <div className="" style={{display: "flex", flexDirection: "column"}}>
+        <div className="" style={{ display: "flex", flexDirection: "column" }}>
           <DatePicker
             getDayProps={getDayProps}
             size={breakPointMobile ? "xs" : "lg"}
             onChange={handleDateSelect}
             value={selectedDate}
           ></DatePicker>
-
-
-
-
-
         </div>
         <Modal show={showModal} onHide={handleCloseModal} centered size="xl">
           <Modal.Header closeButton>
-            <div className="modal-title h4">Set Availability</div>
+            <div className="h4 setAvailTitle">Set Availability</div>
           </Modal.Header>
           <AdminLoadingOverlay loading={loading}>
             <Modal.Body>
@@ -194,7 +190,7 @@ export default function DashboardCalender(props) {
                     getDayProps={isUpdated ? getDayPropsUpdate : getDayProps}
                     onChange={handleDateSelect}
                     value={selectedDate}
-                    size={breakPointMobile ? "xs" : "lg"}
+                    size={breakPointMobileforModal ? "xs" : "lg"}
                     style={{
                       display: "flex",
                       justifyContent: "center",

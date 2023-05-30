@@ -5,9 +5,10 @@ export default function SearchRowAndSelectDoctor(props) {
   return (
     <div className="search-row">
       <div>
-        <MantineSearchBar 
-           searchQuery={props.searchQuery}
-           setSearchQuery={props.setSearchQuery}/>
+        <MantineSearchBar
+          searchQuery={props.searchQuery}
+          setSearchQuery={props.setSearchQuery}
+        />
       </div>
       <div>
         <select

@@ -6,7 +6,7 @@ export default function ScheduleCalendar({
   handleDateSelect,
   selectedDate,
 }) {
-  const breakPointMobile = useMediaQuery("(max-width: 1200px)");
+  const breakPointMobile = useMediaQuery("(max-width: 1280px)");
   return (
     <>
       <div className="Schedule_Calendar_Container">

@@ -1,214 +1,200 @@
-
-
 @media screen and (max-width: 700px) {
-.subheaderlogin{
+  .subheaderlogin {
     font-size: 16px;
-}
+  }
 }
 
 @media (max-width: 1200px) {
-    .Head--DashboardContainer {
-      flex-direction: column;
-      align-items: stretch;
-   
-    }
-    .Head--DashboardContainer > div:nth-child(1),
-    .Head--DashboardContainer > div:nth-child(2) {
-        width: 100%;
-      
-      }
-     
- 
-      .Head--Dashboard-left > div:nth-child(1),
-      .Head--Dashboard-left > div:nth-child(2)
-        {
-     
-        width: 95%;
-      }
-      
-      .addconfirmbuttonrow > button{
-        width: 80px;
-      }
-      .Head--Dashboard-right > div:nth-child(1){
-        width: 95%;
-        height: 50%;
-        margin-top: 30px;
-      }
-
-      .Head--Dashboard-right > div:nth-child(2){
-        width: 95%;
-        height: 50%;
-        margin-top: 25px;
-        margin-bottom: 15px;
-      }
-      .updatelist{
-      margin-bottom: 20px;
-      
-      }
-
-      .availableDoctorandSecList {
-       margin-top: 8px;
-      }
+  .Head--DashboardContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .Head--DashboardContainer > div:nth-child(1),
+  .Head--DashboardContainer > div:nth-child(2) {
+    width: 100%;
   }
 
-  @media (max-width: 768px) {
-    .skeleton-container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .skeleton-item {
-      width: 100%;
-    }
+  .Head--Dashboard-left > div:nth-child(1),
+  .Head--Dashboard-left > div:nth-child(2) {
+    width: 95%;
   }
-  
 
-  @media screen and (max-width: 800px) {
-    .HeadAdmin--Dashboard_Container {
-      flex-direction: column;
-      justify-content: start;
-    }
-    .HeadAdmin--Dashboard_Container {
-      width: 100%;
-      height: 1000px;
-    }
-    .HeadadminMainContainer {
-      flex-direction: column-reverse;
-      min-height: 93.5vh;
-    }
-    .HeadAdmin--SideBar {
-      position: sticky;
-      bottom: 0;
-      width: 100%;
-      height: 50px;
-      flex-direction: row;
-    }
-    .HeadAdmin--SideBar > div:nth-child(3) {
-      margin-top: 0;
-    }
-    .HeadAdmin--IconContainer {
-      margin: 0 auto;
-      width: 13%;
-      height: 45px;
-    }
-    .headAdmin-upContainer{
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-    
-    .headAdmin-UpDownContainer {
-      margin-bottom: 25px;
-    }
-
-    .head-settingspage {
-      margin-bottom: auto;
-      flex-grow:1;
-    }
-    
-    .navbar-img{
-      width: 75% !important;
-
-
-    }
+  .addconfirmbuttonrow > button {
+    width: 80px;
   }
-  
+  .Head--Dashboard-right > div:nth-child(1) {
+    width: 95%;
+    height: 50%;
+    margin-top: 30px;
+  }
+
+  .Head--Dashboard-right > div:nth-child(2) {
+    width: 95%;
+    height: 50%;
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
+  .updatelist {
+    margin-bottom: 20px;
+  }
+
+  .availableDoctorandSecList {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .skeleton-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .skeleton-item {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .HeadAdmin--Dashboard_Container {
+    flex-direction: column;
+    justify-content: start;
+  }
+  .HeadAdmin--Dashboard_Container {
+    width: 100%;
+    height: 1000px;
+  }
+  .HeadadminMainContainer {
+    flex-direction: column-reverse;
+    min-height: 93.5vh;
+  }
+  .HeadAdmin--SideBar {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+  }
+  .HeadAdmin--SideBar > div:nth-child(3) {
+    margin-top: 0;
+  }
+  .HeadAdmin--IconContainer {
+    margin: 0 auto;
+    width: 13%;
+    height: 45px;
+  }
+  .headAdmin-upContainer {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .headAdmin-UpDownContainer {
+    margin-bottom: 25px;
+  }
+
+  .head-settingspage {
+    margin-bottom: auto;
+    flex-grow: 1;
+  }
+
+  .navbar-img {
+    width: 75% !important;
+  }
+}
+
 @media screen and (max-width: 760px) {
-  .headdashboard-filter{
+  .headdashboard-filter {
     display: flex !important ;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     margin: 0;
   }
-  
-.headNav {
-  padding-bottom: 50px;
-}
 
-  .update-tag{
-  width: 40%;
-  margin-right: 10%;
-  margin-left: 10px;
+  .headNav {
+    padding-bottom: 50px;
   }
-  .headerlegend-setavail{
-    font-size: 15px;
-  
+
+  .update-tag {
+    width: 40%;
+    margin-right: 10%;
+    margin-left: 10px;
   }
 }
 
-@media screen and (max-width:800px) {
-  .quickinfo-row{
+@media screen and (max-width: 800px) {
+  .quickinfo-row {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     width: 100%;
     margin-bottom: 30px;
-  } 
-  
-  .img-none{
-   
+  }
+
+  .img-none {
     height: 150px !important;
   }
 
-  .name-col{
+  .name-col {
     margin-left: 5%;
     margin-top: 20%;
   }
-  .quickinfo-row{
-   margin-top: 15%;
+  .quickinfo-row {
+    margin-top: 15%;
   }
 
-  .headmanager-tag, .options-tagtitle, .manage-profileandsec{
+  .headmanager-tag,
+  .options-tagtitle,
+  .manage-profileandsec {
     font-size: 15px;
   }
-  .headmanager-title, .sub-manage{
+  .headmanager-title,
+  .sub-manage {
     font-size: 14px;
-
   }
   .Admin--SetButtonRow {
     justify-content: center;
   }
-  
-  .Admin--SetButtonRow > button{
+
+  .Admin--SetButtonRow > button {
     margin: 10px;
   }
-  
 }
 
-
-@media screen and (width:375px) and (height:667px){
+@media screen and (width: 375px) and (height: 667px) {
   .adminMainContainer1 {
     min-height: 92.3vh;
   }
-} 
-  
-@media screen and (max-width:1000px) {
-  .set-avail-container{
+}
+
+@media screen and (max-width: 1000px) {
+  .set-avail-container {
     flex-direction: column;
+  }
 }
 
-}
-
-@media screen and (max-width:500px) {
-  .header-legend-container{
+@media screen and (max-width: 500px) {
+  .header-legend-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .AppointmentTable--Header{
+  .AppointmentTable--Header {
     margin-bottom: 15px;
     margin-top: 10px;
   }
 }
 
-@media screen and (max-width:800px) {
-  .header-legend-container{
+@media screen and (max-width: 800px) {
+  .header-legend-container {
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
+  .setlegendrow {
+    margin: 5% 0 5% 0;
+    justify-content: center;
+    align-items: center;
+    margin-left: -5%;
+  }
 }
-
-
-
-

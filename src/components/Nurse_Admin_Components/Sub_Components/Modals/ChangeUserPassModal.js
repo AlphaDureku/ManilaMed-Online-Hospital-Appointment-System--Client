@@ -210,6 +210,10 @@ export default function ChangeUserPassModal(props) {
     setNoChangeError(false);
     setLoading(false);
     setfirstLoading(false);
+    setEditFields(() => ({
+      username: false,
+      password: false,
+    }));
   }
 
   return (
@@ -306,14 +310,6 @@ export default function ChangeUserPassModal(props) {
                 />
               </Input.Wrapper>
               <div style={{ textAlign: "center" }}>
-                {Object.values(formErrors).some((error) => error) && (
-                  <div
-                    style={{ color: "red", fontSize: "14px" }}
-                    className="mt-4"
-                  >
-                    Please input all required information.
-                  </div>
-                )}
                 {noChangeError && (
                   <div
                     style={{ color: "red", fontSize: "14px" }}

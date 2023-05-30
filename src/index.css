@@ -545,6 +545,7 @@ select {
 .sub-title {
   font-size: min(18px, 3.5vw);
   text-align: center;
+  margin: 0 2%;
 }
 
 .Track--tagtitle {
@@ -594,9 +595,9 @@ select {
 .View-btn,
 .Edit-btn {
   color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   font-weight: 500;
-  padding: 4px 12px;
+  padding: 6 min(15px, 4.5vw);
   font-size: min(15px, 2.5vw);
   white-space: nowrap;
 }
@@ -749,16 +750,19 @@ select {
 }
 
 .edit-Button_Row {
-  display: flex;
-  margin-left: 52%;
   margin-top: 3%;
-  width: max(40%, 220px);
+  text-align: end;
+  width: 90%;
+  margin-right: 10%;
 }
 .edit-Button_Row > button {
   border: none;
   margin: 0 auto;
-  border-radius: 20px;
-  width: 40%;
+  font-size: min(1rem, 3vw);
+  margin-left: 2%;
+  height: 4vh;
+  padding: 0 min(7%, 6vw);
+  border-radius: 5px;
 }
 
 .edit-save {
@@ -766,7 +770,6 @@ select {
   border: none;
   border-radius: 20px;
   width: 100%;
-
   font-size: min(1rem, 2.5vw);
 }
 .edit-back {
@@ -1551,10 +1554,10 @@ select {
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: #434343;
-  font-weight: 600;
   padding: 1% 4% 1% 1%;
   width: max(150px, 16.5vw);
 }
+
 .search-row > div:nth-child(1) {
   width: 25%;
 }
@@ -1604,7 +1607,6 @@ select {
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: min(1rem, 3vw);
-  padding: 1% 4%;
 }
 .Dashboard--Calendar > div:nth-child(1) > button:hover {
   background-color: rgb(38, 168, 51);
@@ -1625,7 +1627,7 @@ select {
   align-items: center;
   justify-content: center;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
- flex-direction: column;
+  flex-direction: column;
 }
 .Dashboard--Data > button {
   border-radius: 20px;
@@ -1760,6 +1762,7 @@ select {
   overflow-y: auto;
   padding: 1% 0;
   margin: 2% 0;
+  text-align: center;
 }
 
 .Admin--CardContainer {
@@ -1776,14 +1779,17 @@ select {
 }
 
 .Admin--CardContainer > div:nth-child(1) {
-  width: 70%;
+  width: 55%;
   font-weight: 600;
   font-size: min(1.2rem, 3vw);
+  text-align: left;
 }
 
 .Admin--CardContainer > div:nth-child(2) {
-  width: 30%;
-  text-align: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 45%;
 }
 .Admin--CardContainer > div:nth-child(2) > button {
   border: none;
@@ -1821,10 +1827,11 @@ select {
 .Admin--ButtonRow > button {
   font-size: min(0.9rem, 2.4vw);
   border-radius: 20px;
-
   width: 50%;
 }
-
+.setAvailTitle {
+  font-size: min(1.5rem, 5vw);
+}
 /**Nurse CSS Calendar Page**/
 .Admin--Calendar_Container {
   margin-bottom: auto;
@@ -1878,8 +1885,13 @@ select {
   padding: 0;
 }
 
+.Schedule_Calendar_Container > div:nth-child(2) {
+  font-size: min(1.1rem, 3.3vw);
+}
+
 .Schedule_Calendar_Container > div:nth-child(3) {
   display: flex;
+  font-size: min(1.1rem, 3.3vw);
 }
 
 .Schedule_Calendar_Container > div:nth-child(3) > div {
@@ -1928,6 +1940,7 @@ select {
   padding: 1% 0;
   overflow: auto;
   border-radius: 15px;
+  text-align: center;
 }
 .Calendar_Container--right > div {
   width: 100%;
@@ -2075,8 +2088,10 @@ select {
 .Empty {
   font-weight: 600;
   font-size: min(1.6rem, 3.9vw);
-  text-align: center;
-  margin-top: 20%;
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .serverDownContainer {

@@ -22,7 +22,7 @@ export default function Appointments(props) {
             width: "max(5%, 100px)",
             backgroundColor: "red",
             border: "none",
-            borderRadius: "20px",
+            borderRadius: "5px",
             color: "white",
             marginLeft: "auto",
             marginTop: "5%",

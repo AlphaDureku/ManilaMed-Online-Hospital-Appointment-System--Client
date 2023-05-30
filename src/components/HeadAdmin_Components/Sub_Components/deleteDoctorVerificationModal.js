@@ -19,7 +19,7 @@ export default function DeleteDoctorVerificationModal(props) {
   };
 
   const handleDelete = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("headToken");
     const doctorId = props.selectedDoctor.id;
 
     setLoading(true);

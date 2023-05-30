@@ -361,7 +361,8 @@
     margin: 2% auto 10% auto;
   }
   .edit-Button_Row {
-    margin: 5% auto;
+    text-align: center;
+    margin: 10% auto;
   }
 }
 
@@ -741,9 +742,6 @@
   .otp-input {
     font-size: 14px;
   }
-  .modal-title {
-    font-size: 19px !important;
-  }
 
   .wordlistterms {
     font-size: 14px;
@@ -990,7 +988,10 @@
     flex-grow: 1;
   }
 
-  .Admin--SelectDoctor{
-    background-image:none;
+  .Admin--SelectDoctor {
+    background-image: none;
+  }
+  .Schedule_Calendar_Container > div {
+    margin: 1% 0;
   }
 }

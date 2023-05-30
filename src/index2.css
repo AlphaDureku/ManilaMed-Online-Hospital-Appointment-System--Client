@@ -45,9 +45,7 @@
   background-color: #ebedf0;
   border-bottom: 1px solid grey;
   height: 6.5vh;
-
 }
-
 
 .secName {
   font-weight: 600;
@@ -138,7 +136,7 @@
   justify-content: center;
 }
 
-.head-addrow{
+.head-addrow {
   width: 95%;
   height: 50%;
   margin-top: 2%;
@@ -146,17 +144,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
-.head-addrow1{
+.head-addrow1 {
   width: 95%;
   height: 50%;
   margin-bottom: 2%;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .addButtonHeight {
@@ -225,7 +221,7 @@
   font-family: "Montserrat" !important;
   font-weight: 600 !important;
   color: #434343 !important;
-  font-size: min(1.12rem, 4.5vw)  !important;
+  font-size: min(1.12rem, 4.5vw) !important;
   background-image: url(/public/images/silverarrowdown.png) !important ;
 }
 
@@ -234,14 +230,12 @@
   border-bottom: 1px solid #848484;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-
 }
 
 .docandsecrow {
-  display: flex ;
-  align-items: center ;
-  justify-content: center ;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .docandsecContent {
@@ -249,10 +243,8 @@
   margin-bottom: 1%;
   margin-left: 5%;
   align-self: center !important ;
-  font-size: min(1rem, 3.5vw)  !important;
+  font-size: min(1rem, 3.5vw) !important;
   font-weight: 600;
-
-
 }
 
 .confirmbutton > button {
@@ -283,10 +275,7 @@
   margin-top: 0.5rem;
 }
 
-
-
-.noDocSecCard{
- 
+.noDocSecCard {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,10 +284,9 @@
   color: #212529;
   font-weight: 600;
   margin-top: 30px !important;
-
 }
 
-.updatepair-container{
+.updatepair-container {
   background-color: #ffff;
   height: 100%;
   width: 100%;
@@ -310,70 +298,59 @@
   font-family: "Montserrat" !important;
   font-weight: 600 !important;
   color: #434343 !important;
-  font-size: min(1rem, 4.5vw)  !important;
- 
+  font-size: min(1rem, 4.5vw) !important;
 }
 
-.updatelist{
+.updatelist {
   background-color: rgba(217, 217, 217, 0.3);
   width: 95%;
-  height:47vh;
+  height: 47vh;
   border-radius: 10px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  
-
 }
-.upcontainer{
+.upcontainer {
   display: flex;
   width: 95%;
   justify-content: center;
 }
 
-
-.update-tag{
-width: 40%;
-margin-right: 20%;
+.update-tag {
+  width: 40%;
+  margin-right: 20%;
 }
 
-.update-search{
+.update-search {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 22vh;
 }
 
-
-.docwithsec-container{
+.docwithsec-container {
   background: #d9d9d9;
   border-bottom: 1px solid #848484;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
 
-.mantine-18jomfw{
+.mantine-18jomfw {
   font-weight: 500;
 }
 
-.mantine-731ldn{
+.mantine-731ldn {
   font-weight: 500;
   color: #848484;
 }
 
-.secretaryupdate-containerlist{
+.secretaryupdate-containerlist > div {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-
+  gap: 5%;
 }
-.update-buttoncontainer{
-  width: 25vw;
-
-}
-
-
 
 .smallLoadingHead {
   left: 0;
@@ -382,7 +359,7 @@ margin-right: 20%;
   top: 87%;
 }
 
-.loadingContainer{
+.loadingContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -394,7 +371,7 @@ margin-right: 20%;
   align-items: center;
   padding: 2% 0 2% 0;
   width: 80px;
-  background: linear-gradient(360deg, #000000 0%, #FFFFFF 100%);
+  background: linear-gradient(360deg, #000000 0%, #ffffff 100%);
   z-index: 99;
 }
 
@@ -416,28 +393,27 @@ margin-right: 20%;
   cursor: pointer;
 }
 
-.headdashboard-filter{
-  margin-left: 10px ;
+.headdashboard-filter {
+  margin-left: 10px;
 }
 
-.mantine-s0rwxf{
+.mantine-s0rwxf {
   font-size: min(0.8rem, 3vw);
 }
 
-.mantine-pdshdd{
+.mantine-pdshdd {
   font-size: min(1rem, 3.6vw);
-
 }
 
-.head-settingspage{
-  background:#E0F7FF ;
+.head-settingspage {
+  background: #e0f7ff;
   width: 100%;
   display: flex;
   flex-direction: column;
   color: #848484;
 }
 
-.quickinfo-row{
+.quickinfo-row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -445,135 +421,122 @@ margin-right: 20%;
   margin-bottom: 30px;
 }
 
-.icon-col{
-
+.icon-col {
   margin: 5%;
   margin-bottom: 0%;
 }
 
-.name-col{
+.name-col {
   margin-top: 10%;
 }
 
-.headmanager-tag{
+.headmanager-tag {
   font-size: 20px;
   font-weight: 600;
 }
 
-.headmanager-title{
+.headmanager-title {
   font-weight: 500;
-  
 }
 
-
-
-.img-none{
+.img-none {
   outline: 1px solid #000;
-  border-bottom:1px solid #000;
+  border-bottom: 1px solid #000;
   height: 215px !important;
 }
 
-.manageprofile-options{
+.manageprofile-options {
   margin-left: 8%;
   margin-top: 3%;
   margin-right: 3%;
-
-
 }
 
-.manage-profileandsec:hover{
+.manage-profileandsec:hover {
   cursor: pointer;
   color: #000;
 }
 
-.manage-profileandsec{
+.manage-profileandsec {
   font-weight: 600;
   text-decoration-line: underline;
 }
 
-.nursemanage-row{
+.nursemanage-row {
   width: 240px;
 }
 
-
-.manage-row{
+.manage-row {
   width: 127px;
 }
-.manage-row-down{
+.manage-row-down {
   width: 70px;
 }
 
-.options-tagtitle{
+.options-tagtitle {
   margin-bottom: 40px;
   font-size: 19px;
   font-weight: 600;
 }
 
-.options-row{
+.options-row {
   margin-left: 15%;
 }
 /* Mobile Calendar Border */
 .mantine-9i5j7m,
-.mantine-1rs0pph{
+.mantine-1rs0pph {
   border-radius: 7px;
-    padding-left: 14px;
-    padding-right: 14px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border: 1px solid #848484;
-
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #848484;
 }
 /* Month Header */
-.mantine-1o826j7{
+.mantine-1o826j7 {
   font-family: "Montserrat";
   font-weight: 600;
   margin-bottom: 0;
 }
 
-.mantine-1o826j7:hover{
+.mantine-1o826j7:hover {
   background: rgba(34, 208, 52, 1);
-
 }
 
 /* Arrows */
-.mantine-1cu0wh0:hover{
+.mantine-1cu0wh0:hover {
   background: rgba(34, 208, 52, 1);
 }
 
 /* Month Selection */
-.mantine-wnpn15{
+.mantine-wnpn15 {
   font-family: "Montserrat";
   font-weight: 600;
 }
 
-.mantine-wnpn15:hover{
+.mantine-wnpn15:hover {
   background: rgba(34, 208, 52, 1);
-
 }
 
 /* Year Selection */
-.mantine-wnpn15{
+.mantine-wnpn15 {
   font-family: "Montserrat";
   font-weight: 600;
 }
 
-.mantine-wnpn15:hover{
+.mantine-wnpn15:hover {
   background: rgba(34, 208, 52, 1);
-
 }
 
-
 /* days of the week */
-.mantine-1ly8oam{
+.mantine-1ly8oam {
   text-align: center;
   color: rgba(0, 0, 0, 1);
   font-family: "Montserrat";
   font-weight: 500;
-
 }
 /* dates */
-.mantine-1osnan1{
+.mantine-1osnan1 {
   font-family: "Montserrat";
   font-weight: 600;
   height: 2rem;
@@ -582,27 +545,25 @@ margin-right: 20%;
   margin-bottom: 0.3rem;
 }
 
-.mantine-1osnan1:hover{
+.mantine-1osnan1:hover {
   background: rgba(34, 208, 52, 1);
-
 }
 
 .mantine-22yr1m[data-weekend],
-.mantine-1osnan1[data-weekend]{
+.mantine-1osnan1[data-weekend] {
   color: #000;
 }
 
 .mantine-1osnan1[data-selected],
-.mantine-22yr1m[data-selected]{
+.mantine-22yr1m[data-selected] {
   background-color: rgb(34, 208, 52);
   color: #000;
 }
 .mantine-1osnan1[data-selected]:active,
 .mantine-22yr1m[data-selected]:active,
 .mantine-1osnan1[data-selected]:hover,
-.mantine-22yr1m[data-selected]:hover{
+.mantine-22yr1m[data-selected]:hover {
   background-color: rgb(34, 208, 52);
-
 }
 
 .headconfirmbuttonrow > button {
@@ -610,42 +571,38 @@ margin-right: 20%;
   width: 90px;
 }
 
-.set-avail-container{
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.set-avail-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
-.setavail-secondcol{
+.setavail-secondcol {
   display: flex;
 }
-.admin-calendarModalContainer{
+.admin-calendarModalContainer {
   margin-right: 7%;
   margin-left: 7%;
-
 }
 
-
-.insert-row{
+.insert-row {
   display: flex;
   flex-direction: row;
 }
 
-.space1{
+.space1 {
   margin-right: 50px;
 }
 
-.space2{
+.space2 {
   margin-right: 43px;
-
 }
-.space3{
+.space3 {
   margin-right: 76px;
 }
-.space4{
+.space4 {
   margin-right: 100px;
 }
-.space5{
+.space5 {
   margin-right: 50px;
 }
 
@@ -661,15 +618,14 @@ margin-right: 20%;
   margin: 15px;
 }
 
-.Admin--SetButtonRowSecond{
+.Admin--SetButtonRowSecond {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-
-.insert-errormsg{
+.insert-errormsg {
   display: flex;
   justify-content: center;
   font-weight: 600;
@@ -677,50 +633,45 @@ margin-right: 20%;
   color: red;
 }
 
-.setlegendrow{
-display: flex;
-flex-direction: row;
-margin-bottom: 10%;
-margin-top: 15%;
+.setlegendrow {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8%;
+  margin-top: 10%;
 }
 
-.setavail-tagtitle{
+.setavail-tagtitle {
   font-size: min(1.063rem, 3.63vw);
   color: #388440;
   font-weight: 700;
 }
-.setavail-juniortag{
+.setavail-juniortag {
   font-size: min(1rem, 3.63vw);
 }
-.headerlegend-setavail{
-  font-size: min(1.063rem, 3.63vw);
-
+.headerlegend-setavail {
+  font-size: min(1.1rem, 3.3vw);
+  white-space: nowrap;
 }
 
-
-.setavail-tagjunior{
+.setavail-tagjunior {
   font-size: min(1rem, 3.63vw);
 
   font-weight: 600;
 }
 
-
-
-.admin-calendarModalContainerSwitch{
+.admin-calendarModalContainerSwitch {
   display: flex;
   flex-direction: row;
   margin-top: 20%;
-
 }
 
-
-.confirmbuttonSec > button{
-border-radius: 20px;
-margin: 10px;
-width: 22%;
+.confirmbuttonSec > button {
+  border-radius: 20px;
+  margin: 10px;
+  width: 22%;
 }
 
-.linechart-container{
+.linechart-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -729,21 +680,19 @@ width: 22%;
   height: 100%;
 }
 
-.chart-tagtitle{
+.chart-tagtitle {
   width: 90%;
   margin-top: 4%;
   color: #434343;
   font-size: min(1.2rem, 3.5vw);
   font-weight: 600;
-
 }
 
-.chart-header{
+.chart-header {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   width: 90%;
-
 }
 
 .DateRangeChart {
@@ -761,5 +710,4 @@ width: 22%;
   padding-right: 25px;
   width: max(120px, 8.5vw);
   margin-top: 4%;
-
 }

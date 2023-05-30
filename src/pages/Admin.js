@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@mantine/hooks";
 import { Notifications } from "@mantine/notifications";
 import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -7,14 +8,17 @@ import Login from "../components/Nurse_Admin_Components/Main_Content/Login";
 export const AdminPageContext = createContext();
 export default function Admin() {
   const [currentPage, setCurrentPage] = useState(1);
-
+  const breakPointMobile = useMediaQuery("(max-width: 800px)");
   const AdminPageContextObject = {
     currentPage: currentPage,
     setCurrentPage: setCurrentPage,
   };
   return (
     <>
-      <Notifications position="bottom-right" zIndex={3000} />
+      <Notifications
+        position={breakPointMobile ? "bottom-center" : "bottom-right"}
+        zIndex={3000}
+      />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route
