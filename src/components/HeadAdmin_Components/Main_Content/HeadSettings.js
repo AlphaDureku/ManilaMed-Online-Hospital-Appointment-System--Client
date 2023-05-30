@@ -5,7 +5,7 @@ import HeadAdminProfile from "../Sub_Components/headAdmin-Profile";
 import { DashboardContext } from "./Dashboard";
 
 export default function HeadSettings(props) {
-  const { dashboardData } = useContext(DashboardContext);
+  const dashboardData = useContext(DashboardContext);
   const adminInfo = dashboardData?.dashboardData?.data?.AdminInfo || [];
   const [openInfoModal, setopenInfoModal] = useState(false);
   const [openUserPassModal, setopenUserPassModal] = useState(false);
