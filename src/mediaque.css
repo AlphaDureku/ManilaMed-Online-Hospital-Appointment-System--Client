@@ -989,4 +989,8 @@
     margin-bottom: auto;
     flex-grow: 1;
   }
+
+  .Admin--SelectDoctor{
+    background-image:none;
+  }
 }

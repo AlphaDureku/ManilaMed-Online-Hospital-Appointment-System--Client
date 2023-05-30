@@ -7,7 +7,7 @@ import Card from "./LeftContent/AppointmentCard";
 import AppointmentTable from "./LeftContent/AppointmentTable";
 import SearchRowAndSelectDoctor from "./LeftContent/searchRowAndSelectDoctor";
 import DashboardCalender from "./RightContent/Dashboard_Calendar";
-import InsertAppointment from "./RightContent/InserAppointment";
+import CheckSlots from "./RightContent/checkSlots";
 
 export default function LandingPage() {
   const [selectedStatus, setSelectedStatus] = useState("Pending");
@@ -189,7 +189,8 @@ export default function LandingPage() {
       </div>
       <div className="RightContent">
         <DashboardCalender calendarData={calendarData} setUpdate={setUpdate} />
-        <InsertAppointment />
+        <CheckSlots/>
+     
       </div>
     </div>
   );

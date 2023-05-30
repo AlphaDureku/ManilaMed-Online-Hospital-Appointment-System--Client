@@ -256,12 +256,7 @@ export default function ChangeUserPassModal(props) {
                 />
               </Input.Wrapper>
               <Input.Wrapper label="Old Password" className="mb-2">
-                <label
-                  className="edit-NurseInfo mt-2 ms-2"
-                  onClick={() => handleEditFieldToggle("password")}
-                >
-                  Edit
-                </label>
+              
                 <PasswordInput
                   value={formData.oldPassword}
                   styles={formstyles}
@@ -271,6 +266,12 @@ export default function ChangeUserPassModal(props) {
                 />
               </Input.Wrapper>
               <Input.Wrapper label="New Password" className="mb-2 ">
+                  <label
+                  className="edit-NurseInfo mt-2 ms-2"
+                  onClick={() => handleEditFieldToggle("password")}
+                >
+                  Edit
+                </label>
                 <PasswordInput
                   value={formData.newPassword}
                   styles={formstyles}

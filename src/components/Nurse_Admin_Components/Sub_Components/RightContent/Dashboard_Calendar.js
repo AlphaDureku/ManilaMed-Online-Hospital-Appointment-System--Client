@@ -10,6 +10,7 @@ import AdminLoadingOverlay from "../../Main_Content/AdminLoadingOverlay";
 import { AdminContext } from "../../Main_Content/Content";
 import EditAvailability from "./editAvailability";
 import InsertAvailability from "./insertAvailability";
+
 export default function DashboardCalender(props) {
   const token = localStorage.getItem("nurseToken");
   const breakPointMobile = useMediaQuery("(max-width: 1200px)");
@@ -142,13 +143,18 @@ export default function DashboardCalender(props) {
           </Button>
         </div>
 
-        <div>
+        <div className="" style={{display: "flex", flexDirection: "column"}}>
           <DatePicker
             getDayProps={getDayProps}
             size={breakPointMobile ? "xs" : "lg"}
             onChange={handleDateSelect}
             value={selectedDate}
           ></DatePicker>
+
+
+
+
+
         </div>
         <Modal show={showModal} onHide={handleCloseModal} centered size="xl">
           <Modal.Header closeButton>
