@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ErrorHandler } from "../../../utils/errorHandler";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { Reducer, initialState } from "./Reducers/Edit_Page";
 
@@ -13,18 +14,22 @@ export default function EditInfo(props) {
 
   useEffect(() => {
     const getPatientInfo = async () => {
-      const response = await axios.get(
-        process.env.REACT_APP_ONLINE + `/user/get-info`,
-        {
-          params: {
-            id: localStorage.getItem("patient_ID"),
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch({ type: "FETCH_SUCCESS", payload: response.data.data });
+      try {
+        const response = await axios.get(
+          process.env.REACT_APP_ONLINE + `/user/get-info`,
+          {
+            params: {
+              id: localStorage.getItem("patient_ID"),
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        dispatch({ type: "FETCH_SUCCESS", payload: response.data.data });
+      } catch (error) {
+        ErrorHandler(error, props.setShowExpire);
+      }
     };
     getPatientInfo();
   }, [token]);

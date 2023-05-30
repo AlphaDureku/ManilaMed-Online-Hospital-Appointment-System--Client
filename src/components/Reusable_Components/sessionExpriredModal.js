@@ -6,7 +6,7 @@ const SessionExpiredModal = (props) => {
   const { show, handleClose, handleSubmit } = props;
   return (
     <Modal show={show} onHide={handleClose} centered size="md" keyboard={false}>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>Session Expired</Modal.Title>
       </Modal.Header>
       <Modal.Body
@@ -20,7 +20,11 @@ const SessionExpiredModal = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <div className="confirmbuttonrow">
-          <BackProceed rightButton={handleSubmit} blueButtonText={"Login"} />
+          <BackProceed
+            rightButton={handleSubmit}
+            blueButtonText={"Login"}
+            disableRed={true}
+          />
         </div>
       </Modal.Footer>
     </Modal>

@@ -11,17 +11,22 @@ export default function BackProceed(props) {
 
   return (
     <>
-      <Button
-        onClick={props.leftButton}
-        disabled={props.isDisabledRed}
-        size="sm"
-        style={{
-          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-          backgroundColor: object.color,
-        }}
-      >
-        {props.redButtonText || "Back"}
-      </Button>
+      {props.disableRed ? (
+        ""
+      ) : (
+        <Button
+          onClick={props.leftButton}
+          disabled={props.isDisabledRed}
+          size="sm"
+          style={{
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            backgroundColor: object.color,
+          }}
+        >
+          {props.redButtonText || "Back"}
+        </Button>
+      )}
+
       <Button
         disabled={props.isDisabled}
         type="submit"

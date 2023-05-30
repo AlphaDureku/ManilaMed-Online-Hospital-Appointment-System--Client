@@ -12,12 +12,13 @@ import { useContext, useState } from "react";
 import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { IMaskInput } from "react-imask";
-import { DashboardContext } from "../Main_Content/Dashboard";
+import { ErrorHandler } from "../../../utils/errorHandler";
+import { DashboardContext, ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 const AddDoctorModal = (props) => {
   const dashboardData = useContext(DashboardContext);
-
+  const setShowExpire = useContext(ShowExpireContext);
   const HmoLists = dashboardData?.dashboardData?.data?.HmoLists || [];
   const SpecializationList =
     dashboardData?.dashboardData?.data?.SpecializationList || [];
@@ -175,6 +176,7 @@ const AddDoctorModal = (props) => {
       } catch (error) {
         console.error(error);
         setServerError("An error occurred. Please try again later.");
+        ErrorHandler(error, setShowExpire);
       } finally {
         setLoading(false);
       }

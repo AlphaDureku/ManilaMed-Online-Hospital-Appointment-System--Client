@@ -1,11 +1,12 @@
 import { Alert, Button, Select, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { IconAlertCircle, IconCheck } from "@tabler/icons-react";
+import { IconAlertCircle } from "@tabler/icons-react";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CloseButton, Col, Modal, Row } from "react-bootstrap";
+import { ErrorHandler } from "../../../utils/errorHandler";
+import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
-
 export default function AddPairModal(props) {
   const formDoctorName = props.doctor
     ? props.doctor.fname + ", " + props.doctor.lname
@@ -14,7 +15,7 @@ export default function AddPairModal(props) {
   const [matchError, setMatchError] = useState(false);
   const [noSelectError, setNoSelectError] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const setShowExpire = useContext(ShowExpireContext);
   const Notif = () => {
     notifications.show({
       title: "Match Complete",
@@ -77,6 +78,7 @@ export default function AddPairModal(props) {
       } catch (error) {
         console.error(error);
         setMatchError(true);
+        ErrorHandler(error, setShowExpire);
       }
     }
   };

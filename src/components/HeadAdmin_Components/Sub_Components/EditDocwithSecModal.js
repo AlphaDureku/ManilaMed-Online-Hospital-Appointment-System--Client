@@ -2,15 +2,17 @@ import { Alert, Button, Select, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CloseButton, Col, Modal, Row } from "react-bootstrap";
+import { ErrorHandler } from "../../../utils/errorHandler";
+import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function EditDocwithSecModal(props) {
   const formDoctorName = props.selectedDoctor
     ? props.selectedDoctor.dfname + ", " + props.selectedDoctor.dlname
     : "";
-
+  const setShowExpire = useContext(ShowExpireContext);
   const [selectedNurse, setSelectedNurse] = useState();
   const [matchError, setMatchError] = useState(false);
   const [noSelectError, setNoSelectError] = useState(false);
@@ -72,13 +74,13 @@ export default function EditDocwithSecModal(props) {
           handleModalExit();
           setLoading(false);
           setSelectedNurse(null);
-       
         } else {
           setMatchError(true);
         }
       } catch (error) {
         console.error(error);
         setNetworkError(true);
+        ErrorHandler(error, setShowExpire);
       }
     }
   };
@@ -101,8 +103,6 @@ export default function EditDocwithSecModal(props) {
     setNetworkError(false);
     props.handleCloseModal();
     setSelectedNurse(props.selectedDoctor.nurseid);
- 
-    
   }
 
   return (

@@ -1,14 +1,16 @@
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CloseButton, Modal } from "react-bootstrap";
+import { ErrorHandler } from "../../../utils/errorHandler";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
+import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function DeleteSecVerificationModal(props) {
   const [doctorNames, setDoctorNames] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const setShowExpire = useContext(ShowExpireContext);
   const Notif = () => {
     notifications.show({
       title: "Secretary Deleted",
@@ -46,6 +48,7 @@ export default function DeleteSecVerificationModal(props) {
       }
     } catch (error) {
       console.error(error);
+      ErrorHandler(error, setShowExpire);
     }
   };
 
@@ -73,6 +76,7 @@ export default function DeleteSecVerificationModal(props) {
       handleDeleteClose();
     } catch (error) {
       console.error(error);
+      ErrorHandler(error, setShowExpire);
     }
   };
 

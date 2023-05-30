@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ErrorHandler } from "../../../utils/errorHandler";
 import MyAppointments from "./Modals/MyAppointments";
 import Loading from "./ViewAppointments--Card--Loading";
 
@@ -21,18 +22,22 @@ export default function Card(props) {
   useEffect(() => {
     const getAppointments = async () => {
       props.setLoading(true);
-      const response = await axios.get(
-        process.env.REACT_APP_ONLINE + `/user/get-appointments`,
-        {
-          params: {
-            id: localStorage.getItem("patient_ID"),
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setAppointmentList(response.data.data);
+      try {
+        const response = await axios.get(
+          process.env.REACT_APP_ONLINE + `/user/get-appointments`,
+          {
+            params: {
+              id: localStorage.getItem("patient_ID"),
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setAppointmentList(response.data.data);
+      } catch (error) {
+        ErrorHandler(error, props.setShowExpire);
+      }
     };
     getAppointments();
     setTimeout(() => {

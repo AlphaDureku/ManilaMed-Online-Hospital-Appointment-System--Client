@@ -4,12 +4,15 @@ import { useContext } from "react";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AppointmentDetailsContext } from "../../../../App";
+import { ErrorHandler } from "../../../../utils/errorHandler";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
+import { AdminContext } from "../../Main_Content/Content";
 export default function AppointmentDetailsModal(props) {
   const { data, show, toggle, styles, setUpdate } = props;
   const navigate = useNavigate();
   const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const token = localStorage.getItem("nurseToken");
+  const { setShowExpire } = useContext(AdminContext);
   const ButtonTextSelector = () => {
     if (data.Status === "Pending") {
       return "Accept Appointment";
@@ -61,21 +64,25 @@ export default function AppointmentDetailsModal(props) {
   };
 
   const statusUpdater = (updateStatus) => {
-    axios.post(
-      process.env.REACT_APP_ONLINE + "/admin/update-status",
-      {
-        appointment_ID: data.appointment_ID,
-        updateStatus: updateStatus,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      axios.post(
+        process.env.REACT_APP_ONLINE + "/admin/update-status",
+        {
+          appointment_ID: data.appointment_ID,
+          updateStatus: updateStatus,
         },
-      }
-    );
-    setUpdate((prev) => !prev);
-    showNotification(updateStatus);
-    toggle();
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUpdate((prev) => !prev);
+      showNotification(updateStatus);
+      toggle();
+    } catch (error) {
+      ErrorHandler(error, setShowExpire);
+    }
   };
 
   const modalBody = (

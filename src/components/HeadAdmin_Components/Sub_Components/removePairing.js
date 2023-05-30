@@ -1,14 +1,15 @@
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CloseButton, Modal } from "react-bootstrap";
+import { ErrorHandler } from "../../../utils/errorHandler";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
+import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
-
 export default function RemovePairing(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
+  const setShowExpire = useContext(ShowExpireContext);
   const DeleteNotif = () => {
     notifications.show({
       title: "Remove Pairing Complete",
@@ -47,6 +48,7 @@ export default function RemovePairing(props) {
       console.error(error);
       setLoading(false);
       setError(true);
+      ErrorHandler(error, setShowExpire);
     }
   };
 

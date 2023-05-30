@@ -16,7 +16,6 @@ export default function LandingPage() {
   const [patientCounter, setPatientCounter] = useState({});
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
-  const [updateDataCalendar, setUpdateDataCalendar] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   axios.defaults.withCredentials = true;
 
@@ -27,6 +26,7 @@ export default function LandingPage() {
     setDoctorList,
     calendarData,
     setCalendarData,
+    setShowExpire,
   } = useContext(AdminContext);
 
   useEffect(() => {
@@ -48,29 +48,10 @@ export default function LandingPage() {
         setCalendarData(data.calendarData);
         setSelectedDoctor(data.selectedDoctor);
       } catch (error) {
-        ErrorHandler(error);
+        ErrorHandler(error, setShowExpire);
       }
     }
 
-    async function getUpdateDataCalendar() {
-      try {
-        const res = await axios.get(
-          process.env.REACT_APP_ONLINE + "/admin/avail-schedule-forUpdate",
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const { data } = res.data;
-        setUpdateDataCalendar(data);
-      } catch (error) {
-        ErrorHandler(error);
-      }
-    }
-
-    getUpdateDataCalendar();
     getData();
     // eslint-disable-next-line
   }, [update]);
@@ -121,7 +102,7 @@ export default function LandingPage() {
       const { data } = res.data;
       setDisplayedPatients(data.appointmentsData);
     } catch (error) {
-      ErrorHandler(error);
+      ErrorHandler(error, setShowExpire);
     }
   };
 
@@ -146,30 +127,29 @@ export default function LandingPage() {
       setCalendarData(data.calendarData);
       setDisplayedPatients(data.appointmentsData);
     } catch (error) {
-      ErrorHandler(error);
+      ErrorHandler(error, setShowExpire);
     }
   };
 
   const filterByStatus = DisplayedPatients
-  ? DisplayedPatients.filter((item) => {
-      if (selectedStatus === "Cancelled") {
-        if (item.status === "Rejected" || item.status === "Cancelled") {
+    ? DisplayedPatients.filter((item) => {
+        if (selectedStatus === "Cancelled") {
+          if (item.status === "Rejected" || item.status === "Cancelled") {
+            return true;
+          }
+        } else if (
+          (!searchQuery ||
+            (item.Fname &&
+              item.Fname.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (item.Lname &&
+              item.Lname.toLowerCase().includes(searchQuery.toLowerCase()))) &&
+          item.Status === selectedStatus
+        ) {
           return true;
         }
-      } else if (
-        (!searchQuery ||
-          (item.Fname && item.Fname.toLowerCase().includes(searchQuery.toLowerCase())) ||
-          (item.Lname && item.Lname.toLowerCase().includes(searchQuery.toLowerCase()))
-        ) &&
-        item.Status === selectedStatus
-      ) {
-        console.log(item);
-        return true;
-      }
-      return false;
-    })
-  : [];
-
+        return false;
+      })
+    : [];
 
   const renderCard = filterByStatus.map((item, index) => {
     return (
@@ -184,7 +164,6 @@ export default function LandingPage() {
 
   const renderSelectOptions = doctorList
     ? doctorList.map((item, index) => {
-      console.log(item);
         return <SelectedDoctor data={item} key={index} />;
       })
     : [];
@@ -206,15 +185,10 @@ export default function LandingPage() {
           patientCounter={patientCounter}
           renderCard={renderCard}
           DisplayedPatients={DisplayedPatients}
-     
         />
       </div>
       <div className="RightContent">
-        <DashboardCalender
-          calendarData={calendarData}
-          setUpdate={setUpdate}
-          updateDataCalendar={updateDataCalendar}
-        />
+        <DashboardCalender calendarData={calendarData} setUpdate={setUpdate} />
         <InsertAppointment />
       </div>
     </div>

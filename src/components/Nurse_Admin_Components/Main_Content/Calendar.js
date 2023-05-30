@@ -24,12 +24,14 @@ export default function Calendar() {
   const [modalQuestion, setModalQuestion] = useState("");
   const [action, setAction] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const {
     selectedDoctor,
     setSelectedDoctor,
     doctorList,
     calendarData,
     setCalendarData,
+    setShowExpire,
   } = useContext(AdminContext);
 
   const onDoctorChangeHandler = async (event) => {
@@ -103,37 +105,25 @@ export default function Calendar() {
         );
         setThatDaysPatient(data.data);
       } catch (error) {
-        ErrorHandler(error);
+        ErrorHandler(error, setShowExpire);
       }
     };
     appointmentThatDay();
   };
 
-   // const filterBySearchQuery = (data, searchQuery) => {
-    // if (searchQuery === "") {
-      // return data; // Return the original data if the search query is empty
-    // }
-  
-    // const lowercaseQuery = searchQuery.toLowerCase();
-  
-    // return data.filter((item) => {
-      // const fname = item.Fname ? item.Fname.toLowerCase() : "";
-      // const lname = item.Lname ? item.Lname.toLowerCase() : "";
-  
-      // return fname.includes(lowercaseQuery) || lname.includes(lowercaseQuery);
-    // });
-  // };
-  
-  // const filteredPatientsArray = filterBySearchQuery([thatDaysPatient], searchQuery);
-  // const filteredPatients = filteredPatientsArray.length > 0 ? filteredPatientsArray : null;
-  
-  // console.log(filteredPatients);} 
-  
+  const renderCard = thatDaysPatient.map((item, index) => {
+    if (
+      !searchQuery ||
+      (item.Fname &&
+        item.Fname.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (item.Lname &&
+        item.Lname.toLowerCase().includes(searchQuery.toLowerCase()))
+    ) {
+      return <Card data={item} key={index} selectedStatus={"Confirmed"} />;
+    }
+    return null;
+  });
 
-  const renderCard = thatDaysPatient ? thatDaysPatient.map((item, index) => {
-    return <Card data={item} key={index} selectedStatus={"Confirmed"} />;
-  }) : null;
-  
   const renderSelectOptions = doctorList
     ? doctorList.map((item, index) => {
         return <SelectedDoctor data={item} key={index} />;
@@ -205,64 +195,81 @@ export default function Calendar() {
     setShow(false);
     switch (action) {
       case "Arrived":
-        await axios.post(
-          process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
-          {
-            date: moment(selectedDate).format("MM-DD-YYYY"),
-            notificationType: "Arrived",
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+        try {
+          await axios.post(
+            process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
+            {
+              date: moment(selectedDate).format("MM-DD-YYYY"),
+              notificationType: "Arrived",
             },
-          }
-        );
-        Notification("Successfully Notified Patients", true);
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          Notification("Successfully Notified Patients", true);
+        } catch (error) {
+          ErrorHandler(error, setShowExpire);
+        }
+
         break;
       case "Late":
-        await axios.post(
-          process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
-          {
-            date: moment(selectedDate).format("MM-DD-YYYY"),
-            notificationType: "Late",
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+        try {
+          await axios.post(
+            process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
+            {
+              date: moment(selectedDate).format("MM-DD-YYYY"),
+              notificationType: "Late",
             },
-          }
-        );
-        console.log("Notified Late");
-        Notification("Successfully Notified Patients", true);
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log("Notified Late");
+          Notification("Successfully Notified Patients", true);
+        } catch (error) {
+          ErrorHandler(error, setShowExpire);
+        }
         break;
       case "CancelAll":
-        await axios.post(
-          process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
-          {
-            date: moment(selectedDate).format("MM-DD-YYYY"),
-            notificationType: "CancellAll",
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+        try {
+          await axios.post(
+            process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
+            {
+              date: moment(selectedDate).format("MM-DD-YYYY"),
+              notificationType: "CancellAll",
             },
-          }
-        );
-        Notification("Successfully Cancelled All Patient Appointments", true);
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          Notification("Successfully Cancelled All Patient Appointments", true);
+        } catch (error) {
+          ErrorHandler(error, setShowExpire);
+        }
         break;
       case "NotifyDoctor":
-        await axios.post(
-          process.env.REACT_APP_ONLINE + "/admin/notify-doctorForToday",
-          {
-            date: moment(selectedDate).format("MM-DD-YYYY"),
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+        try {
+          await axios.post(
+            process.env.REACT_APP_ONLINE + "/admin/notify-doctorForToday",
+            {
+              date: moment(selectedDate).format("MM-DD-YYYY"),
             },
-          }
-        );
-        Notification("Successfully Notified Doctor", true);
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          Notification("Successfully Notified Doctor", true);
+        } catch (error) {
+          ErrorHandler(error, setShowExpire);
+        }
         break;
       default:
         break;
@@ -277,6 +284,8 @@ export default function Calendar() {
               selectedDoctor={selectedDoctor}
               onDoctorChangeHandler={onDoctorChangeHandler}
               renderSelectOptions={renderSelectOptions}
+              setSearchQuery={setSearchQuery}
+              searchQuery={searchQuery}
             />
           </div>
           <ScheduleCalendar

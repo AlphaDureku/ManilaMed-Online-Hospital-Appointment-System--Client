@@ -1,10 +1,12 @@
 import { Button, Input, PasswordInput, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { IMaskInput } from "react-imask";
+import { ErrorHandler } from "../../../utils/errorHandler";
+import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 const AddSecModal = (props) => {
@@ -17,7 +19,7 @@ const AddSecModal = (props) => {
     username: "",
     password: "",
   });
-
+  const setShowExpire = useContext(ShowExpireContext);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -136,16 +138,7 @@ const AddSecModal = (props) => {
         }
       } catch (error) {
         console.error(error);
-
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          setServerError(error.response.data.message);
-        } else {
-          setServerError("An error occurred. Please try again later.");
-        }
+        ErrorHandler(error, setShowExpire);
       } finally {
         setLoading(false);
       }

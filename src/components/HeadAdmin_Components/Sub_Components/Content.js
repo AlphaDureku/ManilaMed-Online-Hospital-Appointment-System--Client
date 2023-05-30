@@ -1,25 +1,27 @@
 import { useContext, useEffect } from "react";
 import { DashboardContext } from "../Main_Content/Dashboard";
 import AddDS from "./AddDocandSec";
-import AvailableDocandSec from "./availableDocandSec";
 import UpdatePair from "./UpdatePair";
+import AvailableDocandSec from "./availableDocandSec";
 
 export default function Content(props) {
   const dashboardData = useContext(DashboardContext);
+  console.log(dashboardData);
   const doctorsWithoutSec =
     dashboardData?.dashboardData?.data?.DoctorsWithoutNurses || [];
   const nurses = dashboardData?.dashboardData?.data?.NurseLists || [];
-  const doctorsWithSec = dashboardData?.dashboardData?.data?.DoctorsWithNurses || [];
+  const doctorsWithSec =
+    dashboardData?.dashboardData?.data?.DoctorsWithNurses || [];
 
-   
   const extractedDoctorData = doctorsWithoutSec.map((doctor) => {
     const { DFname, DLname, doctor_ID, date_added } = doctor;
     return { DFname, DLname, doctor_ID, date_added };
   });
 
   const extractedDoctorWithNursesData = doctorsWithSec.map((doctor, nurse) => {
-    const { DFname, DLname, doctor_ID, nurse_Fname, nurse_Lname, nurse_ID } = doctor;
-    return { DFname, DLname, doctor_ID, nurse_Fname, nurse_Lname, nurse_ID  };
+    const { DFname, DLname, doctor_ID, nurse_Fname, nurse_Lname, nurse_ID } =
+      doctor;
+    return { DFname, DLname, doctor_ID, nurse_Fname, nurse_Lname, nurse_ID };
   });
   const extractedNurses = nurses.map((nurse) => {
     const {
@@ -38,10 +40,6 @@ export default function Content(props) {
     };
   });
 
-
-  
-
-  
   return (
     <>
       <div className="Head--DashboardContainer">
@@ -57,17 +55,14 @@ export default function Content(props) {
         <div className="Head--Dashboard-right">
           <div className="DocSecTable">
             <UpdatePair
-            extractedDoctorWithNursesData= {extractedDoctorWithNursesData}
-            extractedNurses={extractedNurses}
-            setUpdate={props.setUpdate}
-            loading={props.loading}
-
+              extractedDoctorWithNursesData={extractedDoctorWithNursesData}
+              extractedNurses={extractedNurses}
+              setUpdate={props.setUpdate}
+              loading={props.loading}
             />
           </div>
           <div className="DocSecInsert">
-            <AddDS 
-            setUpdate={props.setUpdate}
-            />
+            <AddDS setUpdate={props.setUpdate} />
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
-import { ActionIcon, Input, NumberInput, Select, Button } from "@mantine/core";
+import { ActionIcon, Button, Input, NumberInput, Select } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
-import { IconClock } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
+import { IconCheck, IconClock } from "@tabler/icons-react";
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { ErrorHandler } from "../../../../utils/errorHandler";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
-import { notifications } from "@mantine/notifications";
-import { IconCheck } from "@tabler/icons-react";
-
+import { AdminContext } from "../../Main_Content/Content";
 
 export default function InsertAvailability(props) {
   const startTimeRef = useRef();
@@ -30,10 +30,9 @@ export default function InsertAvailability(props) {
       title: "Set Availability Success!",
       color: "teal",
       autoClose: 2000,
-      icon: <IconCheck size="3rem" /> 
+      icon: <IconCheck size="3rem" />,
     });
   };
-  
 
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -41,6 +40,7 @@ export default function InsertAvailability(props) {
   const [numberOfPatients, setNumberOfPatients] = useState("");
   const [calculationDone, setCalculationDone] = useState("");
   const [error, setError] = useState("");
+  const { setShowExpire } = useContext(AdminContext);
 
   const handleDateChange = (event) => {
     props.setSelectedDate(event.target.value);
@@ -96,7 +96,6 @@ export default function InsertAvailability(props) {
   }, [startTime, endTime, selectedInterval]);
 
   const handleSubmit = async () => {
-    
     try {
       setError(""); // Clear any previous errors
       const token = localStorage.getItem("nurseToken");
@@ -135,27 +134,30 @@ export default function InsertAvailability(props) {
           };
 
           props.setLoading(true);
-          const response = await axios.post(
-            process.env.REACT_APP_ONLINE + "/admin/add-doctorAvailability",
-            postData,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(response);
-          if (response.data.success === true) {
-            console.log("Availability added successfully");
-            InsertNotif();
-            props.setShowModal(false);
-            props.setUpdate((prev) => !prev);
-            props.setLoading(false);
+          try {
+            const response = await axios.post(
+              process.env.REACT_APP_ONLINE + "/admin/add-doctorAvailability",
+              postData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            if (response.data.success === true) {
+              console.log("Availability added successfully");
+              InsertNotif();
+              props.setShowModal(false);
+              props.setUpdate((prev) => !prev);
+              props.setLoading(false);
 
-            // Reset the form or perform any other necessary actions
-          } else {
-            console.error("Failed to add availability");
-            setError("Network error");
+              // Reset the form or perform any other necessary actions
+            } else {
+              console.error("Failed to add availability");
+              setError("Network error");
+            }
+          } catch (error) {
+            ErrorHandler(error, setShowExpire);
           }
         } else {
           console.error(
@@ -179,7 +181,9 @@ export default function InsertAvailability(props) {
       <div className="">
         <div>
           <p className="setavail-tagtitle mt-2 ms-1">Clinic Hours</p>
-          <p className="setavail-juniortag ms-1">Set the date and time according to the doctor's availability</p>
+          <p className="setavail-juniortag ms-1">
+            Set the date and time according to the doctor's availability
+          </p>
         </div>
         <div className="ms-4 insert-row">
           <div className="space1">
@@ -195,11 +199,11 @@ export default function InsertAvailability(props) {
           </div>
         </div>
         <div className="ms-4 ">
-          <p  className="setavail-tagjunior">Time Interval: </p>
+          <p className="setavail-tagjunior">Time Interval: </p>
         </div>
         <div className="ms-5 insert-row">
           <div className="space2">
-            <p  className="setavail-tagjunior" >Per Patient</p>
+            <p className="setavail-tagjunior">Per Patient</p>
           </div>
           <div style={{ width: "175px" }}>
             <Select
@@ -251,12 +255,12 @@ export default function InsertAvailability(props) {
           </div>
         </div>
         <div className="ms-4">
-          <p  className="setavail-tagjunior">Selected Time: </p>
+          <p className="setavail-tagjunior">Selected Time: </p>
         </div>
         <div className="ms-5">
           <div className="insert-row">
             <div className="space3">
-              <p  className="setavail-tagjunior">FROM: </p>
+              <p className="setavail-tagjunior">FROM: </p>
             </div>
             <div>
               <TimeInput
@@ -274,7 +278,7 @@ export default function InsertAvailability(props) {
           </div>
           <div className="mt-2 insert-row">
             <div className="space4">
-              <p  className="setavail-tagjunior">TO: </p>
+              <p className="setavail-tagjunior">TO: </p>
             </div>
             <div>
               <TimeInput
@@ -294,11 +298,13 @@ export default function InsertAvailability(props) {
         <hr />
         <div>
           <p className="setavail-tagtitle ms-1">No. of Patients</p>
-          <p className="setavail-juniortag ms-1">Set the maximum number of patients</p>
+          <p className="setavail-juniortag ms-1">
+            Set the maximum number of patients
+          </p>
         </div>
         <div className="ms-4 insert-row">
           <div className="space5">
-            <p  className="setavail-tagjunior ms-1">No. of Patients</p>
+            <p className="setavail-tagjunior ms-1">No. of Patients</p>
           </div>
           <div style={{ width: "90px" }}>
             <NumberInput
@@ -311,14 +317,20 @@ export default function InsertAvailability(props) {
               }}
             />
           </div>
-          {calculationDone && <div className="ms-3 setavail-tagjunior" style={{color:"#388440"}}>Recommended</div>}
+          {calculationDone && (
+            <div
+              className="ms-3 setavail-tagjunior"
+              style={{ color: "#388440" }}
+            >
+              Recommended
+            </div>
+          )}
         </div>
         <div className="insert-errormsg mt-3">
           {error && <div>{error}</div>}
         </div>
       </div>
       <div className="Admin--SetButtonRow mt-3">
-
         <BackProceed
           leftButton={props.handleCloseModal}
           rightButton={handleSubmit}

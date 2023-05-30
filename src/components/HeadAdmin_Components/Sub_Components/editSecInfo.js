@@ -1,12 +1,15 @@
 import { Input, PasswordInput, Switch, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CloseButton, Modal } from "react-bootstrap";
+import { ErrorHandler } from "../../../utils/errorHandler";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
+import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function EditSecInfo(props) {
+  const setShowExpire = useContext(ShowExpireContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -85,6 +88,7 @@ export default function EditSecInfo(props) {
       }
     } catch (error) {
       console.error(error);
+      ErrorHandler(error, setShowExpire);
     }
     setLoading(false);
   };
@@ -156,6 +160,7 @@ export default function EditSecInfo(props) {
       } catch (error) {
         setNetworkError(true);
         console.error("Error updating nurse information:", error);
+        ErrorHandler(error, setShowExpire);
       }
     }
     setLoading(false);

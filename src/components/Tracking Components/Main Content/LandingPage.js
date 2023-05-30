@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useReducer } from "react";
+import { ErrorHandler } from "../../../utils/errorHandler";
 import Card from "./LandingPage--Card";
 import { Reducer, initialState } from "./Reducers/Lading_Page";
 export default function LandingPage(props) {
@@ -25,8 +26,9 @@ export default function LandingPage(props) {
         setTimeout(() => {
           dispatch({ type: "LOADING_FINISHED" });
         }, 200);
-      } catch (err) {
+      } catch (error) {
         dispatch({ type: "FETCH_ERROR" });
+        ErrorHandler(error, props.setShowExpire);
       }
     };
     getPatients();
