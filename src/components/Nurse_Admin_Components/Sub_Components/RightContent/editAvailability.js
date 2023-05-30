@@ -362,7 +362,7 @@ export default function EditAvailability(props) {
           <p className="setavail-tagtitle mt-2 ms-1">No. of Patients</p>
           <p className="setavail-juniortag ms-1">Set the maximum number of patients</p>
         </div>
-        <div className="ms-3 insert-row">
+        <div className="ms-4 insert-row">
           <div className="space5">
             <p  className="setavail-tagjunior ms-1">No. of Patients</p>
           </div>
