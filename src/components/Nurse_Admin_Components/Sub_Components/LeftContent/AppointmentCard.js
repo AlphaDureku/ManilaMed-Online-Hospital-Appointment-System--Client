@@ -36,7 +36,6 @@ export default function Card(props) {
           {props.data.Fname} {props.data.Lname}
         </div>
         <div>
-          <b>Date Created: </b>
           <button style={{ backgroundColor: " #29cc97", marginLeft: "5px" }}>
             {props.data.createdAt}
           </button>
