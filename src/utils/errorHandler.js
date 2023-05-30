@@ -3,7 +3,7 @@ export function ErrorHandler(error, setShowExpire) {
 
   switch (status) {
     case 500:
-      window.location.href = "/serverDown";
+      // window.location.href = "/serverDown";
       break;
     case 401:
       setShowExpire(true);

@@ -1,4 +1,5 @@
 import { Input, PasswordInput, TextInput } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { CloseButton, Modal } from "react-bootstrap";
@@ -22,6 +23,13 @@ export default function ChangeUserPassModal(props) {
 
     return () => clearTimeout(timeout);
   }, []);
+  const EditedNotif = () => {
+    notifications.show({
+      title: "Admin Information Edited",
+      color: "teal",
+      autoClose: 2000,
+    });
+  };
 
   const [formData, setFormData] = useState({
     username: props.username,
@@ -141,14 +149,13 @@ export default function ChangeUserPassModal(props) {
     ) {
       setNoChangeError(false);
       const postData = {
-        NurseModel: {
-          username: formData.username,
-          oldPassword: formData.oldPassword,
-          newPassword: formData.newPassword,
-        },
+        username: formData.username,
+        oldPassword: formData.oldPassword,
+        newPassword: formData.newPassword,
       };
 
       try {
+        console.log(postData);
         const response = await axios.post(
           process.env.REACT_APP_ONLINE + "/admin/update-nurse",
           postData,
@@ -159,12 +166,25 @@ export default function ChangeUserPassModal(props) {
             },
           }
         );
-        console.log("Secretary profile updated successfully:", response.data);
-        props.setUpdate((prev) => !prev);
-        setOrigFormData((prevOrigFormData) => ({
-          ...prevOrigFormData,
-          username: formData.username,
-        }));
+        const { data } = response.data;
+        if (data.samePassword && !data.duplicate) {
+          console.log(data.message);
+          props.handleCloseModal();
+          props.setUpdate((prev) => !prev);
+          EditedNotif();
+          setFormData(() => ({
+            username: postData.username,
+            oldPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+          }));
+          handleEditFieldToggle("username");
+          handleEditFieldToggle("password");
+        } else if (!data.samePassword) {
+          console.log("Wrong pasword");
+        } else {
+          console.log("Duplicate username");
+        }
       } catch (error) {
         setNetworkError(true);
         console.error("Error updating Secretary profile:", error);
