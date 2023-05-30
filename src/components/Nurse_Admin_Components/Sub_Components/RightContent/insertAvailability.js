@@ -5,6 +5,9 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
+import { notifications } from "@mantine/notifications";
+import { IconCheck } from "@tabler/icons-react";
+
 
 export default function InsertAvailability(props) {
   const startTimeRef = useRef();
@@ -22,6 +25,14 @@ export default function InsertAvailability(props) {
     },
   };
 
+  const InsertNotif = () => {
+    notifications.show({
+      title: "Set Availability Success!",
+      color: "teal",
+      autoClose: 2000,
+      icon: <IconCheck size="3rem" /> 
+    });
+  };
   
 
   const [startTime, setStartTime] = useState("");
@@ -123,8 +134,7 @@ export default function InsertAvailability(props) {
             maxPatient: numberOfPatients.toString(),
           };
 
-          console.log(postData);
-
+          props.setLoading(true);
           const response = await axios.post(
             process.env.REACT_APP_ONLINE + "/admin/add-doctorAvailability",
             postData,
@@ -137,8 +147,11 @@ export default function InsertAvailability(props) {
           console.log(response);
           if (response.data.success === true) {
             console.log("Availability added successfully");
+            InsertNotif();
             props.setShowModal(false);
             props.setUpdate((prev) => !prev);
+            props.setLoading(false);
+
             // Reset the form or perform any other necessary actions
           } else {
             console.error("Failed to add availability");
@@ -165,12 +178,12 @@ export default function InsertAvailability(props) {
     <>
       <div className="">
         <div>
-          <p className="setavail-tagtitle">Clinic Hours</p>
-          <p>Set the date and time according to the doctor's availability</p>
+          <p className="setavail-tagtitle mt-2 ms-1">Clinic Hours</p>
+          <p className="setavail-juniortag ms-1">Set the date and time according to the doctor's availability</p>
         </div>
-        <div className="ms-3 insert-row">
+        <div className="ms-4 insert-row">
           <div className="space1">
-            <p className="setavail-tagjunior">Selected Date</p>
+            <p className="setavail-tagjunior ">Selected Date</p>
           </div>
           <div style={{ width: "105px" }}>
             <Input
@@ -181,7 +194,7 @@ export default function InsertAvailability(props) {
             />
           </div>
         </div>
-        <div className="ms-3 ">
+        <div className="ms-4 ">
           <p  className="setavail-tagjunior">Time Interval: </p>
         </div>
         <div className="ms-5 insert-row">
@@ -237,7 +250,7 @@ export default function InsertAvailability(props) {
             />
           </div>
         </div>
-        <div className="ms-3">
+        <div className="ms-4">
           <p  className="setavail-tagjunior">Selected Time: </p>
         </div>
         <div className="ms-5">
@@ -280,12 +293,12 @@ export default function InsertAvailability(props) {
         </div>
         <hr />
         <div>
-          <p className="setavail-tagtitle">No. of Patients</p>
-          <p>Set the maximum number of patients</p>
+          <p className="setavail-tagtitle ms-1">No. of Patients</p>
+          <p className="setavail-juniortag ms-1">Set the maximum number of patients</p>
         </div>
-        <div className="ms-3 insert-row">
+        <div className="ms-4 insert-row">
           <div className="space5">
-            <p  className="setavail-tagjunior">No. of Patients</p>
+            <p  className="setavail-tagjunior ms-1">No. of Patients</p>
           </div>
           <div style={{ width: "90px" }}>
             <NumberInput
@@ -298,7 +311,7 @@ export default function InsertAvailability(props) {
               }}
             />
           </div>
-          {calculationDone && <div className="ms-3">Recommended</div>}
+          {calculationDone && <div className="ms-3 setavail-tagjunior" style={{color:"#388440"}}>Recommended</div>}
         </div>
         <div className="insert-errormsg mt-3">
           {error && <div>{error}</div>}

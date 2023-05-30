@@ -69,8 +69,8 @@ export default function AddPairModal(props) {
           props.setUpdate((prev) => !prev);
           Notif();
           setLoading(false);
+          handleModalExit();
           setSelectedNurse(null);
-          props.handleCloseModal();
         } else {
           setMatchError(true);
         }
@@ -84,8 +84,8 @@ export default function AddPairModal(props) {
   function handleModalExit() {
     setMatchError(false);
     setNoSelectError(false);
-    setSelectedNurse(" ");
     props.handleCloseModal();
+    setSelectedNurse(" ");
   }
 
   return (

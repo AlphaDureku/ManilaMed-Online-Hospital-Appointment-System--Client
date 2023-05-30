@@ -17,6 +17,7 @@ export default function LandingPage() {
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
   const [updateDataCalendar, setUpdateDataCalendar] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   axios.defaults.withCredentials = true;
 
   const {
@@ -150,18 +151,25 @@ export default function LandingPage() {
   };
 
   const filterByStatus = DisplayedPatients
-    ? DisplayedPatients.filter((item) => {
-        if (selectedStatus === "Cancelled") {
-          if (item.status === "Rejected" || item.status === "Cancelled") {
-            return item;
-          }
+  ? DisplayedPatients.filter((item) => {
+      if (selectedStatus === "Cancelled") {
+        if (item.status === "Rejected" || item.status === "Cancelled") {
+          return true;
         }
-        if (item.Status === selectedStatus) {
-          return item;
-        }
-        return null;
-      })
-    : [];
+      } else if (
+        (!searchQuery ||
+          (item.Fname && item.Fname.toLowerCase().includes(searchQuery.toLowerCase())) ||
+          (item.Lname && item.Lname.toLowerCase().includes(searchQuery.toLowerCase()))
+        ) &&
+        item.Status === selectedStatus
+      ) {
+        console.log(item);
+        return true;
+      }
+      return false;
+    })
+  : [];
+
 
   const renderCard = filterByStatus.map((item, index) => {
     return (
@@ -176,6 +184,7 @@ export default function LandingPage() {
 
   const renderSelectOptions = doctorList
     ? doctorList.map((item, index) => {
+      console.log(item);
         return <SelectedDoctor data={item} key={index} />;
       })
     : [];
@@ -187,6 +196,8 @@ export default function LandingPage() {
           selectedDoctor={selectedDoctor}
           onDoctorChangeHandler={onDoctorChangeHandler}
           renderSelectOptions={renderSelectOptions}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
         <AppointmentTable
           selectedDateRange={selectedDateRange}
@@ -195,6 +206,7 @@ export default function LandingPage() {
           patientCounter={patientCounter}
           renderCard={renderCard}
           DisplayedPatients={DisplayedPatients}
+     
         />
       </div>
       <div className="RightContent">

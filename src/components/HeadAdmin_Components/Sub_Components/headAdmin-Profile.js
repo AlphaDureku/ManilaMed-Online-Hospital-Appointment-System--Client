@@ -4,6 +4,7 @@ import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 
 
@@ -18,6 +19,7 @@ export default function HeadAdminProfile ( props) {
       };
       const [networkError, setNetworkError] = useState(false);
 
+      const [loading, setLoading] = useState(false); 
 
     const [formErrors, setFormErrors] = useState({});
     const validateForm = () => {
@@ -104,6 +106,7 @@ export default function HeadAdminProfile ( props) {
       };
 
       try {
+        setLoading(true);
         const response = await axios.post(
           process.env.REACT_APP_ONLINE + "/head-admin/update-head",
           postData,
@@ -122,6 +125,8 @@ export default function HeadAdminProfile ( props) {
           lastName: formData.lastName,
         }));
         props.setUpdate((prev) => !prev);
+        setLoading(false);
+
       } catch (error) {
         setNetworkError(true);
         console.error("Error updating Admin information:", error);
@@ -146,6 +151,12 @@ export default function HeadAdminProfile ( props) {
       firstName: false,
       lastName: false,
     });
+    setLoading(false);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      firstName: origFormData.firstName,
+      lastName: origFormData.lastName,
+    }));
   };
 
    return (
@@ -159,6 +170,7 @@ export default function HeadAdminProfile ( props) {
       keyboard={false}
       backdrop="static"
     >
+        <RequestLoadingOverlay loading={loading}>
 
         <Modal.Body style={{ margin: "5%", fontWeight: "600" }}>
           <div
@@ -258,8 +270,10 @@ export default function HeadAdminProfile ( props) {
 
 
         </div>
-         
+
         </Modal.Body>
+        </RequestLoadingOverlay>
+
     </Modal>
     
     

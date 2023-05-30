@@ -109,10 +109,31 @@ export default function Calendar() {
     appointmentThatDay();
   };
 
-  const renderCard = thatDaysPatient.map((item, index) => {
-    return <Card data={item} key={index} selectedStatus={"Confirmed"} />;
-  });
+   // const filterBySearchQuery = (data, searchQuery) => {
+    // if (searchQuery === "") {
+      // return data; // Return the original data if the search query is empty
+    // }
+  
+    // const lowercaseQuery = searchQuery.toLowerCase();
+  
+    // return data.filter((item) => {
+      // const fname = item.Fname ? item.Fname.toLowerCase() : "";
+      // const lname = item.Lname ? item.Lname.toLowerCase() : "";
+  
+      // return fname.includes(lowercaseQuery) || lname.includes(lowercaseQuery);
+    // });
+  // };
+  
+  // const filteredPatientsArray = filterBySearchQuery([thatDaysPatient], searchQuery);
+  // const filteredPatients = filteredPatientsArray.length > 0 ? filteredPatientsArray : null;
+  
+  // console.log(filteredPatients);} 
+  
 
+  const renderCard = thatDaysPatient ? thatDaysPatient.map((item, index) => {
+    return <Card data={item} key={index} selectedStatus={"Confirmed"} />;
+  }) : null;
+  
   const renderSelectOptions = doctorList
     ? doctorList.map((item, index) => {
         return <SelectedDoctor data={item} key={index} />;

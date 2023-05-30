@@ -1,7 +1,11 @@
 import { Input, MantineProvider } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
-const MantineSearchBar = () => {
+const MantineSearchBar = (props) => {
+  const handleSearch = (event) => {
+    props.setSearchQuery(event.target.value);
+  };
+
   return (
     <>
       <MantineProvider
@@ -26,6 +30,8 @@ const MantineSearchBar = () => {
           placeholder="Search Appointments"
           radius="xl"
           className="Admin--Search"
+          value={props.searchQuery}
+          onChange={handleSearch}
         />
       </MantineProvider>
     </>

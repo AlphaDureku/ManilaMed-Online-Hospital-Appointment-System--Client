@@ -1,6 +1,6 @@
 function Faqs() {
   return (
-    <div className="Faqs ">
+    <div className="Faqs " id="FAQs">
       <div className="container pb-4 mb-5">
         <div className="row m-3 pt-4">
           <div className="tagtitle ">FAQs</div>

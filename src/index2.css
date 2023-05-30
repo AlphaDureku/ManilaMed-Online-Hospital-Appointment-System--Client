@@ -491,6 +491,11 @@ margin-right: 20%;
   text-decoration-line: underline;
 }
 
+.nursemanage-row{
+  width: 240px;
+}
+
+
 .manage-row{
   width: 127px;
 }
@@ -611,7 +616,9 @@ margin-right: 20%;
     flex-direction: row;
     justify-content: center;
 }
-
+.setavail-secondcol{
+  display: flex;
+}
 .admin-calendarModalContainer{
   margin-right: 7%;
   margin-left: 7%;
@@ -648,9 +655,9 @@ margin-right: 20%;
   align-items: center;
 }
 .Admin--SetButtonRow > button {
-  font-size: min(0.9rem, 2.4vw);
+  font-size: min(1rem, 3.63vw);
   border-radius: 20px;
-  width: 30%;
+  width: 27%;
   margin: 15px;
 }
 
@@ -678,13 +685,22 @@ margin-top: 15%;
 }
 
 .setavail-tagtitle{
-  font-size: 18px;
+  font-size: min(1.063rem, 3.63vw);
   color: #388440;
   font-weight: 700;
 }
+.setavail-juniortag{
+  font-size: min(1rem, 3.63vw);
+}
+.headerlegend-setavail{
+  font-size: min(1.063rem, 3.63vw);
+
+}
+
 
 .setavail-tagjunior{
-  font-size: 16px;
+  font-size: min(1rem, 3.63vw);
+
   font-weight: 600;
 }
 
@@ -698,3 +714,8 @@ margin-top: 15%;
 }
 
 
+.confirmbuttonSec > button{
+border-radius: 20px;
+margin: 10px;
+width: 22%;
+}

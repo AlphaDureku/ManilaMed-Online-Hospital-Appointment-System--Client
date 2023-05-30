@@ -69,9 +69,10 @@ export default function EditDocwithSecModal(props) {
         if (response.status === 200) {
           props.setUpdate((prev) => !prev);
           MatchNotif();
+          handleModalExit();
           setLoading(false);
           setSelectedNurse(null);
-          props.handleCloseModal();
+       
         } else {
           setMatchError(true);
         }
@@ -97,9 +98,11 @@ export default function EditDocwithSecModal(props) {
   function handleModalExit() {
     setMatchError(false);
     setNoSelectError(false);
-    setSelectedNurse(props.selectedDoctor.nurseid);
     setNetworkError(false);
     props.handleCloseModal();
+    setSelectedNurse(props.selectedDoctor.nurseid);
+ 
+    
   }
 
   return (

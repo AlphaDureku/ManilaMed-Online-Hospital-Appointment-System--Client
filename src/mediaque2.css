@@ -130,7 +130,10 @@
   margin-right: 10%;
   margin-left: 10px;
   }
- 
+  .headerlegend-setavail{
+    font-size: 15px;
+  
+  }
 }
 
 @media screen and (max-width:800px) {
@@ -156,14 +159,19 @@
   }
 
   .headmanager-tag, .options-tagtitle, .manage-profileandsec{
-    font-size: 16px;
+    font-size: 15px;
   }
   .headmanager-title, .sub-manage{
     font-size: 14px;
 
   }
-
+  .Admin--SetButtonRow {
+    justify-content: center;
+  }
   
+  .Admin--SetButtonRow > button{
+    margin: 10px;
+  }
   
 }
 
@@ -178,4 +186,29 @@
   .set-avail-container{
     flex-direction: column;
 }
+
 }
+
+@media screen and (max-width:500px) {
+  .header-legend-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .AppointmentTable--Header{
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .header-legend-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+
+
+

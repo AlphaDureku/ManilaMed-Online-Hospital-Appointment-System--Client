@@ -6,6 +6,7 @@ import {  useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import InsertAvailability from "./insertAvailability";
 import EditAvailability from "./editAvailability";
+import AdminLoadingOverlay from "../../Main_Content/AdminLoadingOverlay";
 
 export default function DashboardCalender(props) {
   const breakPointMobile = useMediaQuery("(max-width: 1200px)");
@@ -14,7 +15,7 @@ export default function DashboardCalender(props) {
   const [selectedDate, setSelectedDate] = useState();
   const {updateDataCalendar} = props;
   const [isUpdated, setIsUpdated] = useState(false);
-
+  const [loading, setLoading] = useState(false);
 
   const updateDates = updateDataCalendar.map((item)=> {
     const {date, doctor_ID, end, maxPatient, start, timeInterval, schedule_ID} = item;
@@ -68,7 +69,7 @@ export default function DashboardCalender(props) {
     const formattedDate = moment(date).format("YYYY-MM-DD");
     const currentDate = moment().format("YYYY-MM-DD");
 
-    if (formattedDate < currentDate) {
+    if (formattedDate <= currentDate) {
       return {
         disabled: true,
       };
@@ -128,12 +129,13 @@ export default function DashboardCalender(props) {
           <Modal.Header closeButton>
             <div className="modal-title h4">Set Availability</div>
           </Modal.Header>
+          <AdminLoadingOverlay loading={loading} >
           <Modal.Body>
             <div className="set-avail-container">
               <div className="admin-calendarModalContainer">
            
-              <div className="setlegendrow">
-              <div style={{ color: "#2f9d44", fontWeight: "600" }} className="ms-3">
+              <div className="setlegendrow ">
+              <div style={{ color: "#2f9d44", fontWeight: "600" }} className="ms-3 headerlegend-setavail">
                 <img
                   src="/images/lightgreenLegend.png"
                   alt=""
@@ -141,7 +143,7 @@ export default function DashboardCalender(props) {
                 ></img>
                 With Availability
               </div>
-              <div style={{ color: "#434343", fontWeight: "600" }} className="ms-5">
+              <div style={{ color: "#434343", fontWeight: "600" }} className="ms-5 headerlegend-setavail">
                 {" "}
                 <img src="/images/whitec.png" alt="" className="legend"></img>No
                 Availability
@@ -180,7 +182,7 @@ export default function DashboardCalender(props) {
                 
                  </div>
               </div>
-              <div>
+              <div className="" >
               {isUpdated ? (
                 <EditAvailability
                   selectedDate={selectedDate}
@@ -189,6 +191,8 @@ export default function DashboardCalender(props) {
                   setShowModal={setShowModal}
                   setUpdate={props.setUpdate}
                   updateDates={updateDates}
+                  setLoading={setLoading}
+                  setIsUpdated={setIsUpdated}
                   
                 />
               ) : (
@@ -198,6 +202,8 @@ export default function DashboardCalender(props) {
                   handleCloseModal={handleCloseModal}
                   setShowModal={setShowModal}
                   setUpdate={props.setUpdate}
+                  setLoading={setLoading}
+
                 />
               )}
               </div>
@@ -205,6 +211,7 @@ export default function DashboardCalender(props) {
           
             </div>
           </Modal.Body>
+          </AdminLoadingOverlay>
         </Modal>
       </div>
     </>

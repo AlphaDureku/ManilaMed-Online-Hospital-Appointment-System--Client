@@ -1,5 +1,8 @@
 import { useMediaQuery } from "@mantine/hooks";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { ErrorHandler } from "../../../utils/errorHandler";
+
 
 import { AdminPageContext } from "../../../pages/Admin";
 import Navbar from "../NavBar/NavBar";
@@ -16,6 +19,8 @@ export default function Content() {
   const [doctorList, setDoctorList] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [calendarData, setCalendarData] = useState([]);
+  const [updateSettings, setUpdateSettings] = useState(false);
+  const [nurseData, setNurseData] = useState("");
 
   const AdminValues = {
     selectedDoctor: selectedDoctor,
@@ -25,6 +30,33 @@ export default function Content() {
     calendarData: calendarData,
     setCalendarData: setCalendarData,
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("nurseToken");
+
+    async function getData() {
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_ONLINE + "/admin/nurse-dashboard",
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { data } = res.data;
+
+
+        setNurseData(data.NurseData);
+      } catch (error) {
+        ErrorHandler(error);
+      }
+    }
+    getData();
+    // eslint-disable-next-line
+  }, [updateSettings]);
+
 
   return (
     <>
@@ -37,7 +69,8 @@ export default function Content() {
           ) : currentPage === 2 ? (
             <Calendar />
           ) : (
-            <Settings />
+            <Settings nurseData={nurseData} setUpdate={setUpdateSettings} 
+           />
           )}
         </div>
       </AdminContext.Provider>

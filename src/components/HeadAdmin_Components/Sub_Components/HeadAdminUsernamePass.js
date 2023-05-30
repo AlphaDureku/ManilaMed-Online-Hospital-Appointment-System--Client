@@ -1,11 +1,14 @@
-import { Modal, CloseButton } from "react-bootstrap";
+import { Modal, CloseButton, Fade } from "react-bootstrap";
 import { TextInput, Input, PasswordInput } from "@mantine/core";
 import BackProceed from "../../Reusable_Components/Buttons--BackProceed";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
+import RequestLoadingOverlay from "./RequestLoadingOverlay";
 
 export default function HeadAdminUsernamePass(props) {
+
+
   const EditedNotif = () => {
     notifications.show({
       title: "Head Admin Information Edited",
@@ -13,7 +16,7 @@ export default function HeadAdminUsernamePass(props) {
       autoClose: 2000,
     });
   };
-
+  const [loading, setLoading] = useState(false); 
   const [networkError, setNetworkError] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const validateForm = () => {
@@ -25,14 +28,17 @@ export default function HeadAdminUsernamePass(props) {
     } else {
       errors.username = false; // Clear the error if the username is valid
     }
-  
-    // Check if password is less than 6 characters
-    if (formData.password.length < 6 && formData.password !== origFormData.password) {
-      errors.password = true;
-    } else {
-      errors.password = false; // Clear the error if the password is valid
-    }
-  
+        // Check if new password is less than 8 characters or does not meet the requirements
+      if (
+        (formData.password && formData.password.length < 8) || // Check if password is provided and less than 8 characters
+        (formData.password && !/[A-Z]/.test(formData.password)) || // Check if password is provided and does not have at least one capital letter
+        (formData.password && !/\d/.test(formData.password)) // Check if password is provided and does not have at least one number
+      ) {
+        errors.password = true;
+      } else {
+        errors.password = false; // Clear the error if the password is valid
+      }
+
     // Check if password and confirm password are the same
     if (formData.password !== formData.confirmPassword) {
       errors.confirmPassword = true;
@@ -77,17 +83,19 @@ export default function HeadAdminUsernamePass(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
     const token = localStorage.getItem("headToken");
   
     const hasUsernameChanged = formData.username !== origFormData.username;
     const hasPasswordChanged = formData.password !== origFormData.password;
+    const hasCPasswordChanged = formData.confirmPassword !== origFormData.confirmPassword;
+
+    
     const isValid = validateForm();
   
-    if (!hasUsernameChanged && !hasPasswordChanged) {
+    if (!hasUsernameChanged && !hasPasswordChanged && !hasCPasswordChanged) {
       setNoChangeError(true);
       return;
-    } else if (isValid && (hasUsernameChanged || hasPasswordChanged)) {
+    } else if (isValid && (hasUsernameChanged || hasPasswordChanged || hasCPasswordChanged)) {
       setNoChangeError(false);
       const postData = {
         headModel: {
@@ -96,8 +104,9 @@ export default function HeadAdminUsernamePass(props) {
           head_NewPassword: hasPasswordChanged ? formData.password : null,
         },
       };
-  
+
       try {
+        setLoading(true);
         const response = await axios.post(
           process.env.REACT_APP_ONLINE + "/head-admin/update-head",
           postData,
@@ -115,7 +124,8 @@ export default function HeadAdminUsernamePass(props) {
           ...prevOrigFormData,
           username: formData.username,
         }));
-        
+        setLoading(false);
+
       } catch (error) {
         setNetworkError(true);
         console.error("Error updating Admin information:", error);
@@ -123,7 +133,6 @@ export default function HeadAdminUsernamePass(props) {
     }
   };
 
-  console.log(origFormData.username);
   
   const handleChange = (event, fieldName) => {
     const { value } = event.target;
@@ -131,6 +140,7 @@ export default function HeadAdminUsernamePass(props) {
       ...prevFormData,
       [fieldName]: value,
     }));
+    setNoChangeError(false);
   };
 
   const handleCancel = () => {
@@ -146,7 +156,7 @@ export default function HeadAdminUsernamePass(props) {
         password: "",
         confirmPassword: "",
       }));
-   
+      setLoading(false);
    
   };
 
@@ -171,7 +181,9 @@ export default function HeadAdminUsernamePass(props) {
         keyboard={false}
         backdrop="static"
       >
+        <RequestLoadingOverlay loading={loading}>
         <Modal.Body style={{ margin: "5%", fontWeight: "600" }}>
+
           <div
             style={{ display: "flex", alignItems: "center" }}
             className="mb-3"
@@ -214,6 +226,7 @@ export default function HeadAdminUsernamePass(props) {
 
               />
             </Input.Wrapper>
+            
             <Input.Wrapper label="New Password" className="mb-2">
             <label
                 className="edit-NurseInfo mt-2 ms-2"
@@ -226,7 +239,7 @@ export default function HeadAdminUsernamePass(props) {
                 styles={formstyles}
                 onChange={(e) => handleChange(e, "password")}
                 disabled={!isFieldEditable("password")}
-                error={formErrors.password && "Password must be at least 6 characters"}
+                error={formErrors.password && "Passwords must have atleast 8 characters, one capital and number "}
 
               />
             </Input.Wrapper>
@@ -276,7 +289,10 @@ export default function HeadAdminUsernamePass(props) {
               />
             </div>
           </div>
+
         </Modal.Body>
+        </RequestLoadingOverlay>
+
       </Modal>
     </>
   );
