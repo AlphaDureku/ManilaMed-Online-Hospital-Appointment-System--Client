@@ -12,6 +12,7 @@ export default function BookingCompletedPage() {
   const { appointmentDetails } = useContext(AppointmentDetailsContext);
   const { appointment_ID } = appointmentDetails;
   let navigate = useNavigate();
+
   useEffect(() => {
     async function fetchDoctor() {
       const response = await axios.get(
@@ -23,10 +24,11 @@ export default function BookingCompletedPage() {
         }
       );
       console.log(response);
-      setDoctor(response.data.data);
+      setDoctor(response.data.data[0]);
     }
     fetchDoctor();
   }, []);
+
   return (
     <>
       <div className="Booking--wrapper">

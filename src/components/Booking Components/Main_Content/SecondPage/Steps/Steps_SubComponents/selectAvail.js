@@ -127,8 +127,17 @@ export default function SelectAvail(props) {
 
   const handleDateSelect = async (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
+    const formattedDateforDB = moment(date).format("MMM D, YYYY");
+    const selectedDoctor_ID = schedule.filter((item) => {
+      if (formattedDateforDB === item.date) {
+        return item;
+      }
+      return null;
+    });
+    console.log(selectedDoctor_ID);
     setAppointmentDetails((prev) => ({
       ...prev,
+      schedule_ID: selectedDoctor_ID[0].schedule_ID,
       schedule_date: formattedDate,
       recom_Time: DisplayDateAndTime ? DisplayDateAndTime.recom_time : "",
       end_Time: DisplayDateAndTime ? DisplayDateAndTime.end : "",
