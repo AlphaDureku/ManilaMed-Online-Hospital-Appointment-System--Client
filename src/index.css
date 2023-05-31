@@ -1556,6 +1556,7 @@ select {
   color: #434343;
   padding: 1% 4% 1% 1%;
   width: max(150px, 16.5vw);
+  font-weight: 600;
 }
 
 .search-row > div:nth-child(1) {
