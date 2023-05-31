@@ -44,7 +44,6 @@ export default function FirstPage_Modal(props) {
         },
       }
     );
-
     const { isVerified } = res.data.data;
     if (isVerified) {
       setShowModal((prev) => ({ ...prev, verification: false }));
@@ -59,7 +58,6 @@ export default function FirstPage_Modal(props) {
       setError(true);
     }
   };
-
   async function reSendOTP() {
     const res = await axios.get(
       process.env.REACT_APP_ONLINE + "/booking/send-otp",
@@ -95,7 +93,7 @@ export default function FirstPage_Modal(props) {
       </>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.loading, showHistory, input]);
+  }, [props.loading, showHistory, input, error]);
 
   const FirstPageModals_Loading = (
     <>
