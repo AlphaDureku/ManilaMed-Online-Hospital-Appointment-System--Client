@@ -860,14 +860,14 @@
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .Admin--Dashboard_Container {
     flex-direction: column;
     justify-content: start;
   }
   .Admin--Dashboard_Container {
     width: 100%;
-    height: 1000px;
+    height: 1200px;
   }
   .adminMainContainer {
     flex-direction: column-reverse;
@@ -895,11 +895,14 @@
 
   .Admin--SelectDoctor {
     font-weight: 500;
+    width: 55%;
+    padding-right: 0%;
   }
 
   .LeftContent {
-    height: 75%;
+    height: 100%;
     width: 100%;
+
   }
   .RightContent {
     display: flex;
@@ -927,6 +930,10 @@
   }
   .AppointmentTable > div:nth-child(2) {
     justify-content: center;
+  }
+  
+  .AppointmentTable > div:nth-child(3) {
+   margin-bottom: 15px;
   }
   .Admin--Flex > div:nth-child(1) {
     width: 100%;
@@ -993,5 +1000,18 @@
   }
   .Schedule_Calendar_Container > div {
     margin: 1% 0;
+  }
+
+  .Dashboard--Data{
+    display: none;
+  }
+
+  .AppointmentTable{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .search-row{
+    margin-top: 20px;
   }
 }

@@ -1585,7 +1585,7 @@ select {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  height: 52%;
+  height: 49vh;
   width: 92%;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
@@ -1623,7 +1623,7 @@ select {
 .Dashboard--Data {
   background-color: white;
   border-radius: 15px;
-  height: 40%;
+  height: 38vh;
   width: 92%;
   display: flex;
   align-items: center;
@@ -1754,7 +1754,7 @@ select {
   transform: scale(1.02);
 }
 .AppointmentTable > div:nth-child(3) {
-  height: 53%;
+  height: 45vh;
   width: 95%;
   background-color: #f4f4f4;
   border-radius: 15px;
