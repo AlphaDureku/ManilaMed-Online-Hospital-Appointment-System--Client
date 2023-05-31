@@ -17,6 +17,7 @@ export default function LandingPage() {
   const token = localStorage.getItem("nurseToken");
   const [update, setUpdate] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [graphData, setGraphData] = useState([]);
   axios.defaults.withCredentials = true;
 
   const {
@@ -41,7 +42,7 @@ export default function LandingPage() {
           }
         );
         const { data } = res.data;
-        console.log(data);
+        setGraphData(data.graphData);
         setDisplayedPatients(data.AppointmentsData);
         setDoctorList(data.DoctorData);
         setCalendarData(data.calendarData);
@@ -54,7 +55,7 @@ export default function LandingPage() {
     getData();
     // eslint-disable-next-line
   }, [update]);
-
+  console.log(graphData);
   useEffect(() => {
     const newCounts = DisplayedPatients
       ? DisplayedPatients.reduce(
@@ -168,176 +169,6 @@ export default function LandingPage() {
       })
     : [];
 
-  const fakedata = [
-    {
-      Contact: "+639422167432",
-      Fname: "Mark",
-      Lname: "Fetero",
-      Status: "Confirmed",
-      appointmentDate: "June 4, 2023",
-      appointmentStart: "10:00:00",
-      appointment_ID: "APP-1b433861-9148-452e-a0a5-cecaab62dfef",
-      createdAt: "May 1, 2023",
-      doctor_Fname: "Mark",
-      doctor_Lname: "Templanza",
-      email: "lemuelponce914@gmail.com",
-      end: "03:00PM",
-      gender: "M",
-      patient_ID: "PATIENT-0695ba9c-d7b0-4733-9e6f-4b438378f3f1",
-      patient_address: "1255 De Vera St. Tondo, Manila",
-      patient_age: 21,
-      specialization: "Internal Medicine",
-      start: "10:00AM",
-    },
-    {
-      // Second object
-      Contact: "+123456789",
-      Fname: "John",
-      Lname: "Doe",
-      Status: "Completed",
-      appointmentDate: "May 15, 2023",
-      appointmentStart: "09:00:00",
-      appointment_ID: "APP-2a482743-8359-4eab-bff5-d7390c5aef79",
-      createdAt: "May 31, 2023",
-      doctor_Fname: "Jane",
-      doctor_Lname: "Smith",
-      email: "johndoe@example.com",
-      end: "11:00AM",
-      gender: "M",
-      patient_ID: "PATIENT-8a983782-82d1-49f4-a615-5c7e39c3966d",
-      patient_address: "123 Main St, City",
-      patient_age: 35,
-      specialization: "Dentistry",
-      start: "09:00AM",
-    },
-    {
-      // Second object
-      Contact: "+123456789",
-      Fname: "John",
-      Lname: "Doe",
-      Status: "Pending",
-      appointmentDate: "May 20, 2023",
-      appointmentStart: "09:00:00",
-      appointment_ID: "APP-2a482743-8359-4eab-bff5-d7390c5aef79",
-      createdAt: "May 31, 2023",
-      doctor_Fname: "Jane",
-      doctor_Lname: "Smith",
-      email: "johndoe@example.com",
-      end: "11:00AM",
-      gender: "M",
-      patient_ID: "PATIENT-8a983782-82d1-49f4-a615-5c7e39c3966d",
-      patient_address: "123 Main St, City",
-      patient_age: 35,
-      specialization: "Dentistry",
-      start: "09:00AM",
-    },
-    {
-      // Second object
-      Contact: "+123456789",
-      Fname: "John",
-      Lname: "Doe",
-      Status: "Cancelled",
-      appointmentDate: "May 24, 2023",
-      appointmentStart: "09:00:00",
-      appointment_ID: "APP-2a482743-8359-4eab-bff5-d7390c5aef79",
-      createdAt: "May 31, 2023",
-      doctor_Fname: "Jane",
-      doctor_Lname: "Smith",
-      email: "johndoe@example.com",
-      end: "11:00AM",
-      gender: "M",
-      patient_ID: "PATIENT-8a983782-82d1-49f4-a615-5c7e39c3966d",
-      patient_address: "123 Main St, City",
-      patient_age: 35,
-      specialization: "Dentistry",
-      start: "09:00AM",
-    },
-    {
-      // Second object
-      Contact: "+123456789",
-      Fname: "John",
-      Lname: "Doe",
-      Status: "Cancelled",
-      appointmentDate: "July 5, 2023",
-      appointmentStart: "09:00:00",
-      appointment_ID: "APP-2a482743-8359-4eab-bff5-d7390c5aef79",
-      createdAt: "May 12, 2023",
-      doctor_Fname: "Jane",
-      doctor_Lname: "Smith",
-      email: "johndoe@example.com",
-      end: "11:00AM",
-      gender: "M",
-      patient_ID: "PATIENT-8a983782-82d1-49f4-a615-5c7e39c3966d",
-      patient_address: "123 Main St, City",
-      patient_age: 35,
-      specialization: "Dentistry",
-      start: "09:00AM",
-    },
-    {
-      // Second object
-      Contact: "+123456789",
-      Fname: "John",
-      Lname: "Doe",
-      Status: "Confirmed",
-      appointmentDate: "May 30, 2023",
-      appointmentStart: "09:00:00",
-      appointment_ID: "APP-2a482743-8359-4eab-bff5-d7390c5aef79",
-      createdAt: "May 31, 2023",
-      doctor_Fname: "Jane",
-      doctor_Lname: "Smith",
-      email: "johndoe@example.com",
-      end: "11:00AM",
-      gender: "M",
-      patient_ID: "PATIENT-8a983782-82d1-49f4-a615-5c7e39c3966d",
-      patient_address: "123 Main St, City",
-      patient_age: 35,
-      specialization: "Dentistry",
-      start: "09:00AM",
-    },
-    {
-      // Second object
-      Contact: "+123456789",
-      Fname: "John",
-      Lname: "Doe",
-      Status: "Cancelled",
-      appointmentDate: "May 30 , 2023",
-      appointmentStart: "09:00:00",
-      appointment_ID: "APP-2a482743-8359-4eab-bff5-d7390c5aef79",
-      createdAt: "May 31, 2023",
-      doctor_Fname: "Jane",
-      doctor_Lname: "Smith",
-      email: "johndoe@example.com",
-      end: "11:00AM",
-      gender: "M",
-      patient_ID: "PATIENT-8a983782-82d1-49f4-a615-5c7e39c3966d",
-      patient_address: "123 Main St, City",
-      patient_age: 35,
-      specialization: "Dentistry",
-      start: "09:00AM",
-    },
-    {
-      // Second object
-      Contact: "+123456789",
-      Fname: "John",
-      Lname: "Doe",
-      Status: "Completed",
-      appointmentDate: "May 15, 2023",
-      appointmentStart: "09:00:00",
-      appointment_ID: "APP-2a482743-8359-4eab-bff5-d7390c5aef79",
-      createdAt: "May 31, 2023",
-      doctor_Fname: "Jane",
-      doctor_Lname: "Smith",
-      email: "johndoe@example.com",
-      end: "11:00AM",
-      gender: "M",
-      patient_ID: "PATIENT-8a983782-82d1-49f4-a615-5c7e39c3966d",
-      patient_address: "123 Main St, City",
-      patient_age: 35,
-      specialization: "Dentistry",
-      start: "09:00AM",
-    },
-  ];
-
   return (
     <div className="Admin--Dashboard_Container">
       <div className="LeftContent">
@@ -359,7 +190,7 @@ export default function LandingPage() {
       </div>
       <div className="RightContent">
         <DashboardCalender calendarData={calendarData} setUpdate={setUpdate} />
-        <SeeData DisplayedPatients={DisplayedPatients} fakedata={fakedata} />
+        <SeeData DisplayedPatients={DisplayedPatients} graphData={graphData} />
       </div>
     </div>
   );

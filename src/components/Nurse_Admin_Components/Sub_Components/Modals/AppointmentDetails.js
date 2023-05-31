@@ -84,6 +84,7 @@ export default function AppointmentDetailsModal(props) {
           },
         }
       );
+
       setUpdate((prev) => !prev);
       showNotification(updatedTo);
       toggle();
