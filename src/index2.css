@@ -711,3 +711,8 @@
   width: max(120px, 8.5vw);
   margin-top: 4%;
 }
+
+.mantine-22yr1m:hover,
+.mantine-1osnan1:hover{
+  background-color: white;
+}
