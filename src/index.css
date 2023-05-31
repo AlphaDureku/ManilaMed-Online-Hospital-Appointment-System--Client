@@ -2098,10 +2098,11 @@ select {
 .serverDownContainer {
   height: 100vh;
   width: 100vw;
-  background-color: red;
+  background-color: #c3f0ff;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #29cc97;
   font-size: 4rem;
   font-weight: 600;
 }
