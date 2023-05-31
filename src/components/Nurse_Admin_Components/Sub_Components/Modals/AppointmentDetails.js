@@ -50,9 +50,15 @@ export default function AppointmentDetailsModal(props) {
 
   const buttonOnClickSelector = () => {
     if (data.Status === "Pending") {
-      return statusUpdater("Confirmed");
+      return statusUpdater({
+        updatedFrom: data.Status,
+        updatedTo: "Confirmed",
+      });
     } else if (data.Status === "Confirmed") {
-      return statusUpdater("Completed");
+      return statusUpdater({
+        updatedFrom: data.Status,
+        updatedTo: "Completed",
+      });
     } else {
       setAppointmentDetails((prev) => ({
         ...prev,
@@ -63,13 +69,14 @@ export default function AppointmentDetailsModal(props) {
     }
   };
 
-  const statusUpdater = (updateStatus) => {
+  const statusUpdater = ({ updatedFrom, updatedTo }) => {
     try {
       axios.post(
         process.env.REACT_APP_ONLINE + "/admin/update-status",
         {
           appointment_ID: data.appointment_ID,
-          updateStatus: updateStatus,
+          updatedFrom: updatedFrom,
+          updatedTo: updatedTo,
         },
         {
           headers: {
@@ -78,7 +85,7 @@ export default function AppointmentDetailsModal(props) {
         }
       );
       setUpdate((prev) => !prev);
-      showNotification(updateStatus);
+      showNotification(updatedTo);
       toggle();
     } catch (error) {
       ErrorHandler(error, setShowExpire);
@@ -134,7 +141,12 @@ export default function AppointmentDetailsModal(props) {
           <BackProceed
             blueButtonText={ButtonTextSelector()}
             redButtonText={"Cancel Appointment"}
-            leftButton={() => statusUpdater("Cancelled")}
+            leftButton={() =>
+              statusUpdater({
+                updatedFrom: data.Status,
+                updatedTo: "Cancelled",
+              })
+            }
             rightButton={buttonOnClickSelector}
             isDisabledRed={
               data.Status === "Cancelled" ||
