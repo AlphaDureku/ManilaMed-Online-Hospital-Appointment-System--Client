@@ -24,7 +24,7 @@ export default function BookingCompletedPage() {
         }
       );
       console.log(response);
-      setDoctor(response.data.data[0]);
+      setDoctor(response.data.data);
     }
     fetchDoctor();
   }, []);

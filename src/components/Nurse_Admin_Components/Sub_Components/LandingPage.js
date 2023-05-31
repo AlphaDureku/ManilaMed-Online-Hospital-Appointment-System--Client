@@ -28,7 +28,7 @@ export default function LandingPage() {
     setCalendarData,
     setShowExpire,
   } = useContext(AdminContext);
-
+  console.log(DisplayedPatients);
   useEffect(() => {
     async function getData() {
       try {
@@ -134,7 +134,7 @@ export default function LandingPage() {
   const filterByStatus = DisplayedPatients
     ? DisplayedPatients.filter((item) => {
         if (selectedStatus === "Cancelled") {
-          if (item.status === "Rejected" || item.status === "Cancelled") {
+          if (item.Status === "Rejected" || item.Status === "Cancelled") {
             return true;
           }
         } else if (
@@ -189,8 +189,7 @@ export default function LandingPage() {
       </div>
       <div className="RightContent">
         <DashboardCalender calendarData={calendarData} setUpdate={setUpdate} />
-        <CheckSlots/>
-     
+        <CheckSlots />
       </div>
     </div>
   );
