@@ -1556,6 +1556,7 @@ select {
   color: #434343;
   padding: 1% 4% 1% 1%;
   width: max(150px, 16.5vw);
+  font-size: min(1rem, 2.8vw) !important;
   font-weight: 600;
 }
 
