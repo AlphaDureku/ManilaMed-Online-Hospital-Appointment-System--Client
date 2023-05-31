@@ -1,8 +1,35 @@
+import moment from "moment";
+import { useEffect, useState } from "react";
 import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import BackProceed from "./Buttons--BackProceed";
 
 export default function VerificationModal(props) {
+  const [endTime] = useState(moment().add(3, "minutes"));
+
+  const [remainingTime, setRemainingTime] = useState(
+    endTime.diff(moment(), "seconds")
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newRemainingTime = endTime.diff(moment(), "seconds");
+      setRemainingTime(newRemainingTime);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (totalSeconds) => {
+    const duration = moment.duration(totalSeconds, "seconds");
+    const minutes = duration.minutes();
+    const seconds = duration.seconds();
+
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
   return (
     <>
       <Modal
@@ -43,7 +70,13 @@ export default function VerificationModal(props) {
               </label>
             )}
             <br></br>
-            <label className="label pt-2">OTP is valid for 3 minutes</label>
+            OTP is valid for{" "}
+            <span
+              className="label pt-2"
+              style={{ color: "#2f9d44", fontWeight: 600 }}
+            >
+              {formatTime(remainingTime)}
+            </span>
           </div>
         </Modal.Body>
         <Modal.Footer>
