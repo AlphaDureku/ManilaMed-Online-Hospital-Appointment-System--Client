@@ -1,6 +1,8 @@
 import { notifications } from "@mantine/notifications";
+import { IconFolderPause } from "@tabler/icons-react";
 import axios from "axios";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import BackProceed from "../../../Reusable_Components/Buttons--BackProceed";
 
@@ -15,6 +17,7 @@ export default function FirstPageForms(props) {
   } = props;
   const navigate = useNavigate();
   const [isValid, setIsValid] = useState(null);
+  const [isButtonClicked, setButtonClicked] = useState(false);
 
   const OTPNotif = () => {
     notifications.show({
@@ -38,6 +41,10 @@ export default function FirstPageForms(props) {
   }
 
   async function OnSubmitHandler(event) {
+    if (isButtonClicked) {
+      return;
+    }
+    setButtonClicked(true);
     setLoading(true);
     event.preventDefault();
     if (!isValidEmail(email.email)) {
@@ -66,6 +73,9 @@ export default function FirstPageForms(props) {
         OTPNotif();
       }, 600);
     }
+    setTimeout(() => {
+      setButtonClicked(false);
+    });
   }
   return (
     <form onSubmit={OnSubmitHandler}>
@@ -75,6 +85,7 @@ export default function FirstPageForms(props) {
         value={email.email}
         name="email"
         onChange={OnchangeHandler}
+        required
       ></input>
 
       {isValid === false ? (

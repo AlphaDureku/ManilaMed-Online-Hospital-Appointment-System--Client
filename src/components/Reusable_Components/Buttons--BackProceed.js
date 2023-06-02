@@ -28,7 +28,7 @@ export default function BackProceed(props) {
       )}
 
       <Button
-        disabled={props.isDisabled}
+        disabled={props.isDisabledBlue}
         type="submit"
         size="sm"
         onClick={props.rightButton}

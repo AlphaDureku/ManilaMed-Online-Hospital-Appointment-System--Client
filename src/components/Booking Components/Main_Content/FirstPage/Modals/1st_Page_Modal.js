@@ -15,15 +15,8 @@ export default function FirstPage_Modal(props) {
   const [input, setInput] = useState({ enteredOTP: "" });
   const [showHistory, setShowHistory] = useState(false);
   const { setShowModal, showModal } = props;
-
+  const [OTPhasExpired, setOTPhasExpired] = useState(false);
   const navigate = useNavigate();
-  const OTPNotif = () => {
-    notifications.show({
-      title: "OTP Sent",
-      color: "teal",
-      autoClose: 2000,
-    });
-  };
   function OnCloseHandler() {
     setInput(() => ({ enteredOTP: "" }));
     setShowModal((prev) => ({ ...prev, verification: false }));
@@ -41,6 +34,7 @@ export default function FirstPage_Modal(props) {
       {
         params: {
           inputOTP: input.enteredOTP,
+          hasExpired: OTPhasExpired,
         },
       }
     );
@@ -58,19 +52,7 @@ export default function FirstPage_Modal(props) {
       setError(true);
     }
   };
-  async function reSendOTP() {
-    const res = await axios.get(
-      process.env.REACT_APP_ONLINE + "/booking/send-otp",
-      {
-        params: {
-          email: props.email,
-        },
-      }
-    );
-    if (res.data) {
-      OTPNotif();
-    }
-  }
+
   // Render Modals
   const FirstPageModals = useMemo(() => {
     return (
@@ -78,12 +60,12 @@ export default function FirstPage_Modal(props) {
         <VerificationModal
           show={showModal.verification}
           OnCloseHandler={OnCloseHandler}
-          leftButton={reSendOTP}
           email={props.email}
           OnchangeHandler={OnchangeHandler}
           entered_OTP={input.enteredOTP}
           error={error}
           rightButton={OnSubmitHandler}
+          setOTPhasExpired={setOTPhasExpired}
         />
         <HistoryModal
           show={showHistory}

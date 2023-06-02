@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import BookingCompletedPage from "../../BookingCompletedPage";
 import Booking from "./Booking";
 import CollectInfo from "./CollectInfo";
-
 export default function Services() {
   return (
     <Routes>

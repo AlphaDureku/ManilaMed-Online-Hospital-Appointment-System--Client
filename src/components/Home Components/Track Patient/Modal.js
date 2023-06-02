@@ -9,6 +9,7 @@ import VerificationModal from "../../Reusable_Components/Verification_Modal";
 export default function HomeModal(props) {
   const [enteredOTP, setEnteredOTP] = useState("");
   const [error, setError] = useState(false);
+  const [OTPhasExpired, setOTPhasExpired] = useState(false);
   let navigate = useNavigate();
   const OnchangeHandler = (event) => {
     const { value } = event.target;
@@ -31,6 +32,7 @@ export default function HomeModal(props) {
       {
         inputOTP: enteredOTP,
         user_ID: props.user.user_ID,
+        hasExpired: OTPhasExpired,
       },
       {
         withCredentials: true,
@@ -48,34 +50,19 @@ export default function HomeModal(props) {
     return;
   };
 
-  const OTPNotif = () => {
-    notifications.show({
-      title: "OTP Sent",
-      color: "teal",
-      autoClose: 2000,
-    });
-  };
-
-  async function reSendOTP() {
-    const res = await axios.post(process.env.REACT_APP_ONLINE + "/trackMe", {
-      email: props.user.email,
-    });
-    if (res.data) {
-      OTPNotif();
-    }
-  }
   function check(exist) {
     if (exist) {
       return (
         <VerificationModal
           show={props.show}
           OnCloseHandler={OnCloseHandler}
-          leftButton={reSendOTP}
           rightButton={OnSubmitHandler}
           email={props.user.email}
           OnchangeHandler={OnchangeHandler}
           entered_OTP={enteredOTP}
           error={error}
+          purpose={"track"}
+          setOTPhasExpired={setOTPhasExpired}
         />
       );
     } else {

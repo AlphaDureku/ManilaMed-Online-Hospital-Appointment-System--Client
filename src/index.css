@@ -760,8 +760,8 @@ select {
   margin: 0 auto;
   font-size: min(1rem, 3vw);
   margin-left: 2%;
-  height: 4vh;
-  padding: 0 min(7%, 6vw);
+  height: 3.5vh;
+  padding: 0 min(6%, 6vw);
   border-radius: 5px;
 }
 

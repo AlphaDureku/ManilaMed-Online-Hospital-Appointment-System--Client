@@ -221,7 +221,10 @@ export default function HeadAdminUsernamePass(props) {
                   styles={formstyles}
                   disabled={!isFieldEditable("username")}
                   onChange={(e) => handleChange(e, "username")}
-                  error={formErrors.username && "Invalid"}
+                  error={
+                    formErrors.username &&
+                    "Username must be atleast 6 characters long"
+                  }
                 />
               </Input.Wrapper>
 

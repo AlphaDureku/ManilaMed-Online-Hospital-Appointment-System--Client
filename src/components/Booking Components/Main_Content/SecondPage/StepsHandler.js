@@ -346,7 +346,7 @@ export default function StepsHandler(props) {
               rightButton={active === 2 ? handleSubmit : nextStep}
               redButtonText={"Back"}
               blueButtonText={active === 2 ? "Confirm" : "Proceed"}
-              isDisabled={conflicts}
+              isDisabledBlue={conflicts}
             />
           </Group>
         )}

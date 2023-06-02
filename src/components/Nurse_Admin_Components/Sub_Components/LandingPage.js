@@ -42,6 +42,7 @@ export default function LandingPage() {
           }
         );
         const { data } = res.data;
+        console.log(data);
         setGraphData(data.graphData);
         setDisplayedPatients(data.AppointmentsData);
         setDoctorList(data.DoctorData);
@@ -124,7 +125,6 @@ export default function LandingPage() {
         }
       );
       const { data } = res.data;
-      console.log(data);
       setCalendarData(data.calendarData);
       setDisplayedPatients(data.appointmentsData);
     } catch (error) {

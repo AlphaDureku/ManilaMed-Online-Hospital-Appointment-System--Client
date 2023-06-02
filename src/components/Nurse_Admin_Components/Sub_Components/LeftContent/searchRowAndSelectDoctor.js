@@ -16,7 +16,13 @@ export default function SearchRowAndSelectDoctor(props) {
           value={selectedDoctor}
           onChange={onDoctorChangeHandler}
         >
-          {renderSelectOptions}
+          {renderSelectOptions.length === 0 ? (
+            <option value="" defaultValue>
+              No Doctor Found
+            </option>
+          ) : (
+            renderSelectOptions
+          )}
         </select>
       </div>
     </div>

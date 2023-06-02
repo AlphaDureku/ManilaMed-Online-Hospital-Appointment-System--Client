@@ -30,7 +30,6 @@ const AddDoctorModal = (props) => {
   const [loading, setLoading] = useState(false);
 
   const specData = [
-    { value: "", label: "Specialization" },
     ...SpecializationList.map((item) => ({
       value: item.specialization_ID,
       label: item.specialization_Name,
@@ -296,15 +295,15 @@ const AddDoctorModal = (props) => {
               />
             </Input.Wrapper>
             <Input.Wrapper label="Specialization" className="mb-2">
-              <NativeSelect
+              <Select
                 name="specialization"
                 data={specData}
                 placeholder="Specialization"
                 value={formData.specialization}
-                onChange={(event) =>
+                onChange={(value) =>
                   setFormData((prevFormData) => ({
                     ...prevFormData,
-                    specialization: event.target.value,
+                    specialization: value,
                   }))
                 }
                 styles={formstyles}
