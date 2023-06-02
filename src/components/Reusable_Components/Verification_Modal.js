@@ -8,7 +8,7 @@ import BackProceed from "./Buttons--BackProceed";
 export default function VerificationModal(props) {
   const [resendDisabled, setResend] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
-  const [expireTime, setExpireTime] = useState(5);
+  const [expireTime, setExpireTime] = useState(180);
   useEffect(() => {
     const interval = setInterval(() => {
       setExpireTime((prev) => prev - 1);
