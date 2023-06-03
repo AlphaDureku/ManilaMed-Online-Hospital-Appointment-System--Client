@@ -6,8 +6,8 @@ import Home from "./pages/Home";
 import Services from "./pages/Services/Services";
 import Track from "./pages/Tracking";
 import ServerDown from "./pages/serverDown";
-
 export const AppointmentDetailsContext = createContext();
+
 export default function App() {
   const [appointmentDetails, setAppointmentDetails] = useState({
     schedule_date: "",
