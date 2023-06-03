@@ -106,8 +106,6 @@ export default function SeeData(props) {
   ];
   const pendingDataWeek = groupedDataWeek["Pending"] || [0, 0, 0, 0, 0, 0, 0];
 
-  console.log(pendingDataWeek);
-
   const currentMonth = moment().month();
   const mappedDataMonth = graphData
     ? graphData

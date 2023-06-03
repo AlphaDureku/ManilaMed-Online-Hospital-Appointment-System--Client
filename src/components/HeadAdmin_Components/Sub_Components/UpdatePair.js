@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { TextInput, Accordion, Button } from "@mantine/core";
+import { Accordion, Button, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 import EditDocwithSec from "./EditDocwithSecModal";
-import RemovePairing from "./removePairing";
 import LoadingSkeleton from "./loadingskeleton";
+import RemovePairing from "./removePairing";
 
 export default function UpdatePair(props) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +20,14 @@ export default function UpdatePair(props) {
     return () => clearTimeout(timeout);
   }, []);
 
-  function handleOpenModal(doctor_ID, DLname, DFname, nurse_ID, nurse_Lname, nurse_Fname) {
+  function handleOpenModal(
+    doctor_ID,
+    DLname,
+    DFname,
+    nurse_ID,
+    nurse_Lname,
+    nurse_Fname
+  ) {
     setSelectedDoctor({
       doctorid: doctor_ID,
       dlname: DLname,
@@ -103,7 +110,9 @@ export default function UpdatePair(props) {
           ) : (
             <>
               {sortedDoctors.length === 0 ? (
-                <div className="noDocSecCard ms-3 mt-2">No available doctor with secretary</div>
+                <div className="noDocSecCard ms-3 mt-2">
+                  No available doctor with secretary
+                </div>
               ) : (
                 <Accordion
                   variant="separated"
@@ -162,7 +171,9 @@ export default function UpdatePair(props) {
                                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                                 fontSize: "min(0.9rem, 3.4vw)",
                               }}
-                              onClick={() => handleOpenRemoveModal(doctor.doctor_ID)}
+                              onClick={() =>
+                                handleOpenRemoveModal(doctor.doctor_ID)
+                              }
                             >
                               Remove
                             </Button>

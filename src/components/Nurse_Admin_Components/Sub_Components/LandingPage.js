@@ -42,7 +42,6 @@ export default function LandingPage() {
           }
         );
         const { data } = res.data;
-        console.log(data);
         setGraphData(data.graphData);
         setDisplayedPatients(data.AppointmentsData);
         setDoctorList(data.DoctorData);
