@@ -41,12 +41,13 @@ export default function FirstPageForms(props) {
   }
 
   async function OnSubmitHandler(event) {
+    event.preventDefault();
     if (isButtonClicked) {
       return;
     }
     setButtonClicked(true);
     setLoading(true);
-    event.preventDefault();
+
     if (!isValidEmail(email.email)) {
       setIsValid(false);
     } else {
@@ -75,7 +76,7 @@ export default function FirstPageForms(props) {
     }
     setTimeout(() => {
       setButtonClicked(false);
-    });
+    }, 2000);
   }
   return (
     <form onSubmit={OnSubmitHandler}>
