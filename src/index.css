@@ -57,10 +57,6 @@ select:focus {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-<<<<<<< Updated upstream
-  position: relative;
-=======
->>>>>>> Stashed changes
   height: 58vh;
   overflow: hidden;
 }
@@ -2110,4 +2106,3 @@ select {
   font-size: 4rem;
   font-weight: 600;
 }
-
