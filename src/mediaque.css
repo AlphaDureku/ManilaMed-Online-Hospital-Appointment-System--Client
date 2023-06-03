@@ -545,6 +545,20 @@
   .Options_buttonRow {
     width: 60%;
   }
+  .doctor-pairCol{
+    flex: none;
+  }
+
+  .headcount-label{
+    margin-top: 15px;
+  }
+
+  .headselect-nurselabel{
+    margin-top: 10px;
+  }
+  .doctorCount-badge{
+    margin-left: 10px;
+  }
 }
 
 /* For Calendar */
@@ -1015,3 +1029,4 @@
     margin-top: 20px;
   }
 }
+

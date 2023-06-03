@@ -26,7 +26,7 @@ function Services() {
               <div className="carousel-caption ">
                 <h5 className="serviceCaption">Doctor Consultation</h5>
                 <p className="servicepC">
-                  Some representative placeholder content for the first slide.
+                  Set an appointment to doctor with your preffered schedule
                 </p>
                 <div className="text-end servbutton-container">
                   <Button
@@ -66,7 +66,8 @@ function Services() {
               Doctor Consultation
             </p>
             <p className="serv-sub m-3" id="serv-subid">
-              Some representative placeholder content for the first slide.
+            Set an appointment to doctor with your preffered schedule
+
             </p>
             <div
               className="d-flex justify-content-end pb-3 m-3 servbutton-container"

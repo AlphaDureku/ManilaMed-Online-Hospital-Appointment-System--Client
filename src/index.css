@@ -46,20 +46,20 @@ select:focus {
 }
 
 .homeinfo {
-  color: #388440;
   font-size: 50px;
   font-weight: 700;
+  color: #388440;
   margin-bottom: 35px;
 }
 
 .headermed-container {
+  background: url("./images/headermed3.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background: url("./images/headermed3.png");
+  position: relative;
   height: 58vh;
   overflow: hidden;
-  position: relative;
 }
 
 .headerbutton {
@@ -2107,3 +2107,4 @@ select {
   font-size: 4rem;
   font-weight: 600;
 }
+

@@ -17,7 +17,7 @@ function Faqs() {
                 aria-expanded="false"
                 aria-controls="flush-collapseOne"
               >
-                Accordion Item #1
+                How do I set an appointment?
               </button>
             </h2>
             <div
@@ -27,9 +27,8 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> className. This is
-                the first item's accordion body.
+              Set an appointment through the services page, enter email and follow the instructions per step.
+
               </div>
             </div>
           </div>
@@ -43,7 +42,7 @@ function Faqs() {
                 aria-expanded="false"
                 aria-controls="flush-collapseTwo"
               >
-                Accordion Item #2
+                How do i know if my appointment is confirmed?
               </button>
             </h2>
             <div
@@ -53,10 +52,8 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> className. This is
-                the second item's accordion body. Let's imagine this being
-                filled with some actual content.
+               An SMS will be sent to your entered contact number to confirm your appointment. The contact information you provided
+               is the key to your appointment. For this is where the system will send updates to you regarding the request.
               </div>
             </div>
           </div>
@@ -70,7 +67,7 @@ function Faqs() {
                 aria-expanded="false"
                 aria-controls="flush-collapseThree"
               >
-                Accordion Item #3
+                Where can I see the status of my appointment?
               </button>
             </h2>
             <div
@@ -80,15 +77,84 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> className. This is
-                the third item's accordion body. Nothing more exciting happening
-                here in terms of content, but just filling up the space to make
-                it look, at least at first glance, a bit more representative of
-                how this would look in a real-world application.
+                Your appointment status can be view under the tracker feature of the sytem
               </div>
             </div>
           </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingFour">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseFour"
+                aria-expanded="false"
+                aria-controls="flush-collapseFour"
+              >
+                Can someone else book an appointment for me?
+              </button>
+            </h2>
+            <div
+              id="flush-collapseFour"
+              className="accordion-collapse collapse"
+              aria-labelledby="flush-headingFour"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div className="accordion-body">
+              Yes! Just ensure to place the correct patient information, contact number.
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingFive">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseFive"
+                aria-expanded="false"
+                aria-controls="flush-collapseFive"
+              >
+                How long does it take to confirm my appointment request?
+              </button>
+            </h2>
+            <div
+              id="flush-collapseFive"
+              className="accordion-collapse collapse"
+              aria-labelledby="flush-headingFive"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div className="accordion-body">
+              Your appointment request will be confirmed within 1 business days.
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingSix">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseSix"
+                aria-expanded="false"
+                aria-controls="flush-collapseSix"
+              >
+                Can I rebook throuh the system?
+              </button>
+            </h2>
+            <div
+              id="flush-collapseSix"
+              className="accordion-collapse collapse"
+              aria-labelledby="flush-headingSix"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div className="accordion-body">
+                Yes you can, you can rebook in the tracker tab or just book another appointment by searching a doctor.
+              </div>
+            </div>
+          </div>
+          
+          
         </div>
       </div>
     </div>

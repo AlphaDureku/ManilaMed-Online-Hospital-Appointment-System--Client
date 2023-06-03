@@ -34,28 +34,39 @@ function Howto() {
               data-bs-target="#myCarousel"
               data-bs-slide-to="3"
             ></button>
+             <button
+              type="button"
+              data-bs-target="#myCarousel"
+              data-bs-slide-to="4"
+            ></button>
           </div>
           <div className="carousel-inner mb-2">
             <div className="carousel-item active">
-              <p>Check our offered services and select what you need.</p>
+              <p>See our offered service</p>
             </div>
 
             <div className="carousel-item">
               <p>
-                Tell us about yourself. Complete the necessary registration
+              Search for a doctor and view their schedule
+
+              </p>
+            </div>
+            <div className="carousel-item">
+              <p> 
+              Book an appointment by choosing your desired availability
+
+              </p>
+            </div>
+
+            <div className="carousel-item">
+              <p>
+              Tell us about yourself. Enter the necessary
                 information.
               </p>
             </div>
             <div className="carousel-item">
               <p>
-                Book your appointment and choose your desired date and time.
-              </p>
-            </div>
-
-            <div className="carousel-item">
-              <p>
-                Sort out you payment online, over the counter or via accredited
-                HMO/insurance.
+                An SMS will be sent to your contact number for appointment confirmatiion
               </p>
             </div>
           </div>

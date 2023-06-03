@@ -1,4 +1,4 @@
-import { Alert, Button, Select, TextInput } from "@mantine/core";
+import { Alert, Button, Select, TextInput, Badge, Input  } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
 import axios from "axios";
@@ -7,7 +7,11 @@ import { CloseButton, Col, Modal, Row } from "react-bootstrap";
 import { ErrorHandler } from "../../../utils/errorHandler";
 import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
+import { useMediaQuery } from "@mantine/hooks";
+
 export default function AddPairModal(props) {
+  const breakPointMobile = useMediaQuery("(max-width: 1000px)");
+
   const formDoctorName = props.doctor
     ? props.doctor.fname + ", " + props.doctor.lname
     : "";
@@ -42,6 +46,18 @@ export default function AddPairModal(props) {
           label: `${nurse.doctor_Secretary_last_name}, ${nurse.doctor_Secretary_first_name}`,
         }))
       : [];
+
+    
+  let doctorCount = null;
+
+      if (selectedNurse) {
+        const nurseDocCounter = props.nurses.find((nurse) => nurse.doctor_Secretary_ID === selectedNurse);
+        if (nurseDocCounter) {
+          doctorCount = nurseDocCounter.doctorCount;
+        }
+      }
+        
+
 
   const handleMatch = async () => {
     const token = localStorage.getItem("headToken");
@@ -115,7 +131,7 @@ export default function AddPairModal(props) {
             </div>
             <div className="addpair-body ">
               <Row className="mt-4 mb-3">
-                <Col>
+                <Col className="doctor-pairCol">
                   <TextInput
                     value={formDoctorName}
                     styles={formstyles}
@@ -123,7 +139,7 @@ export default function AddPairModal(props) {
                     label="Doctor:"
                   />
                 </Col>
-                <Col>
+                <Col className="doctor-pairCol">
                   <Select
                     placeholder="Select Secretary"
                     label="Secretary:"
@@ -133,8 +149,15 @@ export default function AddPairModal(props) {
                     data={nurseOptions}
                     onChange={(value) => setSelectedNurse(value)}
                     value={selectedNurse}
+                    className="headselect-nurselabel"
+
                   />
                 </Col>
+                <Col  xs={breakPointMobile ? 8 : 2}   className="doctor-pairCol">
+                  <Input.Wrapper label =" Doctor Count:" className="headcount-label">
+                  <Badge size="xl" radius="sm" className="doctorCount-badge">{doctorCount}</Badge>
+                  </Input.Wrapper>
+              </Col>
               </Row>
               <Row className="m-auto">
                 <Button

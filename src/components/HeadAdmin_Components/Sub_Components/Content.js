@@ -30,6 +30,7 @@ export default function Content(props) {
       doctor_Secretary_ID,
       doctor_Secretary_username,
       doctor_Secretary_password,
+      doctorCount,
     } = nurse;
     return {
       doctor_Secretary_first_name,
@@ -37,6 +38,7 @@ export default function Content(props) {
       doctor_Secretary_ID,
       doctor_Secretary_username,
       doctor_Secretary_password,
+      doctorCount,
     };
   });
 
