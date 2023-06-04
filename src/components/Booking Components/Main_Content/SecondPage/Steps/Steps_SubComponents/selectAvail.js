@@ -31,12 +31,13 @@ export default function SelectAvail(props) {
     setActiveSchedule(
       schedule.map((index) => {
         if (appointmentDetails.doctor_ID === index.doctor_ID) {
-          let time = moment(index.start, "HH:mm:ss");
+          let time = moment(index.start, "hh:mmA");
           let interval = moment.duration(index.time_interval);
           for (let i = 1; i < index.queue; i++) {
             time.add(interval.hours(), "hours");
             time.add(interval.minutes(), "minutes");
           }
+          console.log(time);
           return {
             date: moment(index.date, "MMMM D, YYYY").format("YYYY-MM-DD"),
             start: index.start,

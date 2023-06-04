@@ -1,12 +1,12 @@
 import { Button } from "@mantine/core";
 import axios from "axios";
+import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AppointmentDetailsContext } from "./App";
 import Footer from "./components/Booking Components/Footer/Footer";
 import NavBar from "./components/Booking Components/NavBar/NavBar";
-
 export default function BookingCompletedPage() {
   const [doctor, setDoctor] = useState({});
   const { appointmentDetails } = useContext(AppointmentDetailsContext);
@@ -99,7 +99,8 @@ export default function BookingCompletedPage() {
                       className="card-subtitle pt-2"
                       style={{ color: "#388440", fontWeight: "bold" }}
                     >
-                      {doctor.date} - {doctor.start}
+                      {doctor.date} -{" "}
+                      {moment(doctor.start, "HH:mm:ss").format("hh:mm A")}
                     </p>
                   </div>
                 </div>

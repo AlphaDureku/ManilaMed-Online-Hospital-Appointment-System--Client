@@ -126,14 +126,6 @@ export default function EditAvailability(props) {
         const [hours, minutes] = selectedInterval.split(":");
         const intervalMinutes = parseInt(hours) * 60 + parseInt(minutes);
 
-        console.log(startTime);
-        console.log(origstartTime);
-        console.log(endTime);
-        console.log(origendTime);
-        console.log(selectedInterval);
-        console.log(origselectedInterval);
-        console.log(numberOfPatients);
-        console.log(orignumberOfPatients);
         if (intervalMinutes >= 30 && duration.asMinutes() >= intervalMinutes) {
           const postData = {
             schedule_ID: schedID,

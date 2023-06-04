@@ -167,7 +167,7 @@ export default function Card(props) {
       return { disabled: true };
     }
   }
-  console.table(props.schedule);
+
   const onSubmit = () => {
     props.schedule.map((item) => {
       if (item.doctor_ID === selectedDoctorId) {
