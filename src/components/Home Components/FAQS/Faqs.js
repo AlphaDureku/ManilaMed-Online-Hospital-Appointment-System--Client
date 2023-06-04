@@ -27,8 +27,8 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-              Set an appointment through the services page, enter email and follow the instructions per step.
-
+                Set an appointment through the services page, enter email and
+                follow the instructions per step.
               </div>
             </div>
           </div>
@@ -52,8 +52,10 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-               An SMS will be sent to your entered contact number to confirm your appointment. The contact information you provided
-               is the key to your appointment. For this is where the system will send updates to you regarding the request.
+                An SMS will be sent to your entered contact number to confirm
+                your appointment. The contact information you provided is the
+                key to your appointment. For this is where the system will send
+                updates to you regarding the request.
               </div>
             </div>
           </div>
@@ -77,7 +79,8 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Your appointment status can be view under the tracker feature of the sytem
+                Your appointment status can be view under the tracker feature of
+                the sytem
               </div>
             </div>
           </div>
@@ -101,7 +104,8 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-              Yes! Just ensure to place the correct patient information, contact number.
+                Yes! Just ensure to place the correct patient information,
+                contact number.
               </div>
             </div>
           </div>
@@ -125,7 +129,8 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-              Your appointment request will be confirmed within 1 business days.
+                Your appointment request will be confirmed within 1 business
+                days.
               </div>
             </div>
           </div>
@@ -139,7 +144,7 @@ function Faqs() {
                 aria-expanded="false"
                 aria-controls="flush-collapseSix"
               >
-                Can I rebook throuh the system?
+                Can I rebook through the system?
               </button>
             </h2>
             <div
@@ -149,12 +154,11 @@ function Faqs() {
               data-bs-parent="#accordionFlushExample"
             >
               <div className="accordion-body">
-                Yes you can, you can rebook in the tracker tab or just book another appointment by searching a doctor.
+                Yes you can, you can rebook in the tracker tab or just book
+                another appointment by searching a doctor.
               </div>
             </div>
           </div>
-          
-          
         </div>
       </div>
     </div>

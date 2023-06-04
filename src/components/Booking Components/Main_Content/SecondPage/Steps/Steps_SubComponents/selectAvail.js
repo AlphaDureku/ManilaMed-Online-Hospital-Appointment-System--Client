@@ -134,7 +134,7 @@ export default function SelectAvail(props) {
       }
       return null;
     });
-    console.log(selectedDoctor_ID);
+
     setAppointmentDetails((prev) => ({
       ...prev,
       schedule_ID: selectedDoctor_ID[0].schedule_ID,
@@ -334,9 +334,7 @@ export default function SelectAvail(props) {
                         {DisplayDateAndTime ? DisplayDateAndTime.day : "---"}
                       </td>
                       <td>
-                        {DisplayDateAndTime
-                          ? DisplayDateAndTime.recom_time
-                          : "---"}{" "}
+                        {DisplayDateAndTime ? DisplayDateAndTime.start : "---"}{" "}
                         - {DisplayDateAndTime ? DisplayDateAndTime.end : "---"}
                       </td>
                     </tr>

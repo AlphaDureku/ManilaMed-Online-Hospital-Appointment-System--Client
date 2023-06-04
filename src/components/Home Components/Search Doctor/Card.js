@@ -167,19 +167,11 @@ export default function Card(props) {
       return { disabled: true };
     }
   }
-
+  console.table(props.schedule);
   const onSubmit = () => {
     props.schedule.map((item) => {
       if (item.doctor_ID === selectedDoctorId) {
-        if (item.date === moment(selectedDate).format("MMMM D, YYYY")) {
-          setAppointmentDetails((prev) => ({
-            ...prev,
-            schedule_ID: item.schedule_ID,
-            schedule_date: moment(item.date, "MMMM D, YYYY").format(
-              "YYYY-MM-DD"
-            ),
-          }));
-        } else {
+        if (item.date === moment(selectedDate).format("MMM D, YYYY")) {
           setAppointmentDetails((prev) => ({
             ...prev,
             schedule_ID: item.schedule_ID,
