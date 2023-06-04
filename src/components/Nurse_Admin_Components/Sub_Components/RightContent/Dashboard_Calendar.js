@@ -146,6 +146,7 @@ export default function DashboardCalender(props) {
 
         <div className="" style={{ display: "flex", flexDirection: "column" }}>
           <DatePicker
+            allowDeselect
             getDayProps={getDayProps}
             size={breakPointMobile ? "xs" : "lg"}
             onChange={handleDateSelect}
