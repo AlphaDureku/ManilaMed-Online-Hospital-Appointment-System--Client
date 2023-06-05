@@ -1,4 +1,5 @@
-import { Alert, Button, Select, TextInput, Badge, Input } from "@mantine/core";
+import { Alert, Badge, Button, Input, Select, TextInput } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
 import axios from "axios";
@@ -7,8 +8,6 @@ import { CloseButton, Col, Modal, Row } from "react-bootstrap";
 import { ErrorHandler } from "../../../utils/errorHandler";
 import { ShowExpireContext } from "../Main_Content/Dashboard";
 import RequestLoadingOverlay from "./RequestLoadingOverlay";
-import { useMediaQuery } from "@mantine/hooks";
-
 
 export default function EditDocwithSecModal(props) {
   const breakPointMobile = useMediaQuery("(max-width: 1000px)");
@@ -101,15 +100,16 @@ export default function EditDocwithSecModal(props) {
     },
   };
 
-      
   let doctorCount = null;
 
-      if (selectedNurse) {
-        const nurseDocCounter = props.nurses.find((nurse) => nurse.doctor_Secretary_ID === selectedNurse);
-        if (nurseDocCounter) {
-          doctorCount = nurseDocCounter.doctorCount;
-        }
-      }
+  if (selectedNurse) {
+    const nurseDocCounter = props.nurses.find(
+      (nurse) => nurse.doctor_Secretary_ID === selectedNurse
+    );
+    if (nurseDocCounter) {
+      doctorCount = nurseDocCounter.doctorCount;
+    }
+  }
 
   function handleModalExit() {
     setMatchError(false);
@@ -144,7 +144,7 @@ export default function EditDocwithSecModal(props) {
             </div>
             <div className="mt-4">
               <Row>
-                <Col  className="doctor-pairCol">
+                <Col className="doctor-pairCol">
                   <TextInput
                     id="doctorName"
                     value={formDoctorName}
@@ -153,8 +153,9 @@ export default function EditDocwithSecModal(props) {
                     label="Doctor:"
                   />
                 </Col>
-                <Col  className="doctor-pairCol" >
+                <Col className="doctor-pairCol">
                   <Select
+                    searchable
                     id="nurseSelect"
                     value={selectedNurse}
                     onChange={(value) => setSelectedNurse(value)}
@@ -164,14 +165,18 @@ export default function EditDocwithSecModal(props) {
                     label="Nurse:"
                     clearable
                     className="headselect-nurselabel"
-
                   />
                 </Col>
-                <Col  xs={breakPointMobile ? 8 : 2}   className="doctor-pairCol">
-                  <Input.Wrapper label =" Doctor Count:" className="headcount-label">
-                  <Badge size="xl" radius="sm" className="doctorCount-badge">{doctorCount}</Badge>
+                <Col xs={breakPointMobile ? 8 : 2} className="doctor-pairCol">
+                  <Input.Wrapper
+                    label=" Doctor Count:"
+                    className="headcount-label"
+                  >
+                    <Badge size="xl" radius="sm" className="doctorCount-badge">
+                      {doctorCount}
+                    </Badge>
                   </Input.Wrapper>
-              </Col>
+                </Col>
               </Row>
             </div>
 

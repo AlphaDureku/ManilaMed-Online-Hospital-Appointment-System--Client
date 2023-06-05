@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { io } from "socket.io-client";
 import { ErrorHandler } from "../../../utils/errorHandler";
 import { AdminContext } from "../Main_Content/Content";
 import SelectedDoctor from "./LeftContent/AdminSelectDoctor";
@@ -29,6 +30,26 @@ export default function LandingPage() {
     setCalendarData,
     setShowExpire,
   } = useContext(AdminContext);
+
+  const webSocketDashboard = async () => {
+    const res = await axios.get(
+      process.env.REACT_APP_ONLINE + "/admin/change-dateRange",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const { data } = res.data;
+    setDisplayedPatients(data.appointmentsData);
+  };
+
+  const socket = io(process.env.REACT_APP_ONLINE);
+  socket.on("newAppointment", () => {
+    console.log("updated");
+    webSocketDashboard();
+  });
+
   useEffect(() => {
     async function getData() {
       try {

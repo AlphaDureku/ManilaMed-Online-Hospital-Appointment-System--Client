@@ -277,6 +277,8 @@ const AddDoctorModal = (props) => {
             </Input.Wrapper>
             <Input.Wrapper label="Gender" className="mb-2">
               <Select
+                searchable
+                clearable
                 name="gender"
                 data={[
                   { value: "M", label: "Male" },

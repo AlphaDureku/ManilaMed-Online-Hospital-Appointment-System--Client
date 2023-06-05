@@ -11,7 +11,6 @@ import LandingPage from "../Sub_Components/LandingPage";
 import SideBar from "../Sub_Components/SideBar";
 import Calendar from "./Calendar";
 import Settings from "./Settings";
-
 export const AdminContext = createContext();
 
 export default function Content() {

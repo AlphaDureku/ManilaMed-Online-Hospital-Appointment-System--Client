@@ -1,11 +1,13 @@
 import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { io } from "socket.io-client";
 import Admin from "./pages/Admin";
 import HeadAdmin from "./pages/HeadAdmin";
 import Home from "./pages/Home";
 import Services from "./pages/Services/Services";
 import Track from "./pages/Tracking";
 import ServerDown from "./pages/serverDown";
+
 export const AppointmentDetailsContext = createContext();
 
 export default function App() {
@@ -33,6 +35,11 @@ export default function App() {
       dateOfBirth: "",
       gender: "",
     },
+  });
+
+  const socket = io("http://localhost:4000");
+  socket.on("connection", () => {
+    console.log("Connected to Socket.IO server");
   });
 
   return (
