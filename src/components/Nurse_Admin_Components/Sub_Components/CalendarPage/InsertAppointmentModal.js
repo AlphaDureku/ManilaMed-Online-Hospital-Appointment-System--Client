@@ -114,6 +114,7 @@ export default function InsertAppointmentModal(props) {
                 breakpoint="sm"
                 className="stepper"
                 radius="lg"
+                allowNextStepsSelect={false}
               >
                 <Stepper.Step label="First step" description="Select Schedule">
                   <InsertStep1 />

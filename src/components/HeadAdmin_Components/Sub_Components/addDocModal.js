@@ -297,6 +297,8 @@ const AddDoctorModal = (props) => {
             <Input.Wrapper label="Specialization" className="mb-2">
               <Select
                 name="specialization"
+                searchable
+                clearable
                 data={specData}
                 placeholder="Specialization"
                 value={formData.specialization}
