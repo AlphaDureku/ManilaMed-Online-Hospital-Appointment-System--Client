@@ -1,31 +1,25 @@
 import { Button } from "@mantine/core";
+
 import { useState } from "react";
 import InsertAppointmentModal from "./InsertAppointmentModal";
 
 export default function CancelAllRow({ selectedDateChecker }) {
-
-
   const [openModal, setOpenModal] = useState(false);
 
-  function openInsertModal () {
+  function openInsertModal() {
     setOpenModal(true);
   }
 
-  function closeInsertModal () {
+  function closeInsertModal() {
     setOpenModal(false);
   }
 
-
-
   return (
-
     <>
       <div className="CancelAll">
         <div>
           <div>Manually Set an Appointment</div>
-          <Button onClick={openInsertModal} >
-            Set Appointment
-          </Button>
+          <Button onClick={openInsertModal}>Set Appointment</Button>
         </div>
         <div>
           {" "}
@@ -36,8 +30,8 @@ export default function CancelAllRow({ selectedDateChecker }) {
         </div>
 
         <InsertAppointmentModal
-        openModal={openModal}
-        closeModal={closeInsertModal}
+          openModal={openModal}
+          closeModal={closeInsertModal}
         />
       </div>
     </>

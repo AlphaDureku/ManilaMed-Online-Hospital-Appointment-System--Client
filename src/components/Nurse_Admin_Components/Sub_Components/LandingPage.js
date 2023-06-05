@@ -55,7 +55,7 @@ export default function LandingPage() {
     getData();
     // eslint-disable-next-line
   }, [update]);
-  console.log(graphData);
+
   useEffect(() => {
     const newCounts = DisplayedPatients
       ? DisplayedPatients.reduce(
