@@ -14,7 +14,7 @@ export default function HeadAdminNavbar() {
     localStorage.removeItem("headToken");
     localStorage.removeItem("sortOption");
     localStorage.removeItem("selectedOption");
-    setCurrentPage(1)
+    setCurrentPage(1);
     navigate("/head");
   };
 
@@ -37,7 +37,6 @@ export default function HeadAdminNavbar() {
     return "white";
   };
 
-  
   return (
     <div className="HeadAdmin--SideBar">
       <Tooltip label="Home" position="right">

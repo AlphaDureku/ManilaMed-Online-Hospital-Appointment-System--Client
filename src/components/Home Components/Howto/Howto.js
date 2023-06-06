@@ -34,7 +34,7 @@ function Howto() {
               data-bs-target="#myCarousel"
               data-bs-slide-to="3"
             ></button>
-             <button
+            <button
               type="button"
               data-bs-target="#myCarousel"
               data-bs-slide-to="4"
@@ -46,27 +46,19 @@ function Howto() {
             </div>
 
             <div className="carousel-item">
-              <p>
-              Search for a doctor and view their schedule
-
-              </p>
+              <p>Search for a doctor and view their schedule</p>
             </div>
             <div className="carousel-item">
-              <p> 
-              Book an appointment by choosing your desired availability
-
-              </p>
+              <p>Book an appointment by choosing your desired availability</p>
             </div>
 
             <div className="carousel-item">
-              <p>
-              Tell us about yourself. Enter the necessary
-                information.
-              </p>
+              <p>Tell us about yourself. Enter the necessary information.</p>
             </div>
             <div className="carousel-item">
               <p>
-                An SMS will be sent to your contact number for appointment confirmatiion
+                An SMS will be sent to your contact number for appointment
+                confirmation
               </p>
             </div>
           </div>

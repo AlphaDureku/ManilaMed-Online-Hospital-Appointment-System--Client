@@ -286,7 +286,7 @@ export default function StepsHandler(props) {
   function closeConfirmModal() {
     setModalShow(false);
   }
-console.log(appointmentDetails)
+  console.log(appointmentDetails);
   //Moved steps to Steps folder and converted them into seperate components
   return (
     <>
@@ -303,7 +303,7 @@ console.log(appointmentDetails)
           radius="lg"
           allowNextStepsSelect={false}
         >
-          <Stepper.Step label="Fist Step" description="Search Doctor">
+          <Stepper.Step label="First Step" description="Search Doctor">
             <StepOne
               query={query}
               setQuery={setQuery}
