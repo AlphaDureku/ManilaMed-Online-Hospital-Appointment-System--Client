@@ -145,10 +145,15 @@ export default function AppointmentDetailsModal(props) {
             blueButtonText={ButtonTextSelector()}
             redButtonText={"Cancel Appointment"}
             leftButton={() =>
-              statusUpdater({
-                updatedFrom: data.Status,
-                updatedTo: "Cancelled",
-              })
+              data.Status === "Pending"
+                ? statusUpdater({
+                    updatedFrom: data.Status,
+                    updatedTo: "Rejected",
+                  })
+                : statusUpdater({
+                    updatedFrom: data.Status,
+                    updatedTo: "Cancelled",
+                  })
             }
             rightButton={buttonOnClickSelector}
             isDisabledRed={

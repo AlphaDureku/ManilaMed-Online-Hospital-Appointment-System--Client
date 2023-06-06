@@ -8,11 +8,12 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import { ErrorHandler } from "../../../utils/errorHandler";
+import VerificationModal from "../../Reusable_Components/VerificationModal/NurseAndHeadAdminVerification";
 
 axios.defaults.withCredentials = true;
 export default function Login() {
@@ -22,6 +23,9 @@ export default function Login() {
   });
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [Admin, setAdmin] = useState({ email: "", ID: "" });
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const onChangeHandler = (event) => {
     setError(false);
@@ -47,9 +51,12 @@ export default function Login() {
         credentials
       );
       if (data.data.status) {
-        //Set token authentication
-        localStorage.setItem("nurseToken", data.data.token);
-        navigate("/admin/dashboard");
+        setAdmin((prev) => ({
+          ...prev,
+          email: data.data.email,
+          ID: data.data.ID,
+        }));
+        setShow(true);
       } else {
         setError(true);
       }
@@ -58,6 +65,23 @@ export default function Login() {
       ErrorHandler(error);
     }
   };
+
+  const verificationModal = useMemo(() => {
+    if (Admin.email) {
+      return (
+        <VerificationModal
+          show={show}
+          ID={Admin.ID}
+          email={Admin.email}
+          error={error}
+          setShow={setShow}
+          setIsVerified={setIsVerified}
+          setHeadAdmin={setAdmin}
+          role={"admin"}
+        />
+      );
+    }
+  }, [show]);
   return (
     <div className="login--wrapper">
       <MDBContainer className="login--contentContainer">
@@ -145,6 +169,7 @@ export default function Login() {
           </MDBRow>
         </MDBCard>
       </MDBContainer>
+      {verificationModal}
     </div>
   );
 }

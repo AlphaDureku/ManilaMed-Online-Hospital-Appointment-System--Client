@@ -4,17 +4,22 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { CloseButton } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import BackProceed from "./Buttons--BackProceed";
+import BackProceed from "../Buttons--BackProceed";
 export default function VerificationModal(props) {
   const [resendDisabled, setResend] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
   const [expireTime, setExpireTime] = useState(180);
+  const [enteredOTP, setEnteredOTP] = useState("");
+  const [OTPhasExpired, setOTPhasExpired] = useState(false);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setExpireTime((prev) => prev - 1);
+      console.log("hi");
     }, 1000);
     if (expireTime <= 0) {
-      props.setOTPhasExpired(true);
+      setOTPhasExpired(true);
       clearInterval(interval);
     }
     return () => clearInterval(interval);
@@ -36,37 +41,6 @@ export default function VerificationModal(props) {
     return () => clearInterval(interval);
   }, [resendDisabled, resendTimer]);
 
-  async function BookingReSendOTP() {
-    props.setOTPhasExpired(false);
-    setResend(true);
-    setResendTimer(60);
-    setExpireTime(180);
-    const res = await axios.get(
-      process.env.REACT_APP_ONLINE + "/booking/send-otp",
-      {
-        params: {
-          email: props.email,
-        },
-      }
-    );
-    if (res.data) {
-      OTPNotif();
-    }
-  }
-
-  async function TrackingReSendOTP() {
-    props.setOTPhasExpired(false);
-    setResend(true);
-    setResendTimer(60);
-    setExpireTime(180);
-    const res = await axios.post(process.env.REACT_APP_ONLINE + "/trackMe", {
-      email: props.user.email,
-    });
-    if (res.data) {
-      OTPNotif();
-    }
-  }
-
   const formatTime = (totalSeconds) => {
     const duration = moment.duration(totalSeconds, "seconds");
     const minutes = duration.minutes();
@@ -85,6 +59,68 @@ export default function VerificationModal(props) {
     });
   };
 
+  const onChangeHandler = (event) => {
+    const { value } = event.target;
+    setError(false);
+    setEnteredOTP(value);
+  };
+
+  const resendOTP = async (role) => {
+    setResendTimer(60);
+    setExpireTime(180);
+    setOTPhasExpired(false);
+    setResend(true);
+    setError(false);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_ONLINE}/${role}/resend-otp`,
+        {
+          inputOTP: enteredOTP,
+          ID: props.ID,
+          hasExpired: OTPhasExpired,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res);
+      OTPNotif();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const validateOTP = async (role) => {
+    const res = await axios.post(
+      `${process.env.REACT_APP_ONLINE}/${role}/verify-otp`,
+      {
+        inputOTP: enteredOTP,
+        ID: props.ID,
+        hasExpired: OTPhasExpired,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    const { data } = res.data;
+    if (data.isVerified) {
+      localStorage.setItem(
+        props.role === "admin" ? "nurseToken" : "headToken",
+        data.token
+      );
+      props.setIsVerified(data.isVerified);
+    } else {
+      setError(true);
+    }
+  };
+
+  const modalOnCloseHandler = () => {
+    setExpireTime(180);
+    setEnteredOTP("");
+    setOTPhasExpired(false);
+    props.setShow(false);
+    props.setHeadAdmin({});
+  };
   return (
     <>
       <Modal
@@ -94,16 +130,16 @@ export default function VerificationModal(props) {
       >
         <Modal.Header>
           <Modal.Title>Email Verification</Modal.Title>
-          <CloseButton
-            className="customCloseB"
-            onClick={props.OnCloseHandler}
-          />
+          <CloseButton className="customCloseB" onClick={modalOnCloseHandler} />
         </Modal.Header>
         <Modal.Body>
           <div className="modal-body text-center verificationModalB">
             <label className="modal-form">
-              (<b>OTP</b>) One Time Password has been sent to{" "}
-              <strong>{props.email}</strong>
+              (<b>OTP</b>) One Time Password has been sent to a<br></br>
+              <b>
+                {props.role === "admin" ? " Secretary" : " Head Admin"}
+              </b>{" "}
+              Email Account
             </label>
             <br></br>
             <p>
@@ -114,11 +150,11 @@ export default function VerificationModal(props) {
                 type="text"
                 className="form-control otp-input"
                 name="enteredOTP"
-                onChange={props.OnchangeHandler}
-                value={props.entered_OTP}
+                onChange={onChangeHandler}
+                value={enteredOTP}
               />
             </div>
-            {props.error && (
+            {error && (
               <label
                 className="shake-error pt-3"
                 style={{ color: "red", fontWeight: "600" }}
@@ -133,7 +169,7 @@ export default function VerificationModal(props) {
             ) : (
               <>
                 <span>OTP has </span>
-                <span style={{ color: "red" }}>Expired</span>
+                <span style={{ color: "red", fontWeight: "600" }}>Expired</span>
               </>
             )}
             <span
@@ -160,10 +196,8 @@ export default function VerificationModal(props) {
           <div className="OTP_buttonRow">
             <BackProceed
               isDisabledRed={resendDisabled}
-              leftButton={
-                props.purpose === "track" ? TrackingReSendOTP : BookingReSendOTP
-              }
-              rightButton={props.rightButton}
+              leftButton={() => resendOTP(props.role)}
+              rightButton={() => validateOTP(props.role)}
               redButtonText={"Resend"}
               blueButtonText={"Proceed"}
               backColor="green"

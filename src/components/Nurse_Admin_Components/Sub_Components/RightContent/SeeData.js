@@ -245,7 +245,7 @@ export default function SeeData(props) {
     <>
       <div className="Dashboard--Data">
         <div className="chart-header">
-          <div className="chart-tagtitle">Number of Patients</div>
+          <div className="chart-tagtitle">Appointment Status Graph</div>
           <select
             className="DateRangeChart"
             value={selectedRange}

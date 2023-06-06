@@ -1,4 +1,4 @@
-import { Skeleton } from '@mantine/core';
+import { Skeleton } from "@mantine/core";
 
 const RequestLoadingSkeleton = () => {
   return (
@@ -18,8 +18,6 @@ const RequestLoadingSkeleton = () => {
       <Skeleton height={40} className="skeleton-item" />
       <Skeleton height={40} className="skeleton-item" />
       <Skeleton height={40} className="skeleton-item" />
-
-
     </div>
   );
 };

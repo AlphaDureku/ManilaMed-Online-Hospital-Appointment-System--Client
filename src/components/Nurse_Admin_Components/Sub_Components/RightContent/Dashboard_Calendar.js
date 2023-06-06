@@ -68,15 +68,8 @@ export default function DashboardCalender(props) {
 
   const getDayPropsUpdate = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
-    const currentDate = moment().format("YYYY-MM-DD");
     const datesArray = updateDates.map((item) => item.date);
     const selectedFormattedDate = moment(selectedDate).format("YYYY-MM-DD");
-
-    if (formattedDate < currentDate) {
-      return {
-        disabled: true,
-      };
-    }
 
     if (selectedFormattedDate === formattedDate) {
       return {
@@ -101,13 +94,6 @@ export default function DashboardCalender(props) {
 
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
-    const currentDate = moment().format("YYYY-MM-DD");
-
-    if (formattedDate <= currentDate) {
-      return {
-        disabled: true,
-      };
-    }
 
     if (
       calendarData &&
@@ -198,7 +184,7 @@ export default function DashboardCalender(props) {
                       alignItems: "center",
                     }}
                   ></DatePicker>
-                  <div className="Admin--SetButtonRowSecond mt-3 ">
+                  <div className="Admin--SetButtonRowSecond mt-3 mb-3">
                     <SegmentedControl
                       data={[
                         { label: "Set", value: "Set" },
@@ -215,6 +201,10 @@ export default function DashboardCalender(props) {
                       }}
                     />
                   </div>
+                  <p>
+                    <b>Note:</b> You can only update availabilities that have
+                    yet to have an appointment reserved
+                  </p>
                 </div>
                 <div className="">
                   {isUpdated ? (

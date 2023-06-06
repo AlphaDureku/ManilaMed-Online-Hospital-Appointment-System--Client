@@ -1,3 +1,6 @@
+import RequestLoadingSkeleton from "../../../HeadAdmin_Components/Sub_Components/RequestLoadingSkeleton";
+import AdminSkeleton from "../../../Reusable_Components/AdminSkeleton";
+
 export default function AppointmentTable(props) {
   const {
     selectedDateRange,
@@ -6,6 +9,7 @@ export default function AppointmentTable(props) {
     patientCounter,
     renderCard,
     DisplayedPatients,
+    loading,
   } = props;
   return (
     <>
@@ -88,7 +92,9 @@ export default function AppointmentTable(props) {
           </label>
         </div>
         <div className="Admin--AppointmentContainer">
-          {renderCard.length === 0 ? (
+          {loading ? (
+            <AdminSkeleton />
+          ) : renderCard.length === 0 ? (
             <div className="Empty">No Appointments Found</div>
           ) : (
             renderCard

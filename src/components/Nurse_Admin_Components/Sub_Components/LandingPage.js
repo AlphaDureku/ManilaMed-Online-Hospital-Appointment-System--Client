@@ -19,6 +19,7 @@ export default function LandingPage() {
   const [update, setUpdate] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [graphData, setGraphData] = useState([]);
+  const [loading, setLoading] = useState(false);
   axios.defaults.withCredentials = true;
 
   const {
@@ -53,6 +54,7 @@ export default function LandingPage() {
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const res = await axios.get(
           process.env.REACT_APP_ONLINE + "/admin/nurse-dashboard",
           {
@@ -69,6 +71,7 @@ export default function LandingPage() {
         setDoctorList(data.DoctorData);
         setCalendarData(data.calendarData);
         setSelectedDoctor(data.selectedDoctor);
+        setLoading(false);
       } catch (error) {
         ErrorHandler(error, setShowExpire);
       }
@@ -109,6 +112,7 @@ export default function LandingPage() {
     const { value } = event.target;
     setSelectedDateRange(value);
     try {
+      setLoading(true);
       const res = await axios.get(
         process.env.REACT_APP_ONLINE + "/admin/change-dateRange",
         {
@@ -123,6 +127,7 @@ export default function LandingPage() {
       );
       const { data } = res.data;
       setDisplayedPatients(data.appointmentsData);
+      setLoading(false);
     } catch (error) {
       ErrorHandler(error, setShowExpire);
     }
@@ -132,6 +137,7 @@ export default function LandingPage() {
     const { value } = event.target;
     setSelectedDoctor(value);
     try {
+      setLoading(true);
       const res = await axios.get(
         process.env.REACT_APP_ONLINE + "/admin/change-doctor",
         {
@@ -148,6 +154,7 @@ export default function LandingPage() {
       const { data } = res.data;
       setCalendarData(data.calendarData);
       setDisplayedPatients(data.appointmentsData);
+      setLoading(false);
     } catch (error) {
       ErrorHandler(error, setShowExpire);
     }
@@ -207,6 +214,7 @@ export default function LandingPage() {
           patientCounter={patientCounter}
           renderCard={renderCard}
           DisplayedPatients={DisplayedPatients}
+          loading={loading}
         />
       </div>
       <div className="RightContent">

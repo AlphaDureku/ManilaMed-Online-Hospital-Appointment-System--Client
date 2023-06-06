@@ -3,6 +3,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminPageContext } from "../../../pages/Admin";
+import ConfirmLogOutModal from "../../HeadAdmin_Components/Sub_Components/ConfirmLogOutModal";
 import ConfirmModal from "../../Reusable_Components/ConfirmationModal";
 
 export default function SideBar() {
@@ -136,7 +137,7 @@ export default function SideBar() {
           </svg>
         </div>
       </Tooltip>
-      <ConfirmModal
+      <ConfirmLogOutModal
         show={show}
         handleClose={handleClose}
         question={"Are you sure you wanted to logout?"}

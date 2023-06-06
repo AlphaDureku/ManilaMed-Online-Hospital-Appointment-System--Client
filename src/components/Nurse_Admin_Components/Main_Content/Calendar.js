@@ -24,6 +24,7 @@ export default function Calendar() {
   const [modalQuestion, setModalQuestion] = useState("");
   const [action, setAction] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const {
     selectedDoctor,
@@ -33,10 +34,11 @@ export default function Calendar() {
     setCalendarData,
     setShowExpire,
   } = useContext(AdminContext);
-
+  console.log(calendarData);
   const onDoctorChangeHandler = async (event) => {
     const { value } = event.target;
     try {
+      setLoading(true);
       const res = await axios.get(
         process.env.REACT_APP_ONLINE + "/admin/change-doctor",
         {
@@ -54,6 +56,7 @@ export default function Calendar() {
       setSelectedDoctor(value);
       setSelectedDate("");
       setThatDaysPatient([]);
+      setLoading(false);
     } catch (error) {
       ErrorHandler(error);
     }
@@ -64,6 +67,7 @@ export default function Calendar() {
   };
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
+
     if (selectedDate === formattedDate) {
       return {
         style: {
@@ -92,6 +96,7 @@ export default function Calendar() {
 
     const appointmentThatDay = async () => {
       try {
+        setLoading(true);
         const { data } = await axios.get(
           process.env.REACT_APP_ONLINE + "/admin/appointments-ThatDay",
           {
@@ -104,6 +109,7 @@ export default function Calendar() {
           }
         );
         setThatDaysPatient(data.data);
+        setLoading(false);
       } catch (error) {
         ErrorHandler(error, setShowExpire);
       }
@@ -240,7 +246,7 @@ export default function Calendar() {
             process.env.REACT_APP_ONLINE + "/admin/notify-patientForToday",
             {
               date: moment(selectedDate).format("MM-DD-YYYY"),
-              notificationType: "CancellAll",
+              notificationType: "CancelAll",
             },
             {
               headers: {
@@ -248,6 +254,7 @@ export default function Calendar() {
               },
             }
           );
+          setThatDaysPatient([]);
           Notification("Successfully Cancelled All Patient Appointments", true);
         } catch (error) {
           ErrorHandler(error, setShowExpire);
@@ -300,6 +307,7 @@ export default function Calendar() {
             <CardContainer
               thatDaysPatient={thatDaysPatient}
               renderCard={renderCard}
+              loading={loading}
             />
           </div>
           <NotifyPatients selectedDateChecker={selectedDateChecker} />

@@ -8,9 +8,11 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ErrorHandler } from "../../../utils/errorHandler";
+import VerificationModal from "../../Reusable_Components/VerificationModal/NurseAndHeadAdminVerification";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -20,6 +22,9 @@ export default function LoginPage() {
   });
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [headAdmin, setHeadAdmin] = useState({ email: "", ID: "" });
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("headToken")) {
@@ -39,19 +44,45 @@ export default function LoginPage() {
     setError(false);
     setLoading(true);
     event.preventDefault();
-    const { data } = await axios.post(
-      process.env.REACT_APP_ONLINE + "/head-admin/login",
-      credentials
-    );
-    if (data.data.status) {
-      //Set token authentication
-      localStorage.setItem("headToken", data.data.token);
-      navigate("/head/dashboard");
-    } else {
-      setError(true);
+    try {
+      const { data } = await axios.post(
+        process.env.REACT_APP_ONLINE + "/head-admin/login",
+        credentials
+      );
+      console.log(data.data.status);
+      if (data.data.status) {
+        setHeadAdmin((prev) => ({
+          ...prev,
+          email: data.data.email,
+          ID: data.data.ID,
+        }));
+        setShow(true);
+      } else {
+        setError(true);
+      }
+      setLoading(false);
+    } catch (error) {
+      ErrorHandler(error.status);
     }
-    setLoading(false);
   };
+
+  const verificationModal = useMemo(() => {
+    if (headAdmin.email) {
+      return (
+        <VerificationModal
+          show={show}
+          ID={headAdmin.ID}
+          email={headAdmin.email}
+          error={error}
+          setShow={setShow}
+          setIsVerified={setIsVerified}
+          setHeadAdmin={setHeadAdmin}
+          role={"head-admin"}
+        />
+      );
+    }
+  }, [show]);
+
   return (
     <div className="login--wrapper">
       <MDBContainer className="login--contentContainer">
@@ -86,6 +117,7 @@ export default function LoginPage() {
                 >
                   Sign into your admin account
                 </h5>
+
                 <Container className="mb-4">
                   <form onSubmit={onSubmitHandler}>
                     <TextInput
@@ -147,6 +179,7 @@ export default function LoginPage() {
           </MDBRow>
         </MDBCard>
       </MDBContainer>
+      {verificationModal}
     </div>
   );
 }

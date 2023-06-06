@@ -288,7 +288,7 @@ export default function ChangeUserPassModal(props) {
                   className="mt-2"
                 />
               </Input.Wrapper>
-              <Input.Wrapper label="Confirm Password" className="mb-2">
+              <Input.Wrapper label="Re-type New Password" className="mb-2">
                 <PasswordInput
                   value={formData.confirmPassword}
                   styles={formstyles}
@@ -298,7 +298,11 @@ export default function ChangeUserPassModal(props) {
                   className="mt-2"
                 />
               </Input.Wrapper>
-              <Input.Wrapper label="Current Password" className="mb-2">
+              <Input.Wrapper
+                label="Current Password"
+                className="mb-2"
+                withAsterisk
+              >
                 <PasswordInput
                   value={formData.oldPassword}
                   styles={formstyles}

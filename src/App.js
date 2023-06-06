@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { io } from "socket.io-client";
 import Admin from "./pages/Admin";
 import HeadAdmin from "./pages/HeadAdmin";
 import Home from "./pages/Home";
