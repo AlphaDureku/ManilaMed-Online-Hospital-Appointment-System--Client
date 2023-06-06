@@ -95,7 +95,7 @@ export default function SeeData(props) {
     return groups;
   }, {});
 
-  const cancelledDataWeek = groupedDataWeek["Cancelled"] || [
+  const cancelledDataWeek = groupedDataWeek["Cancelled" || "Rejected"] || [
     0, 0, 0, 0, 0, 0, 0,
   ];
   const completedDataWeek = groupedDataWeek["Completed"] || [
@@ -132,7 +132,7 @@ export default function SeeData(props) {
   }, {});
 
   const pendingDataMonth = groupedDataMonth["Pending"] || [0, 0, 0, 0, 0, 0, 0];
-  const cancelledDataMonth = groupedDataMonth["Cancelled"] || [
+  const cancelledDataMonth = groupedDataMonth["Cancelled" || "Rejected"] || [
     0, 0, 0, 0, 0, 0, 0,
   ];
   const confirmedDataMonth = groupedDataMonth["Confirmed"] || [
@@ -168,7 +168,7 @@ export default function SeeData(props) {
   }, {});
 
   const pendingDataYear = groupedDataYear["Pending"] || [0, 0, 0, 0, 0, 0, 0];
-  const cancelledDataYear = groupedDataYear["Cancelled"] || [
+  const cancelledDataYear = groupedDataYear["Cancelled" || "Rejected"] || [
     0, 0, 0, 0, 0, 0, 0,
   ];
   const confirmedDataYear = groupedDataYear["Confirmed"] || [
@@ -226,6 +226,7 @@ export default function SeeData(props) {
         backgroundColor: "#ffb6b6",
         tension: 0.4,
       },
+
       {
         label: "Completed",
         data:
