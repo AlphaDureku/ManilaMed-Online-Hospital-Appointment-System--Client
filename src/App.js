@@ -37,11 +37,6 @@ export default function App() {
     },
   });
 
-  const socket = io("http://localhost:4000");
-  socket.on("connection", () => {
-    console.log("Connected to Socket.IO server");
-  });
-
   return (
     <AppointmentDetailsContext.Provider
       value={{ appointmentDetails, setAppointmentDetails }}
