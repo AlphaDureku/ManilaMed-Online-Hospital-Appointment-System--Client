@@ -44,7 +44,6 @@ export default function LandingPage() {
     setDisplayedPatients(data.appointmentsData);
   };
 
-  console.log(DisplayedPatients);
   const socket = io(process.env.REACT_APP_ONLINE);
   socket.on("newAppointment", () => {
     console.log("updated");
@@ -64,6 +63,7 @@ export default function LandingPage() {
           }
         );
         const { data } = res.data;
+        console.log(data.AppointmentsData);
         setGraphData(data.graphData);
         setDisplayedPatients(data.AppointmentsData);
         setDoctorList(data.DoctorData);

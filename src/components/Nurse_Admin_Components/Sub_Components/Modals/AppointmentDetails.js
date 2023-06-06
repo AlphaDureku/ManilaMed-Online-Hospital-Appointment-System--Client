@@ -10,8 +10,8 @@ import { AdminContext } from "../../Main_Content/Content";
 export default function AppointmentDetailsModal(props) {
   const { data, show, toggle, styles, setUpdate } = props;
   const navigate = useNavigate();
-  const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const token = localStorage.getItem("nurseToken");
+  const { setAppointmentDetails } = useContext(AppointmentDetailsContext);
   const { setShowExpire } = useContext(AdminContext);
   const ButtonTextSelector = () => {
     if (data.Status === "Pending") {
@@ -110,6 +110,8 @@ export default function AppointmentDetailsModal(props) {
       <p className="Tracker--modal--patient-details">
         Email Address: <b>{data.email}</b>
       </p>
+      Queue Number: <b>{data.queue_number}</b>
+      <br></br>
       <br></br>
       <div className="Tracker--modal--flexbox">
         <div>

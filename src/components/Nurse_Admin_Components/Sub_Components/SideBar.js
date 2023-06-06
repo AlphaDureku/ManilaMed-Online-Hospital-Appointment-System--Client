@@ -13,6 +13,7 @@ export default function SideBar() {
 
   const logout = () => {
     localStorage.removeItem("nurseToken");
+    setCurrentPage(1);
     navigate("/admin");
   };
 
