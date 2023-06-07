@@ -2,7 +2,7 @@ import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import axios from "axios";
 import moment from "moment";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ErrorHandler } from "../../../utils/errorHandler";
 import ConfirmModal from "../../Reusable_Components/ConfirmationModal";
 import CancelAllRow from "../Sub_Components/CalendarPage/CancelAllRow";
@@ -23,9 +23,10 @@ export default function Calendar() {
   const [modalTitle, setModalTitle] = useState("");
   const [modalQuestion, setModalQuestion] = useState("");
   const [action, setAction] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState();
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [update, setUpdate] = useState(false);
   const {
     selectedDoctor,
     setSelectedDoctor,
@@ -90,31 +91,40 @@ export default function Calendar() {
     };
   };
 
+  const appointmentThatDay = async (date) => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        process.env.REACT_APP_ONLINE + "/admin/appointments-ThatDay",
+        {
+          params: {
+            date: date,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setThatDaysPatient(data.data);
+      setLoading(false);
+    } catch (error) {
+      ErrorHandler(error, setShowExpire);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedDate) {
+      appointmentThatDay(
+        moment(selectedDate, "YYYY-MM-DD").format("MM-DD-YYYY")
+      );
+    }
+  }, [update]);
+
   const handleDateSelect = async (date) => {
     const formattedDate = moment(date).format("MM-DD-YYYY");
     setSelectedDate(moment(date).format("YYYY-MM-DD"));
 
-    const appointmentThatDay = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axios.get(
-          process.env.REACT_APP_ONLINE + "/admin/appointments-ThatDay",
-          {
-            params: {
-              date: formattedDate,
-            },
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setThatDaysPatient(data.data);
-        setLoading(false);
-      } catch (error) {
-        ErrorHandler(error, setShowExpire);
-      }
-    };
-    appointmentThatDay();
+    appointmentThatDay(formattedDate);
   };
 
   const renderCard = thatDaysPatient.map((item, index) => {
@@ -125,7 +135,14 @@ export default function Calendar() {
       (item.Lname &&
         item.Lname.toLowerCase().includes(searchQuery.toLowerCase()))
     ) {
-      return <Card data={item} key={index} selectedStatus={"Confirmed"} />;
+      return (
+        <Card
+          data={item}
+          key={index}
+          selectedStatus={"Confirmed"}
+          setUpdate={setUpdate}
+        />
+      );
     }
     return null;
   });

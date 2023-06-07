@@ -70,6 +70,7 @@ export default function AppointmentDetailsModal(props) {
   };
 
   const statusUpdater = ({ updatedFrom, updatedTo }) => {
+    console.log(updatedFrom, updatedTo);
     try {
       axios.post(
         process.env.REACT_APP_ONLINE + "/admin/update-status",
