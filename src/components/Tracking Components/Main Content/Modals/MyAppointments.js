@@ -1,6 +1,7 @@
 import { Button, Tooltip } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
+import moment from "moment";
 import { useContext } from "react";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -103,8 +104,14 @@ export default function MyAppointments(props) {
           </p>
           <p className="Tracker--modal--date-details">
             <b>
-              {selectedAppointment.date} | {selectedAppointment.start} -{" "}
-              {selectedAppointment.end}
+              {selectedAppointment.date} |{" "}
+              {selectedAppointment.schedule_start.slice(1)} -{" "}
+              {selectedAppointment.end.slice(1)}
+              <hr></hr>
+              <p style={{ textAlign: "center" }}>
+                Recommended Time:{" "}
+                {selectedAppointment.appointment_start.slice(1)}
+              </p>
             </b>
           </p>
         </div>
