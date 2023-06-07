@@ -40,29 +40,32 @@ export default function SelectAvail(props) {
       setSelectedDate(appointmentDetails.schedule_date);
       setActiveSchedule(
         schedule.map((index) => {
-          let queue = index.queue;
-          if (
-            data.length !== 0 &&
-            data[0].doctor_schedule_ID === index.schedule_ID
-          ) {
-            queue = data[0].queque_vacancy_number;
+          if (appointmentDetails.doctor_ID === index.doctor_ID) {
+            let queue = index.queue;
+            if (
+              data.length !== 0 &&
+              data[0].doctor_schedule_ID === index.schedule_ID
+            ) {
+              queue = data[0].queque_vacancy_number;
+            }
+            console.log(data);
+            let time = moment(index.start, "hh:mmA");
+            let interval = moment.duration(index.time_interval);
+            for (let i = 1; i < queue; i++) {
+              time.add(interval.hours(), "hours");
+              time.add(interval.minutes(), "minutes");
+            }
+            return {
+              date: moment(index.date, "MMMM D, YYYY").format("YYYY-MM-DD"),
+              start: index.start,
+              recom_time: time.format("h:mm A"),
+              day: index.day,
+              end: index.end,
+              queue: queue,
+              interval: index.time_interval,
+            };
           }
-          console.log(data);
-          let time = moment(index.start, "hh:mmA");
-          let interval = moment.duration(index.time_interval);
-          for (let i = 1; i < queue; i++) {
-            time.add(interval.hours(), "hours");
-            time.add(interval.minutes(), "minutes");
-          }
-          return {
-            date: moment(index.date, "MMMM D, YYYY").format("YYYY-MM-DD"),
-            start: index.start,
-            recom_time: time.format("h:mm A"),
-            day: index.day,
-            end: index.end,
-            queue: queue,
-            interval: index.time_interval,
-          };
+          return null;
         })
       );
     };
