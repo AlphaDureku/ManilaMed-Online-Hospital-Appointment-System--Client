@@ -58,7 +58,7 @@ export default function SelectAvail(props) {
             return {
               date: moment(index.date, "MMMM D, YYYY").format("YYYY-MM-DD"),
               start: index.start,
-              recom_time: time.format("h:mm A"),
+              recom_time: time.format("hh:mmA"),
               day: index.day,
               end: index.end,
               queue: queue,
@@ -101,6 +101,7 @@ export default function SelectAvail(props) {
             schedule_date: selectedDate,
             recom_Time: index.recom_time,
             end_Time: index.end,
+            start_Time: index.start,
           }));
           return {
             start: index.recom_time,

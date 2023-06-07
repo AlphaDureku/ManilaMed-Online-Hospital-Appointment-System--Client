@@ -4,7 +4,7 @@ import { AppointmentDetailsContext } from "../../../../../../App";
 const moment = require("moment");
 export default function BookingConfirmation() {
   const { appointmentDetails } = useContext(AppointmentDetailsContext);
-  const { schedule_date, doctor_info, recom_Time, end_Time } =
+  const { schedule_date, doctor_info, recom_Time, end_Time, start_Time } =
     appointmentDetails;
   return (
     <div>
@@ -17,8 +17,15 @@ export default function BookingConfirmation() {
               {moment(schedule_date).format("MMMM D, YYYY")}
             </div>
             <div className="reqscheddate mb-3">
-              {recom_Time} - {end_Time}
+              {start_Time} - {end_Time}
             </div>
+            {start_Time === recom_Time ? (
+              ""
+            ) : (
+              <p style={{ fontWeight: "600" }}>
+                Recommended Time: {recom_Time}
+              </p>
+            )}
             <hr className="reqline"></hr>
           </Row>
           <Row className="mb-5">

@@ -15,6 +15,7 @@ export default function App() {
     schedule_ID: "",
     doctor_ID: "",
     recom_Time: "",
+    start_Time: "",
     end_Time: "",
     patient_ID: "",
     appointment_ID: "",
