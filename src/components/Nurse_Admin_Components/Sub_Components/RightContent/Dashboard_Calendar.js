@@ -201,12 +201,12 @@ export default function DashboardCalender(props) {
                       }}
                     />
                   </div>
-                  <p>
-                    <b>Note:</b> You can only update availabilities that have
-                    yet to have an appointment reserved
+                  <p className="setavail-juniortag">
+                    <b>Note:</b> You can only Update or Remove availabilities
+                    that have<br></br> yet to have an appointment reserved
                   </p>
                 </div>
-                <div className="">
+                <div>
                   {isUpdated ? (
                     <EditAvailability
                       selectedDate={selectedDate}

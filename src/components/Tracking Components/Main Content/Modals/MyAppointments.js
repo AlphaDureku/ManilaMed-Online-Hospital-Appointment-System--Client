@@ -81,6 +81,8 @@ export default function MyAppointments(props) {
       <p className="Tracker--modal--patient-details">
         Track via Email address: <b>{selectedAppointment.email}</b>
       </p>
+      Queue Number: <b>{selectedAppointment.queue_number}</b>
+      <br></br>
       <br></br>
       <div className="Tracker--modal--flexbox">
         <div>
@@ -107,7 +109,6 @@ export default function MyAppointments(props) {
           </p>
         </div>
       </div>
-
       <hr></hr>
       <div className="Tracker--modal--flexbox">
         <div>

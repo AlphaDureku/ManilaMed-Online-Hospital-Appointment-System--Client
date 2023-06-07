@@ -713,11 +713,11 @@
 }
 
 .mantine-22yr1m:hover,
-.mantine-1osnan1:hover{
+.mantine-1osnan1:hover {
   background-color: white;
 }
 
-.insertAppointment-Content{
+.insertAppointment-Content {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -746,8 +746,6 @@
   max-width: 500px !important;
 }
 
-
-
 .headerlegendInsert {
   font-weight: 600 !important;
   font-size: 19px;
@@ -767,10 +765,10 @@
   margin: 20px;
 }
 
-.insertStep2-Container{
+.insertStep2-Container {
   width: 300px;
 }
-.InsertAvailstep2-outContainer{
+.InsertAvailstep2-outContainer {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -286,7 +286,7 @@ export default function StepsHandler(props) {
   function closeConfirmModal() {
     setModalShow(false);
   }
-  console.log(appointmentDetails);
+
   //Moved steps to Steps folder and converted them into seperate components
   return (
     <>

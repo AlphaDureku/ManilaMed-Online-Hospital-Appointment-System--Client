@@ -39,7 +39,7 @@ export default function AppointmentDetailsModal(props) {
   const headerColorSelector = () => {
     if (data.Status === "Pending") {
       return styles.Pending;
-    } else if (data.Status === "Accepted") {
+    } else if (data.Status === "Confirmed") {
       return styles.Accepted;
     } else if (data.Status === "Completed") {
       return styles.Completed;
@@ -130,7 +130,7 @@ export default function AppointmentDetailsModal(props) {
           </p>
           <p className="Tracker--modal--date-details">
             <b>
-              {data.appointmentDate} | {data.start} - {data.end}
+              {data.appointmentDate} | {data.appointmentStart} - {data.end}
             </b>
           </p>
         </div>
