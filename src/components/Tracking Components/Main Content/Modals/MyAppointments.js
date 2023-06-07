@@ -102,18 +102,23 @@ export default function MyAppointments(props) {
           <p className="Tracker--modal--doctor-details">
             <b>Appointment Date</b>
           </p>
-          <p className="Tracker--modal--date-details">
+          <h2 className="Tracker--modal--date-details pt-1">
             <b>
-              {selectedAppointment.date} |{" "}
-              {selectedAppointment.schedule_start.slice(1)} -{" "}
-              {selectedAppointment.end.slice(1)}
-              <hr></hr>
-              <p style={{ textAlign: "center" }}>
-                Recommended Time:{" "}
-                {selectedAppointment.appointment_start.slice(1)}
-              </p>
+              {selectedAppointment.date} | {selectedAppointment.schedule_start}{" "}
+              - {selectedAppointment.end}
+              {selectedAppointment.schedule_start ===
+              selectedAppointment.appointment_start ? (
+                ""
+              ) : (
+                <>
+                  <hr></hr>
+                  <p>
+                    Recommended Time: {selectedAppointment.appointment_start}
+                  </p>
+                </>
+              )}
             </b>
-          </p>
+          </h2>
         </div>
       </div>
       <hr></hr>
