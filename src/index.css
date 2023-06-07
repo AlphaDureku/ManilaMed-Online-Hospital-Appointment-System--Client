@@ -463,7 +463,6 @@ select {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 .Tracker--modal--patient-name {
   font-family: "Montserrat";

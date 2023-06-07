@@ -128,11 +128,19 @@ export default function AppointmentDetailsModal(props) {
           <p className="Tracker--modal--doctor-details">
             <b>Appointment Date</b>
           </p>
-          <p className="Tracker--modal--date-details">
+          <h2 className="Tracker--modal--date-details pt-1">
             <b>
-              {data.appointmentDate} | {data.appointmentStart} - {data.end}
+              {data.appointmentDate} | {data.schedule_start} - {data.end}
+              {data.schedule_start === data.appointment_start ? (
+                ""
+              ) : (
+                <>
+                  <hr></hr>
+                  <p>Recommended Time: {data.appointment_start}</p>
+                </>
+              )}
             </b>
-          </p>
+          </h2>
         </div>
       </div>
       <hr></hr>
