@@ -82,7 +82,7 @@ export default function Card(props) {
           </div>
           <div className="card--appointment-header">Appointment Date:</div>
           <div className="appointment-date">
-            {item.date} | {item.start} - {item.end}
+            {item.date} | {item.schedule_start} - {item.end}
           </div>
         </div>
         <hr className="hr" style={{ margin: "2%" }}></hr>
