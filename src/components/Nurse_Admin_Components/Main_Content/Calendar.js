@@ -68,7 +68,11 @@ export default function Calendar() {
   };
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
-
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // set time to midnight
+    if (date < currentDate) {
+      return { disabled: true };
+    }
     if (selectedDate === formattedDate) {
       return {
         style: {
