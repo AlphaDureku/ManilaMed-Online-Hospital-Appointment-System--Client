@@ -76,8 +76,12 @@ export default function LandingPage() {
         ErrorHandler(error, setShowExpire);
       }
     }
-
-    getData();
+    const time = setTimeout(() => {
+      getData();
+    }, 2000);
+    return () => {
+      clearTimeout(time);
+    };
     // eslint-disable-next-line
   }, [update]);
 
