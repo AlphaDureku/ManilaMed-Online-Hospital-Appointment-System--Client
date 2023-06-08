@@ -159,7 +159,7 @@ export default function Calendar() {
 
   const Notification = (message, status) => {
     notifications.show({
-      title: status ? "Success!" : "Notification Unsuccessful!",
+      title: status ? "Success!" : "Notification Failed!",
       icon: status ? <IconCheck size="3rem" /> : <IconX size="3rem" />,
       message: message,
       color: status ? "teal" : "red",
