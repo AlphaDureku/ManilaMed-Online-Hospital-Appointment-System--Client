@@ -94,7 +94,11 @@ export default function DashboardCalender(props) {
 
   const getDayProps = (date) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
-
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // set time to midnight
+    if (date < currentDate) {
+      return { disabled: true };
+    }
     if (
       calendarData &&
       calendarData.some((item) => item !== null && item.date2 === formattedDate)

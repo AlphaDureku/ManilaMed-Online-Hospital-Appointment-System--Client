@@ -17,9 +17,17 @@ export default function InsertStep3() {
           </div>
           <div className="reqscheddate mb-3">
             {/* {recom_Time} - {end_Time} */}
-            {insertAppointmentDetails.recom_Time}-{" "}
+            {insertAppointmentDetails.start_Time}-{" "}
             {insertAppointmentDetails.endTime}
           </div>
+          {insertAppointmentDetails.start_Time ===
+          insertAppointmentDetails.recom_Time ? (
+            ""
+          ) : (
+            <p style={{ fontWeight: "600" }}>
+              Recommended Time: {insertAppointmentDetails.recom_Time}
+            </p>
+          )}
           <hr className="reqline"></hr>
         </Row>
         <Row className="mb-5">

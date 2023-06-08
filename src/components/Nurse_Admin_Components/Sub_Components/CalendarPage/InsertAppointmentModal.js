@@ -19,6 +19,7 @@ export default function InsertAppointmentModal(props) {
     doctor_ID: "",
     schedule_Date: "",
     recom_Time: "",
+    start_Time: "",
     doctor_Name: "",
     doctor_Specialization: "",
     endTime: "",

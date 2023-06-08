@@ -319,7 +319,7 @@ export default function ChangeUserPassModal(props) {
                     style={{ color: "red", fontSize: "14px" }}
                     className="mt-4"
                   >
-                    No Changes are made
+                    No changes were made
                   </div>
                 )}
               </div>

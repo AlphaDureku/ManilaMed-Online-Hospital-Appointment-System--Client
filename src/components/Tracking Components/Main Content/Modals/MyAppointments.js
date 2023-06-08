@@ -113,7 +113,8 @@ export default function MyAppointments(props) {
                 <>
                   <hr></hr>
                   <p>
-                    Recommended Time: {selectedAppointment.appointment_start}
+                    Recommended Time: {selectedAppointment.appointment_start} -{" "}
+                    {selectedAppointment.end}
                   </p>
                 </>
               )}

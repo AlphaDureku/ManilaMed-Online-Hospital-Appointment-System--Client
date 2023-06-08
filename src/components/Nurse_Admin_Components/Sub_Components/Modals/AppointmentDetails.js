@@ -137,7 +137,9 @@ export default function AppointmentDetailsModal(props) {
               ) : (
                 <>
                   <hr></hr>
-                  <p>Recommended Time: {data.appointment_start}</p>
+                  <p>
+                    Recommended Time: {data.appointment_start} - {data.end}
+                  </p>
                 </>
               )}
             </b>

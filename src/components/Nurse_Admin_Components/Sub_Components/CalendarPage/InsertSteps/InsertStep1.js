@@ -88,7 +88,7 @@ export default function InsertStep1() {
     setSelectedDetails({
       date: filteredDetails[0].date2,
       start: filteredDetails[0].start,
-      recom_time: time.format("h:mm A"),
+      recom_time: time.format("h:mmA"),
       day: filteredDetails[0].day,
       end: filteredDetails[0].end,
       queue: filteredDetails[0].queue,
@@ -98,8 +98,9 @@ export default function InsertStep1() {
       ...prev,
       schedule_ID: filteredDetails[0].schedule_ID,
       schedule_Date: filteredDetails[0].date2,
-      recom_Time: time.format("h:mm A"),
+      recom_Time: time.format("h:mmA"),
       endTime: filteredDetails[0].end,
+      start_Time: filteredDetails[0].start,
     }));
   };
 
