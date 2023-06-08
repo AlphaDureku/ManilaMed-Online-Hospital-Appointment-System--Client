@@ -70,7 +70,11 @@ export default function DashboardCalender(props) {
     const formattedDate = moment(date).format("YYYY-MM-DD");
     const datesArray = updateDates.map((item) => item.date);
     const selectedFormattedDate = moment(selectedDate).format("YYYY-MM-DD");
-
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // set time to midnight
+    if (date < currentDate) {
+      return { disabled: true };
+    }
     if (selectedFormattedDate === formattedDate) {
       return {
         style: {
