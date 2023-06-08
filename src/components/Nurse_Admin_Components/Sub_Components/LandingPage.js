@@ -78,7 +78,7 @@ export default function LandingPage() {
     }
     const time = setTimeout(() => {
       getData();
-    }, 2000);
+    }, 1000);
     return () => {
       clearTimeout(time);
     };
