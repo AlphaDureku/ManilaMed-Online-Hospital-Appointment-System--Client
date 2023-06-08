@@ -23,7 +23,6 @@ export default function Card(props) {
     cardsPerPage = 9;
   }
 
-
   // For modal
   const [openModal, { open, close }] = useDisclosure(false);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
@@ -46,21 +45,23 @@ export default function Card(props) {
   // Change page
   const paginate = (pageNumber) => props.setCurrentPage(pageNumber);
 
-  const notFound = <div className="notFound">No doctor Found!</div>;
+  const notFound = <div className="notFound">No doctor Found</div>;
 
   function getHMO(HMOList) {
     const HMOArray = HMOList.split(",");
     const maxItems = window.matchMedia("(max-width: 500px)").matches ? 2 : 2;
-  
+
     const firstItem = HMOArray[0].trim();
     const showOnlyOne = firstItem.length > 15;
-  
-    const visibleItems = showOnlyOne ? [HMOArray[0]] : HMOArray.slice(0, maxItems);
-  
+
+    const visibleItems = showOnlyOne
+      ? [HMOArray[0]]
+      : HMOArray.slice(0, maxItems);
+
     return visibleItems.map((item, index) => {
       const trimmedItem = item.trim();
       const isLastItem = index === visibleItems.length - 1;
-  
+
       return (
         <span key={index}>
           {trimmedItem}
@@ -69,19 +70,19 @@ export default function Card(props) {
       );
     });
   }
-  
+
   function getAssignedSched(doctorID) {
     const schedules = props.schedule
       .filter((sched) => doctorID === sched.doctor_ID)
-      .sort((a, b) => new Date(a.date) - new Date(b.date)); 
-  
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+
     return schedules.slice(0, 3).map((sched, index) => (
       <div className="sched" key={index}>
         {sched.date} | {sched.start} - {sched.end}
       </div>
     ));
   }
-  
+
   function doctorNameSpSched(doctorID) {
     setSelectedDoctorId(doctorID);
     open();
@@ -227,38 +228,37 @@ export default function Card(props) {
         <div className="doctor-flexbox-Avail">
           <div className="header">Availability</div>
           {isMobile ? (
-          getAssignedSched(items.doctor_ID).length !== 0 ? (
-            <div className="text-center">
-              <Button
-                variant="outline"
-                color="teal"
-                radius="md"
-                size="xs"
-                style={{
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  color: "#2F9D44",
-                  marginTop: "4%",
-                  maxWidth: "130px",
-                }}
-                onClick={() => {
-                  setSelectedDoctorId(items.doctor_ID);
-                  doctorNameSpSched(items.doctor_ID);
-                  setDisplayAllHMO(items.HMO_Name);
-                  setAppointmentDetails((prev) => ({
-                    ...prev,
-                    doctor_ID: items.doctor_ID,
-                  }));
-                  open();
-                }}
-              >
-                View Schedule
-              </Button>
-            </div>
-          ) : (
-            <div className="noSched">No schedule available</div>
-          )
-        ) : (
-          getAssignedSched(items.doctor_ID).length ? (
+            getAssignedSched(items.doctor_ID).length !== 0 ? (
+              <div className="text-center">
+                <Button
+                  variant="outline"
+                  color="teal"
+                  radius="md"
+                  size="xs"
+                  style={{
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    color: "#2F9D44",
+                    marginTop: "4%",
+                    maxWidth: "130px",
+                  }}
+                  onClick={() => {
+                    setSelectedDoctorId(items.doctor_ID);
+                    doctorNameSpSched(items.doctor_ID);
+                    setDisplayAllHMO(items.HMO_Name);
+                    setAppointmentDetails((prev) => ({
+                      ...prev,
+                      doctor_ID: items.doctor_ID,
+                    }));
+                    open();
+                  }}
+                >
+                  View Schedule
+                </Button>
+              </div>
+            ) : (
+              <div className="noSched">No schedule available</div>
+            )
+          ) : getAssignedSched(items.doctor_ID).length ? (
             <>
               {getAssignedSched(items.doctor_ID)}
               <div className="text-center">
@@ -290,9 +290,7 @@ export default function Card(props) {
             </>
           ) : (
             <div className="noSched">No schedule available</div>
-          )
-        )}
-
+          )}
         </div>
       </div>
     </div>
@@ -329,7 +327,7 @@ export default function Card(props) {
           total={Math.ceil(sortedDoctors.length / cardsPerPage)}
           value={props.currentPage}
           onChange={paginate}
-          siblings={isMobile ? 0: 2}
+          siblings={isMobile ? 0 : 2}
         />
       </div>
       <div className="parent-cardC">
