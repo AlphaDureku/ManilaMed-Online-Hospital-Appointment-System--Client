@@ -48,12 +48,12 @@ export default function TermsAndConditionsModal(props) {
             </div>
             <div className="wordlistterms">
               <label className="numberlistedTerms">4. </label>
-              Users must not share their login details with others.
+              The hospital reserves the right to cancel appointments or limit
+              access to the system without notice.
             </div>
             <div className="wordlistterms">
               <label className="numberlistedTerms">5. </label>
-              The hospital reserves the right to cancel appointments or limit
-              access to the system without notice.
+              Patients with appointments failure to arrive on time or if late for 15 minutes, the doctor will accomodate another patient
             </div>
             <div className="wordlistterms">
               <label className="numberlistedTerms">6. </label>

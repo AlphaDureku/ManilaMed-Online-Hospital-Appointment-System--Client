@@ -388,7 +388,14 @@ export default function SelectAvail(props) {
                         ? DisplayDateAndTime.recom_time
                         : "---"}
                       {/* <label>{DisplayDateAndTime.queue}</label> */}
+                      <br></br>
                     </span>
+                    <div style={{fontStyle: "italic"}} className="mt-3">
+                      Note:
+                    </div>
+                    <div className="latenotice">
+                      Failure to arrive on time or if late for <span className="latenoticeImportant">15 minutes</span>, the doctor will accomodate another patient.
+                    </div>
                   </span>
                 </span>
               </Row>

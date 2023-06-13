@@ -2110,3 +2110,12 @@ select {
   font-size: 4rem;
   font-weight: 600;
 }
+
+.latenotice{
+  color: #FF0000;
+  text-align: justify;
+}
+
+.latenoticeImportant{
+  font-weight: 500;
+}
